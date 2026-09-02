@@ -15,8 +15,9 @@
 --              Static code - is executed first             --
 --------------------------------------------------------------
 
--- ...
--- ...
+love.window.setTitle("Sonic Destination")
+love.window.setMode(1024, 768)
+
 -- ...
 
 
