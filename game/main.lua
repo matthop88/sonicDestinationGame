@@ -25,6 +25,9 @@ love.window.setMode(1024, 768)
 
 -- ...
 
+function love.draw()
+    -- All drawing code goes in here
+end
 
 --[[
                              ...,?77??!~~~~!???77?<~.... 
