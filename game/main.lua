@@ -8,6 +8,7 @@
        a. Window Title:      Sonic Destination
        b. Window Dimensions: 1024 x 768
 [ ] 2. Draw Workspace in Game Window
+       a. Background colored dark green
 [ ] 3. Draw Sonic the Hedgehog sprite in Workspace
 
 --]]
