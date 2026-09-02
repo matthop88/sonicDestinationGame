@@ -30,7 +30,16 @@ love.window.setMode(1024, 768)
 --------------------------------------------------------------
 
 function love.draw()
-	-- Draw Workspace:
+	drawWorkspace()
+    drawSonic()
+end
+
+--------------------------------------------------------------
+--                  Specialized Functions                   --
+--------------------------------------------------------------
+
+function drawWorkspace()
+    -- Draw Workspace:
 	-- 1. Draw dark green background
 	love.graphics.clear(0, 0.45, 0)
 
@@ -39,23 +48,13 @@ function love.draw()
 	love.graphics.setColor(1, 1, 1)
     love.graphics.setLineWidth(3)
     love.graphics.line(0, 576, 1024, 576)
-
-	-- Draw Sonic:
-	-- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
-	love.graphics.setColor(0, 0, 0.75)
-    love.graphics.circle("fill", 512, 523, 50, 50)
-end
-
---------------------------------------------------------------
---                  Specialized Functions                   --
---------------------------------------------------------------
-
-function drawWorkspace()
-    -- Code to draw Workspace goes here
 end
 
 function drawSonic()
-    -- Code to draw Sonic goes here
+    -- Draw Sonic:
+	-- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
+	love.graphics.setColor(0, 0, 0.75)
+    love.graphics.circle("fill", 512, 523, 50, 50)
 end
 
 --[[
