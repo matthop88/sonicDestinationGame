@@ -33,19 +33,8 @@ WINDOW = {
 }
 
 --------------------------------------------------------------
---              Static code - is executed first             --
+--                       Local Variables                    --
 --------------------------------------------------------------
-
-love.window.setTitle("Sonic Destination")
-love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
-
--- ...
-
---------------------------------------------------------------
---                  Specialized Functions                   --
---------------------------------------------------------------
-
-------------------------- WORKSPACE --------------------------
 
 local WORKSPACE = {
     draw = function(self)
@@ -63,6 +52,19 @@ local WORKSPACE = {
         love.graphics.line(0, WINDOW.HEIGHT * 3 / 4, WINDOW.WIDTH, WINDOW.HEIGHT * 3 / 4)
     end,
 }
+
+--------------------------------------------------------------
+--              Static code - is executed first             --
+--------------------------------------------------------------
+
+love.window.setTitle("Sonic Destination")
+love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
+
+-- ...
+
+--------------------------------------------------------------
+--                  Specialized Functions                   --
+--------------------------------------------------------------
 
 --------------------------- SONIC ----------------------------
 
