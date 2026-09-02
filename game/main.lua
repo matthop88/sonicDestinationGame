@@ -20,12 +20,12 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-COLOR_GREEN      = { 0, 0.45, 0    }
-                   -- https://htmlcolorcodes.com/colors/shades-of-green/
-
-COLOR_PURE_WHITE = { 1, 1,    1    }
-
-COLOR_SONIC_BLUE = { 0, 0,    0.75 }
+COLOR = {
+	GREEN      = { 0, 0.45, 0    },
+                 -- https://htmlcolorcodes.com/colors/shades-of-green/
+	PURE_WHITE = { 1, 1,    1    },
+    SONIC_BLUE = { 0, 0,    0.75 },
+}
 
 WINDOW_WIDTH     = 1024
 WINDOW_HEIGHT    =  768
@@ -60,11 +60,11 @@ function drawWorkspace()
 end
 
 function drawBackground()
-	love.graphics.clear(COLOR_GREEN)
+	love.graphics.clear(COLOR.GREEN)
 end
 
 function drawHorizontalLine()
-	love.graphics.setColor(COLOR_PURE_WHITE)
+	love.graphics.setColor(COLOR.PURE_WHITE)
     love.graphics.setLineWidth(3)
     love.graphics.line(0, WINDOW_HEIGHT * 3 / 4, WINDOW_WIDTH, WINDOW_HEIGHT * 3 / 4)
 end
@@ -73,7 +73,7 @@ end
 
 function drawSonic()
     -- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
-	love.graphics.setColor(COLOR_SONIC_BLUE)
+	love.graphics.setColor(COLOR.SONIC_BLUE)
     love.graphics.circle("fill", 512, 523, 50, 50)
 end
 
