@@ -1,10 +1,11 @@
 --[[
 
-                         GOALS
---------------------------------------------------------
-   1. Create Game Window                                            
-   2. Draw Sonic the Hedgehog sprite on Game Window   
---------------------------------------------------------
+--------------------------------------------------------------
+--                  Functional Specifications               --
+--------------------------------------------------------------
+
+1. Create Game Window
+2. Draw Sonic the Hedgehog sprite on Game Window
 
 --]]
 
