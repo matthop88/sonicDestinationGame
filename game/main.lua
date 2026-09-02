@@ -31,6 +31,7 @@ love.window.setMode(1024, 768)
 
 function love.draw()
     -- All drawing code goes in here
+	love.graphics.clear(0, 0.45, 0)
 end
 
 --[[
