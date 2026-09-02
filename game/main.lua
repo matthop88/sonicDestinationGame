@@ -1,5 +1,12 @@
--- Goals:
--- 1. Draw Sonic on screen
+--[[
+
+                         GOALS
+--------------------------------------------------------
+   1. Create Game Window                                            
+   2. Draw Sonic the Hedgehog sprite on Game Window   
+--------------------------------------------------------
+
+--]]
 
 --[[
                              ...,?77??!~~~~!???77?<~.... 
