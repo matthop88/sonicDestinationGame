@@ -47,11 +47,6 @@ love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
 
 ------------------------- WORKSPACE --------------------------
 
-local drawWorkspace      = function()
-	drawBackground()
-	drawHorizontalLine()
-end
-
 local drawBackground     = function()
 	love.graphics.clear(COLOR.GREEN)
 end
@@ -60,6 +55,11 @@ local drawHorizontalLine = function()
 	love.graphics.setColor(COLOR.PURE_WHITE)
     love.graphics.setLineWidth(3)
     love.graphics.line(0, WINDOW.HEIGHT * 3 / 4, WINDOW.WIDTH, WINDOW.HEIGHT * 3 / 4)
+end
+
+local drawWorkspace      = function()
+	drawBackground()
+	drawHorizontalLine()
 end
 
 --------------------------- SONIC ----------------------------
