@@ -27,10 +27,7 @@ COLOR  = {
     SONIC_BLUE = { 0, 0,    0.75 },
 }
 
-WINDOW = {
-    WIDTH      = 1024,
-    HEIGHT     =  768,
-}
+WINDOW = require("game/config/window")
 
 --------------------------------------------------------------
 --                       Local Variables                    --
