@@ -20,9 +20,11 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-COLOR_GREEN = { 0, 0.45, 0 }
-              -- https://htmlcolorcodes.com/colors/shades-of-green/
--- ...
+COLOR_GREEN      = { 0, 0.45, 0 }
+                   -- https://htmlcolorcodes.com/colors/shades-of-green/
+
+COLOR_PURE_WHITE = { 1, 1,    1 }
+
 -- ...
 
 --------------------------------------------------------------
@@ -53,7 +55,7 @@ function drawWorkspace()
 
 	-- 2. Draw thick horizontal white line spanning from left side of screen to right,
     --    positioned 3/4 of the way down the screen.
-	love.graphics.setColor(1, 1, 1)
+	love.graphics.setColor(COLOR_PURE_WHITE)
     love.graphics.setLineWidth(3)
     love.graphics.line(0, 576, 1024, 576)
 end
