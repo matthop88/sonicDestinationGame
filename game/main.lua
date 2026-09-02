@@ -39,6 +39,11 @@ function love.draw()
 	love.graphics.setColor(1, 1, 1)
     love.graphics.setLineWidth(3)
     love.graphics.line(0, 576, 1024, 576)
+
+	-- Draw Sonic:
+	-- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
+	love.graphics.setColor(0.28, 0.28, 0.71)
+    love.graphics.circle("fill", 512, 523, 50, 50)
 end
 
 --[[
