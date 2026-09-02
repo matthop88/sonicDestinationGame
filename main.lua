@@ -1,9 +1,3 @@
--- Set this to run the app of your choice
--- (either "game" or "inspector")
------------------------------------------
-local MY_APP = "inspector"
------------------------------------------
-
 local APPLICATIONS = {
     game = {
         PATH     = "game/",
@@ -16,12 +10,19 @@ local APPLICATIONS = {
     },
 }
 
-local PATH     = APPLICATIONS[MY_APP].PATH
-local APP_NAME = APPLICATIONS[MY_APP].APP_NAME
+--------------------------------------------------------------
+--                     LOVE2D Functions                     --
+--------------------------------------------------------------
 
-local WINDOW = require(PATH .. "config/window")
+function love.load(args)
+    local MY_APP   = args[1]
+	local PATH     = APPLICATIONS[MY_APP].PATH
+    local APP_NAME = APPLICATIONS[MY_APP].APP_NAME
 
-love.window.setTitle(WINDOW.TITLE)
-love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
+    local WINDOW   = require(PATH .. "config/window")
 
-require(PATH .. APP_NAME)
+    love.window.setTitle(WINDOW.TITLE)
+    love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
+
+    require(PATH .. APP_NAME)
+end
