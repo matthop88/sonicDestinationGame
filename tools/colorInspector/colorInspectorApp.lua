@@ -17,6 +17,7 @@
 --------------------------------------------------------------
 
 WINDOW = {
+    TITLE  = "Color Inspector",
     WIDTH  = 1200,
     HEIGHT =  800,
 }
@@ -36,7 +37,7 @@ WINDOW = {
 --               Static code - is executed first            --
 --------------------------------------------------------------
 
-love.window.setTitle("Color Inspector")
+love.window.setTitle(WINDOW.TITLE)
 love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
 
 -- ...
