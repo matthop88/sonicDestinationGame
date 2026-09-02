@@ -25,6 +25,10 @@ love.window.setMode(1024, 768)
 
 -- ...
 
+--------------------------------------------------------------
+--                     LOVE2D Functions                     --
+--------------------------------------------------------------
+
 function love.draw()
     -- All drawing code goes in here
 end
