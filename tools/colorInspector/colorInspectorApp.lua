@@ -16,11 +16,7 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-WINDOW = {
-    TITLE  = "Color Inspector",
-    WIDTH  = 1200,
-    HEIGHT =  800,
-}
+WINDOW = require("tools/colorInspector/config/window")
 
 -- ...
 -- ...
