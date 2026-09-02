@@ -52,16 +52,24 @@ end
 --                  Specialized Functions                   --
 --------------------------------------------------------------
 
-function drawWorkspace()
-    -- 1. Draw dark green background
-	love.graphics.clear(COLOR_GREEN)
+------------------------- WORKSPACE --------------------------
 
-	-- 2. Draw thick horizontal white line spanning from left side of screen to right,
-    --    positioned 3/4 of the way down the screen.
+function drawWorkspace()
+	drawBackground()
+	drawHorizontalLine()
+end
+
+function drawBackground()
+	love.graphics.clear(COLOR_GREEN)
+end
+
+function drawHorizontalLine()
 	love.graphics.setColor(COLOR_PURE_WHITE)
     love.graphics.setLineWidth(3)
     love.graphics.line(0, WINDOW_HEIGHT * 3 / 4, WINDOW_WIDTH, WINDOW_HEIGHT * 3 / 4)
 end
+
+--------------------------- SONIC ----------------------------
 
 function drawSonic()
     -- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
@@ -69,6 +77,7 @@ function drawSonic()
     love.graphics.circle("fill", 512, 523, 50, 50)
 end
 
+--------------------------------------------------------------
 --[[
                              ...,?77??!~~~~!???77?<~.... 
                         ..?7`                           `7!.. 
