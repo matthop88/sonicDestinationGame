@@ -54,8 +54,9 @@ local WORKSPACE = {
 --              Static code - is executed first             --
 --------------------------------------------------------------
 
-love.window.setTitle("Sonic Destination")
-love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
+-- ...
+-- ...
+-- ...
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
