@@ -30,11 +30,12 @@ love.window.setMode(1024, 768)
 --------------------------------------------------------------
 
 function love.draw()
-    -- Draw dark green background
+	-- Draw Workspace:
+	-- 1. Draw dark green background
 	love.graphics.clear(0, 0.45, 0)
 
-	-- Draw thick horizontal white line spanning from left side of screen to right,
-    -- positioned 3/4 of the way down the screen.
+	-- 2. Draw thick horizontal white line spanning from left side of screen to right,
+    --    positioned 3/4 of the way down the screen.
 	love.graphics.setColor(1, 1, 1)
     love.graphics.setLineWidth(3)
     love.graphics.line(0, 576, 1024, 576)
