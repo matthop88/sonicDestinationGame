@@ -30,7 +30,7 @@ love.window.setMode(1024, 768)
 --------------------------------------------------------------
 
 function love.draw()
-    -- All drawing code goes in here
+    -- Draw dark green background
 	love.graphics.clear(0, 0.45, 0)
 end
 
