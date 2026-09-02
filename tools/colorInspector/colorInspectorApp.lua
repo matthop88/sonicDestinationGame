@@ -16,8 +16,7 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-WINDOW = require("tools/colorInspector/config/window")
-
+-- ...
 -- ...
 -- ...
 
@@ -33,9 +32,8 @@ WINDOW = require("tools/colorInspector/config/window")
 --               Static code - is executed first            --
 --------------------------------------------------------------
 
-love.window.setTitle(WINDOW.TITLE)
-love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
-
+-- ...
+-- ...
 -- ...
 
 --------------------------------------------------------------
