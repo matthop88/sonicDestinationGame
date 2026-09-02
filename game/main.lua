@@ -20,12 +20,12 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-COLOR_GREEN      = { 0, 0.45, 0 }
+COLOR_GREEN      = { 0, 0.45, 0    }
                    -- https://htmlcolorcodes.com/colors/shades-of-green/
 
-COLOR_PURE_WHITE = { 1, 1,    1 }
+COLOR_PURE_WHITE = { 1, 1,    1    }
 
--- ...
+COLOR_SONIC_BLUE = { 0, 0,    0.75 }
 
 --------------------------------------------------------------
 --              Static code - is executed first             --
@@ -62,7 +62,7 @@ end
 
 function drawSonic()
     -- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
-	love.graphics.setColor(0, 0, 0.75)
+	love.graphics.setColor(COLOR_SONIC_BLUE)
     love.graphics.circle("fill", 512, 523, 50, 50)
 end
 
