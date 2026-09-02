@@ -1,10 +1,9 @@
---local PATH = "tools/colorInspector/"
-local PATH   = "game/"
+local PATH, APP_NAME = "game/",                 "main"
+--local PATH, APP_NAME = "tools/colorInspector/", "colorInspectorApp"
 
 local WINDOW = require(PATH .. "config/window")
 
 love.window.setTitle(WINDOW.TITLE)
 love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
 
---require(PATH .. "colorInspectorApp")
-require(PATH .. "main")
+require(PATH .. APP_NAME)
