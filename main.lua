@@ -1,5 +1,23 @@
-local PATH, APP_NAME = "game/",                 "main"
---local PATH, APP_NAME = "tools/colorInspector/", "colorInspectorApp"
+-- Set this to run the app of your choice
+-- (either "game" or "inspector")
+-----------------------------------------
+local MY_APP = "inspector"
+-----------------------------------------
+
+local APPLICATIONS = {
+    game = {
+        PATH     = "game/",
+        APP_NAME = "main",
+    },
+
+    inspector = {
+        PATH     = "tools/colorInspector/",
+        APP_NAME = "colorInspectorApp",
+    },
+}
+
+local PATH     = APPLICATIONS[MY_APP].PATH
+local APP_NAME = APPLICATIONS[MY_APP].APP_NAME
 
 local WINDOW = require(PATH .. "config/window")
 
