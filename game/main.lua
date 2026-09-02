@@ -46,6 +46,18 @@ function love.draw()
     love.graphics.circle("fill", 512, 523, 50, 50)
 end
 
+--------------------------------------------------------------
+--                  Specialized Functions                   --
+--------------------------------------------------------------
+
+function drawWorkspace()
+    -- Code to draw Workspace goes here
+end
+
+function drawSonic()
+    -- Code to draw Sonic goes here
+end
+
 --[[
                              ...,?77??!~~~~!???77?<~.... 
                         ..?7`                           `7!.. 
