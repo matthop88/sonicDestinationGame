@@ -60,7 +60,7 @@ function drawWorkspace()
     --    positioned 3/4 of the way down the screen.
 	love.graphics.setColor(COLOR_PURE_WHITE)
     love.graphics.setLineWidth(3)
-    love.graphics.line(0, 576, WINDOW_WIDTH, 576)
+    love.graphics.line(0, WINDOW_HEIGHT * 3 / 4, WINDOW_WIDTH, WINDOW_HEIGHT * 3 / 4)
 end
 
 function drawSonic()
