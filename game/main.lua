@@ -12,6 +12,7 @@
        b. Thick white horizontal line across entire screen,
           positioned 3/4 of way down the screen
 [ ] 3. Draw Sonic the Hedgehog sprite in Workspace
+       a. Sonic is standing on the line
 
 --]]
 
