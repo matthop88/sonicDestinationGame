@@ -39,8 +39,7 @@ end
 --------------------------------------------------------------
 
 function drawWorkspace()
-    -- Draw Workspace:
-	-- 1. Draw dark green background
+    -- 1. Draw dark green background
 	love.graphics.clear(0, 0.45, 0)
 
 	-- 2. Draw thick horizontal white line spanning from left side of screen to right,
@@ -51,8 +50,7 @@ function drawWorkspace()
 end
 
 function drawSonic()
-    -- Draw Sonic:
-	-- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
+    -- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
 	love.graphics.setColor(0, 0, 0.75)
     love.graphics.circle("fill", 512, 523, 50, 50)
 end
