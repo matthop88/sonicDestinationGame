@@ -27,12 +27,15 @@ COLOR_PURE_WHITE = { 1, 1,    1    }
 
 COLOR_SONIC_BLUE = { 0, 0,    0.75 }
 
+WINDOW_WIDTH     = 1024
+WINDOW_HEIGHT    =  768
+
 --------------------------------------------------------------
 --              Static code - is executed first             --
 --------------------------------------------------------------
 
 love.window.setTitle("Sonic Destination")
-love.window.setMode(1024, 768)
+love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT)
 
 -- ...
 
