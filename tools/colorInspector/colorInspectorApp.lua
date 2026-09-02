@@ -16,7 +16,11 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
--- ...
+WINDOW = {
+    WIDTH  = 1200,
+    HEIGHT =  800,
+}
+
 -- ...
 -- ...
 
@@ -33,7 +37,7 @@
 --------------------------------------------------------------
 
 love.window.setTitle("Color Inspector")
-love.window.setMode(1200, 800)
+love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
 
 -- ...
 
