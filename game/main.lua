@@ -60,27 +60,12 @@ local WORKSPACE = {
 love.window.setTitle("Sonic Destination")
 love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
 
--- ...
-
---------------------------------------------------------------
---                  Specialized Functions                   --
---------------------------------------------------------------
-
---------------------------- SONIC ----------------------------
-
-local drawSonic          = function()
-    -- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
-    love.graphics.setColor(COLOR.SONIC_BLUE)
-    love.graphics.circle("fill", 512, 523, 50, 50)
-end
-
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
 function love.draw()
     WORKSPACE:draw()
-    drawSonic()
 end
 
 --[[
