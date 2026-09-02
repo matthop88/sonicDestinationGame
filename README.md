@@ -1,2 +1,2 @@
-# sonicDestinationGame
+# Sonic Destination
 The coolest game in the world. Bar none.
