@@ -1,1 +1,1 @@
-require "game/main"
+require "tools/colorInspector/colorInspectorApp"
