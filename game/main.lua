@@ -21,14 +21,14 @@
 --------------------------------------------------------------
 
 COLOR  = {
-	GREEN      = { 0, 0.45, 0    },
+    GREEN      = { 0, 0.45, 0    },
                  -- https://htmlcolorcodes.com/colors/shades-of-green/
-	PURE_WHITE = { 1, 1,    1    },
+    PURE_WHITE = { 1, 1,    1    },
     SONIC_BLUE = { 0, 0,    0.75 },
 }
 
 WINDOW = {
-	WIDTH      = 1024,
+    WIDTH      = 1024,
     HEIGHT     =  768,
 }
 
@@ -47,26 +47,28 @@ love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
 
 ------------------------- WORKSPACE --------------------------
 
-local drawBackground     = function()
-	love.graphics.clear(COLOR.GREEN)
-end
+local WORKSPACE = {
+    draw = function(self)
+        self:drawBackground()
+        self:drawHorizontalLine()
+    end,
 
-local drawHorizontalLine = function()
-	love.graphics.setColor(COLOR.PURE_WHITE)
-    love.graphics.setLineWidth(3)
-    love.graphics.line(0, WINDOW.HEIGHT * 3 / 4, WINDOW.WIDTH, WINDOW.HEIGHT * 3 / 4)
-end
+    drawBackground = function(self)
+        love.graphics.clear(COLOR.GREEN)
+    end,
 
-local drawWorkspace      = function()
-	drawBackground()
-	drawHorizontalLine()
-end
+    drawHorizontalLine = function(self)
+        love.graphics.setColor(COLOR.PURE_WHITE)
+        love.graphics.setLineWidth(3)
+        love.graphics.line(0, WINDOW.HEIGHT * 3 / 4, WINDOW.WIDTH, WINDOW.HEIGHT * 3 / 4)
+    end,
+}
 
 --------------------------- SONIC ----------------------------
 
 local drawSonic          = function()
     -- (A placeholder for now; a filled circle with Sonic blue, sitting on the white line)
-	love.graphics.setColor(COLOR.SONIC_BLUE)
+    love.graphics.setColor(COLOR.SONIC_BLUE)
     love.graphics.circle("fill", 512, 523, 50, 50)
 end
 
@@ -75,7 +77,7 @@ end
 --------------------------------------------------------------
 
 function love.draw()
-	drawWorkspace()
+    WORKSPACE:draw()
     drawSonic()
 end
 
@@ -133,22 +135,22 @@ end
                                  ?1.     .'         
                                      7<..%
     
-	
+    
 
-										
-
-
+                                        
 
 
 
 
 
 
-					Sonic ASCII art credits
-					-----------------------
-	"ASCII Art of Sonic"
-	posted by put-mutt on
-	https://www.reddit.com/r/SonicTheHedgehog/comments/fpeyy4/ascii_art_of_sonic/?rdt=43749
-	---------------------------------------------------------------------------------------
-	
+
+
+                    Sonic ASCII art credits
+                    -----------------------
+    "ASCII Art of Sonic"
+    posted by put-mutt on
+    https://www.reddit.com/r/SonicTheHedgehog/comments/fpeyy4/ascii_art_of_sonic/?rdt=43749
+    ---------------------------------------------------------------------------------------
+    
 --]]
