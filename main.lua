@@ -27,10 +27,14 @@ local APPLICATIONS = {
 function love.load(args)
     local PATH, APP_NAME = APPLICATIONS:getPathAndAppName(args[1] or "game")
     
-	local WINDOW         = require(PATH .. "config/window")
+	loadWindow(PATH)
+
+    require(PATH .. APP_NAME)
+end
+
+function loadWindow(path)
+	local WINDOW = require(path .. "config/window")
 
     love.window.setTitle(WINDOW.TITLE)
     love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
-
-    require(PATH .. APP_NAME)
 end
