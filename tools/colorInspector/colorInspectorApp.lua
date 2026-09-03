@@ -90,4 +90,12 @@ function love.keypressed(key)
     end
 end
 
+function love.keyreleased(key)
+    if     key == "up"    and isScrollingUp()    then stopScrollingUp()
+    elseif key == "down"  and isScrollingDown()  then stopScrollingDown()
+    elseif key == "left"  and isScrollingLeft()  then stopScrollingLeft()
+    elseif key == "right" and isScrollingRight() then stopScrollingRight()
+    end
+end
+
 -- ... 
