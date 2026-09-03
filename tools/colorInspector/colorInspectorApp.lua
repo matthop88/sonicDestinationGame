@@ -36,7 +36,8 @@ IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1
 --                       Local Variables                    --
 --------------------------------------------------------------
 
--- ...
+local imageX, imageY = 0, 0
+
 -- ...
 -- ...
 
@@ -62,10 +63,10 @@ IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1
 
 function love.draw()
     love.graphics.setColor(COLOR.PURE_WHITE)
-    love.graphics.draw(IMAGE, 0, 0)
+    love.graphics.draw(IMAGE, imageX, imageY)
 end
 
 -- ...
--- ...
+-- ... 
 
 
