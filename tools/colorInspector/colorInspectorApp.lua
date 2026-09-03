@@ -16,16 +16,10 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
+COLOR = require("game/constants/colors")
+
 IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
         -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
-
-COLOR  = {
-    GREEN      = { 0, 0.45, 0    },
-                 -- https://htmlcolorcodes.com/colors/shades-of-green/
-    PURE_WHITE = { 1, 1,    1    },
-    SONIC_BLUE = { 0, 0,    0.75 },
-}
-
 -- ...
 
 --------------------------------------------------------------
