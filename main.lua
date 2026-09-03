@@ -36,8 +36,8 @@ function loadWindow(path)
 	local window = requireSafely(path .. "config/window")
 
 	if window then
-	    love.window.setTitle(window.TITLE)
-	    love.window.setMode(window.WIDTH, window.HEIGHT)
+	    love.window.setTitle(window.title)
+	    love.window.setMode(window.width, window.height)
 	end
 end
 
