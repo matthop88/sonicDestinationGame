@@ -1,5 +1,5 @@
 return {
-    TITLE  = "Sonic Destination",
-    WIDTH  = 1024,
-    HEIGHT =  768,
+    title  = "Sonic Destination",
+    width  = 1024,
+    height =  768,
 }
