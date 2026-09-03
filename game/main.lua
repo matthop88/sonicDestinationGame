@@ -46,7 +46,7 @@ local WORKSPACE = {
     drawHorizontalLine = function(self)
         love.graphics.setColor(COLOR.PURE_WHITE)
         love.graphics.setLineWidth(3)
-        love.graphics.line(0, WINDOW.HEIGHT * 3 / 4, WINDOW.WIDTH, WINDOW.HEIGHT * 3 / 4)
+        love.graphics.line(0, WINDOW.height * 3 / 4, WINDOW.width, WINDOW.height * 3 / 4)
     end,
 }
 
