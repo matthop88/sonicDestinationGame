@@ -59,15 +59,21 @@ local scrollDown         = function() ySpeed = -SCROLL_SPEED end
 local scrollLeft         = function() xSpeed =  SCROLL_SPEED end
 local scrollRight        = function() xSpeed = -SCROLL_SPEED end
 
-local isScrollingUp      = function() return ySpeed > 0      end
-local isScrollingDown    = function() return ySpeed < 0      end
-local isScrollingLeft    = function() return xSpeed > 0      end
-local isScrollingRight   = function() return xSpeed < 0      end
+local stopScrollingUp    = function() 
+    if ySpeed > 0 then ySpeed = 0 end
+end
 
-local stopScrollingUp    = function() ySpeed = 0             end
-local stopScrollingDown  = function() ySpeed = 0             end
-local stopScrollingLeft  = function() xSpeed = 0             end
-local stopScrollingRight = function() xSpeed = 0             end
+local stopScrollingDown  = function() 
+    if ySpeed < 0 then ySpeed = 0 end
+end
+
+local stopScrollingLeft  = function() 
+    if xSpeed > 0 then xSpeed = 0 end
+end
+
+local stopScrollingRight = function() 
+    if xSpeed < 0 then xSpeed = 0 end
+end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
@@ -92,10 +98,10 @@ function love.keypressed(key)
 end
 
 function love.keyreleased(key)
-    if     key == "up"    and isScrollingUp()    then stopScrollingUp()
-    elseif key == "down"  and isScrollingDown()  then stopScrollingDown()
-    elseif key == "left"  and isScrollingLeft()  then stopScrollingLeft()
-    elseif key == "right" and isScrollingRight() then stopScrollingRight()
+    if     key == "up"    then stopScrollingUp()
+    elseif key == "down"  then stopScrollingDown()
+    elseif key == "left"  then stopScrollingLeft()
+    elseif key == "right" then stopScrollingRight()
     end
 end
 
