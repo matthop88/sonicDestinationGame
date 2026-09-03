@@ -79,14 +79,10 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    if     key == "up"    then 
-        scrollUp()
-    elseif key == "down"  then 
-        scrollDown() 
-    elseif key == "left"  then
-        scrollLeft()
-    elseif key == "right" then
-        scrollRight()
+    if     key == "up"    then scrollUp()
+    elseif key == "down"  then scrollDown() 
+    elseif key == "left"  then scrollLeft()
+    elseif key == "right" then scrollRight()
     end
 end
 
