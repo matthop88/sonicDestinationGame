@@ -30,7 +30,8 @@ COLOR = require("game/constants/colors")
 
 IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
         -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
--- ...
+
+SCROLL_SPEED = 500
 
 --------------------------------------------------------------
 --                       Local Variables                    --
@@ -53,20 +54,20 @@ local xSpeed, ySpeed = 0, 0
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
-local scrollUp           = function() ySpeed =  100     end
-local scrollDown         = function() ySpeed = -100     end
-local scrollLeft         = function() xSpeed =  100     end
-local scrollRight        = function() xSpeed = -100     end
+local scrollUp           = function() ySpeed =  SCROLL_SPEED end
+local scrollDown         = function() ySpeed = -SCROLL_SPEED end
+local scrollLeft         = function() xSpeed =  SCROLL_SPEED end
+local scrollRight        = function() xSpeed = -SCROLL_SPEED end
 
-local isScrollingUp      = function() return ySpeed > 0 end
-local isScrollingDown    = function() return ySpeed < 0 end
-local isScrollingLeft    = function() return xSpeed > 0 end
-local isScrollingRight   = function() return xSpeed < 0 end
+local isScrollingUp      = function() return ySpeed > 0      end
+local isScrollingDown    = function() return ySpeed < 0      end
+local isScrollingLeft    = function() return xSpeed > 0      end
+local isScrollingRight   = function() return xSpeed < 0      end
 
-local stopScrollingUp    = function() ySpeed = 0        end
-local stopScrollingDown  = function() ySpeed = 0        end
-local stopScrollingLeft  = function() xSpeed = 0        end
-local stopScrollingRight = function() xSpeed = 0        end
+local stopScrollingUp    = function() ySpeed = 0             end
+local stopScrollingDown  = function() ySpeed = 0             end
+local stopScrollingLeft  = function() xSpeed = 0             end
+local stopScrollingRight = function() xSpeed = 0             end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
