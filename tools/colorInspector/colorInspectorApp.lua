@@ -55,6 +55,7 @@ COLOR  = {
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
+
 function love.draw()
     love.graphics.setColor(COLOR.PURE_WHITE)
     love.graphics.draw(IMAGE, 0, 0)
