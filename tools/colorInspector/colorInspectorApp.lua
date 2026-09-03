@@ -53,10 +53,15 @@ local xSpeed, ySpeed = 0, 0
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
-local scrollUp    = function() ySpeed =  100 end
-local scrollDown  = function() ySpeed = -100 end
-local scrollLeft  = function() xSpeed =  100 end
-local scrollRight = function() xSpeed = -100 end
+local scrollUp         = function() ySpeed =  100     end
+local scrollDown       = function() ySpeed = -100     end
+local scrollLeft       = function() xSpeed =  100     end
+local scrollRight      = function() xSpeed = -100     end
+
+local isScrollingUp    = function() return ySpeed > 0 end
+local isScrollingDown  = function() return ySpeed < 0 end
+local isScrollingLeft  = function() return xSpeed > 0 end
+local isScrollingRight = function() return xSpeed < 0 end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
