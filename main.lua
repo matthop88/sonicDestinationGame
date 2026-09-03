@@ -25,19 +25,19 @@ local APPLICATIONS = {
 --------------------------------------------------------------
 
 function love.load(args)
-    local PATH, APP_NAME = APPLICATIONS:getPathAndAppName(args[1] or "game")
+    local path, appName = APPLICATIONS:getPathAndAppName(args[1] or "game")
     
-	loadWindow(PATH)
+	loadWindow(path)
 
-    require(PATH .. APP_NAME)
+    require(path .. appName)
 end
 
 function loadWindow(path)
-	local WINDOW = requireSafely(path .. "config/window")
+	local window = requireSafely(path .. "config/window")
 
-	if WINDOW then
-	    love.window.setTitle(WINDOW.TITLE)
-	    love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
+	if window then
+	    love.window.setTitle(window.TITLE)
+	    love.window.setMode(window.WIDTH, window.HEIGHT)
 	end
 end
 
