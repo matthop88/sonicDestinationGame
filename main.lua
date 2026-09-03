@@ -25,7 +25,7 @@ local APPLICATIONS = {
 --------------------------------------------------------------
 
 function love.load(args)
-    local PATH, APP_NAME = APPLICATIONS:getPathAndAppName(args[1])
+    local PATH, APP_NAME = APPLICATIONS:getPathAndAppName(args[1] or "game")
     
 	local WINDOW         = require(PATH .. "config/window")
 
