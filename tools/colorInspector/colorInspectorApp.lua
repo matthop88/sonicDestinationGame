@@ -67,18 +67,17 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    -- To Scroll Left:  Increase X
-    -- To Scroll Right: Decrease X
-    -- To Scroll Up:    Increase Y
-    -- To Scroll Down:  Decrease Y
-
     if     key == "left"  then 
+        -- Scroll Left
         imageX = imageX + 100
     elseif key == "right" then 
+        -- Scroll Right
         imageX = imageX - 100 
     elseif key == "up"    then
+        -- Scroll Up
         imageY = imageY + 100
     elseif key == "down"  then
+        -- Scroll Down
         imageY = imageY - 100
     end
 end
