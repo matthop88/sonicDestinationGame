@@ -53,21 +53,10 @@ local imageX, imageY = 0, 0
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
-local scrollUp    = function()
-    imageY = imageY + 100
-end
-
-local scrollDown  = function()
-    imageY = imageY - 100
-end
-
-local scrollLeft  = function()
-    imageX = imageX + 100
-end
-
-local scrollRight = function()
-    imageX = imageX - 100
-end
+local scrollUp    = function() imageY = imageY + 100 end
+local scrollDown  = function() imageY = imageY - 100 end
+local scrollLeft  = function() imageX = imageX + 100 end
+local scrollRight = function() imageX = imageX - 100 end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
