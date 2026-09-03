@@ -37,7 +37,7 @@ IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1
 --------------------------------------------------------------
 
 local imageX, imageY = 0, 0
-
+local xSpeed, ySpeed = 0, 0
 -- ...
 -- ...
 
@@ -53,10 +53,10 @@ local imageX, imageY = 0, 0
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
-local scrollUp    = function() imageY = imageY + 100 end
-local scrollDown  = function() imageY = imageY - 100 end
-local scrollLeft  = function() imageX = imageX + 100 end
-local scrollRight = function() imageX = imageX - 100 end
+local scrollUp    = function() ySpeed =  100 end
+local scrollDown  = function() ySpeed = -100 end
+local scrollLeft  = function() xSpeed =  100 end
+local scrollRight = function() xSpeed = -100 end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
@@ -65,6 +65,11 @@ local scrollRight = function() imageX = imageX - 100 end
 function love.draw()
     love.graphics.setColor(COLOR.PURE_WHITE)
     love.graphics.draw(IMAGE, imageX, imageY)
+end
+
+function love.update(dt)
+    imageX = imageX + (xSpeed * dt)
+    imageY = imageY + (ySpeed * dt)
 end
 
 function love.keypressed(key)
