@@ -33,8 +33,19 @@ function love.load(args)
 end
 
 function loadWindow(path)
-	local WINDOW = require(path .. "config/window")
+	local WINDOW = requireSafely(path .. "config/window")
 
-    love.window.setTitle(WINDOW.TITLE)
-    love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
+	if WINDOW then
+	    love.window.setTitle(WINDOW.TITLE)
+	    love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
+	end
 end
+
+function requireSafely(filename)
+	local success, module = pcall(require, filename)
+
+	if success then 
+		return module 
+	end
+end
+
