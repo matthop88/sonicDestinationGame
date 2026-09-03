@@ -16,7 +16,9 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
--- ...
+IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
+        -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
+
 -- ...
 -- ...
 
