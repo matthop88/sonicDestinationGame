@@ -11,6 +11,10 @@ or
 
     love . game
 
+From within the ***game/*** directory, the game can be executed via:
+
+    love .
+
 ## Executing Tools
 
 Currently, there is only one tool in this project: **colorInspector**.
