@@ -53,9 +53,21 @@ local imageX, imageY = 0, 0
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
--- ...
--- ...
--- ...
+local scrollUp    = function()
+    imageY = imageY + 100
+end
+
+local scrollDown  = function()
+    imageY = imageY - 100
+end
+
+local scrollLeft  = function()
+    imageX = imageX + 100
+end
+
+local scrollRight = function()
+    imageX = imageX - 100
+end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
@@ -67,18 +79,14 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    if     key == "left"  then 
-        -- Scroll Left
-        imageX = imageX + 100
-    elseif key == "right" then 
-        -- Scroll Right
-        imageX = imageX - 100 
-    elseif key == "up"    then
-        -- Scroll Up
-        imageY = imageY + 100
-    elseif key == "down"  then
-        -- Scroll Down
-        imageY = imageY - 100
+    if     key == "up"    then 
+        scrollUp()
+    elseif key == "down"  then 
+        scrollDown() 
+    elseif key == "left"  then
+        scrollLeft()
+    elseif key == "right" then
+        scrollRight()
     end
 end
 
