@@ -27,7 +27,7 @@ COLOR  = {
     SONIC_BLUE = { 0, 0,    0.75 },
 }
 
-WINDOW = require("game/config/window")
+WINDOW = require(PARENT_PATH .. "config/window")
 
 --------------------------------------------------------------
 --                       Local Variables                    --
