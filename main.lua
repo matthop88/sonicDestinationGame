@@ -3,15 +3,21 @@
 --------------------------------------------------------------
 
 local APPLICATIONS = {
-    game = {
-        PATH     = "game/",
-        APP_NAME = "main",
-    },
+    appData = {
+		game = {
+	        PATH     = "game/",
+	        APP_NAME = "main",
+	    },
+	
+	    inspector = {
+	        PATH     = "tools/colorInspector/",
+	        APP_NAME = "colorInspectorApp",
+	    },
+	},
 
-    inspector = {
-        PATH     = "tools/colorInspector/",
-        APP_NAME = "colorInspectorApp",
-    },
+	getPathAndAppName = function(self, keyword)
+		return self.appData[keyword].PATH, self.appData[keyword].APP_NAME
+	end,
 }
 
 --------------------------------------------------------------
@@ -19,11 +25,9 @@ local APPLICATIONS = {
 --------------------------------------------------------------
 
 function love.load(args)
-    local MY_APP   = args[1]
-	local PATH     = APPLICATIONS[MY_APP].PATH
-    local APP_NAME = APPLICATIONS[MY_APP].APP_NAME
-
-    local WINDOW   = require(PATH .. "config/window")
+    local PATH, APP_NAME = APPLICATIONS:getPathAndAppName(args[1])
+    
+	local WINDOW         = require(PATH .. "config/window")
 
     love.window.setTitle(WINDOW.TITLE)
     love.window.setMode(WINDOW.WIDTH, WINDOW.HEIGHT)
