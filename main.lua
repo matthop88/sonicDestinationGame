@@ -6,7 +6,7 @@ local APPLICATIONS = {
     appData = {
 		game = {
 	        PATH     = "game/",
-	        APP_NAME = "main",
+	        APP_NAME = "application",
 	    },
 	
 	    inspector = {
