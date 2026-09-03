@@ -19,7 +19,13 @@
 IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
         -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
 
--- ...
+COLOR  = {
+    GREEN      = { 0, 0.45, 0    },
+                 -- https://htmlcolorcodes.com/colors/shades-of-green/
+    PURE_WHITE = { 1, 1,    1    },
+    SONIC_BLUE = { 0, 0,    0.75 },
+}
+
 -- ...
 
 --------------------------------------------------------------
@@ -50,7 +56,7 @@ IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 function love.draw()
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.setColor(COLOR.PURE_WHITE)
     love.graphics.draw(IMAGE, 0, 0)
 end
 
