@@ -49,8 +49,11 @@ IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
+function love.draw()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(IMAGE, 0, 0)
+end
 
--- ...
 -- ...
 -- ...
 
