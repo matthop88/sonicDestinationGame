@@ -47,6 +47,11 @@ IMAGE = {
         self.y = self.y + deltaY
     end,
 
+    keepInBounds = function(self, windowWidth, windowHeight)
+        self.x = math.min(0, math.max(self.x, (windowWidth  / self.scale) - self:getWidth()))
+        self.y = math.min(0, math.max(self.y, (windowHeight / self.scale) - self:getHeight()))
+    end,
+
     getWidth  = function(self)
         return self.image:getWidth()
     end,
@@ -99,11 +104,6 @@ local SCROLL_SPEED = {
 
 local updateImage         = function(dt)
     IMAGE:move(xSpeed * dt, ySpeed * dt)   
-end
-
-local keepImageInBounds   = function()
-    IMAGE.x = math.min(0, math.max(IMAGE.x, (WINDOW.width  / IMAGE.scale) - IMAGE:getWidth()))
-    IMAGE.y = math.min(0, math.max(IMAGE.y, (WINDOW.height / IMAGE.scale) - IMAGE:getHeight()))
 end
 
 ----------------------- DOUBLE TAPPING -----------------------
@@ -167,7 +167,7 @@ end
 local handleUpdate        = function(dt)
     updateImage(dt)
     if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
-        keepImageInBounds()
+        IMAGE:keepInBounds(WINDOW.width, WINDOW.height)
     end
 end
 
