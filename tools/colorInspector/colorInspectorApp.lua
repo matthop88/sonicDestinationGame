@@ -30,19 +30,21 @@ WINDOW       = require("tools/colorInspector/config/window")
 COLOR        = require("game/constants/colors")
 
 IMAGE        = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
-                -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
+               -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
 
-SCROLL_SPEED = 500
+SCROLL_SPEED         = 500
+
+DOUBLE_TAP_THRESHOLD = 0.2
 
 --------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local imageX, imageY = 0, 0
-local xSpeed, ySpeed = 0, 0
+local imageX, imageY     = 0, 0
+local xSpeed, ySpeed     = 0, 0
 
-local lastKeypressed = nil
--- ...
+local lastKeypressed     = nil
+local lastKeypressedTime = 0
 
 --------------------------------------------------------------
 --               Static code - is executed first            --
@@ -82,8 +84,8 @@ local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local handleKeypressed   = function(key)
-    if lastKeypressed == key then
-        print("DOUBLE-TAPPING: " .. lastKeypressed)
+    if lastKeypressed == key and love.timer.getTime() - lastKeypressedTime < DOUBLE_TAP_THRESHOLD then
+        print("DOUBLE-TAPPING: " .. lastKeypressed .. " at " .. love.timer.getTime() - lastKeypressedTime)
     end
 
     if     key == "up"    then scrollUp()
@@ -92,7 +94,8 @@ local handleKeypressed   = function(key)
     elseif key == "right" then scrollRight()
     end
 
-    lastKeypressed = key
+    lastKeypressed     = key
+    lastKeypressedTime = love.timer.getTime()
 end
 
 local handleKeyreleased  = function(key)
