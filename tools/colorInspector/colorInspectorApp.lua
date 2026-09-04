@@ -12,7 +12,7 @@
 
                            Features
                            --------
-       [-] Image can be scrolled using the up, down,
+       [X] Image can be scrolled using the up, down,
            left and right arrow keys.
        [ ] Image can be zoomed in using the 'z' key
            and zoomed out using the 'a' key
@@ -26,19 +26,77 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-COLOR = require("game/constants/colors")
+WINDOW       = require("tools/colorInspector/config/window")
+COLOR        = require("game/constants/colors")
 
-IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
-        -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
--- ...
+IMAGE        = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
+               -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
 
 --------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
 
--- ...
--- ...
--- ...
+local imageX, imageY     = 0, 0
+local xSpeed, ySpeed     = 0, 0
+
+local SCROLL_SPEED = {
+    VALUE      = 500,
+    isDashing  = false,
+
+    get        = function(self)
+        if self.isDashing then 
+            return self.VALUE * 2
+        else                   
+            return self.VALUE   
+        end
+    end,
+
+    setDashing = function(self, dashing)
+        self.isDashing = dashing
+    end,
+
+}
+
+local DOUBLE_TAP   = {
+    THRESHOLD          = 0.2,
+
+    lastKeypressed     = nil,
+    lastKeypressedTime = 0,
+    lastThreshold      = 0,
+
+    qualify      = function(self, key)
+        local isDoubleTap  = self:isDoubleTap(key)
+        self.lastThreshold = self:getThreshold()
+
+        self:recordKey(key)
+        return isDoubleTap
+    end,
+
+    isDoubleTap  = function(self, key)
+        return self.lastKeypressed == key and self:withinThreshold()
+    end,
+
+    withinThreshold = function(self)
+        return self:getThreshold() < self.THRESHOLD
+    end,
+
+    recordKey    = function(self, key)
+        self.lastKeypressed     = key
+        self.lastKeypressedTime = love.timer.getTime()
+    end,
+
+    getThreshold = function(self)
+        return love.timer.getTime() - self.lastKeypressedTime
+    end,
+
+    getLastKeypressed = function(self)
+        return self.lastKeypressed
+    end,
+
+    getLastThreshold  = function(self)
+        return self.lastThreshold
+    end,
+}
 
 --------------------------------------------------------------
 --               Static code - is executed first            --
@@ -52,20 +110,101 @@ IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
--- ...
--- ...
--- ...
+local drawImage           = function()
+    love.graphics.setColor(COLOR.PURE_WHITE)
+    love.graphics.draw(IMAGE, imageX, imageY)
+end
+
+local updateImage         = function(dt)
+    imageX = imageX + (xSpeed * dt)
+    imageY = imageY + (ySpeed * dt)
+end
+
+local keepImageInBounds   = function()
+    imageX = math.min(0, math.max(imageX, WINDOW.width  - IMAGE:getWidth()))
+    imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
+end
+
+local scrollUp            = function() ySpeed =  SCROLL_SPEED:get() end
+local scrollDown          = function() ySpeed = -SCROLL_SPEED:get() end
+local scrollLeft          = function() xSpeed =  SCROLL_SPEED:get() end
+local scrollRight         = function() xSpeed = -SCROLL_SPEED:get() end
+
+local stopScrollingUp     = function() ySpeed = math.min(0, ySpeed) end
+local stopScrollingDown   = function() ySpeed = math.max(0, ySpeed) end
+local stopScrollingLeft   = function() xSpeed = math.min(0, xSpeed) end
+local stopScrollingRight  = function() xSpeed = math.max(0, xSpeed) end
+
+local handleDoubleTapping = function(key)
+    if   DOUBLE_TAP:qualify(key) then SCROLL_SPEED:setDashing(true)
+    else                              SCROLL_SPEED:setDashing(false)    
+    end
+end
+
+local handleScrolling     = function(key)
+    if     key == "up"    then scrollUp()
+    elseif key == "down"  then scrollDown() 
+    elseif key == "left"  then scrollLeft()
+    elseif key == "right" then scrollRight()
+    end
+end
+
+local handleKeypressed   = function(key)
+    handleDoubleTapping(key)
+    handleScrolling(key)  
+end
+
+local handleKeyreleased  = function(key)
+    if     key == "up"    then stopScrollingUp()
+    elseif key == "down"  then stopScrollingDown()
+    elseif key == "left"  then stopScrollingLeft()
+    elseif key == "right" then stopScrollingRight()
+    end
+    
+    if not DOUBLE_TAP:withinThreshold() then
+        keepImageInBounds()
+    end
+end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
 function love.draw()
-    love.graphics.setColor(COLOR.PURE_WHITE)
-    love.graphics.draw(IMAGE, 0, 0)
+    drawImage()
 end
 
--- ...
--- ...
+function love.update(dt)
+    updateImage(dt)
+end
+
+function love.keypressed(key)
+    handleKeypressed(key)
+end
+
+function love.keyreleased(key)
+    handleKeyreleased(key)
+end
 
 
+
+--[[
+
+          *************     ******************    ******************           *****           
+      *****************   ********************  ********************         **********      
+     ******              ******                *****                        ************            
+    ****   ************  ***** *************** **** ****************       *****   ******           
+   ****  **************  ***** *************** **** ****************      *****  ** *****           
+   **** ****             ***** ***             **** ****                  ***** ***  *****          
+    ***  **********      ***** *************   **** **** ***********     ***** ***** ******         
+     ****    ********    ***** *************   **** **** ***********    ****** ****** *****         
+      *******     ****   ***** *************   **** **** ****** ****    ***** ******* ******        
+        **********  ***  ***** *************   **** **** ****** ****   *****  *** **** *****        
+               **** **** ***** ***             **** ****   **** ****  ****** ****  **** *****       
+    **************  ***  ***** *************** **** *********** ****  ***** *********** ******      
+    ************   ****  ***** *************** **** *********** **** ****** ************ *****      
+                ******   ******                *****            **** ***** ***            *****     
+    ****************      ********************  ************************* ***  *****************    
+    *************           ******************    *********************** ***  *****************   
+
+--]]
