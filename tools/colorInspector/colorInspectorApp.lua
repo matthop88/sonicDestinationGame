@@ -40,7 +40,8 @@ SCROLL_SPEED = 500
 
 local imageX, imageY = 0, 0
 local xSpeed, ySpeed = 0, 0
--- ...
+
+local lastKeypressed = nil
 -- ...
 
 --------------------------------------------------------------
@@ -81,11 +82,17 @@ local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local handleKeypressed   = function(key)
+    if lastKeypressed == key then
+        print("DOUBLE-TAPPING: " .. lastKeypressed)
+    end
+
     if     key == "up"    then scrollUp()
     elseif key == "down"  then scrollDown() 
     elseif key == "left"  then scrollLeft()
     elseif key == "right" then scrollRight()
     end
+
+    lastKeypressed = key
 end
 
 local handleKeyreleased  = function(key)
