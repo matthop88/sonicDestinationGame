@@ -77,7 +77,7 @@ local SCROLL_SPEED = {
 
 local drawImage           = function()
     love.graphics.setColor(COLOR.PURE_WHITE)
-    love.graphics.draw(IMAGE, imageX, imageY, 0, scale, scale)
+    love.graphics.draw(IMAGE, imageX * scale, imageY * scale, 0, scale, scale)
 end
 
 local updateImage         = function(dt)
