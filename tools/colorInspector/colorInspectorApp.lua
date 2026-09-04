@@ -65,11 +65,8 @@ local stopScrollingDown  = function() ySpeed = math.max(0, ySpeed) end
 local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
-local keepInBounds       = function()
-    -- Don't scroll too far to right or left
+local keepImageInBounds  = function()
     imageX = math.min(0, math.max(imageX, WINDOW.width - IMAGE:getWidth()))
-    
-    -- Don't scroll too far down or up
     imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
 end
 
@@ -86,7 +83,7 @@ function love.update(dt)
     imageX = imageX + (xSpeed * dt)
     imageY = imageY + (ySpeed * dt)
 
-    keepInBounds()
+    keepImageInBounds()
 end
 
 function love.keypressed(key)
