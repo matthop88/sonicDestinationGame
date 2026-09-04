@@ -124,7 +124,7 @@ end
 
 local handleUpdate        = function(dt)
     IMAGE:move(xSpeed * dt, ySpeed * dt)
-    IMAGE.scale = IMAGE.scale + (scaleDelta * dt)
+    IMAGE:scaleByDelta(scaleDelta * dt)
     if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
         IMAGE:keepInBounds()
     end
