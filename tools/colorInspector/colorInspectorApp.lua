@@ -60,19 +60,19 @@ local scrollLeft         = function() xSpeed =  SCROLL_SPEED end
 local scrollRight        = function() xSpeed = -SCROLL_SPEED end
 
 local stopScrollingUp    = function() 
-    if ySpeed > 0 then ySpeed = 0 end
+    ySpeed = math.min(0, ySpeed)
 end
 
 local stopScrollingDown  = function() 
-    if ySpeed < 0 then ySpeed = 0 end
+    ySpeed = math.max(0, ySpeed)
 end
 
 local stopScrollingLeft  = function() 
-    if xSpeed > 0 then xSpeed = 0 end
+    xSpeed = math.min(0, xSpeed)
 end
 
 local stopScrollingRight = function() 
-    if xSpeed < 0 then xSpeed = 0 end
+    xSpeed = math.max(0, xSpeed)
 end
 
 --------------------------------------------------------------
