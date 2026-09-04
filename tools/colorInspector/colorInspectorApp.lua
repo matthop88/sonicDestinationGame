@@ -29,8 +29,20 @@
 WINDOW       = require("tools/colorInspector/config/window")
 COLOR        = require("game/constants/colors")
 
-IMAGE        = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
+IMAGE = {
+    image    = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png"),
                -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
+    x        = 0,
+    y        = 0,
+
+    scale    = 5,
+
+    draw     = function(self)
+        love.graphics.setColor(COLOR.PURE_WHITE)
+        love.graphics.draw(self.image, self.x * self.scale, self.y * self.scale, 0, self.scale, self.scale)
+    end,
+
+}
 
 --------------------------------------------------------------
 --                       Local Variables                    --
@@ -75,19 +87,14 @@ local SCROLL_SPEED = {
 
 ---------------------------- IMAGE ---------------------------
 
-local drawImage           = function()
-    love.graphics.setColor(COLOR.PURE_WHITE)
-    love.graphics.draw(IMAGE, imageX * scale, imageY * scale, 0, scale, scale)
-end
-
 local updateImage         = function(dt)
-    imageX = imageX + (xSpeed * dt)
-    imageY = imageY + (ySpeed * dt)    
+    IMAGE.x = IMAGE.x + (xSpeed * dt)
+    IMAGE.y = IMAGE.y + (ySpeed * dt)    
 end
 
 local keepImageInBounds   = function()
-    imageX = math.min(0, math.max(imageX, (WINDOW.width  / scale) - IMAGE:getWidth()))
-    imageY = math.min(0, math.max(imageY, (WINDOW.height / scale) - IMAGE:getHeight()))
+    IMAGE.x = math.min(0, math.max(IMAGE.x, (WINDOW.width  / IMAGE.scale) - IMAGE.image:getWidth()))
+    IMAGE.y = math.min(0, math.max(IMAGE.y, (WINDOW.height / IMAGE.scale) - IMAGE.image:getHeight()))
 end
 
 ----------------------- DOUBLE TAPPING -----------------------
@@ -171,7 +178,7 @@ end
 --------------------------------------------------------------
 
 function love.draw()
-    drawImage()
+    IMAGE:draw()
 end
 
 function love.update(dt)
