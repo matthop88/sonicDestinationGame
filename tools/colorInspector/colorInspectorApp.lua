@@ -84,14 +84,15 @@ local keepInBounds       = function()
         imageX = 0 
     end
 
+    -- Don't scroll too far down
+    if imageY + IMAGE:getHeight() < WINDOW.height then
+        imageY = WINDOW.height - IMAGE:getHeight()
+    end
+
     -- Don't scroll too far up
     if imageY > 0 then 
         imageY = 0 
     end
-
-    -- Don't scroll too far down
-    -- ...
-    
 end
 
 --------------------------------------------------------------
