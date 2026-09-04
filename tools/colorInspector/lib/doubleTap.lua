@@ -5,6 +5,8 @@ return {
     lastKeypressedTime = 0,
     lastThreshold      = 0,
 
+    ------------------------- Public Methods -------------------------
+
     qualify      = function(self, key)
         local isDoubleTap  = self:isDoubleTap(key)
         self.lastThreshold = self:getThreshold()
@@ -13,12 +15,23 @@ return {
         return isDoubleTap
     end,
 
-    isDoubleTap  = function(self, key)
-        return self.lastKeypressed == key and self:withinThreshold()
-    end,
-
     withinThreshold = function(self)
         return self:getThreshold() < self.THRESHOLD
+    end,
+
+    getLastKeypressed = function(self)
+        return self.lastKeypressed
+    end,
+
+    getLastThreshold  = function(self)
+        return self.lastThreshold
+    end,
+
+    ------------------------- Private Methods ------------------------
+
+
+    isDoubleTap  = function(self, key)
+        return self.lastKeypressed == key and self:withinThreshold()
     end,
 
     recordKey    = function(self, key)
@@ -30,11 +43,4 @@ return {
         return love.timer.getTime() - self.lastKeypressedTime
     end,
 
-    getLastKeypressed = function(self)
-        return self.lastKeypressed
-    end,
-
-    getLastThreshold  = function(self)
-        return self.lastThreshold
-    end,
 }
