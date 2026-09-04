@@ -54,26 +54,15 @@ local xSpeed, ySpeed = 0, 0
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
-local scrollUp           = function() ySpeed =  SCROLL_SPEED end
-local scrollDown         = function() ySpeed = -SCROLL_SPEED end
-local scrollLeft         = function() xSpeed =  SCROLL_SPEED end
-local scrollRight        = function() xSpeed = -SCROLL_SPEED end
+local scrollUp           = function() ySpeed =  SCROLL_SPEED       end
+local scrollDown         = function() ySpeed = -SCROLL_SPEED       end
+local scrollLeft         = function() xSpeed =  SCROLL_SPEED       end
+local scrollRight        = function() xSpeed = -SCROLL_SPEED       end
 
-local stopScrollingUp    = function() 
-    ySpeed = math.min(0, ySpeed)
-end
-
-local stopScrollingDown  = function() 
-    ySpeed = math.max(0, ySpeed)
-end
-
-local stopScrollingLeft  = function() 
-    xSpeed = math.min(0, xSpeed)
-end
-
-local stopScrollingRight = function() 
-    xSpeed = math.max(0, xSpeed)
-end
+local stopScrollingUp    = function() ySpeed = math.min(0, ySpeed) end
+local stopScrollingDown  = function() ySpeed = math.max(0, ySpeed) end
+local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
+local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
