@@ -66,14 +66,6 @@ local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local keepInBounds       = function()
-    --[[
-        If we have scrolled too far to the left
-                         or too far to the right
-                         or too far up
-                         or too far down
-        then correct
-    --]]
-
     -- Don't scroll too far to right
     if imageX + IMAGE:getWidth() < WINDOW.width then
         imageX = WINDOW.width - IMAGE:getWidth()
