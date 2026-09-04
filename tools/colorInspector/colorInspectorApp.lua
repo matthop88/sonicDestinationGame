@@ -74,14 +74,14 @@ local keepInBounds       = function()
         then correct
     --]]
 
-    -- Don't scroll too far to left
-    if imageX > 0 then 
-        imageX = 0 
-    end
-
     -- Don't scroll too far to right
     if imageX + IMAGE:getWidth() < WINDOW.width then
         imageX = WINDOW.width - IMAGE:getWidth()
+    end
+
+    -- Don't scroll too far to left
+    if imageX > 0 then 
+        imageX = 0 
     end
 
     -- Don't scroll too far up
