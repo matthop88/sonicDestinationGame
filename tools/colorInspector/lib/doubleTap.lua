@@ -7,20 +7,40 @@ local THRESHOLD           = 0.2
 local lastKeypressed      = nil
 local lastKeypressedTime  = 0
 local lastThreshold       = 0
+
+--------------------------------------------------------------
+--                       Private Methods                    --
+--------------------------------------------------------------
+
+local isDoubleTap  = function(self, key)
+    return lastKeypressed == key and self:withinThreshold()
+end
+
+local recordKey    = function(self, key)
+    lastKeypressed     = key
+    lastKeypressedTime = love.timer.getTime()
+end
+
+local getThreshold = function(self)
+    return love.timer.getTime() - lastKeypressedTime
+end
    
+--------------------------------------------------------------
+--                        Public Object                     --
+--------------------------------------------------------------
+
 return {
-    ------------------------- Public Methods -------------------------
-
+    
     qualify      = function(self, key)
-        local isDoubleTap  = self:isDoubleTap(key)
-        lastThreshold      = self:getThreshold()
+        local isDoubleTap  = isDoubleTap(self, key)
+        lastThreshold      = getThreshold(self)
 
-        self:recordKey(key)
+        recordKey(self, key)
         return isDoubleTap
     end,
 
     withinThreshold = function(self)
-        return self:getThreshold() < THRESHOLD
+        return getThreshold(self) < THRESHOLD
     end,
 
     getLastKeypressed = function(self)
@@ -29,22 +49,6 @@ return {
 
     getLastThreshold  = function(self)
         return lastThreshold
-    end,
-
-    ------------------------- Private Methods ------------------------
-
-
-    isDoubleTap  = function(self, key)
-        return lastKeypressed == key and self:withinThreshold()
-    end,
-
-    recordKey    = function(self, key)
-        lastKeypressed     = key
-        lastKeypressedTime = love.timer.getTime()
-    end,
-
-    getThreshold = function(self)
-        return love.timer.getTime() - lastKeypressedTime
     end,
 
 }
