@@ -17,21 +17,22 @@ return {
 
     scale     = 1,
 
-    draw      = function(self)
+    --------------------------------------------------------------------------------------
+    draw               = function(self)
         GRAFX.setColor(COLOR.PURE_WHITE)
         GRAFX.draw(self.image, self.x * self.scale, self.y * self.scale, 0, self.scale, self.scale)
     end,
 
-    move      = function(self, deltaX, deltaY)
+    move               = function(self, deltaX, deltaY)
         self.x = self.x + deltaX
         self.y = self.y + deltaY
     end,
 
-    scaleByDelta = function(self, scaleDelta)
+    scaleGeometrically = function(self, scaleDelta)
         self.scale = self.scale + (scaleDelta * self.scale)
     end,
 
-    keepInBounds = function(self)
+    keepInBounds       = function(self)
         self.x = math.min(0, math.max(self.x, (GRAFX.getWidth()  / self.scale) - self.image:getWidth()))
         self.y = math.min(0, math.max(self.y, (GRAFX.getHeight() / self.scale) - self.image:getHeight()))
     end,
