@@ -39,6 +39,8 @@ IMAGE        = love.graphics.newImage("game/resources/images/spriteSheets/sonic1
 local imageX, imageY     = 0, 0
 local xSpeed, ySpeed     = 0, 0
 
+local scale              = 5
+
 local DOUBLE_TAP   = require("tools/colorInspector/lib/doubleTap")
 
 local SCROLL_SPEED = {
@@ -75,7 +77,7 @@ local SCROLL_SPEED = {
 
 local drawImage           = function()
     love.graphics.setColor(COLOR.PURE_WHITE)
-    love.graphics.draw(IMAGE, imageX, imageY)
+    love.graphics.draw(IMAGE, imageX, imageY, 0, scale, scale)
 end
 
 local updateImage         = function(dt)
