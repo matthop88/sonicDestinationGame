@@ -15,7 +15,7 @@ return {
     x         = 0,
     y         = 0,
 
-    scale     = 5,
+    scale     = 1,
 
     draw      = function(self)
         GRAFX.setColor(COLOR.PURE_WHITE)
