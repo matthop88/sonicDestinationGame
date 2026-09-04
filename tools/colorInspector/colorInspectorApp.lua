@@ -49,6 +49,9 @@ local SCROLL_SPEED   = {
 
 }
 
+local scaleDelta     = 0
+local ZOOM_SPEED     = 2
+
 --------------------------------------------------------------
 --               Static code - is executed first            --
 --------------------------------------------------------------
@@ -99,11 +102,11 @@ end
 
 --------------------------- ZOOMING --------------------------
 
-local zoomIn              = function()                     end
-local zoomOut             = function()                     end
+local zoomIn              = function() scaleDelta = ZOOM_SPEED              end
+local zoomOut             = function() scaleDelta = -ZOOM_SPEED             end
 
-local stopZoomingIn       = function()                     end
-local stopZoomingOut      = function()                     end
+local stopZoomingIn       = function() scaleDelta = math.min(0, scaleDelta) end
+local stopZoomingOut      = function() scaleDelta = math.max(0, scaleDelta) end
 
 local handleZooming       = function(key)
     if     key == "z"     then zoomIn()
@@ -121,6 +124,7 @@ end
 
 local handleUpdate        = function(dt)
     IMAGE:move(xSpeed * dt, ySpeed * dt)
+    IMAGE.scale = IMAGE.scale + (scaleDelta * dt)
     if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
         IMAGE:keepInBounds()
     end
