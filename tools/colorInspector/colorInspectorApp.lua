@@ -78,7 +78,7 @@ end
 
 local updateImage         = function(dt)
     imageX = imageX + (xSpeed * dt)
-    imageY = imageY + (ySpeed * dt)
+    imageY = imageY + (ySpeed * dt)    
 end
 
 local keepImageInBounds   = function()
@@ -121,10 +121,6 @@ local handleKeyreleased  = function(key)
     elseif key == "left"  then stopScrollingLeft()
     elseif key == "right" then stopScrollingRight()
     end
-    
-    if not DOUBLE_TAP:withinThreshold() then
-        keepImageInBounds()
-    end
 end
 
 --------------------------------------------------------------
@@ -137,6 +133,9 @@ end
 
 function love.update(dt)
     updateImage(dt)
+    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
+        keepImageInBounds()
+    end
 end
 
 function love.keypressed(key)
