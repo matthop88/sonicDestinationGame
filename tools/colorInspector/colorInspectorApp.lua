@@ -122,6 +122,20 @@ local handleZooming       = function(key)
     end
 end
 
+local handleStopScrolling = function(key)
+    if     key == "up"    then stopScrollingUp()
+    elseif key == "down"  then stopScrollingDown()
+    elseif key == "left"  then stopScrollingLeft()
+    elseif key == "right" then stopScrollingRight()
+    end
+end
+
+local handleStopZooming   = function(key)
+    if     key == "z" then stopZoomingIn()
+    elseif key == "a" then stopZoomingOut()
+    end 
+end
+
 local handleUpdate        = function(dt)
     updateImage(dt)
     if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
@@ -136,13 +150,8 @@ local handleKeypressed    = function(key)
 end
 
 local handleKeyreleased   = function(key)
-    if     key == "up"    then stopScrollingUp()
-    elseif key == "down"  then stopScrollingDown()
-    elseif key == "left"  then stopScrollingLeft()
-    elseif key == "right" then stopScrollingRight()
-    elseif key == "z"     then stopZoomingIn()
-    elseif key == "a"     then stopZoomingOut()
-    end
+    handleStopScrolling(key)
+    handleStopZooming(key)
 end
 
 --------------------------------------------------------------
