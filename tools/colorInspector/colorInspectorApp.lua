@@ -80,6 +80,14 @@ local stopScrollingDown  = function() ySpeed = math.max(0, ySpeed) end
 local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
+local handleKeypressed   = function(key)
+    if     key == "up"    then scrollUp()
+    elseif key == "down"  then scrollDown() 
+    elseif key == "left"  then scrollLeft()
+    elseif key == "right" then scrollRight()
+    end
+end
+
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
@@ -93,11 +101,7 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
-    if     key == "up"    then scrollUp()
-    elseif key == "down"  then scrollDown() 
-    elseif key == "left"  then scrollLeft()
-    elseif key == "right" then scrollRight()
-    end
+    handleKeypressed(key)
 end
 
 function love.keyreleased(key)
