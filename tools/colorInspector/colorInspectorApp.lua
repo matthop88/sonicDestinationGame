@@ -46,6 +46,12 @@ local DOUBLE_TAP = {
 
     lastKeypressed     = nil,
     lastKeypressedTime = 0,
+
+    record = function(self, key)
+        self.lastKeypressed     = key
+        self.lastKeypressedTime = love.timer.getTime()
+    end,
+
 }
 
 --------------------------------------------------------------
@@ -96,8 +102,7 @@ local handleKeypressed   = function(key)
     elseif key == "right" then scrollRight()
     end
 
-    DOUBLE_TAP.lastKeypressed     = key
-    DOUBLE_TAP.lastKeypressedTime = love.timer.getTime()
+    DOUBLE_TAP:record(key)
 end
 
 local handleKeyreleased  = function(key)
