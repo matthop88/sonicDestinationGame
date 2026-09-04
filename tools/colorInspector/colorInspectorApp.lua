@@ -47,6 +47,10 @@ local DOUBLE_TAP = {
     lastKeypressed     = nil,
     lastKeypressedTime = 0,
 
+    isDoubleTap  = function(self, key)
+        return self.lastKeypressed == key and self:getThreshold() < self.THRESHOLD
+    end,
+
     getThreshold = function(self)
         return love.timer.getTime() - self.lastKeypressedTime
     end,
@@ -96,7 +100,7 @@ local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local handleKeypressed   = function(key)
-    if DOUBLE_TAP.lastKeypressed == key and DOUBLE_TAP:getThreshold() < DOUBLE_TAP.THRESHOLD then
+    if DOUBLE_TAP:isDoubleTap(key) then
         print("DOUBLE-TAPPING: " .. DOUBLE_TAP.lastKeypressed .. " at " .. DOUBLE_TAP:getThreshold())
     end
 
