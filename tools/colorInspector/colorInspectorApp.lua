@@ -26,7 +26,6 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-WINDOW        = require("tools/colorInspector/config/window")
 COLOR         = require("game/constants/colors")
 
 IMAGE = {
