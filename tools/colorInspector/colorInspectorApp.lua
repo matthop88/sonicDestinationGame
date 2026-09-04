@@ -71,6 +71,8 @@ local SCROLL_SPEED = {
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
+---------------------------- IMAGE ---------------------------
+
 local drawImage           = function()
     love.graphics.setColor(COLOR.PURE_WHITE)
     love.graphics.draw(IMAGE, imageX, imageY)
@@ -86,6 +88,16 @@ local keepImageInBounds   = function()
     imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
 end
 
+----------------------- DOUBLE TAPPING -----------------------
+
+local handleDoubleTapping = function(key)
+    if   DOUBLE_TAP:qualify(key) then SCROLL_SPEED:setDashing(true)
+    else                              SCROLL_SPEED:setDashing(false)    
+    end
+end
+
+-------------------------- SCROLLING -------------------------
+
 local scrollUp            = function() ySpeed =  SCROLL_SPEED:get() end
 local scrollDown          = function() ySpeed = -SCROLL_SPEED:get() end
 local scrollLeft          = function() xSpeed =  SCROLL_SPEED:get() end
@@ -96,29 +108,11 @@ local stopScrollingDown   = function() ySpeed = math.max(0, ySpeed) end
 local stopScrollingLeft   = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight  = function() xSpeed = math.max(0, xSpeed) end
 
-local zoomIn              = function()                              end
-local zoomOut             = function()                              end
-
-local stopZoomingIn       = function()                              end
-local stopZoomingOut      = function()                              end
-
-local handleDoubleTapping = function(key)
-    if   DOUBLE_TAP:qualify(key) then SCROLL_SPEED:setDashing(true)
-    else                              SCROLL_SPEED:setDashing(false)    
-    end
-end
-
 local handleScrolling     = function(key)
     if     key == "up"    then scrollUp()
     elseif key == "down"  then scrollDown() 
     elseif key == "left"  then scrollLeft()
     elseif key == "right" then scrollRight()
-    end
-end
-
-local handleZooming       = function(key)
-    if     key == "z"     then zoomIn()
-    elseif key == "a"     then zoomOut()
     end
 end
 
@@ -130,11 +124,27 @@ local handleStopScrolling = function(key)
     end
 end
 
+--------------------------- ZOOMING --------------------------
+
+local zoomIn              = function()                     end
+local zoomOut             = function()                     end
+
+local stopZoomingIn       = function()                     end
+local stopZoomingOut      = function()                     end
+
+local handleZooming       = function(key)
+    if     key == "z"     then zoomIn()
+    elseif key == "a"     then zoomOut()
+    end
+end
+
 local handleStopZooming   = function(key)
     if     key == "z" then stopZoomingIn()
     elseif key == "a" then stopZoomingOut()
     end 
 end
+
+----------------------- EVENT HANDLING -----------------------
 
 local handleUpdate        = function(dt)
     updateImage(dt)
