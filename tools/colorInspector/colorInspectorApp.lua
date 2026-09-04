@@ -139,7 +139,7 @@ local updateZooming       = function(dt)
         3. Translate x, y back so that point at upper left corner of screen becomes (mx, my)
     --]]
     
-    IMAGE:scaleByDelta(scaleDelta * dt)
+    IMAGE:scaleGeometrically(scaleDelta * dt)
 end
 
 ----------------------- EVENT HANDLING -----------------------
