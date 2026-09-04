@@ -42,6 +42,11 @@ IMAGE = {
         love.graphics.draw(self.image, self.x * self.scale, self.y * self.scale, 0, self.scale, self.scale)
     end,
 
+    move      = function(self, deltaX, deltaY)
+        self.x = self.x + deltaX
+        self.y = self.y + deltaY
+    end,
+
     getWidth  = function(self)
         return self.image:getWidth()
     end,
@@ -93,8 +98,7 @@ local SCROLL_SPEED = {
 ---------------------------- IMAGE ---------------------------
 
 local updateImage         = function(dt)
-    IMAGE.x = IMAGE.x + (xSpeed * dt)
-    IMAGE.y = IMAGE.y + (ySpeed * dt)    
+    IMAGE:move(xSpeed * dt, ySpeed * dt)   
 end
 
 local keepImageInBounds   = function()
