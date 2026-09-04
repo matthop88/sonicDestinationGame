@@ -67,12 +67,10 @@ local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local keepInBounds       = function()
     -- Don't scroll too far to right or left
-    imageX = math.max(imageX, WINDOW.width - IMAGE:getWidth())
-    imageX = math.min(imageX, 0)
-
+    imageX = math.min(0, math.max(imageX, WINDOW.width - IMAGE:getWidth()))
+    
     -- Don't scroll too far down or up
-    imageY = math.max(imageY, WINDOW.height - IMAGE:getHeight())
-    imageY = math.min(imageY, 0)
+    imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
 end
 
 --------------------------------------------------------------
