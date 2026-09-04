@@ -46,20 +46,36 @@ local DOUBLE_TAP = {
 
     lastKeypressed     = nil,
     lastKeypressedTime = 0,
+    lastThreshold      = 0,
+
+    qualify      = function(self, key)
+        local isDoubleTap  = self:isDoubleTap(key)
+        self.lastThreshold = self:getThreshold()
+
+        self:recordKey(key)
+        return isDoubleTap
+    end,
 
     isDoubleTap  = function(self, key)
         return self.lastKeypressed == key and self:getThreshold() < self.THRESHOLD
+    end,
+
+    recordKey    = function(self, key)
+        self.lastKeypressed     = key
+        self.lastKeypressedTime = love.timer.getTime()
     end,
 
     getThreshold = function(self)
         return love.timer.getTime() - self.lastKeypressedTime
     end,
 
-    record      = function(self, key)
-        self.lastKeypressed     = key
-        self.lastKeypressedTime = love.timer.getTime()
+    getLastKeypressed = function(self)
+        return self.lastKeypressed
     end,
 
+    getLastThreshold  = function(self)
+        return self.lastThreshold
+    end,
 }
 
 --------------------------------------------------------------
@@ -100,8 +116,8 @@ local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local handleKeypressed   = function(key)
-    if DOUBLE_TAP:isDoubleTap(key) then
-        print("DOUBLE-TAPPING: " .. DOUBLE_TAP.lastKeypressed .. " at " .. DOUBLE_TAP:getThreshold())
+    if DOUBLE_TAP:qualify(key) then
+        print("DOUBLE-TAPPING: " .. DOUBLE_TAP:getLastKeypressed() .. " at " .. DOUBLE_TAP:getLastThreshold())
     end
 
     if     key == "up"    then scrollUp()
@@ -109,8 +125,6 @@ local handleKeypressed   = function(key)
     elseif key == "left"  then scrollLeft()
     elseif key == "right" then scrollRight()
     end
-
-    DOUBLE_TAP:record(key)
 end
 
 local handleKeyreleased  = function(key)
