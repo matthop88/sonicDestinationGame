@@ -47,9 +47,9 @@ IMAGE = {
         self.y = self.y + deltaY
     end,
 
-    keepInBounds = function(self, windowWidth, windowHeight)
-        self.x = math.min(0, math.max(self.x, (windowWidth  / self.scale) - self.image:getWidth()))
-        self.y = math.min(0, math.max(self.y, (windowHeight / self.scale) - self.image:getHeight()))
+    keepInBounds = function(self)
+        self.x = math.min(0, math.max(self.x, (love.graphics.getWidth()  / self.scale) - self.image:getWidth()))
+        self.y = math.min(0, math.max(self.y, (love.graphics.getHeight() / self.scale) - self.image:getHeight()))
     end,
     
 }
@@ -153,7 +153,7 @@ end
 local handleUpdate        = function(dt)
     IMAGE:move(xSpeed * dt, ySpeed * dt)
     if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
-        IMAGE:keepInBounds(WINDOW.width, WINDOW.height)
+        IMAGE:keepInBounds()
     end
 end
 
