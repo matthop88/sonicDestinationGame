@@ -26,10 +26,11 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-COLOR = require("game/constants/colors")
+WINDOW       = require("tools/colorInspector/config/window")
+COLOR        = require("game/constants/colors")
 
-IMAGE = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
-        -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
+IMAGE        = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
+                -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
 
 SCROLL_SPEED = 500
 
@@ -79,7 +80,9 @@ local keepInBounds       = function()
     end
 
     -- Don't scroll too far to right
-    -- ...
+    if imageX + IMAGE:getWidth() < WINDOW.width then
+        imageX = WINDOW.width - IMAGE:getWidth()
+    end
 
     -- Don't scroll too far up
     if imageY > 0 then 
