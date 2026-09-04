@@ -88,6 +88,15 @@ local handleKeypressed   = function(key)
     end
 end
 
+local handleKeyreleased  = function(key)
+    if     key == "up"    then stopScrollingUp()
+    elseif key == "down"  then stopScrollingDown()
+    elseif key == "left"  then stopScrollingLeft()
+    elseif key == "right" then stopScrollingRight()
+    end
+    keepImageInBounds()
+end 
+
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
@@ -105,10 +114,5 @@ function love.keypressed(key)
 end
 
 function love.keyreleased(key)
-    if     key == "up"    then stopScrollingUp()
-    elseif key == "down"  then stopScrollingDown()
-    elseif key == "left"  then stopScrollingLeft()
-    elseif key == "right" then stopScrollingRight()
-    end
-    keepImageInBounds()
+    handleKeyreleased(key)
 end
