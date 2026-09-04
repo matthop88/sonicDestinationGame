@@ -64,6 +64,16 @@ local stopScrollingDown  = function() ySpeed = math.max(0, ySpeed) end
 local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
+local keepInBounds       = function()
+    --[[
+        If we have scrolled too far to the left
+                         or too far to the right
+                         or too far up
+                         or too far down
+        then correct
+    --]]
+end
+
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
@@ -76,6 +86,8 @@ end
 function love.update(dt)
     imageX = imageX + (xSpeed * dt)
     imageY = imageY + (ySpeed * dt)
+
+    keepInBounds()
 end
 
 function love.keypressed(key)
@@ -93,5 +105,3 @@ function love.keyreleased(key)
     elseif key == "right" then stopScrollingRight()
     end
 end
-
--- ... 
