@@ -106,43 +106,48 @@ local DOUBLE_TAP   = {
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
-local drawImage          = function()
+local drawImage           = function()
     love.graphics.setColor(COLOR.PURE_WHITE)
     love.graphics.draw(IMAGE, imageX, imageY)
 end
 
-local updateImage        = function(dt)
+local updateImage         = function(dt)
     imageX = imageX + (xSpeed * dt)
     imageY = imageY + (ySpeed * dt)
 end
 
-local keepImageInBounds  = function()
+local keepImageInBounds   = function()
     imageX = math.min(0, math.max(imageX, WINDOW.width  - IMAGE:getWidth()))
     imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
 end
 
-local scrollUp           = function() ySpeed =  SCROLL_SPEED:get() end
-local scrollDown         = function() ySpeed = -SCROLL_SPEED:get() end
-local scrollLeft         = function() xSpeed =  SCROLL_SPEED:get() end
-local scrollRight        = function() xSpeed = -SCROLL_SPEED:get() end
+local scrollUp            = function() ySpeed =  SCROLL_SPEED:get() end
+local scrollDown          = function() ySpeed = -SCROLL_SPEED:get() end
+local scrollLeft          = function() xSpeed =  SCROLL_SPEED:get() end
+local scrollRight         = function() xSpeed = -SCROLL_SPEED:get() end
 
-local stopScrollingUp    = function() ySpeed = math.min(0, ySpeed) end
-local stopScrollingDown  = function() ySpeed = math.max(0, ySpeed) end
-local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
-local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
+local stopScrollingUp     = function() ySpeed = math.min(0, ySpeed) end
+local stopScrollingDown   = function() ySpeed = math.max(0, ySpeed) end
+local stopScrollingLeft   = function() xSpeed = math.min(0, xSpeed) end
+local stopScrollingRight  = function() xSpeed = math.max(0, xSpeed) end
 
-local handleKeypressed   = function(key)
-    if DOUBLE_TAP:qualify(key) then
-        SCROLL_SPEED:setDashing(true)
-    else
-        SCROLL_SPEED:setDashing(false)
+local handleDoubleTapping = function(key)
+    if   DOUBLE_TAP:qualify(key) then SCROLL_SPEED:setDashing(true)
+    else                              SCROLL_SPEED:setDashing(false)    
     end
+end
 
+local handleScrolling     = function(key)
     if     key == "up"    then scrollUp()
     elseif key == "down"  then scrollDown() 
     elseif key == "left"  then scrollLeft()
     elseif key == "right" then scrollRight()
     end
+end
+
+local handleKeypressed   = function(key)
+    handleDoubleTapping(key)
+    handleScrolling(key)  
 end
 
 local handleKeyreleased  = function(key)
@@ -152,7 +157,7 @@ local handleKeyreleased  = function(key)
     elseif key == "right" then stopScrollingRight()
     end
     keepImageInBounds()
-end 
+end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
