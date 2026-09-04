@@ -26,20 +26,28 @@
 --                      Global Variables                    --
 --------------------------------------------------------------
 
-WINDOW       = require("tools/colorInspector/config/window")
-COLOR        = require("game/constants/colors")
+WINDOW        = require("tools/colorInspector/config/window")
+COLOR         = require("game/constants/colors")
 
 IMAGE = {
-    image    = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png"),
+    image     = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png"),
                -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
-    x        = 0,
-    y        = 0,
+    x         = 0,
+    y         = 0,
 
-    scale    = 5,
+    scale     = 5,
 
-    draw     = function(self)
+    draw      = function(self)
         love.graphics.setColor(COLOR.PURE_WHITE)
         love.graphics.draw(self.image, self.x * self.scale, self.y * self.scale, 0, self.scale, self.scale)
+    end,
+
+    getWidth  = function(self)
+        return self.image:getWidth()
+    end,
+
+    getHeight = function(self)
+        return self.image:getHeight()
     end,
 
 }
@@ -48,10 +56,7 @@ IMAGE = {
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local imageX, imageY     = 0, 0
 local xSpeed, ySpeed     = 0, 0
-
-local scale              = 5
 
 local DOUBLE_TAP   = require("tools/colorInspector/lib/doubleTap")
 
@@ -93,8 +98,8 @@ local updateImage         = function(dt)
 end
 
 local keepImageInBounds   = function()
-    IMAGE.x = math.min(0, math.max(IMAGE.x, (WINDOW.width  / IMAGE.scale) - IMAGE.image:getWidth()))
-    IMAGE.y = math.min(0, math.max(IMAGE.y, (WINDOW.height / IMAGE.scale) - IMAGE.image:getHeight()))
+    IMAGE.x = math.min(0, math.max(IMAGE.x, (WINDOW.width  / IMAGE.scale) - IMAGE:getWidth()))
+    IMAGE.y = math.min(0, math.max(IMAGE.y, (WINDOW.height / IMAGE.scale) - IMAGE:getHeight()))
 end
 
 ----------------------- DOUBLE TAPPING -----------------------
