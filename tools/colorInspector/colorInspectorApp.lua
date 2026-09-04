@@ -73,7 +73,11 @@ local DOUBLE_TAP   = {
     end,
 
     isDoubleTap  = function(self, key)
-        return self.lastKeypressed == key and self:getThreshold() < self.THRESHOLD
+        return self.lastKeypressed == key and self:withinThreshold()
+    end,
+
+    withinThreshold = function(self)
+        return self:getThreshold() < self.THRESHOLD
     end,
 
     recordKey    = function(self, key)
