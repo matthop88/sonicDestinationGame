@@ -14,7 +14,7 @@
                            --------
        [X] Image can be scrolled using the up, down,
            left and right arrow keys.
-       [-] Image can be zoomed in using the 'z' key
+       [ ] Image can be zoomed in using the 'z' key
            and zoomed out using the 'a' key
        [ ] Clicking on any pixel of the image prints
            an RGB description of the color both to
@@ -96,6 +96,12 @@ local stopScrollingDown   = function() ySpeed = math.max(0, ySpeed) end
 local stopScrollingLeft   = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight  = function() xSpeed = math.max(0, xSpeed) end
 
+local zoomIn              = function()                              end
+local zoomOut             = function()                              end
+
+local stopZoomingIn       = function()                              end
+local stopZoomingOut      = function()                              end
+
 local handleDoubleTapping = function(key)
     if   DOUBLE_TAP:qualify(key) then SCROLL_SPEED:setDashing(true)
     else                              SCROLL_SPEED:setDashing(false)    
@@ -110,23 +116,32 @@ local handleScrolling     = function(key)
     end
 end
 
-local handleUpdate       = function(dt)
+local handleZooming       = function(key)
+    if     key == "z"     then zoomIn()
+    elseif key == "a"     then zoomOut()
+    end
+end
+
+local handleUpdate        = function(dt)
     updateImage(dt)
     if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
         keepImageInBounds()
     end
 end
 
-local handleKeypressed   = function(key)
+local handleKeypressed    = function(key)
     handleDoubleTapping(key)
-    handleScrolling(key)  
+    handleScrolling(key)
+    handleZooming(key)
 end
 
-local handleKeyreleased  = function(key)
+local handleKeyreleased   = function(key)
     if     key == "up"    then stopScrollingUp()
     elseif key == "down"  then stopScrollingDown()
     elseif key == "left"  then stopScrollingLeft()
     elseif key == "right" then stopScrollingRight()
+    elseif key == "z"     then stopZoomingIn()
+    elseif key == "a"     then stopZoomingOut()
     end
 end
 
