@@ -160,7 +160,10 @@ local handleKeyreleased  = function(key)
     elseif key == "left"  then stopScrollingLeft()
     elseif key == "right" then stopScrollingRight()
     end
-    keepImageInBounds()
+    
+    if not DOUBLE_TAP:withinThreshold() then
+        keepImageInBounds()
+    end
 end
 
 --------------------------------------------------------------
