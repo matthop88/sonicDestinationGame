@@ -72,6 +72,17 @@ local keepInBounds       = function()
                          or too far down
         then correct
     --]]
+
+    -- Don't scroll too far to left
+    if imageX > 0 then 
+        imageX = 0 
+    end
+
+    -- Don't scroll too far up
+    if imageY > 0 then 
+        imageY = 0 
+    end
+    
 end
 
 --------------------------------------------------------------
