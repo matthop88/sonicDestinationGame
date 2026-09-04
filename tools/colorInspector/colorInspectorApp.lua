@@ -61,7 +61,7 @@ local updateImage        = function(dt)
 end
 
 local keepImageInBounds  = function()
-    imageX = math.min(0, math.max(imageX, WINDOW.width - IMAGE:getWidth()))
+    imageX = math.min(0, math.max(imageX, WINDOW.width  - IMAGE:getWidth()))
     imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
 end
 
