@@ -100,6 +100,13 @@ local handleStopScrolling = function(key)
     end
 end
 
+local updateScrolling     = function(dt)
+    IMAGE:move(xSpeed * dt, ySpeed * dt)
+    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
+        IMAGE:keepInBounds()
+    end
+end
+
 --------------------------- ZOOMING --------------------------
 
 local zoomIn              = function() scaleDelta = ZOOM_SPEED              end
@@ -120,14 +127,15 @@ local handleStopZooming   = function(key)
     end 
 end
 
+local updateZooming       = function(dt)
+    IMAGE:scaleByDelta(scaleDelta * dt)
+end
+
 ----------------------- EVENT HANDLING -----------------------
 
 local handleUpdate        = function(dt)
-    IMAGE:move(xSpeed * dt, ySpeed * dt)
-    IMAGE:scaleByDelta(scaleDelta * dt)
-    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
-        IMAGE:keepInBounds()
-    end
+    updateZooming(dt)
+    updateScrolling(dt)
 end
 
 local handleKeypressed    = function(key)
