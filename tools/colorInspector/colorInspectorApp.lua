@@ -1,39 +1,3 @@
---------------------------------------------------------------
---                 Functional Specifications                --
---------------------------------------------------------------
-
---[[
-                       Short Description
-                       -----------------
-          An image of choice is drawn to the screen.
-          Clicking on any pixel of the image prints
-          an RGB description of the color both to
-          the screen and to the text console.
-
-                           Features
-                           --------
-       [X] Image can be scrolled using the up, down,
-           left and right arrow keys.
-       [-] Image can be zoomed in using the 'z' key
-           and zoomed out using the 'a' key
-       [ ] Clicking on any pixel of the image prints
-           an RGB description of the color both to
-           the screen and to the text console.
-
---]]
-
---------------------------------------------------------------
---                       Local Variables                    --
---------------------------------------------------------------
-
-local IMAGE          = require("tools/colorInspector/lib/imageView")
-local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
-
-local xSpeed, ySpeed = 0, 0
-
-local SCROLL_SPEED   = {
-    VALUE      = 500,
-    isDashing  = false,
 
     get        = function(self)
         if self.isDashing then 
@@ -128,18 +92,23 @@ local handleStopZooming   = function(key)
 end
 
 local updateZooming       = function(dt)
-    --[[
-        Adjust x and y of image so that we are zooming in at point
-        the mouse is at
+    -- Given: mx, my => mouse position
+    local mx, my = love.mouse.getPosition()
+        
+    -- 1. Translate x, y so that point at (mx, my) is at upper left corner of screen
+    local dx = mx / IMAGE.scale
+    local dy = my / IMAGE.scale
 
-        Given: mx, my => mouse position
-
-        1. Translate x, y so that point at (mx, my) is at upper left corner of screen
-        2. Scale in same manner as before
-        3. Translate x, y back so that point at upper left corner of screen becomes (mx, my)
-    --]]
-    
+    IMAGE:move(-dx, -dy)
+        
+    -- 2. Scale in same manner as before
     IMAGE:scaleGeometrically(scaleDelta * dt)
+            
+    -- 3. Translate x, y back so that point at upper left corner of screen becomes (mx, my)
+    dx = mx / IMAGE.scale
+    dy = my / IMAGE.scale
+
+    IMAGE:move(dx, dy)
 end
 
 ----------------------- EVENT HANDLING -----------------------
