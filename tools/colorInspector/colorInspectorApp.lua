@@ -55,6 +55,11 @@ local xSpeed, ySpeed = 0, 0
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
+local drawImage          = function()
+    love.graphics.setColor(COLOR.PURE_WHITE)
+    love.graphics.draw(IMAGE, imageX, imageY)
+end
+
 local updateImage        = function(dt)
     imageX = imageX + (xSpeed * dt)
     imageY = imageY + (ySpeed * dt)
@@ -80,8 +85,7 @@ local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 --------------------------------------------------------------
 
 function love.draw()
-    love.graphics.setColor(COLOR.PURE_WHITE)
-    love.graphics.draw(IMAGE, imageX, imageY)
+    drawImage()
 end
 
 function love.update(dt)
