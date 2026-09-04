@@ -66,7 +66,7 @@ end
 
 local updateScrolling     = function(dt)
     IMAGE:move(xSpeed * dt, ySpeed * dt)
-    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
+    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() and scaleDelta <= 0 then
         IMAGE:keepInBounds()
     end
 end
