@@ -86,7 +86,6 @@ end
 
 function love.update(dt)
     updateImage(dt)
-    keepImageInBounds()
 end
 
 function love.keypressed(key)
@@ -103,4 +102,5 @@ function love.keyreleased(key)
     elseif key == "left"  then stopScrollingLeft()
     elseif key == "right" then stopScrollingRight()
     end
+    keepImageInBounds()
 end
