@@ -27,6 +27,10 @@ return {
         self.y = self.y + deltaY
     end,
 
+    scaleByDelta = function(self, scaleDelta)
+        self.scale = self.scale + (scaleDelta * self.scale)
+    end,
+
     keepInBounds = function(self)
         self.x = math.min(0, math.max(self.x, (GRAFX.getWidth()  / self.scale) - self.image:getWidth()))
         self.y = math.min(0, math.max(self.y, (GRAFX.getHeight() / self.scale) - self.image:getHeight()))
