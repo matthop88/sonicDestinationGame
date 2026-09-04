@@ -32,8 +32,6 @@ COLOR        = require("game/constants/colors")
 IMAGE        = love.graphics.newImage("game/resources/images/spriteSheets/sonic1/sonic1.png")
                -- https://www.spriters-resource.com/sega_genesis_32x/sonicth1/sheet/21628/
 
-SCROLL_SPEED         = 500
-
 --------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
@@ -41,7 +39,25 @@ SCROLL_SPEED         = 500
 local imageX, imageY     = 0, 0
 local xSpeed, ySpeed     = 0, 0
 
-local DOUBLE_TAP = {
+local SCROLL_SPEED = {
+    VALUE      = 500,
+    isDashing  = false,
+
+    get        = function(self)
+        if self.isDashing then 
+            return self.VALUE * 2
+        else                   
+            return self.VALUE   
+        end
+    end,
+
+    setDashing = function(self, dashing)
+        self.isDashing = dashing
+    end,
+
+}
+
+local DOUBLE_TAP   = {
     THRESHOLD          = 0.2,
 
     lastKeypressed     = nil,
@@ -105,10 +121,10 @@ local keepImageInBounds  = function()
     imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
 end
 
-local scrollUp           = function() ySpeed =  SCROLL_SPEED       end
-local scrollDown         = function() ySpeed = -SCROLL_SPEED       end
-local scrollLeft         = function() xSpeed =  SCROLL_SPEED       end
-local scrollRight        = function() xSpeed = -SCROLL_SPEED       end
+local scrollUp           = function() ySpeed =  SCROLL_SPEED:get() end
+local scrollDown         = function() ySpeed = -SCROLL_SPEED:get() end
+local scrollLeft         = function() xSpeed =  SCROLL_SPEED:get() end
+local scrollRight        = function() xSpeed = -SCROLL_SPEED:get() end
 
 local stopScrollingUp    = function() ySpeed = math.min(0, ySpeed) end
 local stopScrollingDown  = function() ySpeed = math.max(0, ySpeed) end
@@ -117,7 +133,9 @@ local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local handleKeypressed   = function(key)
     if DOUBLE_TAP:qualify(key) then
-        print("DOUBLE-TAPPING: " .. DOUBLE_TAP:getLastKeypressed() .. " at " .. DOUBLE_TAP:getLastThreshold())
+        SCROLL_SPEED:setDashing(true)
+    else
+        SCROLL_SPEED:setDashing(false)
     end
 
     if     key == "up"    then scrollUp()
