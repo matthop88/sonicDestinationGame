@@ -34,8 +34,6 @@ IMAGE        = love.graphics.newImage("game/resources/images/spriteSheets/sonic1
 
 SCROLL_SPEED         = 500
 
-DOUBLE_TAP_THRESHOLD = 0.2
-
 --------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
@@ -43,8 +41,12 @@ DOUBLE_TAP_THRESHOLD = 0.2
 local imageX, imageY     = 0, 0
 local xSpeed, ySpeed     = 0, 0
 
-local lastKeypressed     = nil
-local lastKeypressedTime = 0
+local DOUBLE_TAP = {
+    THRESHOLD          = 0.2,
+
+    lastKeypressed     = nil,
+    lastKeypressedTime = 0,
+}
 
 --------------------------------------------------------------
 --               Static code - is executed first            --
@@ -84,8 +86,8 @@ local stopScrollingLeft  = function() xSpeed = math.min(0, xSpeed) end
 local stopScrollingRight = function() xSpeed = math.max(0, xSpeed) end
 
 local handleKeypressed   = function(key)
-    if lastKeypressed == key and love.timer.getTime() - lastKeypressedTime < DOUBLE_TAP_THRESHOLD then
-        print("DOUBLE-TAPPING: " .. lastKeypressed .. " at " .. love.timer.getTime() - lastKeypressedTime)
+    if DOUBLE_TAP.lastKeypressed == key and love.timer.getTime() - DOUBLE_TAP.lastKeypressedTime < DOUBLE_TAP.THRESHOLD then
+        print("DOUBLE-TAPPING: " .. DOUBLE_TAP.lastKeypressed .. " at " .. love.timer.getTime() - DOUBLE_TAP.lastKeypressedTime)
     end
 
     if     key == "up"    then scrollUp()
@@ -94,8 +96,8 @@ local handleKeypressed   = function(key)
     elseif key == "right" then scrollRight()
     end
 
-    lastKeypressed     = key
-    lastKeypressedTime = love.timer.getTime()
+    DOUBLE_TAP.lastKeypressed     = key
+    DOUBLE_TAP.lastKeypressedTime = love.timer.getTime()
 end
 
 local handleKeyreleased  = function(key)
