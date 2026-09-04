@@ -86,8 +86,8 @@ local updateImage         = function(dt)
 end
 
 local keepImageInBounds   = function()
-    imageX = math.min(0, math.max(imageX, WINDOW.width  - IMAGE:getWidth()))
-    imageY = math.min(0, math.max(imageY, WINDOW.height - IMAGE:getHeight()))
+    imageX = math.min(0, math.max(imageX, (WINDOW.width  / scale) - IMAGE:getWidth()))
+    imageY = math.min(0, math.max(imageY, (WINDOW.height / scale) - IMAGE:getHeight()))
 end
 
 ----------------------- DOUBLE TAPPING -----------------------
