@@ -1,3 +1,39 @@
+--------------------------------------------------------------
+--                 Functional Specifications                --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+          An image of choice is drawn to the screen.
+          Clicking on any pixel of the image prints
+          an RGB description of the color both to
+          the screen and to the text console.
+
+                           Features
+                           --------
+       [X] Image can be scrolled using the up, down,
+           left and right arrow keys.
+       [-] Image can be zoomed in using the 'z' key
+           and zoomed out using the 'a' key
+       [ ] Clicking on any pixel of the image prints
+           an RGB description of the color both to
+           the screen and to the text console.
+
+--]]
+
+--------------------------------------------------------------
+--                       Local Variables                    --
+--------------------------------------------------------------
+
+local IMAGE          = require("tools/colorInspector/lib/imageView")
+local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
+
+local xSpeed, ySpeed = 0, 0
+
+local SCROLL_SPEED   = {
+    VALUE      = 500,
+    isDashing  = false,
 
     get        = function(self)
         if self.isDashing then 
