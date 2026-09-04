@@ -110,6 +110,13 @@ local handleScrolling     = function(key)
     end
 end
 
+local handleUpdate       = function(dt)
+    updateImage(dt)
+    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
+        keepImageInBounds()
+    end
+end
+
 local handleKeypressed   = function(key)
     handleDoubleTapping(key)
     handleScrolling(key)  
@@ -132,10 +139,7 @@ function love.draw()
 end
 
 function love.update(dt)
-    updateImage(dt)
-    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() then
-        keepImageInBounds()
-    end
+    handleUpdate(dt)
 end
 
 function love.keypressed(key)
