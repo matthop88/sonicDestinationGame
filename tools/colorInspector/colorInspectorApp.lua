@@ -23,20 +23,15 @@
 --]]
 
 --------------------------------------------------------------
---                      Global Variables                    --
---------------------------------------------------------------
-
-IMAGE = require("tools/colorInspector/lib/imageView")
-
---------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local xSpeed, ySpeed     = 0, 0
+local IMAGE          = require("tools/colorInspector/lib/imageView")
+local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
 
-local DOUBLE_TAP   = require("tools/colorInspector/lib/doubleTap")
+local xSpeed, ySpeed = 0, 0
 
-local SCROLL_SPEED = {
+local SCROLL_SPEED   = {
     VALUE      = 500,
     isDashing  = false,
 
