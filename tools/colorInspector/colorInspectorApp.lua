@@ -72,9 +72,7 @@ local keepInBounds       = function()
     end
 
     -- Don't scroll too far to left
-    if imageX > 0 then 
-        imageX = 0 
-    end
+    imageX = math.min(imageX, 0)
 
     -- Don't scroll too far down
     if imageY + IMAGE:getHeight() < WINDOW.height then
@@ -82,9 +80,7 @@ local keepInBounds       = function()
     end
 
     -- Don't scroll too far up
-    if imageY > 0 then 
-        imageY = 0 
-    end
+    imageY = math.min(imageY, 0)
 end
 
 --------------------------------------------------------------
