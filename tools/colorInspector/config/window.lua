@@ -1,5 +1,5 @@
 return {
     title  = "Color Inspector",
-    width  =  400,
+    width  = 1200,
     height =  800,
 }
