@@ -128,23 +128,9 @@ local handleStopZooming   = function(key)
 end
 
 local updateZooming       = function(dt)
-    -- Given: mx, my => mouse position
     local mx, my = love.mouse.getPosition()
-        
-    -- 1. Translate x, y so that point at (mx, my) is at upper left corner of screen
-    local dx = mx / IMAGE.scale
-    local dy = my / IMAGE.scale
-
-    IMAGE:move(-dx, -dy)
-        
-    -- 2. Scale in same manner as before
-    IMAGE:scaleGeometrically(scaleDelta * dt)
-            
-    -- 3. Translate x, y back so that point at upper left corner of screen becomes (mx, my)
-    dx = mx / IMAGE.scale
-    dy = my / IMAGE.scale
-
-    IMAGE:move(dx, dy)
+    
+    IMAGE:scaleGeometrically(scaleDelta * dt, mx, my)
 end
 
 ----------------------- EVENT HANDLING -----------------------
