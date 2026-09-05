@@ -36,16 +36,12 @@ return {
     end,
 
     scaleGeometrically = function(self, scaleDelta, px, py)
-        -- 1. Translate x, y so that point at (px, py) is at upper left corner of screen
         local oldScale = self.scale
         
-        self:move(-px / oldScale, -py / oldScale)
-        
-        -- 2. Scale in same manner as before
         self.scale = oldScale + (scaleDelta * oldScale)
 
-        -- 3. Translate x, y back so that point at upper left corner of screen becomes (px, py)
-        self:move(px / self.scale, py / self.scale)
+        self:move(-px / oldScale,  -py / oldScale)
+        self:move( px / self.scale, py / self.scale)
         
     end,
 
