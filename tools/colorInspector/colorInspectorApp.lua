@@ -151,22 +151,10 @@ end
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()
-    handleDraw()
-end
-
-function love.update(dt)
-    handleUpdate(dt)
-end
-
-function love.keypressed(key)
-    handleKeypressed(key)
-end
-
-function love.keyreleased(key)
-    handleKeyreleased(key)
-end
-
+function love.draw()           handleDraw()             end
+function love.update(dt)       handleUpdate(dt)         end
+function love.keypressed(key)  handleKeypressed(key)    end
+function love.keyreleased(key) handleKeyreleased(key)   end
 
 
 --[[
