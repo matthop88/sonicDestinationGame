@@ -17,15 +17,11 @@
 --]]
 
 --------------------------------------------------------------
---                      Global Variables                    --
---------------------------------------------------------------
-
-COLOR  = require(PARENT_PATH .. "constants/colors")
-WINDOW = require(PARENT_PATH .. "config/window")
-
---------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
+
+local GRAFX  = love.graphics
+local COLOR  = require(PARENT_PATH .. "constants/colors")
 
 local WORKSPACE = {
     draw = function(self)
@@ -34,23 +30,15 @@ local WORKSPACE = {
     end,
 
     drawBackground = function(self)
-        love.graphics.clear(COLOR.GREEN)
+        GRAFX.clear(COLOR.GREEN)
     end,
 
     drawHorizontalLine = function(self)
-        love.graphics.setColor(COLOR.PURE_WHITE)
-        love.graphics.setLineWidth(3)
-        love.graphics.line(0, WINDOW.height * 3 / 4, WINDOW.width, WINDOW.height * 3 / 4)
+        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.setLineWidth(3)
+        GRAFX.line(0, GRAFX.getHeight() * 3 / 4, GRAFX.getWidth(), GRAFX.getHeight() * 3 / 4)
     end,
 }
-
---------------------------------------------------------------
---              Static code - is executed first             --
---------------------------------------------------------------
-
--- ...
--- ...
--- ...
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
