@@ -135,6 +135,10 @@ end
 
 ----------------------- EVENT HANDLING -----------------------
 
+local handleDraw          = function()
+    IMAGE:draw()
+end
+
 local handleUpdate        = function(dt)
     updateZooming(dt)
     updateScrolling(dt)
@@ -156,7 +160,7 @@ end
 --------------------------------------------------------------
 
 function love.draw()
-    IMAGE:draw()
+    handleDraw()
 end
 
 function love.update(dt)
