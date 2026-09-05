@@ -28,8 +28,29 @@ return {
         self.y = self.y + deltaY
     end,
 
-    scaleGeometrically = function(self, scaleDelta)
+    screenToImageCoordinates = function(self, screenX, screenY)
+        local x = screenX / self.scale - self.x
+        local y = screenY / self.scale - self.y
+        
+        return x, y
+    end,
+
+    scaleGeometrically = function(self, scaleDelta, px, py)
+        -- 1. Translate x, y so that point at (px, py) is at upper left corner of screen
+        local dx = px / self.scale
+        local dy = py / self.scale
+
+        self:move(-dx, -dy)
+        
+        -- 2. Scale in same manner as before
         self.scale = self.scale + (scaleDelta * self.scale)
+
+        -- 3. Translate x, y back so that point at upper left corner of screen becomes (px, py)
+        dx = px / self.scale
+        dy = py / self.scale
+
+        self:move(dx, dy)
+        
     end,
 
     keepInBounds       = function(self)
