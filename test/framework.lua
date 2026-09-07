@@ -1,25 +1,12 @@
-local LINE_SEPARATOR = string.rep("-", 100) .. "\n"
+local TEST_DISCOVERY     = require("test/lib/testDiscovery")
+local TEST_SUITE_FACTORY = require("test/lib/testSuite")
 
-local TEST_DISCOVERY = require("test/lib/testDiscovery")
-local testGroups     = TEST_DISCOVERY:createTestGroups()
+local testGroups         = TEST_DISCOVERY:createTestGroups()
+local testSuite          = TEST_SUITE_FACTORY:create(testGroups)
 
-local totalTestCount   = 0
-local totalTestsPassed = 0
+testSuite:runTests()
 
-for _, testGroup in ipairs(testGroups) do
-	print("\n" .. LINE_SEPARATOR .. "Running " .. testGroup:getName() .. " Tests...\n" .. LINE_SEPARATOR)
-
-	testGroup:runTests()
-
-	print("\nTests Passed: " .. testGroup:getTestsPassed() .. " out of " .. testGroup:getTestCount())
-
-	totalTestCount   = totalTestCount   + testGroup:getTestCount()
-	totalTestsPassed = totalTestsPassed + testGroup:getTestsPassed()
-end
-
-print(LINE_SEPARATOR)
-
-print("Total Tests Passed: " .. totalTestsPassed .. " out of " .. totalTestCount.. "\n")
+print("Total Tests Passed: " .. testSuite:getTotalTestsPassed() .. " out of " .. testSuite:getTotalTestCount() .. "\n")
 
 love.event.quit()
 
