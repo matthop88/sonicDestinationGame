@@ -10,4 +10,8 @@ return {
             return false
 		end
 	end,
+
+	FALSE = function(self, name, expression)
+		return self:TRUE(name, not expression)
+	end,
 }
