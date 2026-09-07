@@ -19,7 +19,7 @@ local APPLICATIONS = {
 	    ----------------------- TESTS ------------------------
 	    test = {
 	    	PATH     = "test/",
-	    	APP_NAME = "stringUtil",
+	    	APP_NAME = "framework",
 	    },
 	
 		----------------------- TOOLS ------------------------
