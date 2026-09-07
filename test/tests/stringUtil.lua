@@ -3,10 +3,6 @@ local STRING_UTIL = require("game/util/stringUtil")
 
 return {
 	runTests = function(self)
-		-- Run tests for stringUtil.
-		-- Test #1: startsWith
-		-- Test #2: endsWith
-
 		print("Running StringUtil tests...")
 
 		self:startsWithTest()
