@@ -1,4 +1,4 @@
-local stringUtilTests = require("test/stringUtil")
+local stringUtilTests = require("test/tests/stringUtil")
 
 stringUtilTests:runTests()
 
