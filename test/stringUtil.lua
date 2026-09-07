@@ -3,5 +3,7 @@ return {
 		-- Run tests for stringUtil.
 		-- Test #1: startsWith
 		-- Test #2: endsWith
+
+		print("Running StringUtil tests...")
 	end,
 }
