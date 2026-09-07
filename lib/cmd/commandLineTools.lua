@@ -14,13 +14,15 @@ return {
         params = {}
 
         for n, arg in ipairs(args) do
-            if key ~= nil then
-            	params[key] = arg
-                key = nil
-            elseif STRING_UTIL:startsWith(arg, "--") then
+            if     STRING_UTIL:startsWith(arg, "--") then
             	key = STRING_UTIL:dropPrefix(arg, 2)
+                params[key] = true
             elseif STRING_UTIL:startsWith(arg, "-")  then
                 key = STRING_UTIL:dropPrefix(arg, 1)
+                params[key] = true
+            elseif key ~= nil then
+                params[key] = arg
+                key = nil
 			end
 		end
 
