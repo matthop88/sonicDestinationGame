@@ -1,7 +1,15 @@
 local STRING_UTIL = require("game/util/stringUtil")
 
 return {
-    listArgs = function(self, args)
+    listParams = function(self, args)
+    	local params = self:getParams(args)
+
+    	for k, v in pairs(params) do
+			print(k .. " = " .. v)
+		end
+	end,
+
+    getParams = function(self, args)
         key = nil
         params = {}
 
@@ -16,8 +24,6 @@ return {
 			end
 		end
 
-		for k, v in pairs(params) do
-			print(k .. " = " .. v)
-		end
+		return params
 	end,
 }
