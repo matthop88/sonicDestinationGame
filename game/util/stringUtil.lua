@@ -10,4 +10,8 @@ return {
     dropSuffix = function(self, str, suffixLength)
         return string.sub(str, 1, string.len(str) - suffixLength)
     end,
+
+    dropPrefix = function(self, str, prefixLength)
+        return string.sub(str, prefixLength + 1, -1)
+    end,
 }
