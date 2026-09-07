@@ -25,4 +25,14 @@ return {
 
 		return ASSERT:FALSE("Doesn't Start With Prefix", startsWith)
 	end,
+
+	testDropSuffix = function(self)
+		local testString   = "sonicIsAwesome.exe"
+		local suffixLength = 4
+
+		local expected     = "sonicIsAwesome"
+		local actual       = STRING_UTIL:dropSuffix(testString, suffixLength)
+
+		return ASSERT:EQUALS("Drop Suffix", expected, actual)
+	end,
 }
