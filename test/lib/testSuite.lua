@@ -1,11 +1,21 @@
-local LINE_SEPARATOR = string.rep("-", 100) .. "\n"
+local LINE_SEPARATOR     = string.rep("-", 100) .. "\n"
+local TEST_GROUP_FACTORY = require("test/lib/testGroup")
 
 return {
-	create = function(self, testGroups)
-		return {
-			TEST_GROUPS = testGroups,
+	create = function(self, testClasses)
+		return ({
+			TEST_GROUPS = {},
 
-			runTests          = function(self)
+			init = function(self, testClasses)
+				for _, testClass in ipairs(testClasses) do
+            		local testGroup = TEST_GROUP_FACTORY:create(testClass)
+            		table.insert(self.TEST_GROUPS, testGroup)
+            	end
+
+            	return self
+            end,
+        
+        	runTests = function(self)
 				for _, testGroup in ipairs(self.TEST_GROUPS) do
 					print("\n" .. LINE_SEPARATOR .. "Running " .. testGroup:getName() .. " Tests...\n" .. LINE_SEPARATOR)
 					testGroup:runTests()
@@ -36,6 +46,6 @@ return {
 				return totalTestCount
 			end,
 
-		}
+		}):init(testClasses)
 	end,
 }
