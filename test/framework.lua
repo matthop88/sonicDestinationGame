@@ -9,7 +9,6 @@ local testGroups     = {}
 
 for _, testClass in ipairs(testClasses) do
 	local testGroup = TEST_GROUP:create(testClass)
-	testGroup:init()
 	table.insert(testGroups, testGroup)
 end
 
