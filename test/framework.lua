@@ -2,15 +2,7 @@ local LINE_SEPARATOR = string.rep("-", 100) .. "\n"
 
 local STRING_UTIL    = require("game/util/stringUtil")
 local TEST_DISCOVERY = require("test/lib/testDiscovery")
-local TEST_GROUP     = require("test/lib/testGroup")
-
-local testClasses    = TEST_DISCOVERY:findTestClasses()
-local testGroups     = {}
-
-for _, testClass in ipairs(testClasses) do
-	local testGroup = TEST_GROUP:create(testClass)
-	table.insert(testGroups, testGroup)
-end
+local testGroups     = TEST_DISCOVERY:createTestGroups()
 
 local totalTestCount   = 0
 local totalTestsPassed = 0
@@ -29,7 +21,6 @@ end
 print(LINE_SEPARATOR)
 
 print("Total Tests Passed: " .. totalTestsPassed .. " out of " .. totalTestCount.. "\n")
-
 
 love.event.quit()
 
