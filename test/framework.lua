@@ -1,8 +1,8 @@
 local TEST_DISCOVERY     = require("test/lib/testDiscovery")
 local TEST_SUITE_FACTORY = require("test/lib/testSuite")
 
-local testGroups         = TEST_DISCOVERY:createTestGroups()
-local testSuite          = TEST_SUITE_FACTORY:create(testGroups)
+local testClasses        = TEST_DISCOVERY:findTestClasses()
+local testSuite          = TEST_SUITE_FACTORY:create(testClasses)
 
 testSuite:runTests()
 
