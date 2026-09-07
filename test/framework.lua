@@ -7,7 +7,7 @@ local testCount   = 0
 local testsPassed = 0
 
 for k, v in pairs(stringUtilTestClass) do
-	if STRING_UTIL:endsWith(k, "Test") then
+	if STRING_UTIL:startsWith(k, "test") then
 		testsToRun[k] = v
 		testCount     = testCount + 1
 	end
