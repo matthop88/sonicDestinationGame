@@ -3,10 +3,15 @@ local STRING_UTIL = require("game/util/stringUtil")
 
 return {
 	runTests = function(self)
-		print("Running StringUtil tests...")
+		print("\nRunning StringUtil tests...\n")
 
-		self:startsWithTest()
-		self:endsWithTest()
+		local totalTests  = 2
+		local testsPassed = 0
+		
+		if self:startsWithTest() then testsPassed = testsPassed + 1 end
+		if self:endsWithTest()   then testsPassed = testsPassed + 1 end
+
+		print("\nTests Passed: " .. testsPassed .. " out of " .. totalTests.. "\n")
 	end,
 
 	startsWithTest = function(self)
@@ -14,7 +19,7 @@ return {
 		local prefix     = "Ziz"
 		local startsWith = STRING_UTIL:startsWith(testString, prefix)
 
-		ASSERT:TRUE("Starts With Prefix", startsWith)
+		return ASSERT:TRUE("Starts With Prefix", startsWith)
 	end,
 
 	endsWithTest   = function(self)
@@ -22,6 +27,6 @@ return {
 		local suffix     = "Metarex!"
 		local endsWith   = STRING_UTIL:endsWith(testString, suffix)
 
-		ASSERT:TRUE("Ends With Suffix", endsWith)
+		return ASSERT:TRUE("Ends With Suffix", endsWith)
 	end,
 }
