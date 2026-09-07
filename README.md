@@ -15,6 +15,12 @@ From within the ***game/*** directory, the game can be executed via:
 
     love .
 
+## Running Unit Tests
+
+From within this directory, Unit Tests can be run via:
+
+    love . test
+
 ## Executing Tools
 
 Currently, there is only one tool in this project: **colorInspector**.
@@ -24,5 +30,4 @@ Currently, there is only one tool in this project: **colorInspector**.
 From within this directory, the Color Inspector can be launched via:
 
     love . inspector
-
 

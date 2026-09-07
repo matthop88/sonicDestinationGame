@@ -10,11 +10,19 @@ PARENT_PATH = "game/"
 
 local APPLICATIONS = {
     appData = {
+    	------------------------ GAME ------------------------
 		game = {
 	        PATH     = "game/",
 	        APP_NAME = "application",
 	    },
+
+	    ----------------------- TESTS ------------------------
+	    test = {
+	    	PATH     = "test/",
+	    	APP_NAME = "framework",
+	    },
 	
+		----------------------- TOOLS ------------------------
 	    inspector = {
 	        PATH     = "tools/colorInspector/",
 	        APP_NAME = "colorInspectorApp",
