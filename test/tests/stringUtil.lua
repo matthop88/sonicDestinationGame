@@ -1,3 +1,4 @@
+local ASSERT      = require("test/lib/assert")
 local STRING_UTIL = require("game/util/stringUtil")
 
 return {
@@ -16,6 +17,6 @@ return {
 		local prefix     = "Ziz"
 		local startsWith = STRING_UTIL:startsWith(testString, prefix)
 
-		print("Test String: \"" .. testString .. "\", Prefix: \"" .. prefix .. "\", StartsWith: ", startsWith)
+		ASSERT:TRUE("Starts With Prefix", startsWith)
 	end,
 }
