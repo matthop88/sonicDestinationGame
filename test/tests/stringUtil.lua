@@ -10,6 +10,7 @@ return {
 		print("Running StringUtil tests...")
 
 		self:startsWithTest()
+		self:endsWithTest()
 	end,
 
 	startsWithTest = function(self)
@@ -18,5 +19,13 @@ return {
 		local startsWith = STRING_UTIL:startsWith(testString, prefix)
 
 		ASSERT:TRUE("Starts With Prefix", startsWith)
+	end,
+
+	endsWithTest   = function(self)
+		local testString = "Aaah! It's a Metarex!"
+		local suffix     = "Metarex!"
+		local endsWith   = STRING_UTIL:endsWith(testString, suffix)
+
+		ASSERT:TRUE("Ends With Suffix", endsWith)
 	end,
 }
