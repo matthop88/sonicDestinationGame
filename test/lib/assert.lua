@@ -1,7 +1,7 @@
 local ASTERISKS = string.rep("*", 100) .. "\n"
 
 return {
-	TRUE = function(self, name, expression)
+	TRUE   = function(self, name, expression)
 		if expression == true then
 			print("PASSED => " .. name)
 			return true
@@ -11,7 +11,20 @@ return {
 		end
 	end,
 
-	FALSE = function(self, name, expression)
+	FALSE  = function(self, name, expression)
 		return self:TRUE(name, not expression)
 	end,
+
+	EQUALS = function(self, name, expected, actual)
+        if expected == actual then
+            print("PASSED => " .. name)
+            return true
+        else
+            print("\n" .. ASTERISKS .. "FAILED => " .. name)
+            print("  Expected: ", expected)
+            print("  Actual: ",   actual)
+            print(ASTERISKS)
+            return false
+        end
+    end,
 }
