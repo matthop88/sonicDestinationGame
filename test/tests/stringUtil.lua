@@ -2,7 +2,7 @@ local ASSERT      = require("test/lib/assert")
 local STRING_UTIL = require("game/util/stringUtil")
 
 return {
-	startsWithTest = function(self)
+	testStartsWith = function(self)
 		local testString = "Zizzer Zazzer Zuzz"
 		local prefix     = "Ziz"
 		local startsWith = STRING_UTIL:startsWith(testString, prefix)
@@ -10,7 +10,7 @@ return {
 		return ASSERT:TRUE("Starts With Prefix", startsWith)
 	end,
 
-	endsWithTest   = function(self)
+	testEndsWith   = function(self)
 		local testString = "Aaah! It's a Metarex!"
 		local suffix     = "Metarex!"
 		local endsWith   = STRING_UTIL:endsWith(testString, suffix)
