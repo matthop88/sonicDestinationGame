@@ -1,6 +1,5 @@
 local LINE_SEPARATOR = string.rep("-", 100) .. "\n"
 
-local STRING_UTIL    = require("game/util/stringUtil")
 local TEST_DISCOVERY = require("test/lib/testDiscovery")
 local testGroups     = TEST_DISCOVERY:createTestGroups()
 
