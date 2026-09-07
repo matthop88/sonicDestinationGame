@@ -18,11 +18,11 @@ return {
 		return ASSERT:TRUE("Ends With Suffix", endsWith)
 	end,
 
-	testFailingTest = function(self)
+	testNotEndsWith = function(self)
 		local testString = "Welcome to the Next Level"
 		local prefix     = "Nintendo Power!"
 		local startsWith = STRING_UTIL:startsWith(testString, prefix)
 
-		return ASSERT:TRUE("Starts With Prefix (Expected Failure)", startsWith)
+		return ASSERT:FALSE("Doesn't Start With Prefix", startsWith)
 	end,
 }
