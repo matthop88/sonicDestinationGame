@@ -2,7 +2,7 @@ local STRING_UTIL = require("game/util/stringUtil")
 
 return {
 	create = function(self, testClass)
-		return {
+		return ({
 			TEST_CLASS  = testClass,
 
 			testsToRun  = {},
@@ -16,6 +16,8 @@ return {
 						self.testCount           = self.testCount + 1
 					end
 				end
+
+				return self
 			end,
 
 			runTests = function(self)
@@ -39,6 +41,6 @@ return {
 			getName        = function(self)
 				return self.TEST_CLASS.NAME
 			end,
-		}
+		}):init()
 	end,
 }
