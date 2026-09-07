@@ -2,6 +2,8 @@ local ASSERT      = require("test/lib/assert")
 local STRING_UTIL = require("game/util/stringUtil")
 
 return {
+	NAME           = "StringUtil",
+
 	testStartsWith = function(self)
 		local testString = "Zizzer Zazzer Zuzz"
 		local prefix     = "Ziz"
