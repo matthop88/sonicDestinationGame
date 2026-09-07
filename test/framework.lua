@@ -3,9 +3,9 @@ local TEST_DISCOVERY = require("test/lib/testDiscovery")
 
 local TEST_CLASSES   = TEST_DISCOVERY:findTestClasses()
 
-print("\nRunning Tests...\n")
-
 for _, testClass in ipairs(TEST_CLASSES) do
+	print("\nRunning " .. testClass.NAME .. " Tests...\n")
+
 	local testsToRun = {}
 	local testCount   = 0
 	local testsPassed = 0
