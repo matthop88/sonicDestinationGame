@@ -33,4 +33,14 @@ return {
 
 		return ASSERT:EQUALS("Two command-line arguments full-length", "myFile", params["inMap"])
 	end,
+
+	testFiveArgumentsMixed = function(self)
+		local params = COMMAND_LINE_TOOLS:getParams({ "-i", "inFile", "--silentMode", "-o", "outFile" })
+
+		return ASSERT:TRUE("Five command-line arguments mixed style",
+							params["silentMode"] == true
+						and params["i"]          == "inFile"
+						and params["o"]          == "outFile")
+	end,
+
 }
