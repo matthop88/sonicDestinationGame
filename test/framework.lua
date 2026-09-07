@@ -2,37 +2,29 @@ local LINE_SEPARATOR = string.rep("-", 100) .. "\n"
 
 local STRING_UTIL    = require("game/util/stringUtil")
 local TEST_DISCOVERY = require("test/lib/testDiscovery")
+local TEST_GROUP     = require("test/lib/testGroup")
 
-local TEST_CLASSES   = TEST_DISCOVERY:findTestClasses()
+local testClasses    = TEST_DISCOVERY:findTestClasses()
+local testGroups     = {}
+
+for _, testClass in ipairs(testClasses) do
+	local testGroup = TEST_GROUP:create(testClass)
+	testGroup:init()
+	table.insert(testGroups, testGroup)
+end
 
 local totalTestCount   = 0
 local totalTestsPassed = 0
 
-for _, testClass in ipairs(TEST_CLASSES) do
-	print("\n" .. LINE_SEPARATOR .. "Running " .. testClass.NAME .. " Tests...\n" .. LINE_SEPARATOR)
+for _, testGroup in ipairs(testGroups) do
+	print("\n" .. LINE_SEPARATOR .. "Running " .. testGroup:getName() .. " Tests...\n" .. LINE_SEPARATOR)
 
-	local testsToRun = {}
-	local testCount   = 0
-	local testsPassed = 0
+	testGroup:runTests()
 
-	for k, v in pairs(testClass) do
-		if STRING_UTIL:startsWith(k, "test") then
-			testsToRun[k]  = v
-			testCount      = testCount + 1
-			totalTestCount = totalTestCount + 1
-		end
-	end
+	print("\nTests Passed: " .. testGroup:getTestsPassed() .. " out of " .. testGroup:getTestCount())
 
-	for testName, testFn in pairs(testsToRun) do
-		local result = testFn(stringUtilTestClass)
-
-		if result == true then
-			testsPassed      = testsPassed      + 1
-			totalTestsPassed = totalTestsPassed + 1
-		end
-	end
-
-	print("\nTests Passed: " .. testsPassed .. " out of " .. testCount)
+	totalTestCount   = totalTestCount   + testGroup:getTestCount()
+	totalTestsPassed = totalTestsPassed + testGroup:getTestsPassed()
 end
 
 print(LINE_SEPARATOR)
