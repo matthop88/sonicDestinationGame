@@ -43,6 +43,8 @@ function love.load(args)
     
 	loadWindow(path)
 
+	require("lib/cmd/commandLineTools"):listArgs(args)
+
     require(path .. appName)
 end
 
