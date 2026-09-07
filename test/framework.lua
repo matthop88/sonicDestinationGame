@@ -1,3 +1,5 @@
+local LINE_SEPARATOR = string.rep("-", 100) .. "\n"
+
 local STRING_UTIL    = require("game/util/stringUtil")
 local TEST_DISCOVERY = require("test/lib/testDiscovery")
 
@@ -7,7 +9,7 @@ local totalTestCount   = 0
 local totalTestsPassed = 0
 
 for _, testClass in ipairs(TEST_CLASSES) do
-	print("\nRunning " .. testClass.NAME .. " Tests...\n")
+	print("\n" .. LINE_SEPARATOR .. "Running " .. testClass.NAME .. " Tests...\n" .. LINE_SEPARATOR)
 
 	local testsToRun = {}
 	local testCount   = 0
@@ -30,10 +32,12 @@ for _, testClass in ipairs(TEST_CLASSES) do
 		end
 	end
 
-	print("\nTests Passed: " .. testsPassed .. " out of " .. testCount.. "\n")
+	print("\nTests Passed: " .. testsPassed .. " out of " .. testCount)
 end
 
-print("\nTotal Tests Passed: " .. totalTestsPassed .. " out of " .. totalTestCount.. "\n")
+print(LINE_SEPARATOR)
+
+print("Total Tests Passed: " .. totalTestsPassed .. " out of " .. totalTestCount.. "\n")
 
 
 love.event.quit()
