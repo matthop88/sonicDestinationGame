@@ -22,19 +22,10 @@ local DEFAULT_SCHEMA = {
     },
 }
 
-
 return {
     create = function(self, appDirectory)
         return {
             SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
-        
-            listParams = function(self, args)
-            	local params = self:getParams(args)
-
-            	for k, v in pairs(params) do
-        			print(k .. " = " .. v)
-        		end
-        	end,
 
             getParams = function(self, args)
                 local params = self:createParams(args)
@@ -79,8 +70,49 @@ return {
                 end
             end,
 
+            validateParams = function(self, args)
+                local params = self:getParams(args)
+
+                local missingParams = self:findMissingParams(params)
+
+                if #missingParams > 0 then
+                    self:printOutMissingParams(missingParams)
+                    love.event.quit()
+                else
+                    return true
+                end
+            end,
+
+            findMissingParams = function(self, params)
+                local missingParams = {}
+
+                for k, v in pairs(self.SCHEMA.COMMANDS) do
+                    if v.required and params[k] == nil then
+                        table.insert(missingParams, k)
+                    end
+                end
+
+                return missingParams
+            end,
+
+            printOutMissingParams = function(self, params)
+                print("\nERROR! The following parameters are missing:")
+                for _, p in ipairs(params) do
+                    self:printOutMissingParam(p)
+                end
+
+                print("\n")
+            end,
+
+            printOutMissingParam = function(self, p)
+                local s = p
+                if self.SCHEMA.COMMANDS[p].shortcut then
+                    s = s .. " (shortcut: '-" .. self.SCHEMA.COMMANDS[p].shortcut .. "')"
+                end
+                print(s)
+            end,
+
         }
     end,
 
 }
-
