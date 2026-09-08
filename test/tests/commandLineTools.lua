@@ -60,7 +60,7 @@ return {
 	end,
 
 	testBadCmdSchemaLoading = function(self)
-		return ASSERT:TRUE("Command Schema Loading Bad Path", COMMAND_LINE_TOOLS_BAD.SCHEMA == nil)
+		return ASSERT:EQUALS("Command Schema Loading Bad Path", 0.0, COMMAND_LINE_TOOLS_BAD.SCHEMA.VERSION)
 	end,
 
 	testShortcutExpansion = function(self)
