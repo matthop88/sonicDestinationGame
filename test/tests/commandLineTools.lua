@@ -43,4 +43,10 @@ return {
 						and params["o"]          == "outFile")
 	end,
 
+	testCmdSchemaLoading = function(self)
+		local cmdSchema = COMMAND_LINE_TOOLS:getSchema("test/tests/resources/testCmdSchema1")
+
+		return ASSERT:EQUALS("Command Schema Loading", "z", cmdSchema.COMMANDS.zephyrZigguratZone.shortcut)
+	end,
+
 }
