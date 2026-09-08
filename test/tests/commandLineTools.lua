@@ -54,4 +54,12 @@ return {
 		return ASSERT:TRUE("Command Schema Loading Bad Path", COMMAND_LINE_TOOLS_BAD.SCHEMA == nil)
 	end,
 
+	testShortcutExpansion = function(self)
+		local eCmd = COMMAND_LINE_TOOLS:expandShortcut("e")
+		local wCmd = COMMAND_LINE_TOOLS:expandShortcut("w")
+		local zCmd = COMMAND_LINE_TOOLS:expandShortcut("z")
+
+		return ASSERT:EQUALS("Shortcut Expansion", "electricJungleZone windyHillZone zephyrZigguratZone", eCmd .. " " .. wCmd .. " " .. zCmd)
+	end,
+
 }
