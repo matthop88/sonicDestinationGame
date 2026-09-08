@@ -1,4 +1,5 @@
-local STRING_UTIL = require("game/util/stringUtil")
+local STRING_UTIL  = require("game/util/stringUtil")
+local ERROR_LOGGER = require("game/error/errorLogger")
 
 return {
     listParams = function(self, args)
@@ -37,7 +38,7 @@ return {
         if status == true then
             return cmdSchema
         else
-            print("XXX Command Schema not found for path " .. path .. "!")
+            ERROR_LOGGER:logError("Command Schema not found for path " .. path .. "!")
             return nil
         end
     end,
