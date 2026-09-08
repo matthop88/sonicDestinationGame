@@ -37,13 +37,13 @@ return {
 			end,
 
 			getTotalTestsPassed = function(self)
-				local totalTestCount = 0
+				local totalTestsPassed = 0
 
 				for _, testGroup in ipairs(self.TEST_GROUPS) do
-					totalTestCount = totalTestCount + testGroup:getTestCount()
+					totalTestsPassed = totalTestsPassed + testGroup:getTestsPassed()
 				end
 
-				return totalTestCount
+				return totalTestsPassed
 			end,
 
 		}):init(testClasses)
