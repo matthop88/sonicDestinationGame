@@ -1,5 +1,5 @@
 local STRING_UTIL  = require("game/util/stringUtil")
-local ERROR_LOGGER = require("game/error/errorLogger"):quiet()
+local ERROR_LOGGER = require("game/error/errorLogger")
 
 local getSchema = function(path)
     local cmdSchema
