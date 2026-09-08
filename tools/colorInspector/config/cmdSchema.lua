@@ -4,6 +4,7 @@ return {
 	COMMANDS = {
 		imageFile = {
 			shortcut = "i",
+			required = true,
 		},
 
 	},
