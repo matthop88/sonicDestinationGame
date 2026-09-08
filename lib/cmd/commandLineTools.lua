@@ -14,10 +14,19 @@ local getSchema = function(path)
     end
 end
 
+local DEFAULT_SCHEMA = {
+    VERSION = 0.0,
+    
+    COMMANDS = {
+        
+    },
+}
+
+
 return {
     create = function(self, appDirectory)
         return {
-            SCHEMA     = getSchema(appDirectory),
+            SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
         
             listParams = function(self, args)
             	local params = self:getParams(args)
