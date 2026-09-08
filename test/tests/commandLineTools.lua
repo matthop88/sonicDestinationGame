@@ -49,4 +49,10 @@ return {
 		return ASSERT:EQUALS("Command Schema Loading", "z", cmdSchema.COMMANDS.zephyrZigguratZone.shortcut)
 	end,
 
+	testBadCmdSchemaLoading = function(self)
+		local cmdSchema = COMMAND_LINE_TOOLS:getSchema("test/tests/resources/testCmdSchema1__BAD__")
+
+		return ASSERT:TRUE("Command Schema Loading Bad Path", cmdSchema == nil)
+	end,
+
 }
