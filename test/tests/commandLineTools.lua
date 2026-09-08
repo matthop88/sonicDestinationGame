@@ -1,9 +1,9 @@
 local ASSERT                 = require("test/lib/assert")
 
+require("game/error/errorLogger"):quiet()
+
 local COMMAND_LINE_TOOLS     = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1")
 local COMMAND_LINE_TOOLS_BAD = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
-
-require("game/error/errorLogger"):quiet()
 
 return {
 	NAME      = "Command Line Tools",
