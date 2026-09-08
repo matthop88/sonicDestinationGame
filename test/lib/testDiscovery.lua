@@ -7,10 +7,12 @@ return {
         local testFilenames = love.filesystem.getDirectoryItems("test/tests")
         
         for _, testFilename in ipairs(testFilenames) do
-            local keyName = STRING_UTIL:dropSuffix(testFilename, 4)
-            local filePath = "test/tests/" .. keyName
+            if testFilename ~= "resources" then
+                local keyName = STRING_UTIL:dropSuffix(testFilename, 4)
+                local filePath = "test/tests/" .. keyName
 
-            table.insert(testClasses, require(filePath))
+                table.insert(testClasses, require(filePath))
+            end
         end
 
         return testClasses
