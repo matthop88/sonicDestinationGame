@@ -30,7 +30,16 @@ return {
 	end,
 
     getSchema = function(self, path)
-        return require(path .. "/" .. "cmdSchema")
+        local cmdSchema
+
+        local status, err = pcall(function() cmdSchema = require(path .. "/cmdSchema") end)
+
+        if status == true then
+            return cmdSchema
+        else
+            print("XXX Command Schema not found for path " .. path .. "!")
+            return nil
+        end
     end,
 }
 
