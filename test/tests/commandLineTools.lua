@@ -46,6 +46,15 @@ return {
 						and params["o"]          == "outFile")
 	end,
 
+	testMixedArgumentNamesWithCmdSchema = function(self)
+		local params = COMMAND_LINE_TOOLS:getParams({ "-e", "1", "--windyHillZone", "-z", "7" })
+
+		return ASSERT:TRUE("Mixed argument names based on cmdSchema",
+							params["electricJungleZone"] == "1"
+						and params["windyHillZone"]      == true
+						and params["zephyrZigguratZone"] == "7")
+	end,
+
 	testCmdSchemaLoading = function(self)
 		return ASSERT:EQUALS("Command Schema Loading", "z", COMMAND_LINE_TOOLS.SCHEMA.COMMANDS.zephyrZigguratZone.shortcut)
 	end,
