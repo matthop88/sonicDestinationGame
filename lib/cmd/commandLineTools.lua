@@ -1,5 +1,5 @@
 local STRING_UTIL  = require("game/util/stringUtil")
-local ERROR_LOGGER = require("game/error/errorLogger")
+local ERROR_LOGGER = require("game/error/errorLogger"):quiet()
 
 return {
     listParams = function(self, args)
