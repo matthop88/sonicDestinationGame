@@ -4,6 +4,7 @@ require("game/error/errorLogger"):quiet()
 
 local COMMAND_LINE_TOOLS     = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1")
 local COMMAND_LINE_TOOLS_BAD = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
+local COMMAND_LINE_TOOLS_REQ = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2")
 
 return {
 	NAME      = "Command Line Tools",
@@ -69,6 +70,14 @@ return {
 		local zCmd = COMMAND_LINE_TOOLS:expandShortcut("z")
 
 		return ASSERT:EQUALS("Shortcut Expansion", "electricJungleZone windyHillZone zephyrZigguratZone", eCmd .. " " .. wCmd .. " " .. zCmd)
+	end,
+
+	testFindMissingParams = function(self)
+		local params = COMMAND_LINE_TOOLS_REQ:getParams({ "-e", "1", "--windyHillZone" })
+
+		local missingParams = COMMAND_LINE_TOOLS_REQ:findMissingParams(params)
+
+		return ASSERT:EQUALS("Find Missing Params", "zephyrZigguratZone", missingParams[1])
 	end,
 
 }
