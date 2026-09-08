@@ -28,4 +28,9 @@ return {
 
 		return params
 	end,
+
+    getSchema = function(self, path)
+        return require(path .. "/" .. "cmdSchema")
+    end,
 }
+
