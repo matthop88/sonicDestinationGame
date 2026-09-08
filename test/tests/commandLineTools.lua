@@ -1,6 +1,7 @@
-local ASSERT             = require("test/lib/assert")
+local ASSERT                 = require("test/lib/assert")
 
-local COMMAND_LINE_TOOLS = require("lib/cmd/commandLineTools")
+local COMMAND_LINE_TOOLS     = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1")
+local COMMAND_LINE_TOOLS_BAD = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
 
 return {
 	NAME      = "Command Line Tools",
@@ -44,15 +45,11 @@ return {
 	end,
 
 	testCmdSchemaLoading = function(self)
-		local cmdSchema = COMMAND_LINE_TOOLS:getSchema("test/tests/resources/testCmdSchema1")
-
-		return ASSERT:EQUALS("Command Schema Loading", "z", cmdSchema.COMMANDS.zephyrZigguratZone.shortcut)
+		return ASSERT:EQUALS("Command Schema Loading", "z", COMMAND_LINE_TOOLS.SCHEMA.COMMANDS.zephyrZigguratZone.shortcut)
 	end,
 
 	testBadCmdSchemaLoading = function(self)
-		local cmdSchema = COMMAND_LINE_TOOLS:getSchema("test/tests/resources/testCmdSchema1__BAD__")
-
-		return ASSERT:TRUE("Command Schema Loading Bad Path", cmdSchema == nil)
+		return ASSERT:TRUE("Command Schema Loading Bad Path", COMMAND_LINE_TOOLS_BAD.SCHEMA == nil)
 	end,
 
 }
