@@ -46,6 +46,13 @@ return {
 
         		return params
         	end,
+
+            expandShortcut = function(self, shortcut)
+                for k, v in pairs(self.SCHEMA.COMMANDS) do
+                    if v.shortcut == shortcut then return k end
+                end
+            end,
+
         }
     end,
 
