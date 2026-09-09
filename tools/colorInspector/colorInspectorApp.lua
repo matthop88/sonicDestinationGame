@@ -152,7 +152,9 @@ local handleKeyreleased   = function(key)
 end
 
 local handleMousepressed  = function(mx, my)
-    READOUT:print("Mouse Pressed at (" .. mx .. ", " .. my .. ")")
+    local x, y = IMAGE:screenToImageCoordinates(mx, my)
+
+    READOUT:print("Mouse Pressed at (" .. x .. ", " .. y .. ")")
 end
 
 --------------------------------------------------------------
