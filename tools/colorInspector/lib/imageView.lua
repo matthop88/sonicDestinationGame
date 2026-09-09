@@ -4,7 +4,8 @@
 
 local COLOR      = require("game/constants/colors")
 local GRAFX      = love.graphics
-local IMAGE_DATA = love.image.newImageData("game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png")
+local IMAGE_PATH = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
+local IMAGE_DATA = love.image.newImageData(IMAGE_PATH)
 
 --------------------------------------------------------------
 --                        Public Object                     --
