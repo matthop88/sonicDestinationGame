@@ -49,41 +49,7 @@ local SCROLL_SPEED   = {
 
 }
 
-local ZOOM_FACTORY = {
-    create = function(self, params)
-        return {
-            zoomSpeed = params.zoomSpeed or 2,
-            imageView = params.imageView,
-    
-            scaleDelta = 0,
-
-            zoomIn  = function(self) 
-                self.scaleDelta = self.zoomSpeed              
-            end,
-
-            zoomOut = function(self) 
-                self.scaleDelta = -self.zoomSpeed
-            end,
-
-            stopZoomingIn = function(self) 
-                self.scaleDelta = math.min(0, self.scaleDelta) 
-            end,
-
-            stopZoomingOut = function(self) 
-                self.scaleDelta = math.max(0, self.scaleDelta) 
-            end,
-
-            update = function(self, dt)
-                local mx, my = love.mouse.getPosition()
-
-                self.imageView:scaleGeometrically(self.scaleDelta * dt, mx, my)
-            end,
-        }
-    end,
-}
-
-local ZOOMING = ZOOM_FACTORY:create { imageView = IMAGE }
-
+local ZOOMING        = require("tools/colorInspector/lib/zooming"):create { imageView = IMAGE }
 local READOUT        = require("tools/colorInspector/lib/readout"):create { fontSize = 48, ySpeed = 600 }
 
 --------------------------------------------------------------
@@ -134,7 +100,6 @@ local updateScrolling     = function(dt)
 end
 
 --------------------------- ZOOMING --------------------------
-
 
 local handleZooming       = function(key)
     if     key == "z" then ZOOMING:zoomIn()
