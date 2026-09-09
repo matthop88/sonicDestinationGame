@@ -129,6 +129,7 @@ end
 
 local drawReadout         = function()
     love.graphics.setColor(1, 1, 1)
+    love.graphics.setNewFont(32)
 
     love.graphics.printf("Hello There!", 100, 200, 500, "center")
 end
