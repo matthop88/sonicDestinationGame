@@ -53,8 +53,9 @@ local scaleDelta     = 0
 local ZOOM_SPEED     = 2
 
 local READOUT        = {
-    message = nil,
-    font    = love.graphics.newFont(40),
+    DURATION = 180,
+    message  = nil,
+    font     = love.graphics.newFont(40),
 
     x  = 0,
     y  = love.graphics.getHeight() - 60,
@@ -62,6 +63,8 @@ local READOUT        = {
     h  = 70,
 
     GRAFX   = love.graphics,
+
+    timer   = 0,
 
     draw = function(self)
         if self.message ~= nil then
@@ -85,9 +88,18 @@ local READOUT        = {
         self.GRAFX.printf(self.message, self.x, self.y, self.w, "center")
     end,
 
+    update = function(self, dt)
+        if self.timer > 0 then 
+            self.timer = self.timer - (60 * dt)
+        else
+            self.message = nil
+        end
+    end,
+
     print = function(self, message)
         self.message = message
         print("Printing to Readout: ", message)
+        self.timer = self.DURATION
     end,
 }
 
@@ -180,6 +192,7 @@ end
 local handleUpdate        = function(dt)
     updateZooming(dt)
     updateScrolling(dt)
+    READOUT:update(dt)
 end
 
 local handleKeypressed    = function(key)
