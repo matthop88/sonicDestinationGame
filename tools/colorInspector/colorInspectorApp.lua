@@ -52,6 +52,8 @@ local SCROLL_SPEED   = {
 local scaleDelta     = 0
 local ZOOM_SPEED     = 2
 
+local READOUT_FONT   = love.graphics.newFont(32)
+
 --------------------------------------------------------------
 --                   Specialized Functions                  --
 --------------------------------------------------------------
@@ -129,7 +131,7 @@ end
 
 local drawReadout         = function()
     love.graphics.setColor(1, 1, 1)
-    love.graphics.setNewFont(32)
+    love.graphics.setFont(READOUT_FONT)
 
     love.graphics.printf("Hello There!", 100, 200, 500, "center")
 end
