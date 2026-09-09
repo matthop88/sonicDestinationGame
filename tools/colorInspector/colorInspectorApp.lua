@@ -67,7 +67,7 @@ local READOUT        = {
     end,
 
     drawBox = function(self)
-        love.graphics.setColor(0, 0, 0)
+        love.graphics.setColor(0, 0, 0, 0.5)
         love.graphics.rectangle("fill", 0,  self.y - 10, self.w, self.h)
 
         love.graphics.setColor(1, 1, 1)
