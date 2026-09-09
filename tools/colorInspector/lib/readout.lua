@@ -3,6 +3,8 @@ local COLOR     = require("game/constants/colors")
 
 return {
     create = function(self, params)
+        params = params or {}
+        
         local FONT_SIZE = params.fontSize or 40
         local Y_SPEED   = params.ySpeed   or 180
         local DURATION  = params.duration or 180
