@@ -53,7 +53,7 @@ local scaleDelta     = 0
 local ZOOM_SPEED     = 2
 
 local READOUT        = {
-    message = "Hello There!",
+    message = nil,
     font    = love.graphics.newFont(40),
 
     x  = 0,
@@ -64,8 +64,10 @@ local READOUT        = {
     GRAFX   = love.graphics,
 
     draw = function(self)
-        self:drawBox()
-        self:drawMessage()
+        if self.message ~= nil then
+            self:drawBox()
+            self:drawMessage()
+        end
     end,
 
     drawBox = function(self)
@@ -81,6 +83,11 @@ local READOUT        = {
         self.GRAFX.setFont(self.font)
 
         self.GRAFX.printf(self.message, self.x, self.y, self.w, "center")
+    end,
+
+    print = function(self, message)
+        self.message = message
+        print("Printing to Readout: ", message)
     end,
 }
 
@@ -151,6 +158,12 @@ local handleStopZooming   = function(key)
     end 
 end
 
+local handleReadout       = function(key)
+    if key == "p" then 
+        READOUT:print("Sonic has passed Readout Zone!")
+    end
+end
+
 local updateZooming       = function(dt)
     local mx, my = love.mouse.getPosition()
     
@@ -173,6 +186,7 @@ local handleKeypressed    = function(key)
     handleDoubleTapping(key)
     handleScrolling(key)
     handleZooming(key)
+    handleReadout(key)
 end
 
 local handleKeyreleased   = function(key)
