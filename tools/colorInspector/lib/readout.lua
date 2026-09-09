@@ -1,8 +1,10 @@
-local DURATION = 180
-local GRAFX    = love.graphics
-local FONT     = GRAFX.newFont(40)
-local COLOR    = require("game/constants/colors")
-local Y_SPEED  = 180
+local GRAFX     = love.graphics
+local COLOR     = require("game/constants/colors")
+
+local FONT_SIZE = 40
+local FONT      = GRAFX.newFont(FONT_SIZE)
+local Y_SPEED   = 180
+local DURATION  = 180
 
 return {
     message  = nil,
