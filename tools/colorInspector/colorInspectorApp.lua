@@ -45,6 +45,10 @@ local SELECTED_COLOR = {
         self.color = { r, g, b }
     end,
 
+    clear = function(self)
+        self.color = nil
+    end,
+
     draw = function(self)
         if self.color then
             local mx, my = love.mouse.getPosition()
@@ -154,15 +158,20 @@ local handleMousepressed  = function(mx, my)
     identifyColorAt(mx, my)
 end
 
+local handleMousereleased = function(mx, my)
+    SELECTED_COLOR:clear()
+end
+
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()               handleDraw()               end
-function love.update(dt)           handleUpdate(dt)           end
-function love.keypressed(key)      handleKeypressed(key)      end
-function love.keyreleased(key)     handleKeyreleased(key)     end
-function love.mousepressed(mx, my) handleMousepressed(mx, my) end
+function love.draw()                handleDraw()               end
+function love.update(dt)            handleUpdate(dt)           end
+function love.keypressed(key)       handleKeypressed(key)      end
+function love.keyreleased(key)      handleKeyreleased(key)     end
+function love.mousepressed(mx, my)  handleMousepressed(mx, my) end
+function love.mousereleased(mx, my) handleMousereleased(mx, my) end
 
 
 --[[
