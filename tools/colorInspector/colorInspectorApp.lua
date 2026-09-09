@@ -52,56 +52,7 @@ local SCROLL_SPEED   = {
 local scaleDelta     = 0
 local ZOOM_SPEED     = 2
 
-local READOUT        = {
-    DURATION = 180,
-    message  = nil,
-    font     = love.graphics.newFont(40),
-
-    x  = 0,
-    y  = love.graphics.getHeight() - 60,
-    w  = love.graphics.getWidth(),
-    h  = 70,
-
-    GRAFX   = love.graphics,
-
-    timer   = 0,
-
-    draw = function(self)
-        if self.message ~= nil then
-            self:drawBox()
-            self:drawMessage()
-        end
-    end,
-
-    drawBox = function(self)
-        self.GRAFX.setColor(0, 0, 0, 0.5)
-        self.GRAFX.rectangle("fill", 0,  self.y - 10, self.w, self.h)
-
-        self.GRAFX.setColor(1, 1, 1)
-        self.GRAFX.rectangle("line", 0,  self.y - 10, self.w, self.h) 
-    end,
-
-    drawMessage = function(self)
-        self.GRAFX.setColor(1, 1, 1)
-        self.GRAFX.setFont(self.font)
-
-        self.GRAFX.printf(self.message, self.x, self.y, self.w, "center")
-    end,
-
-    update = function(self, dt)
-        if self.timer > 0 then 
-            self.timer = self.timer - (60 * dt)
-        else
-            self.message = nil
-        end
-    end,
-
-    print = function(self, message)
-        self.message = message
-        print("Printing to Readout: ", message)
-        self.timer = self.DURATION
-    end,
-}
+local READOUT        = require("tools/colorInspector/lib/readout")
 
 --------------------------------------------------------------
 --                   Specialized Functions                  --
