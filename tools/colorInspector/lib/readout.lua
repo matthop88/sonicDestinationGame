@@ -49,14 +49,20 @@ return {
 
     updateY = function(self, dt)
         self.y = self.y + (self.velocity * dt)
-        if self.y < GRAFX.getHeight() - 60 then
-            self.y = GRAFX.getHeight() - 60
-            self.velocity = 0
-        elseif self.y > GRAFX.getHeight() then
-            self.y = GRAFX.getHeight()
-            self.velocity = 0
-            self:clearMessage()
-        end
+        
+        if     self.y < GRAFX.getHeight() - 60 then self:onMessageArrival()
+        elseif self.y > GRAFX.getHeight()      then self:onMessageDeparture()   end
+    end,
+
+    onMessageArrival = function(self)
+        self.y = GRAFX.getHeight() - 60
+        self.velocity = 0
+    end,
+
+    onMessageDeparture = function(self)
+        self.y = GRAFX.getHeight()
+        self.velocity = 0
+        self:clearMessage()
     end,
 
     updateTimer = function(self, dt)
