@@ -1,6 +1,7 @@
 local DURATION = 180
 local GRAFX    = love.graphics
 local FONT     = GRAFX.newFont(40)
+local COLOR    = require("game/constants/colors")
 
 return {
     message  = nil,
@@ -23,12 +24,12 @@ return {
         GRAFX.setColor(0, 0, 0, 0.5)
         GRAFX.rectangle("fill", 0,  self.y - 10, self.w, self.h)
 
-        GRAFX.setColor(1, 1, 1)
+        GRAFX.setColor(COLOR.PURE_WHITE)
         GRAFX.rectangle("line", 0,  self.y - 10, self.w, self.h) 
     end,
 
     drawMessage = function(self)
-        GRAFX.setColor(1, 1, 1)
+        GRAFX.setColor(COLOR.PURE_WHITE)
         GRAFX.setFont(FONT)
 
         GRAFX.printf(self.message, self.x, self.y, self.w, "center")
