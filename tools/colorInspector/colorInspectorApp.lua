@@ -32,7 +32,7 @@ local IMAGE          = require("tools/colorInspector/lib/imageView"):create { im
 local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
 
 local ZOOMING        = require("tools/colorInspector/lib/zooming"):create   { imageView = IMAGE }
-local READOUT        = require("tools/colorInspector/lib/readout"):create   { fontSize = 48, ySpeed = 600 }
+local READOUT        = require("tools/colorInspector/lib/readout"):create   { fontSize = 48, ySpeed = 600, silent = true }
 
 local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 
