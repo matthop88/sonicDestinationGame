@@ -2,6 +2,7 @@ local DURATION = 180
 local GRAFX    = love.graphics
 local FONT     = GRAFX.newFont(40)
 local COLOR    = require("game/constants/colors")
+local Y_SPEED  = 180
 
 return {
     message  = nil,
@@ -65,7 +66,7 @@ return {
     print = function(self, message)
         self.message = message
         print("Printing to Readout: ", message)
-        self.velocity = -180
+        self.velocity = -Y_SPEED
         self.timer    = DURATION
     end,
 }
