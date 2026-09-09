@@ -1,89 +1,94 @@
 local GRAFX     = love.graphics
 local COLOR     = require("game/constants/colors")
 
-local FONT_SIZE = 40
-local FONT      = GRAFX.newFont(FONT_SIZE)
-local Y_SPEED   = 180
-local DURATION  = 180
-
 return {
-    message  = nil,
+    create = function(self, fontSize, ySpeed, duration)
+        local FONT      = GRAFX.newFont(fontSize)
+        local Y_SPEED   = ySpeed
+        local DURATION  = duration
+
+        return {
+            message  = nil,
     
-    x  = 0,
-    y  = GRAFX.getHeight(),
-    w  = GRAFX.getWidth(),
-    h  = 70,
+            x  = 0,
+            y  = GRAFX.getHeight(),
+            w  = GRAFX.getWidth(),
+            h  = 70,
 
-    timer    = 0,
-    velocity = 0,
+            timer    = 0,
+            velocity = 0,
 
-    draw = function(self)
-        if self.message ~= nil then
-            self:drawBox()
-            self:drawMessage()
-        end
-    end,
+            draw = function(self)
+                if self.message ~= nil then
+                    self:drawBox()
+                    self:drawMessage()
+                end
+            end,
 
-    drawBox = function(self)
-        GRAFX.setColor(COLOR.TRANSLUCENT_BLACK)
-        GRAFX.rectangle("fill", 0,  self.y - 10, self.w, self.h)
+            drawBox = function(self)
+                GRAFX.setColor(COLOR.TRANSLUCENT_BLACK)
+                GRAFX.rectangle("fill", 0,  self.y - 10, self.w, self.h)
 
-        GRAFX.setColor(COLOR.PURE_WHITE)
-        GRAFX.rectangle("line", 0,  self.y - 10, self.w, self.h) 
-    end,
+                GRAFX.setColor(COLOR.PURE_WHITE)
+                GRAFX.rectangle("line", 0,  self.y - 10, self.w, self.h) 
+            end,
 
-    drawMessage = function(self)
-        GRAFX.setColor(COLOR.PURE_WHITE)
-        GRAFX.setFont(FONT)
+            drawMessage = function(self)
+                GRAFX.setColor(COLOR.PURE_WHITE)
+                GRAFX.setFont(FONT)
 
-        GRAFX.printf(self.message, self.x, self.y, self.w, "center")
-    end,
+                GRAFX.printf(self.message, self.x, self.y, self.w, "center")
+            end,
 
-    update = function(self, dt)
-        if     self.velocity ~= 0 then self:updateY(dt)
-        elseif self.timer     > 0 then self:updateTimer(dt)
-        else                           self:triggerMessageDeparture()           end
-    end,
+            update = function(self, dt)
+                if     self.velocity ~= 0 then self:updateY(dt)
+                elseif self.timer     > 0 then self:updateTimer(dt)
+                else                           self:triggerMessageDeparture()           end
+            end,
 
-    updateY = function(self, dt)
-        self.y = self.y + (self.velocity * dt)
-        
-        if     self.y < GRAFX.getHeight() - 60 then self:onMessageArrival()
-        elseif self.y > GRAFX.getHeight()      then self:onMessageDeparture()   end
-    end,
+            updateY = function(self, dt)
+                self.y = self.y + (self.velocity * dt)
+                
+                if     self.y < GRAFX.getHeight() - 60 then self:onMessageArrival()
+                elseif self.y > GRAFX.getHeight()      then self:onMessageDeparture()   end
+            end,
 
-    onMessageArrival = function(self)
-        self.y = GRAFX.getHeight() - 60
-        self.velocity = 0
-    end,
+            onMessageArrival = function(self)
+                self.y = GRAFX.getHeight() - 60
+                self.velocity = 0
+            end,
 
-    onMessageDeparture = function(self)
-        self.y = GRAFX.getHeight()
-        self.velocity = 0
-        self:clearMessage()
-    end,
+            onMessageDeparture = function(self)
+                self.y = GRAFX.getHeight()
+                self.velocity = 0
+                self:clearMessage()
+            end,
 
-    updateTimer = function(self, dt)
-        self.timer = self.timer - (60 * dt)
-    end,
+            updateTimer = function(self, dt)
+                self.timer = self.timer - (60 * dt)
+            end,
 
-    clearMessage = function(self)
-        self.message = nil
-    end,
+            clearMessage = function(self)
+                self.message = nil
+            end,
 
-    print = function(self, message)
-        print("Printing to Readout: ", message)
-        self:triggerMessageArrival(message)
-    end,
+            print = function(self, message)
+                print("Printing to Readout: ", message)
+                self:triggerMessageArrival(message)
+            end,
 
-    triggerMessageArrival = function(self, message)
-        self.message = message
-        self.velocity = -Y_SPEED
-        self.timer    = DURATION
-    end,
+            triggerMessageArrival = function(self, message)
+                self.message = message
+                self.velocity = -Y_SPEED
+                self.timer    = DURATION
+            end,
 
-    triggerMessageDeparture = function(self)
-        self.velocity = Y_SPEED
+            triggerMessageDeparture = function(self)
+                self.velocity = Y_SPEED
+            end,
+
+        }
+
     end,
 
 }
