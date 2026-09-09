@@ -59,8 +59,15 @@ local READOUT        = {
     x  = 0,
     y  = love.graphics.getHeight() - 60,
     w  = love.graphics.getWidth(),
+    h  = 70,
 
     draw = function(self)
+        love.graphics.setColor(0, 0, 0)
+        love.graphics.rectangle("fill", 0,  self.y - 10, self.w, self.h)
+
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.rectangle("line", 0,  self.y - 10, self.w, self.h) 
+        
         love.graphics.setColor(1, 1, 1)
         love.graphics.setFont(self.font)
 
