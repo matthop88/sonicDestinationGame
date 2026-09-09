@@ -121,12 +121,6 @@ local handleStopZooming   = function(key)
     end 
 end
 
-local handleReadout       = function(key)
-    if key == "p" then 
-        READOUT:print("Sonic has passed Readout Zone!")
-    end
-end
-
 local updateZooming       = function(dt)
     local mx, my = love.mouse.getPosition()
     
@@ -150,7 +144,6 @@ local handleKeypressed    = function(key)
     handleDoubleTapping(key)
     handleScrolling(key)
     handleZooming(key)
-    handleReadout(key)
 end
 
 local handleKeyreleased   = function(key)
