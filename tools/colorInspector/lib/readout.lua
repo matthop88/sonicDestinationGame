@@ -38,13 +38,9 @@ return {
     end,
 
     update = function(self, dt)
-        if self.velocity ~= 0 then
-            self:updateY(dt)
-        elseif self.timer > 0 then 
-            self:updateTimer(dt)
-        else
-            self:triggerMessageDeparture()
-        end
+        if     self.velocity ~= 0 then self:updateY(dt)
+        elseif self.timer     > 0 then self:updateTimer(dt)
+        else                           self:triggerMessageDeparture()           end
     end,
 
     updateY = function(self, dt)
