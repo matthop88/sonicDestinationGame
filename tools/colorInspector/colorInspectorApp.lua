@@ -52,7 +52,7 @@ local SCROLL_SPEED   = {
 local scaleDelta     = 0
 local ZOOM_SPEED     = 2
 
-local READOUT        = require("tools/colorInspector/lib/readout")
+local READOUT        = require("tools/colorInspector/lib/readout"):create()
 
 --------------------------------------------------------------
 --                   Specialized Functions                  --
