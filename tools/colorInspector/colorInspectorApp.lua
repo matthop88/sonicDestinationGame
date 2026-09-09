@@ -26,7 +26,9 @@
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local IMAGE          = require("tools/colorInspector/lib/imageView")
+local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
+local IMAGE          = require("tools/colorInspector/lib/imageView"):create { imagePath = IMAGE_PATH }
+
 local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
 
 local ZOOMING        = require("tools/colorInspector/lib/zooming"):create   { imageView = IMAGE }
