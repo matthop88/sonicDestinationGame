@@ -57,7 +57,7 @@ local READOUT        = {
     font    = love.graphics.newFont(32),
 
     x  = 0,
-    y  = 200,
+    y  = love.graphics.getHeight() - 60,
     w  = love.graphics.getWidth(),
 
     draw = function(self)
