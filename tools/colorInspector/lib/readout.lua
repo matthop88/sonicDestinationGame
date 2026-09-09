@@ -2,10 +2,10 @@ local GRAFX     = love.graphics
 local COLOR     = require("game/constants/colors")
 
 return {
-    create = function(self, fontSize, ySpeed, duration)
-        local FONT_SIZE = fontSize or 40
-        local Y_SPEED   = ySpeed   or 180
-        local DURATION  = duration or 180
+    create = function(self, params)
+        local FONT_SIZE = params.fontSize or 40
+        local Y_SPEED   = params.ySpeed   or 180
+        local DURATION  = params.duration or 180
 
         local FONT      = GRAFX.newFont(FONT_SIZE)
 
