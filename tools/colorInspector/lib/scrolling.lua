@@ -1,10 +1,26 @@
 return {
     create = function(self, params)
         return {
-            SCROLL_SPEED = params.SCROLL_SPEED,
             imageView    = params.imageView,
             DOUBLE_TAP   = params.DOUBLE_TAP,
             ZOOMING      = params.ZOOMING,
+
+            SCROLL_SPEED   = {
+                value          = params.scrollSpeed    or 500,
+                dashMultiplier = params.dashMultiplier or 2,
+    
+                isDashing  = false,
+
+                get        = function(self)
+                    if self.isDashing then return self.value * self.dashMultiplier
+                    else                   return self.value                       end
+                end,
+
+                setDashing = function(self, dashing)
+                    self.isDashing = dashing
+                end,
+
+            },
     
             xSpeed       = 0,
             ySpeed       = 0,
@@ -21,6 +37,10 @@ return {
             stopScrollingLeft  = function(self) self.xSpeed = math.min(0, self.xSpeed) end,
             stopScrollingRight = function(self) self.xSpeed = math.max(0, self.xSpeed) end,
 
+            setDashing         = function(self, dashing)
+                self.SCROLL_SPEED:setDashing(dashing)
+            end,
+            
             update             = function(self, dt)
                 self.imageView:move(self.xSpeed * dt, self.ySpeed * dt)
                 if self.xSpeed == 0 and self.ySpeed == 0 and not self.DOUBLE_TAP:withinThreshold() and self.ZOOMING.scaleDelta <= 0 then
