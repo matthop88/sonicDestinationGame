@@ -38,6 +38,24 @@ local READOUT        = require("tools/colorInspector/lib/readout"):create   { fo
 
 local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 
+local SELECTED_COLOR = {
+    color = nil,
+
+    set = function(self, r, g, b)
+        self.color = { r, g, b }
+    end,
+
+    draw = function(self)
+        if self.color then
+            local mx, my = love.mouse.getPosition()
+
+            love.graphics.setColor(self.color)
+            love.graphics.rectangle("fill", mx - 50, my - 50, 100, 100)
+        end
+    end,
+
+}
+
 --------------------------------------------------------------
 --                   Specialized Functions                  --
 --------------------------------------------------------------
@@ -84,14 +102,6 @@ end
 
 ------------------------- INSPECTION -------------------------
 
-local drawSelectedColor = function()
-    -- Draw solid rectangular block of selected color at mouse position
-    local mx, my = love.mouse.getPosition()
-
-    love.graphics.setColor(COLOR.MEDIUM_GREY)
-    love.graphics.rectangle("fill", mx - 50, my - 50, 100, 100)
-end
-
 local printRGBToConsole = function(r, g, b)
     print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
 end
@@ -108,7 +118,8 @@ local identifyColorAt  = function(mx, my)
     y = math.max(0, math.min(IMAGE:getHeight() - 1, y))
 
     local r, g, b = IMAGE:getPixelAt(math.floor(x), math.floor(y))
-    
+    SELECTED_COLOR:set(r, g, b)
+
     printRGBToConsole(r, g, b)
     printRGBToReadout(r, g, b)
 
@@ -119,7 +130,7 @@ end
 local handleDraw          = function()
     IMAGE:draw()
     READOUT:draw()
-    drawSelectedColor()
+    SELECTED_COLOR:draw()
 end
 
 local handleUpdate        = function(dt)
