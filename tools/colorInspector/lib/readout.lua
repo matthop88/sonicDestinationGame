@@ -21,7 +21,7 @@ return {
     end,
 
     drawBox = function(self)
-        GRAFX.setColor(0, 0, 0, 0.5)
+        GRAFX.setColor(COLOR.TRANSLUCENT_BLACK)
         GRAFX.rectangle("fill", 0,  self.y - 10, self.w, self.h)
 
         GRAFX.setColor(COLOR.PURE_WHITE)
