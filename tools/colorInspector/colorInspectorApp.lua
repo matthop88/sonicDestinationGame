@@ -29,28 +29,10 @@
 local IMAGE          = require("tools/colorInspector/lib/imageView")
 local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
 
-local SCROLL_SPEED   = {
-    VALUE      = 500,
-    isDashing  = false,
-
-    get        = function(self)
-        if self.isDashing then 
-            return self.VALUE * 2
-        else                   
-            return self.VALUE   
-        end
-    end,
-
-    setDashing = function(self, dashing)
-        self.isDashing = dashing
-    end,
-
-}
-
 local ZOOMING        = require("tools/colorInspector/lib/zooming"):create   { imageView = IMAGE }
 local READOUT        = require("tools/colorInspector/lib/readout"):create   { fontSize = 48, ySpeed = 600 }
 
-local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { SCROLL_SPEED = SCROLL_SPEED, imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
+local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 
 --------------------------------------------------------------
 --                   Specialized Functions                  --
@@ -59,8 +41,8 @@ local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { SC
 ----------------------- DOUBLE TAPPING -----------------------
 
 local handleDoubleTapping = function(key)
-    if   DOUBLE_TAP:qualify(key) then SCROLL_SPEED:setDashing(true)
-    else                              SCROLL_SPEED:setDashing(false)    
+    if   DOUBLE_TAP:qualify(key) then SCROLLING:setDashing(true)
+    else                              SCROLLING:setDashing(false)    
     end
 end
 
