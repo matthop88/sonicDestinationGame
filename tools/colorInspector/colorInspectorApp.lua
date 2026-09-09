@@ -56,9 +56,9 @@ local READOUT        = {
     message = "Hello There!",
     font    = love.graphics.newFont(32),
 
-    x  = 100,
+    x  = 0,
     y  = 200,
-    w  = 500,
+    w  = love.graphics.getWidth(),
 
     draw = function(self)
         love.graphics.setColor(1, 1, 1)
