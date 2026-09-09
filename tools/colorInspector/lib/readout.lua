@@ -38,16 +38,28 @@ return {
 
     update = function(self, dt)
         if self.velocity ~= 0 then
-            self.y = self.y + (self.velocity * dt)
-            if self.y < GRAFX.getHeight() - 60 then
-                self.y = GRAFX.getHeight() - 60
-                self.velocity = 0
-            end
+            self:updateY(dt)
         elseif self.timer > 0 then 
-            self.timer = self.timer - (60 * dt)
+            self:updateTimer(dt)
         else
-            self.message = nil
+            self:clearMessage()
         end
+    end,
+
+    updateY = function(self, dt)
+        self.y = self.y + (self.velocity * dt)
+        if self.y < GRAFX.getHeight() - 60 then
+            self.y = GRAFX.getHeight() - 60
+            self.velocity = 0
+        end
+    end,
+
+    updateTimer = function(self, dt)
+        self.timer = self.timer - (60 * dt)
+    end,
+
+    clearMessage = function(self)
+        self.message = nil
     end,
 
     print = function(self, message)
