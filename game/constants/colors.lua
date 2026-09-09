@@ -1,8 +1,11 @@
 return {
-    GREEN      = { 0, 0.45, 0    },
-                 -- https://htmlcolorcodes.com/colors/shades-of-green/
-    PURE_WHITE = { 1, 1,    1    },
+    GREEN             = { 0, 0.45, 0    },
+                        -- https://htmlcolorcodes.com/colors/shades-of-green/
 
-    SONIC_BLUE = { 0, 0,    0.75 },
+    PURE_WHITE        = { 1, 1,    1    },
+
+    SONIC_BLUE        = { 0, 0,    0.75 },
+
+    TRANSLUCENT_BLACK = { 0, 0,    0,    0.5  },
 
 }
