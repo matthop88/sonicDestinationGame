@@ -54,7 +54,7 @@ local ZOOM_SPEED     = 2
 
 local READOUT        = {
     message = "Hello There!",
-    font    = love.graphics.newFont(32),
+    font    = love.graphics.newFont(40),
 
     x  = 0,
     y  = love.graphics.getHeight() - 60,
