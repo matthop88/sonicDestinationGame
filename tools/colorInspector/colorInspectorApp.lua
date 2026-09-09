@@ -49,8 +49,34 @@ local SCROLL_SPEED   = {
 
 }
 
-local scaleDelta     = 0
-local ZOOM_SPEED     = 2
+local ZOOMING = {
+    zoomSpeed  = 2,
+    imageView  = IMAGE,
+
+    scaleDelta = 0,
+
+    zoomIn  = function(self) 
+        self.scaleDelta = self.zoomSpeed              
+    end,
+
+    zoomOut = function(self) 
+        self.scaleDelta = -self.zoomSpeed
+    end,
+
+    stopZoomingIn = function(self) 
+        self.scaleDelta = math.min(0, self.scaleDelta) 
+    end,
+
+    stopZoomingOut = function(self) 
+        self.scaleDelta = math.max(0, self.scaleDelta) 
+    end,
+
+    update = function(self, dt)
+        local mx, my = love.mouse.getPosition()
+
+        self.imageView:scaleGeometrically(self.scaleDelta * dt, mx, my)
+    end,
+}
 
 local READOUT        = require("tools/colorInspector/lib/readout"):create { fontSize = 48, ySpeed = 600 }
 
@@ -96,35 +122,24 @@ end
 
 local updateScrolling     = function(dt)
     IMAGE:move(xSpeed * dt, ySpeed * dt)
-    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() and scaleDelta <= 0 then
+    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() and ZOOMING.scaleDelta <= 0 then
         IMAGE:keepInBounds()
     end
 end
 
 --------------------------- ZOOMING --------------------------
 
-local zoomIn              = function() scaleDelta = ZOOM_SPEED              end
-local zoomOut             = function() scaleDelta = -ZOOM_SPEED             end
-
-local stopZoomingIn       = function() scaleDelta = math.min(0, scaleDelta) end
-local stopZoomingOut      = function() scaleDelta = math.max(0, scaleDelta) end
 
 local handleZooming       = function(key)
-    if     key == "z"     then zoomIn()
-    elseif key == "a"     then zoomOut()
+    if     key == "z" then ZOOMING:zoomIn()
+    elseif key == "a" then ZOOMING:zoomOut()
     end
 end
 
 local handleStopZooming   = function(key)
-    if     key == "z" then stopZoomingIn()
-    elseif key == "a" then stopZoomingOut()
+    if     key == "z" then ZOOMING:stopZoomingIn()
+    elseif key == "a" then ZOOMING:stopZoomingOut()
     end 
-end
-
-local updateZooming       = function(dt)
-    local mx, my = love.mouse.getPosition()
-    
-    IMAGE:scaleGeometrically(scaleDelta * dt, mx, my)
 end
 
 ----------------------- EVENT HANDLING -----------------------
@@ -135,7 +150,7 @@ local handleDraw          = function()
 end
 
 local handleUpdate        = function(dt)
-    updateZooming(dt)
+    ZOOMING:update(dt)
     updateScrolling(dt)
     READOUT:update(dt)
 end
