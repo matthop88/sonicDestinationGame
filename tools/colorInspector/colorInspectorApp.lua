@@ -26,6 +26,8 @@
 --                       Local Variables                    --
 --------------------------------------------------------------
 
+local COLOR          = require("game/constants/colors")
+
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
 local IMAGE          = require("tools/colorInspector/lib/imageView"):create { imagePath = IMAGE_PATH }
 
@@ -82,6 +84,14 @@ end
 
 ------------------------- INSPECTION -------------------------
 
+local drawSelectedColor = function()
+    -- Draw solid rectangular block of selected color at mouse position
+    local mx, my = love.mouse.getPosition()
+
+    love.graphics.setColor(COLOR.MEDIUM_GREY)
+    love.graphics.rectangle("fill", mx - 50, my - 50, 100, 100)
+end
+
 local printRGBToConsole = function(r, g, b)
     print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
 end
@@ -109,6 +119,7 @@ end
 local handleDraw          = function()
     IMAGE:draw()
     READOUT:draw()
+    drawSelectedColor()
 end
 
 local handleUpdate        = function(dt)
