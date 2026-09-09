@@ -43,7 +43,7 @@ return {
         elseif self.timer > 0 then 
             self:updateTimer(dt)
         else
-            self:clearMessage()
+            self.velocity = Y_SPEED
         end
     end,
 
@@ -52,6 +52,10 @@ return {
         if self.y < GRAFX.getHeight() - 60 then
             self.y = GRAFX.getHeight() - 60
             self.velocity = 0
+        elseif self.y > GRAFX.getHeight() then
+            self.y = GRAFX.getHeight()
+            self.velocity = 0
+            self:clearMessage()
         end
     end,
 
