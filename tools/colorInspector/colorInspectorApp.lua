@@ -125,10 +125,19 @@ local updateZooming       = function(dt)
     IMAGE:scaleGeometrically(scaleDelta * dt, mx, my)
 end
 
+--------------------------- READOUT --------------------------
+
+local drawReadout         = function()
+    love.graphics.setColor(1, 1, 1)
+
+    love.graphics.printf("Hello There!", 100, 200, 500, "center")
+end
+
 ----------------------- EVENT HANDLING -----------------------
 
 local handleDraw          = function()
     IMAGE:draw()
+    drawReadout()
 end
 
 local handleUpdate        = function(dt)
