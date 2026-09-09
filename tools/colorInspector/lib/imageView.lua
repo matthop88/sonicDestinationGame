@@ -2,15 +2,16 @@
 --                       Private Members                    --
 --------------------------------------------------------------
 
-local COLOR = require("game/constants/colors")
-local GRAFX = love.graphics
+local COLOR      = require("game/constants/colors")
+local GRAFX      = love.graphics
+local IMAGE_DATA = love.image.newImageData("game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png")
 
 --------------------------------------------------------------
 --                        Public Object                     --
 --------------------------------------------------------------
 
 return {
-    image     = GRAFX.newImage("game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"),
+    image     = GRAFX.newImage(IMAGE_DATA),
                
     x         = 0,
     y         = 0,
