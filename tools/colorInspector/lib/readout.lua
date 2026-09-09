@@ -7,11 +7,12 @@ return {
     message  = nil,
     
     x  = 0,
-    y  = GRAFX.getHeight() - 60,
+    y  = GRAFX.getHeight(),
     w  = GRAFX.getWidth(),
     h  = 70,
 
-    timer   = 0,
+    timer    = 0,
+    velocity = 0,
 
     draw = function(self)
         if self.message ~= nil then
@@ -36,7 +37,13 @@ return {
     end,
 
     update = function(self, dt)
-        if self.timer > 0 then 
+        if self.velocity ~= 0 then
+            self.y = self.y + (self.velocity * dt)
+            if self.y < GRAFX.getHeight() - 60 then
+                self.y = GRAFX.getHeight() - 60
+                self.velocity = 0
+            end
+        elseif self.timer > 0 then 
             self.timer = self.timer - (60 * dt)
         else
             self.message = nil
@@ -46,6 +53,7 @@ return {
     print = function(self, message)
         self.message = message
         print("Printing to Readout: ", message)
-        self.timer = DURATION
+        self.velocity = -180
+        self.timer    = DURATION
     end,
 }
