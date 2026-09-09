@@ -88,7 +88,7 @@ local identifyColorAt  = function(mx, my)
     x = math.max(0, math.min(IMAGE:getWidth()  - 1, x))
     y = math.max(0, math.min(IMAGE:getHeight() - 1, y))
 
-    local r, g, b = IMAGE:getPixelAt(math.floor(x), math.floor(y))
+    local r, g, b = love.math.colorToBytes(IMAGE:getPixelAt(math.floor(x), math.floor(y)))
     READOUT:print("R = " .. r .. ", G = " .. g .. ", B = " .. b)
 end
 
