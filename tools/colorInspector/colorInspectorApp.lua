@@ -78,6 +78,14 @@ local handleStopZooming   = function(key)
     end 
 end
 
+------------------------- INSPECTION -------------------------
+
+local identifyColorAt  = function(mx, my)
+    local x, y = IMAGE:screenToImageCoordinates(mx, my)
+
+    READOUT:print("Color at (" .. math.floor(x) .. ", " .. math.floor(y) .. ") of image")
+end
+
 ----------------------- EVENT HANDLING -----------------------
 
 local handleDraw          = function()
@@ -103,9 +111,7 @@ local handleKeyreleased   = function(key)
 end
 
 local handleMousepressed  = function(mx, my)
-    local x, y = IMAGE:screenToImageCoordinates(mx, my)
-
-    READOUT:print("Mouse Pressed at (" .. math.floor(x) .. ", " .. math.floor(y) .. ")")
+    identifyColorAt(mx, my)
 end
 
 --------------------------------------------------------------
