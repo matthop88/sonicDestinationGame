@@ -88,7 +88,8 @@ local identifyColorAt  = function(mx, my)
     x = math.max(0, math.min(IMAGE:getWidth()  - 1, x))
     y = math.max(0, math.min(IMAGE:getHeight() - 1, y))
 
-    READOUT:print("Color at (" .. math.floor(x) .. ", " .. math.floor(y) .. ") of image")
+    local r, g, b = IMAGE:getPixelAt(math.floor(x), math.floor(y))
+    READOUT:print("R = " .. r .. ", G = " .. g .. ", B = " .. b)
 end
 
 ----------------------- EVENT HANDLING -----------------------
