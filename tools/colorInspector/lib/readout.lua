@@ -43,7 +43,7 @@ return {
         elseif self.timer > 0 then 
             self:updateTimer(dt)
         else
-            self.velocity = Y_SPEED
+            self:triggerMessageDeparture()
         end
     end,
 
@@ -74,9 +74,18 @@ return {
     end,
 
     print = function(self, message)
-        self.message = message
         print("Printing to Readout: ", message)
+        self:triggerMessageArrival(message)
+    end,
+
+    triggerMessageArrival = function(self, message)
+        self.message = message
         self.velocity = -Y_SPEED
         self.timer    = DURATION
     end,
+
+    triggerMessageDeparture = function(self)
+        self.velocity = Y_SPEED
+    end,
+
 }
