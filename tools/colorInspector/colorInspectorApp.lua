@@ -1,3 +1,39 @@
+--------------------------------------------------------------
+--                 Functional Specifications                --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+          An image of choice is drawn to the screen.
+          Clicking on any pixel of the image prints
+          an RGB description of the color both to
+          the screen and to the text console.
+
+                           Features
+                           --------
+       [X] Image can be scrolled using the up, down,
+           left and right arrow keys.
+       [X] Image can be zoomed in using the 'z' key
+           and zoomed out using the 'a' key
+       [ ] Clicking on any pixel of the image prints
+           an RGB description of the color both to
+           the screen and to the text console.
+
+--]]
+
+--------------------------------------------------------------
+--                       Local Variables                    --
+--------------------------------------------------------------
+
+local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
+local IMAGE          = require("tools/colorInspector/lib/imageView"):create { imagePath = IMAGE_PATH }
+
+local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
+
+local ZOOMING        = require("tools/colorInspector/lib/zooming"):create   { imageView = IMAGE }
+local READOUT        = require("tools/colorInspector/lib/readout"):create   { fontSize = 48, ySpeed = 600 }
+
 local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 
 --------------------------------------------------------------
@@ -45,6 +81,7 @@ local handleStopZooming   = function(key)
 end
 
 ------------------------- INSPECTION -------------------------
+
 local identifyColorAt  = function(mx, my)
     local x, y = IMAGE:screenToImageCoordinates(mx, my)
 
