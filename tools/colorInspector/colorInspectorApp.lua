@@ -49,8 +49,10 @@ local SCROLL_SPEED   = {
 
 }
 
-local ZOOMING        = require("tools/colorInspector/lib/zooming"):create { imageView = IMAGE }
-local READOUT        = require("tools/colorInspector/lib/readout"):create { fontSize = 48, ySpeed = 600 }
+local ZOOMING        = require("tools/colorInspector/lib/zooming"):create   { imageView = IMAGE }
+local READOUT        = require("tools/colorInspector/lib/readout"):create   { fontSize = 48, ySpeed = 600 }
+
+local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { SCROLL_SPEED = SCROLL_SPEED, imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 
 --------------------------------------------------------------
 --                   Specialized Functions                  --
@@ -66,36 +68,19 @@ end
 
 -------------------------- SCROLLING -------------------------
 
-local scrollUp            = function() ySpeed =  SCROLL_SPEED:get() end
-local scrollDown          = function() ySpeed = -SCROLL_SPEED:get() end
-local scrollLeft          = function() xSpeed =  SCROLL_SPEED:get() end
-local scrollRight         = function() xSpeed = -SCROLL_SPEED:get() end
-
-local stopScrollingUp     = function() ySpeed = math.min(0, ySpeed) end
-local stopScrollingDown   = function() ySpeed = math.max(0, ySpeed) end
-local stopScrollingLeft   = function() xSpeed = math.min(0, xSpeed) end
-local stopScrollingRight  = function() xSpeed = math.max(0, xSpeed) end
-
 local handleScrolling     = function(key)
-    if     key == "up"    then scrollUp()
-    elseif key == "down"  then scrollDown() 
-    elseif key == "left"  then scrollLeft()
-    elseif key == "right" then scrollRight()
+    if     key == "up"    then SCROLLING:scrollUp()
+    elseif key == "down"  then SCROLLING:scrollDown() 
+    elseif key == "left"  then SCROLLING:scrollLeft()
+    elseif key == "right" then SCROLLING:scrollRight()
     end
 end
 
 local handleStopScrolling = function(key)
-    if     key == "up"    then stopScrollingUp()
-    elseif key == "down"  then stopScrollingDown()
-    elseif key == "left"  then stopScrollingLeft()
-    elseif key == "right" then stopScrollingRight()
-    end
-end
-
-local updateScrolling     = function(dt)
-    IMAGE:move(xSpeed * dt, ySpeed * dt)
-    if xSpeed == 0 and ySpeed == 0 and not DOUBLE_TAP:withinThreshold() and ZOOMING.scaleDelta <= 0 then
-        IMAGE:keepInBounds()
+    if     key == "up"    then SCROLLING:stopScrollingUp()
+    elseif key == "down"  then SCROLLING:stopScrollingDown()
+    elseif key == "left"  then SCROLLING:stopScrollingLeft()
+    elseif key == "right" then SCROLLING:stopScrollingRight()
     end
 end
 
@@ -122,7 +107,7 @@ end
 
 local handleUpdate        = function(dt)
     ZOOMING:update(dt)
-    updateScrolling(dt)
+    SCROLLING:update(dt)
     READOUT:update(dt)
 end
 
