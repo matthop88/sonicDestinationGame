@@ -59,6 +59,13 @@ local READOUT        = {
     x  = 100,
     y  = 200,
     w  = 500,
+
+    draw = function(self)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.setFont(self.font)
+
+        love.graphics.printf(self.message, self.x, self.y, self.w, "center")
+    end,
 }
 
 --------------------------------------------------------------
@@ -134,20 +141,11 @@ local updateZooming       = function(dt)
     IMAGE:scaleGeometrically(scaleDelta * dt, mx, my)
 end
 
---------------------------- READOUT --------------------------
-
-local drawReadout         = function()
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.setFont(READOUT.font)
-
-    love.graphics.printf(READOUT.message, READOUT.x, READOUT.y, READOUT.w, "center")
-end
-
 ----------------------- EVENT HANDLING -----------------------
 
 local handleDraw          = function()
     IMAGE:draw()
-    drawReadout()
+    READOUT:draw()
 end
 
 local handleUpdate        = function(dt)
