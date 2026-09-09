@@ -61,24 +61,26 @@ local READOUT        = {
     w  = love.graphics.getWidth(),
     h  = 70,
 
+    GRAFX   = love.graphics,
+
     draw = function(self)
         self:drawBox()
         self:drawMessage()
     end,
 
     drawBox = function(self)
-        love.graphics.setColor(0, 0, 0, 0.5)
-        love.graphics.rectangle("fill", 0,  self.y - 10, self.w, self.h)
+        self.GRAFX.setColor(0, 0, 0, 0.5)
+        self.GRAFX.rectangle("fill", 0,  self.y - 10, self.w, self.h)
 
-        love.graphics.setColor(1, 1, 1)
-        love.graphics.rectangle("line", 0,  self.y - 10, self.w, self.h) 
+        self.GRAFX.setColor(1, 1, 1)
+        self.GRAFX.rectangle("line", 0,  self.y - 10, self.w, self.h) 
     end,
 
     drawMessage = function(self)
-        love.graphics.setColor(1, 1, 1)
-        love.graphics.setFont(self.font)
+        self.GRAFX.setColor(1, 1, 1)
+        self.GRAFX.setFont(self.font)
 
-        love.graphics.printf(self.message, self.x, self.y, self.w, "center")
+        self.GRAFX.printf(self.message, self.x, self.y, self.w, "center")
     end,
 }
 
