@@ -82,6 +82,15 @@ end
 
 ------------------------- INSPECTION -------------------------
 
+local printRGBToConsole = function(r, g, b)
+    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
+end
+
+local printRGBToReadout = function(r, g, b)
+    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
+    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
+end
+
 local identifyColorAt  = function(mx, my)
     local x, y = IMAGE:screenToImageCoordinates(mx, my)
 
@@ -89,11 +98,9 @@ local identifyColorAt  = function(mx, my)
     y = math.max(0, math.min(IMAGE:getHeight() - 1, y))
 
     local r, g, b = IMAGE:getPixelAt(math.floor(x), math.floor(y))
-    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
     
-    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
-
-    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
+    printRGBToConsole(r, g, b)
+    printRGBToReadout(r, g, b)
 
 end
 
