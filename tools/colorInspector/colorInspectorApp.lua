@@ -154,7 +154,7 @@ end
 local handleMousepressed  = function(mx, my)
     local x, y = IMAGE:screenToImageCoordinates(mx, my)
 
-    READOUT:print("Mouse Pressed at (" .. x .. ", " .. y .. ")")
+    READOUT:print("Mouse Pressed at (" .. math.floor(x) .. ", " .. math.floor(y) .. ")")
 end
 
 --------------------------------------------------------------
