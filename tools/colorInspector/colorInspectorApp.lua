@@ -83,8 +83,8 @@ end
 local identifyColorAt  = function(mx, my)
     local x, y = IMAGE:screenToImageCoordinates(mx, my)
 
-    x = math.min(IMAGE:getWidth(),  x)
-    y = math.min(IMAGE:getHeight(), y)
+    x = math.min(IMAGE:getWidth()  - 1, x)
+    y = math.min(IMAGE:getHeight() - 1, y)
 
     READOUT:print("Color at (" .. math.floor(x) .. ", " .. math.floor(y) .. ") of image")
 end
