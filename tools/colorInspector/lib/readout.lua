@@ -3,9 +3,11 @@ local COLOR     = require("game/constants/colors")
 
 return {
     create = function(self, fontSize, ySpeed, duration)
-        local FONT      = GRAFX.newFont(fontSize)
-        local Y_SPEED   = ySpeed
-        local DURATION  = duration
+        local FONT_SIZE = fontSize or 40
+        local Y_SPEED   = ySpeed   or 180
+        local DURATION  = duration or 180
+
+        local FONT      = GRAFX.newFont(FONT_SIZE)
 
         return {
             message  = nil,
