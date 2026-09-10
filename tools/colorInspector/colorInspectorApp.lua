@@ -16,7 +16,7 @@
            left and right arrow keys.
        [X] Image can be zoomed in using the 'z' key
            and zoomed out using the 'a' key
-       [ ] Clicking on any pixel of the image prints
+       [X] Clicking on any pixel of the image prints
            an RGB description of the color both to
            the screen and to the text console.
 
@@ -26,13 +26,17 @@
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local IMAGE          = require("tools/colorInspector/lib/imageView")
-local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
+local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
+local IMAGE          = requireRelative("lib/imageView"):create { imagePath = IMAGE_PATH }
+    
+local DOUBLE_TAP     = requireRelative("lib/doubleTap")
 
-local ZOOMING        = require("tools/colorInspector/lib/zooming"):create   { imageView = IMAGE }
-local READOUT        = require("tools/colorInspector/lib/readout"):create   { fontSize = 48, ySpeed = 600 }
+local ZOOMING        = requireRelative("lib/zooming"):create { imageView = IMAGE }
+local READOUT        = requireRelative("lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true }
 
-local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
+local SCROLLING      = requireRelative("lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
+
+local SELECTED_COLOR = requireRelative("lib/colorSelector"):create { imageView = IMAGE }
 
 --------------------------------------------------------------
 --                   Specialized Functions                  --
@@ -78,11 +82,28 @@ local handleStopZooming   = function(key)
     end 
 end
 
+------------------------- INSPECTION -------------------------
+
+local printRGBToConsole = function(r, g, b)
+    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
+end
+
+local printRGBToReadout = function(r, g, b)
+    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
+    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
+end
+
+local onColorSelected = function(r, g, b)
+    printRGBToConsole(r, g, b)
+    printRGBToReadout(r, g, b)
+end
+
 ----------------------- EVENT HANDLING -----------------------
 
 local handleDraw          = function()
     IMAGE:draw()
     READOUT:draw()
+    SELECTED_COLOR:draw()
 end
 
 local handleUpdate        = function(dt)
@@ -103,20 +124,23 @@ local handleKeyreleased   = function(key)
 end
 
 local handleMousepressed  = function(mx, my)
-    local x, y = IMAGE:screenToImageCoordinates(mx, my)
+    SELECTED_COLOR:selectColorAt(mx, my, onColorSelected)
+end
 
-    READOUT:print("Mouse Pressed at (" .. math.floor(x) .. ", " .. math.floor(y) .. ")")
+local handleMousereleased = function(mx, my)
+    SELECTED_COLOR:clear()
 end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()               handleDraw()               end
-function love.update(dt)           handleUpdate(dt)           end
-function love.keypressed(key)      handleKeypressed(key)      end
-function love.keyreleased(key)     handleKeyreleased(key)     end
-function love.mousepressed(mx, my) handleMousepressed(mx, my) end
+function love.draw()                handleDraw()               end
+function love.update(dt)            handleUpdate(dt)           end
+function love.keypressed(key)       handleKeypressed(key)      end
+function love.keyreleased(key)      handleKeyreleased(key)     end
+function love.mousepressed(mx, my)  handleMousepressed(mx, my) end
+function love.mousereleased(mx, my) handleMousereleased(mx, my) end
 
 
 --[[

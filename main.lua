@@ -1,10 +1,4 @@
 --------------------------------------------------------------
---                      Global Variables                    --
---------------------------------------------------------------
-
-PARENT_PATH = "game/"
-
---------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
 
@@ -35,13 +29,36 @@ local APPLICATIONS = {
 }
 
 --------------------------------------------------------------
+--                   Specialized Functions                  --
+--------------------------------------------------------------
+
+local requireSafely = function(filename)
+	local success, module = pcall(require, filename)
+
+	if success then 
+		return module 
+	end
+end
+
+local loadWindow = function(path)
+	local window = requireSafely(path .. "config/window")
+
+	if window then
+	    love.window.setTitle(window.title)
+	    love.window.setMode(window.width, window.height)
+	end
+end
+
+--------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
 function love.load(args)
     local path, appName = APPLICATIONS:getPathAndAppName(args[1] or "game")
     
-	loadWindow(path)
+    requireRelative = function(p) return require(path .. p) end
+
+    loadWindow(path)
 
 	local COMMAND_LINE_TOOLS = require("lib/cmd/commandLineTools"):create(path .. "config/")
 	
@@ -52,20 +69,5 @@ function love.load(args)
     end
 end
 
-function loadWindow(path)
-	local window = requireSafely(path .. "config/window")
 
-	if window then
-	    love.window.setTitle(window.title)
-	    love.window.setMode(window.width, window.height)
-	end
-end
-
-function requireSafely(filename)
-	local success, module = pcall(require, filename)
-
-	if success then 
-		return module 
-	end
-end
 
