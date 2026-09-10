@@ -40,5 +40,14 @@ return {
         if self.intensity < 0.2 then return COLOR.PURE_WHITE
         else                         return COLOR.JET_BLACK   end
     end,
+
+    identifyColorFromImageAt = function(self, imageView, mx, my)
+        local x, y = imageView:screenToImageCoordinates(mx, my)
+
+        x = math.max(0, math.min(imageView:getWidth()  - 1, x))
+        y = math.max(0, math.min(imageView:getHeight() - 1, y))
+
+        return imageView:getPixelAt(math.floor(x), math.floor(y))
+    end,
     
 }
