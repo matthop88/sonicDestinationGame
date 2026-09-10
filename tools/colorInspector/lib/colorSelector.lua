@@ -1,14 +1,17 @@
 local COLOR = require("game/constants/colors")
 
 return {
-    color = nil,
+    color     = nil,
+    intensity = 0,
 
     set = function(self, r, g, b)
-        self.color = { r, g, b }
+        self.color     = { r, g, b }
+        self.intensity = (r * r) + (g * g) + (b * b)
     end,
 
     clear = function(self)
         self.color = nil
+        self.intensity = 0
     end,
 
     draw = function(self)
@@ -33,19 +36,8 @@ return {
     end,
 
     getBorderColor = function(self)
-        if self:getColorIntensity() < 0.2 then 
-            return COLOR.PURE_WHITE
-        else
-            return COLOR.JET_BLACK
-        end
+        if self.intensity < 0.2 then return COLOR.PURE_WHITE
+        else                         return COLOR.JET_BLACK   end
     end,
-
-    getColorIntensity = function(self)
-        if self.color then
-            return (self.color[1] * self.color[1]) + (self.color[2] * self.color[2]) + (self.color[3] * self.color[3])
-        else
-            return 0
-        end
-    end,
-
+    
 }
