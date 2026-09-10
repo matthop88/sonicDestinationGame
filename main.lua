@@ -1,10 +1,4 @@
 --------------------------------------------------------------
---                      Global Variables                    --
---------------------------------------------------------------
-
-PARENT_PATH = "game/"
-
---------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
 
@@ -41,6 +35,8 @@ local APPLICATIONS = {
 function love.load(args)
     local path, appName = APPLICATIONS:getPathAndAppName(args[1] or "game")
     
+    PARENT_PATH = path
+
 	loadWindow(path)
 
 	local COMMAND_LINE_TOOLS = require("lib/cmd/commandLineTools"):create(path .. "config/")
