@@ -98,10 +98,6 @@ local onColorSelected = function(r, g, b)
     printRGBToReadout(r, g, b)
 end
 
-local selectColorAt = function(mx, my)
-    SELECTED_COLOR:selectColorAt(mx, my, onColorSelected)
-end
-
 ----------------------- EVENT HANDLING -----------------------
 
 local handleDraw          = function()
@@ -128,7 +124,7 @@ local handleKeyreleased   = function(key)
 end
 
 local handleMousepressed  = function(mx, my)
-    selectColorAt(mx, my)
+    SELECTED_COLOR:selectColorAt(mx, my, onColorSelected)
 end
 
 local handleMousereleased = function(mx, my)
