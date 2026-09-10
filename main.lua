@@ -52,6 +52,10 @@ function love.load(args)
     end
 end
 
+--------------------------------------------------------------
+--                   Specialized Functions                  --
+--------------------------------------------------------------
+
 function loadWindow(path)
 	local window = requireSafely(path .. "config/window")
 
