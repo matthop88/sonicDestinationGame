@@ -39,7 +39,7 @@
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local EVENT_HANDLER = ({
+local CONTROLLER = ({
     init = function(self)
         self.MOUSE = love.mouse
 
@@ -99,10 +99,10 @@ local EVENT_HANDLER = ({
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()                EVENT_HANDLER:handleDraw()                end
-function love.update(dt)            EVENT_HANDLER:handleUpdate(dt)            end
-function love.keypressed(key)       EVENT_HANDLER:handleKeypressed(key)       end
-function love.keyreleased(key)      EVENT_HANDLER:handleKeyreleased(key)      end
-function love.mousepressed(mx, my)  EVENT_HANDLER:handleMousepressed(mx, my)  end
-function love.mousereleased(mx, my) EVENT_HANDLER:handleMousereleased(mx, my) end
+function love.draw()                CONTROLLER:handleDraw()                end
+function love.update(dt)            CONTROLLER:handleUpdate(dt)            end
+function love.keypressed(key)       CONTROLLER:handleKeypressed(key)       end
+function love.keyreleased(key)      CONTROLLER:handleKeyreleased(key)      end
+function love.mousepressed(mx, my)  CONTROLLER:handleMousepressed(mx, my)  end
+function love.mousereleased(mx, my) CONTROLLER:handleMousereleased(mx, my) end
 
