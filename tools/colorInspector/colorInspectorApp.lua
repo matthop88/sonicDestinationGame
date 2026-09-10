@@ -93,17 +93,8 @@ local printRGBToReadout = function(r, g, b)
     READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
 end
 
-local identifyColorAt  = function(mx, my)
-    local x, y = IMAGE:screenToImageCoordinates(mx, my)
-
-    x = math.max(0, math.min(IMAGE:getWidth()  - 1, x))
-    y = math.max(0, math.min(IMAGE:getHeight() - 1, y))
-
-    return IMAGE:getPixelAt(math.floor(x), math.floor(y))
-end
-
 local selectColorAt = function(mx, my)
-    local r, g, b = identifyColorAt(mx, my)
+    local r, g, b = SELECTED_COLOR:identifyColorFromImageAt(IMAGE, mx, my)
 
     SELECTED_COLOR:set(r, g, b)
 
