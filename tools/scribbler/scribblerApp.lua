@@ -41,7 +41,9 @@
 
 local EVENT_HANDLER = ({
     init = function(self)
-        self.prevX, self.prevY = love.mouse.getPosition()
+        self.MOUSE = love.mouse
+
+        self.prevX, self.prevY = self.MOUSE.getPosition()
 
         return self
     end,
@@ -51,10 +53,10 @@ local EVENT_HANDLER = ({
     end,
 
     handleUpdate        = function(self, dt)
-        local x, y = love.mouse.getPosition()
+        local x, y = self.MOUSE.getPosition()
 
         if self.prevX ~= x or self.prevY ~= y then
-            if love.mouse.isDown(1) then
+            if self.MOUSE.isDown(1) then
                 print("Pen dragged to (" .. x .. ", " .. y .. ")")
             else
                 print("Pen moved   to (" .. x .. ", " .. y .. ")")
