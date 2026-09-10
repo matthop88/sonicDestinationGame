@@ -99,12 +99,16 @@ local identifyColorAt  = function(mx, my)
     x = math.max(0, math.min(IMAGE:getWidth()  - 1, x))
     y = math.max(0, math.min(IMAGE:getHeight() - 1, y))
 
-    local r, g, b = IMAGE:getPixelAt(math.floor(x), math.floor(y))
+    return IMAGE:getPixelAt(math.floor(x), math.floor(y))
+end
+
+local selectColorAt = function(mx, my)
+    local r, g, b = identifyColorAt(mx, my)
+
     SELECTED_COLOR:set(r, g, b)
 
     printRGBToConsole(r, g, b)
     printRGBToReadout(r, g, b)
-
 end
 
 ----------------------- EVENT HANDLING -----------------------
@@ -133,7 +137,7 @@ local handleKeyreleased   = function(key)
 end
 
 local handleMousepressed  = function(mx, my)
-    identifyColorAt(mx, my)
+    selectColorAt(mx, my)
 end
 
 local handleMousereleased = function(mx, my)
