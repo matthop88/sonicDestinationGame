@@ -1,10 +1,4 @@
 --------------------------------------------------------------
---                      Global Variables                    --
---------------------------------------------------------------
-
-PARENT_PATH = ""
-
---------------------------------------------------------------
 --                      Local Functions                     --
 --------------------------------------------------------------
 
@@ -21,12 +15,8 @@ end
 
 function love.load(args)
     loadWindow()
-	
-	require("application")
+
+    requireRelative = function(path) return require(path) end
+
+    require("application")
 end
-
-
-
-
-
-
