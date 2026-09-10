@@ -1,39 +1,6 @@
 local MOUSE = love.mouse
 
-local ENGINE = {
-    draw          = function(self)
-        -- ...
-    end,
-
-    update        = function(self, dt)
-        -- ...
-    end,
-
-    keypressed    = function(self, key)
-        -- ...
-    end,
-
-    keyreleased   = function(self, key)
-        -- ...
-    end,
-
-    mousepressed  = function(self, mx, my)
-        -- ...
-    end,
-
-    mousereleased = function(self, mx, my)
-        -- ...
-    end,
-
-    mousemoved    = function(self, mx, my)
-        print("Pen moved   to (" .. mx .. ", " .. my .. ")")
-    end,
-
-    mousedragged  = function(self, mx, my)
-        print("Pen dragged to (" .. mx .. ", " .. my .. ")")
-    end,
-
-}
+local ENGINE = requireRelative("lib/engine")
 
 return ({
     init = function(self)
@@ -52,11 +19,8 @@ return ({
         local x, y = MOUSE.getPosition()
 
         if self.prevX ~= x or self.prevY ~= y then
-            if MOUSE.isDown(1) then
-                ENGINE:mousedragged(x, y)
-            else
-                ENGINE:mousemoved(x, y)
-            end
+            if MOUSE.isDown(1) then ENGINE:mousedragged(x, y)
+            else                    ENGINE:mousemoved(x, y)    end
 
             self.prevX, self.prevY = x, y
         end
