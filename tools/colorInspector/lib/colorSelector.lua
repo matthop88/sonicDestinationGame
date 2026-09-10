@@ -2,52 +2,60 @@ local COLOR = require("game/constants/colors")
 local GRAFX = love.graphics
 
 return {
-    color     = nil,
-    intensity = 0,
+    create = function(self, params)
+        return {
+            imageView = params.imageView,
 
-    set = function(self, r, g, b)
-        self.color     = { r, g, b }
-        self.intensity = (r * r) + (g * g) + (b * b)
-    end,
+            color     = nil,
+            intensity = 0,
 
-    clear = function(self)
-        self.color = nil
-        self.intensity = 0
-    end,
+            set = function(self, r, g, b)
+                self.color     = { r, g, b }
+                self.intensity = (r * r) + (g * g) + (b * b)
+            end,
 
-    draw = function(self)
-        if self.color then
-            local mx, my = love.mouse.getPosition()
+            clear = function(self)
+                self.color = nil
+                self.intensity = 0
+            end,
 
-            self:drawBox(mx, my)
-            self:drawOutline(mx, my)
-        end
-    end,
+            draw = function(self)
+                if self.color then
+                    local mx, my = love.mouse.getPosition()
 
-    drawBox = function(self, mx, my)
-        GRAFX.setColor(self.color)
-        GRAFX.rectangle("fill", mx - 50, my - 50, 100, 100)
-    end,
+                    self:drawBox(mx, my)
+                    self:drawOutline(mx, my)
+                end
+            end,
 
-    drawOutline = function(self, mx, my)
-        GRAFX.setColor(self:getBorderColor())
+            drawBox = function(self, mx, my)
+                GRAFX.setColor(self.color)
+                GRAFX.rectangle("fill", mx - 50, my - 50, 100, 100)
+            end,
 
-        GRAFX.setLineWidth(3)
-        GRAFX.rectangle("line", mx - 50, my - 50, 100, 100)
-    end,
+            drawOutline = function(self, mx, my)
+                GRAFX.setColor(self:getBorderColor())
 
-    getBorderColor = function(self)
-        if self.intensity < 0.2 then return COLOR.PURE_WHITE
-        else                         return COLOR.JET_BLACK   end
-    end,
+                GRAFX.setLineWidth(3)
+                GRAFX.rectangle("line", mx - 50, my - 50, 100, 100)
+            end,
 
-    identifyColorFromImageAt = function(self, imageView, mx, my)
-        local x, y = imageView:screenToImageCoordinates(mx, my)
+            getBorderColor = function(self)
+                if self.intensity < 0.2 then return COLOR.PURE_WHITE
+                else                         return COLOR.JET_BLACK   end
+            end,
 
-        x = math.max(0, math.min(imageView:getWidth()  - 1, x))
-        y = math.max(0, math.min(imageView:getHeight() - 1, y))
+            identifyColorAt = function(self, mx, my)
+                local x, y = self.imageView:screenToImageCoordinates(mx, my)
 
-        return imageView:getPixelAt(math.floor(x), math.floor(y))
+                x = math.max(0, math.min(self.imageView:getWidth()  - 1, x))
+                y = math.max(0, math.min(self.imageView:getHeight() - 1, y))
+
+                return self.imageView:getPixelAt(math.floor(x), math.floor(y))
+            end,
+
+        }
+        
     end,
     
 }
