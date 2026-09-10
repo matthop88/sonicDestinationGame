@@ -9,15 +9,7 @@ return {
             color     = nil,
             intensity = 0,
 
-            set = function(self, r, g, b)
-                self.color     = { r, g, b }
-                self.intensity = (r * r) + (g * g) + (b * b)
-            end,
-
-            clear = function(self)
-                self.color = nil
-                self.intensity = 0
-            end,
+            ------------------------- Drawing Functions --------------------------
 
             draw = function(self)
                 if self.color then
@@ -45,6 +37,8 @@ return {
                 else                         return COLOR.JET_BLACK   end
             end,
 
+            --------------------- Color Selection Functions ----------------------
+
             selectColorAt = function(self, mx, my, callback)
                 local x, y = self.imageView:screenToImageCoordinates(mx, my)
 
@@ -57,6 +51,16 @@ return {
                 if callback then
                     callback(r, g, b)
                 end
+            end,
+
+            set = function(self, r, g, b)
+                self.color     = { r, g, b }
+                self.intensity = (r * r) + (g * g) + (b * b)
+            end,
+
+            clear = function(self)
+                self.color = nil
+                self.intensity = 0
             end,
 
         }
