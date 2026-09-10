@@ -56,11 +56,7 @@ end
 function love.load(args)
     local path, appName = APPLICATIONS:getPathAndAppName(args[1] or "game")
     
-    PARENT_PATH = path
-
-    requireRelative = function(p)
-    	return require(PARENT_PATH .. p)
-    end
+    requireRelative = function(p) return require(path .. p) end
 
     loadWindow(path)
 
