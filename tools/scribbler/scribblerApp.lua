@@ -39,6 +39,41 @@
 --                       Local Variables                    --
 --------------------------------------------------------------
 
+local SCRIBBLER = {
+    draw          = function(self)
+        -- ...
+    end,
+
+    update        = function(self, dt)
+        -- ...
+    end,
+
+    keypressed    = function(self, key)
+        -- ...
+    end,
+
+    keyreleased   = function(self, key)
+        -- ...
+    end,
+
+    mousepressed  = function(self, mx, my)
+        -- ...
+    end,
+
+    mousereleased = function(self, mx, my)
+        -- ...
+    end,
+
+    mousemoved    = function(self, mx, my)
+        print("Pen moved   to (" .. mx .. ", " .. my .. ")")
+    end,
+
+    mousedragged  = function(self, mx, my)
+        print("Pen dragged to (" .. mx .. ", " .. my .. ")")
+    end,
+
+}
+
 local CONTROLLER = ({
     init = function(self)
         self.MOUSE = love.mouse
@@ -49,17 +84,19 @@ local CONTROLLER = ({
     end,
 
     handleDraw          = function(self)
-        -- do something awesome
+        SCRIBBLER:draw()
     end,
 
     handleUpdate        = function(self, dt)
+        SCRIBBLER:update(dt)
+
         local x, y = self.MOUSE.getPosition()
 
         if self.prevX ~= x or self.prevY ~= y then
             if self.MOUSE.isDown(1) then
-                print("Pen dragged to (" .. x .. ", " .. y .. ")")
+                SCRIBBLER:mousedragged(x, y)
             else
-                print("Pen moved   to (" .. x .. ", " .. y .. ")")
+                SCRIBBLER:mousemoved(x, y)
             end
 
             self.prevX, self.prevY = x, y
@@ -67,19 +104,19 @@ local CONTROLLER = ({
     end,
 
     handleKeypressed    = function(self, key)
-        -- more awesomeness
+        SCRIBBLER:keypressed(key)
     end,
 
     handleKeyreleased   = function(self, key)
-        -- even more awesomeness
+        SCRIBBLER:keyreleased(key)
     end,
 
     handleMousepressed  = function(self, mx, my)
-        -- is there no end to the awesomeness?
+        SCRIBBLER:mousepressed(mx, my)
     end,
 
     handleMousereleased = function(self, mx, my)
-        -- ANSWER: NO.
+        SCRIBBLER:mousereleased(mx, my)
     end,
 
 }):init()
