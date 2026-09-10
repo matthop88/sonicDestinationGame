@@ -39,7 +39,7 @@
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local SCRIBBLER = {
+local ENGINE = {
     draw          = function(self)
         -- ...
     end,
@@ -74,7 +74,7 @@ local SCRIBBLER = {
 
 }
 
-local CONTROLLER = ({
+local SCRIBBLER = ({
     init = function(self)
         self.MOUSE = love.mouse
 
@@ -84,19 +84,19 @@ local CONTROLLER = ({
     end,
 
     handleDraw          = function(self)
-        SCRIBBLER:draw()
+        ENGINE:draw()
     end,
 
     handleUpdate        = function(self, dt)
-        SCRIBBLER:update(dt)
+        ENGINE:update(dt)
 
         local x, y = self.MOUSE.getPosition()
 
         if self.prevX ~= x or self.prevY ~= y then
             if self.MOUSE.isDown(1) then
-                SCRIBBLER:mousedragged(x, y)
+                ENGINE:mousedragged(x, y)
             else
-                SCRIBBLER:mousemoved(x, y)
+                ENGINE:mousemoved(x, y)
             end
 
             self.prevX, self.prevY = x, y
@@ -104,19 +104,19 @@ local CONTROLLER = ({
     end,
 
     handleKeypressed    = function(self, key)
-        SCRIBBLER:keypressed(key)
+        ENGINE:keypressed(key)
     end,
 
     handleKeyreleased   = function(self, key)
-        SCRIBBLER:keyreleased(key)
+        ENGINE:keyreleased(key)
     end,
 
     handleMousepressed  = function(self, mx, my)
-        SCRIBBLER:mousepressed(mx, my)
+        ENGINE:mousepressed(mx, my)
     end,
 
     handleMousereleased = function(self, mx, my)
-        SCRIBBLER:mousereleased(mx, my)
+        ENGINE:mousereleased(mx, my)
     end,
 
 }):init()
@@ -136,10 +136,10 @@ local CONTROLLER = ({
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()                CONTROLLER:handleDraw()                end
-function love.update(dt)            CONTROLLER:handleUpdate(dt)            end
-function love.keypressed(key)       CONTROLLER:handleKeypressed(key)       end
-function love.keyreleased(key)      CONTROLLER:handleKeyreleased(key)      end
-function love.mousepressed(mx, my)  CONTROLLER:handleMousepressed(mx, my)  end
-function love.mousereleased(mx, my) CONTROLLER:handleMousereleased(mx, my) end
+function love.draw()                SCRIBBLER:handleDraw()                end
+function love.update(dt)            SCRIBBLER:handleUpdate(dt)            end
+function love.keypressed(key)       SCRIBBLER:handleKeypressed(key)       end
+function love.keyreleased(key)      SCRIBBLER:handleKeyreleased(key)      end
+function love.mousepressed(mx, my)  SCRIBBLER:handleMousepressed(mx, my)  end
+function love.mousereleased(mx, my) SCRIBBLER:handleMousereleased(mx, my) end
 
