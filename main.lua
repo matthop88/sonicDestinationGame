@@ -29,6 +29,27 @@ local APPLICATIONS = {
 }
 
 --------------------------------------------------------------
+--                   Specialized Functions                  --
+--------------------------------------------------------------
+
+local requireSafely = function(filename)
+	local success, module = pcall(require, filename)
+
+	if success then 
+		return module 
+	end
+end
+
+local loadWindow = function(path)
+	local window = requireSafely(path .. "config/window")
+
+	if window then
+	    love.window.setTitle(window.title)
+	    love.window.setMode(window.width, window.height)
+	end
+end
+
+--------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
@@ -48,24 +69,5 @@ function love.load(args)
     end
 end
 
---------------------------------------------------------------
---                   Specialized Functions                  --
---------------------------------------------------------------
 
-function loadWindow(path)
-	local window = requireSafely(path .. "config/window")
-
-	if window then
-	    love.window.setTitle(window.title)
-	    love.window.setMode(window.width, window.height)
-	end
-end
-
-function requireSafely(filename)
-	local success, module = pcall(require, filename)
-
-	if success then 
-		return module 
-	end
-end
 
