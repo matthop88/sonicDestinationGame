@@ -6,6 +6,7 @@ return {
 
     SONIC_BLUE        = { 0,   0,    0.75 },
 
+    JET_BLACK         = { 0,   0,    0    },
     TRANSLUCENT_BLACK = { 0,   0,    0,    0.5  },
 
     MEDIUM_GREY       = { 0.5, 0.5,  0.5  },
