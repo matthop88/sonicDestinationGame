@@ -45,13 +45,18 @@ return {
                 else                         return COLOR.JET_BLACK   end
             end,
 
-            identifyColorAt = function(self, mx, my)
+            selectColorAt = function(self, mx, my, callback)
                 local x, y = self.imageView:screenToImageCoordinates(mx, my)
 
                 x = math.max(0, math.min(self.imageView:getWidth()  - 1, x))
                 y = math.max(0, math.min(self.imageView:getHeight() - 1, y))
 
-                return self.imageView:getPixelAt(math.floor(x), math.floor(y))
+                local r, g, b = self.imageView:getPixelAt(math.floor(x), math.floor(y))
+                self:set(r, g, b)
+
+                if callback then
+                    callback(r, g, b)
+                end
             end,
 
         }
