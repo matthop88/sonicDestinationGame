@@ -39,13 +39,25 @@
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local EVENT_HANDLER = {
+local EVENT_HANDLER = ({
+    init = function(self)
+        self.prevX, self.prevY = love.mouse.getPosition()
+
+        return self
+    end,
+
     handleDraw          = function(self)
         -- do something awesome
     end,
 
     handleUpdate        = function(self, dt)
-        -- do something else awesome
+        local x, y = love.mouse.getPosition()
+
+        if self.prevX ~= x or self.prevY ~= y then
+            print("Pen moved to (" .. x .. ", " .. y .. ")")
+
+            self.prevX, self.prevY = x, y
+        end
     end,
 
     handleKeypressed    = function(self, key)
@@ -64,7 +76,7 @@ local EVENT_HANDLER = {
         -- ANSWER: NO.
     end,
 
-}
+}):init()
 
 -- ...
 -- ...
