@@ -54,7 +54,11 @@ local EVENT_HANDLER = ({
         local x, y = love.mouse.getPosition()
 
         if self.prevX ~= x or self.prevY ~= y then
-            print("Pen moved to (" .. x .. ", " .. y .. ")")
+            if love.mouse.isDown(1) then
+                print("Pen dragged to (" .. x .. ", " .. y .. ")")
+            else
+                print("Pen moved   to (" .. x .. ", " .. y .. ")")
+            end
 
             self.prevX, self.prevY = x, y
         end
