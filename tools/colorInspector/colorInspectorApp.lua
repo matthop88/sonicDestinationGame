@@ -27,16 +27,16 @@
 --------------------------------------------------------------
 
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
-local IMAGE          = require("tools/colorInspector/lib/imageView"):create { imagePath = IMAGE_PATH }
+local IMAGE          = require(PARENT_PATH .. "lib/imageView"):create { imagePath = IMAGE_PATH }
     
-local DOUBLE_TAP     = require("tools/colorInspector/lib/doubleTap")
+local DOUBLE_TAP     = require(PARENT_PATH .. "lib/doubleTap")
 
-local ZOOMING        = require("tools/colorInspector/lib/zooming"):create { imageView = IMAGE }
-local READOUT        = require("tools/colorInspector/lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true }
+local ZOOMING        = require(PARENT_PATH .. "lib/zooming"):create { imageView = IMAGE }
+local READOUT        = require(PARENT_PATH .. "lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true }
 
-local SCROLLING      = require("tools/colorInspector/lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
+local SCROLLING      = require(PARENT_PATH .. "lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 
-local SELECTED_COLOR = require("tools/colorInspector/lib/colorSelector"):create { imageView = IMAGE }
+local SELECTED_COLOR = require(PARENT_PATH .. "lib/colorSelector"):create { imageView = IMAGE }
 
 --------------------------------------------------------------
 --                   Specialized Functions                  --
