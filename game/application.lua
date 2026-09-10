@@ -21,7 +21,7 @@
 --------------------------------------------------------------
 
 local GRAFX  = love.graphics
-local COLOR  = require(PARENT_PATH .. "constants/colors")
+local COLOR  = requireRelative("constants/colors")
 
 local WORKSPACE = {
     draw = function(self)
