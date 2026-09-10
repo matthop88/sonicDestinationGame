@@ -40,27 +40,27 @@
 --------------------------------------------------------------
 
 local EVENT_HANDLER = {
-    handleDraw          = function()
+    handleDraw          = function(self)
         -- do something awesome
     end,
 
-    handleUpdate        = function(dt)
+    handleUpdate        = function(self, dt)
         -- do something else awesome
     end,
 
-    handleKeypressed    = function(key)
+    handleKeypressed    = function(self, key)
         -- more awesomeness
     end,
 
-    handleKeyreleased   = function(key)
+    handleKeyreleased   = function(self, key)
         -- even more awesomeness
     end,
 
-    handleMousepressed  = function(mx, my)
+    handleMousepressed  = function(self, mx, my)
         -- is there no end to the awesomeness?
     end,
 
-    handleMousereleased = function(mx, my)
+    handleMousereleased = function(self, mx, my)
         -- ANSWER: NO.
     end,
 
