@@ -93,13 +93,13 @@ local printRGBToReadout = function(r, g, b)
     READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
 end
 
-local selectColorAt = function(mx, my)
-    local r, g, b = SELECTED_COLOR:identifyColorAt(mx, my)
-
-    SELECTED_COLOR:set(r, g, b)
-
+local onColorSelected = function(r, g, b)
     printRGBToConsole(r, g, b)
     printRGBToReadout(r, g, b)
+end
+
+local selectColorAt = function(mx, my)
+    SELECTED_COLOR:selectColorAt(mx, my, onColorSelected)
 end
 
 ----------------------- EVENT HANDLING -----------------------
