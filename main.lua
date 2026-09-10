@@ -58,7 +58,11 @@ function love.load(args)
     
     PARENT_PATH = path
 
-	loadWindow(path)
+    requireRelative = function(p)
+    	return require(PARENT_PATH .. p)
+    end
+
+    loadWindow(path)
 
 	local COMMAND_LINE_TOOLS = require("lib/cmd/commandLineTools"):create(path .. "config/")
 	
