@@ -1,4 +1,5 @@
 local COLOR = require("game/constants/colors")
+local GRAFX = love.graphics
 
 return {
     color     = nil,
@@ -24,15 +25,15 @@ return {
     end,
 
     drawBox = function(self, mx, my)
-        love.graphics.setColor(self.color)
-        love.graphics.rectangle("fill", mx - 50, my - 50, 100, 100)
+        GRAFX.setColor(self.color)
+        GRAFX.rectangle("fill", mx - 50, my - 50, 100, 100)
     end,
 
     drawOutline = function(self, mx, my)
-        love.graphics.setColor(self:getBorderColor())
+        GRAFX.setColor(self:getBorderColor())
 
-        love.graphics.setLineWidth(3)
-        love.graphics.rectangle("line", mx - 50, my - 50, 100, 100)
+        GRAFX.setLineWidth(3)
+        GRAFX.rectangle("line", mx - 50, my - 50, 100, 100)
     end,
 
     getBorderColor = function(self)
