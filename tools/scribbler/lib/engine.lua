@@ -13,8 +13,13 @@ return {
     drawHistory   = function(self)
         GRAFX.setColor(COLOR.PURE_WHITE)
 
-        for _, pt in ipairs(self.history) do
-            GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
+        local prevX, prevY = nil, nil
+        
+        for n, pt in ipairs(self.history) do
+            if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
+            else           GRAFX.line(prevX, prevY, pt.x, pt.y)            end
+
+            prevX, prevY = pt.x, pt.y
         end
     end,
 
