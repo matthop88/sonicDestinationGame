@@ -29,19 +29,19 @@ return {
     end,
 
     mousepressed  = function(self, mx, my)
-        SCRIBBLE_JOT:mousepressed(mx, my)
+        SCRIBBLE_JOT:penDown(mx, my)
     end,
 
     mousereleased = function(self, mx, my)
-        SCRIBBLE_JOT:mousereleased(mx, my)
+        SCRIBBLE_JOT:penUp(mx, my)
     end,
 
     mousemoved    = function(self, mx, my)
-        SCRIBBLE_JOT:mousemoved(mx, my)
+        SCRIBBLE_JOT:penMoved(mx, my)
     end,
 
     mousedragged  = function(self, mx, my)
-        SCRIBBLE_JOT:mousedragged(mx, my)
+        SCRIBBLE_JOT:penDragged(mx, my)
     end,
 
 }
