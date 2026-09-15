@@ -1,6 +1,4 @@
-local GRAFX = love.graphics
-local MOUSE = love.mouse
-local COLOR = require("game/constants/colors")
+local LINE_JOT = requireRelative("lib/jots/line")
 
 return {
     history = { },
@@ -11,25 +9,11 @@ return {
     end,
 
     drawHistory   = function(self)
-        GRAFX.setColor(COLOR.PURE_WHITE)
-
-        local prevX, prevY = nil, nil
-        
-        for n, pt in ipairs(self.history) do
-            if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
-            else           GRAFX.line(prevX, prevY, pt.x, pt.y)            end
-
-            prevX, prevY = pt.x, pt.y
-        end
+        LINE_JOT:drawHistory()
     end,
 
     drawCursor    = function(self)
-        local mx, my = MOUSE.getPosition()
-
-        MOUSE.setVisible(false)
-        GRAFX.setColor(COLOR.PURE_WHITE)
-
-        GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
+        LINE_JOT:drawCursor()
     end,
 
     update        = function(self, dt)
@@ -45,20 +29,19 @@ return {
     end,
 
     mousepressed  = function(self, mx, my)
-        print("Pen down    at (" .. mx .. ", " .. my .. ")")
-        table.insert(self.history, { x = mx, y = my })
+        LINE_JOT:mousepressed(mx, my)
     end,
 
     mousereleased = function(self, mx, my)
-        print("Pen up      at (" .. mx .. ", " .. my .. ")")
+        LINE_JOT:mousereleased(mx, my)
     end,
 
     mousemoved    = function(self, mx, my)
-        print("Pen moved   to (" .. mx .. ", " .. my .. ")")
+        LINE_JOT:mousemoved(mx, my)
     end,
 
     mousedragged  = function(self, mx, my)
-        print("Pen dragged to (" .. mx .. ", " .. my .. ")")
+        LINE_JOT:mousedragged(mx, my)
     end,
 
 }
