@@ -44,20 +44,20 @@ return {
         -- ...
     end,
 
-    mousepressed  = function(self, mx, my)
+    penDown  = function(self, mx, my)
         print("Pen down    at (" .. mx .. ", " .. my .. ")")
         table.insert(self.history, { x = mx, y = my })
     end,
 
-    mousereleased = function(self, mx, my)
+    penUp = function(self, mx, my)
         print("Pen up      at (" .. mx .. ", " .. my .. ")")
     end,
 
-    mousemoved    = function(self, mx, my)
+    penMoved    = function(self, mx, my)
         print("Pen moved   to (" .. mx .. ", " .. my .. ")")
     end,
 
-    mousedragged  = function(self, mx, my)
+    penDragged  = function(self, mx, my)
         print("Pen dragged to (" .. mx .. ", " .. my .. ")")
     end,
 
