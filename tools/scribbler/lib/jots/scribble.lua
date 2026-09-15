@@ -59,6 +59,7 @@ return {
 
     mousedragged  = function(self, mx, my)
         print("Pen dragged to (" .. mx .. ", " .. my .. ")")
+        table.insert(self.history, { x = mx, y = my })
     end,
 
 }
