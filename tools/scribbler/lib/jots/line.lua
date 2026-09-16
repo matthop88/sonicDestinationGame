@@ -18,8 +18,9 @@ return {
         GRAFX.setLineWidth(1)
         
         for n, pt in ipairs(self.history) do
-            if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
-            else           GRAFX.line(prevX, prevY, pt.x, pt.y)            end
+            if n > 1 then 
+                GRAFX.line(prevX, prevY, pt.x, pt.y)            
+            end
 
             prevX, prevY = pt.x, pt.y
         end
@@ -30,6 +31,12 @@ return {
 
         MOUSE.setVisible(false)
         GRAFX.setColor(COLOR.PURE_WHITE)
+
+        if #self.history > 0 then
+            local lastPt = self.history[#self.history]
+
+            GRAFX.line(lastPt.x, lastPt.y, mx, my)
+        end
 
         GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
     end,
