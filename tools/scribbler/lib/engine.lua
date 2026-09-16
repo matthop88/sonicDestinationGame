@@ -2,6 +2,7 @@ local KEYBOARD     = love.keyboard
 
 local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
 local LINE_JOT     = requireRelative("lib/jots/line")
+local TEXT_JOT     = requireRelative("lib/jots/text")
 
 local CURRENT_JOT = SCRIBBLE_JOT
 
@@ -50,6 +51,7 @@ local ENGINE = {
         else
             CURRENT_JOT:keypressed(key, addToHistoryCallback)
             if     key == "l"                    then CURRENT_JOT = LINE_JOT
+            elseif key == "t"                    then CURRENT_JOT = TEXT_JOT
             elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT  end
         end
     end,
