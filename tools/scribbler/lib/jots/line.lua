@@ -71,6 +71,8 @@ return {
         if key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
+        elseif key == "s" or key == "escape" then
+            self.jot = LINE_JOT:create()
         end
     end,
 
@@ -79,20 +81,19 @@ return {
     end,
 
     penDown  = function(self, mx, my)
-        print("Pen down    at (" .. mx .. ", " .. my .. ")")
         self.jot:addPoint(mx, my)
     end,
 
     penUp = function(self, mx, my)
-        print("Pen up      at (" .. mx .. ", " .. my .. ")")
+        -- ...
     end,
 
     penMoved    = function(self, mx, my)
-        print("Pen moved   to (" .. mx .. ", " .. my .. ")")
+        -- ...
     end,
 
     penDragged  = function(self, mx, my)
-        print("Pen dragged to (" .. mx .. ", " .. my .. ")")
+        -- ...
     end,
 
 }
