@@ -49,9 +49,7 @@ return {
     end,
 
     keypressed    = function(self, key)
-        if key == "l" or key == "s" or key == "escape" then
-            self.jot = TEXT_JOT:create()
-        end
+        -- ...
     end,
 
     keyreleased   = function(self, key)
@@ -74,6 +72,10 @@ return {
 
     penDragged  = function(self, mx, my)
         -- ...
+    end,
+
+    revert = function(self)
+        self.jot = TEXT_JOT:create()
     end,
 
 }
