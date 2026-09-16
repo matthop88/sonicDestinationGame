@@ -1,3 +1,5 @@
+local KEYBOARD     = love.keyboard
+
 local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
 local LINE_JOT     = requireRelative("lib/jots/line")
 
@@ -45,9 +47,13 @@ local ENGINE = {
     end,
 
     keypressed    = function(self, key)
-        CURRENT_JOT:keypressed(key, addToHistoryCallback)
-        if     key == "l"                    then CURRENT_JOT = LINE_JOT
-        elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT
+        if key == "z" and KEYBOARD.isDown("lgui", "rgui") then
+            self:undo()
+        else
+            CURRENT_JOT:keypressed(key, addToHistoryCallback)
+            if     key == "l"                    then CURRENT_JOT = LINE_JOT
+            elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT
+            end
         end
     end,
 
