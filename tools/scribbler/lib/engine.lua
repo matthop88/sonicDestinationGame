@@ -6,12 +6,21 @@ local CURRENT_JOT = SCRIBBLE_JOT
 local addToHistoryCallback
 
 local ENGINE = {
-    history = { },
+    history = { 
+        draw = function(self)
+            for _, jot in ipairs(self) do
+                jot:draw()
+            end
+        end,
+
+        addJot = function(self, jot)
+            table.insert(self, jot)
+        end,
+
+    },
 
     draw          = function(self)
-        for _, jot in ipairs(self.history) do
-            jot:draw()
-        end
+        self.history:draw()
 
         CURRENT_JOT:draw()
     end,
@@ -48,7 +57,7 @@ local ENGINE = {
     end,
 
     addToHistory  = function(self, jot)
-        table.insert(self.history, jot)
+        self.history:addJot(jot)
     end,
 
 }
