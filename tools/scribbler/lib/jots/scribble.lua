@@ -64,8 +64,10 @@ return {
         self.jot:addPoint(mx, my)
     end,
 
-    penUp = function(self, mx, my)
+    penUp = function(self, mx, my, publishJot)
         print("Pen up      at (" .. mx .. ", " .. my .. ")")
+        publishJot(self.jot)
+        self.jot = SCRIBBLE_JOT:create()
     end,
 
     penMoved    = function(self, mx, my)
