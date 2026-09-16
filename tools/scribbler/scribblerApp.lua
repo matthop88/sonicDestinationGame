@@ -29,7 +29,7 @@
                 can be used to create polygons
         [ ] 'R' draws a rect with upper-left corner at pt 1, 
             lower left at pt 2
-        [ ] 'T' allows typing of text at mouse position.
+        [-] 'T' allows typing of text at mouse position.
             Left-justified
         [ ] 'C' allows cycling through various colors
 
