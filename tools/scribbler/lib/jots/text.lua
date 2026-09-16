@@ -5,28 +5,11 @@ local KEYBOARD   = love.keyboard
 local COLOR      = require("game/constants/colors")
 
 local FONT_CACHE = requireRelative("lib/util/fontCache")
-local MESSAGES   = {
-    "Hello There!",
-    "YOSHI!!!",
-    "Six, Seven!",
-}
-
-MESSAGES.index = 1
-
-MESSAGES.get   = function(self)
-    return self[self.index]
-end
-
-MESSAGES.next  = function(self)
-    self.index = self.index + 1
-    if self.index > #self then self.index = 1 end
-end
-
-MESSAGES.prev  = function(self)
-    self.index = self.index - 1
-    if self.index < 1 then self.index = #self end
-end
-
+local MESSAGES   = require("game/util/navigableList"):create { 
+                                                                "Hello There!",
+                                                                "YOSHI!!!",
+                                                                "Six, Seven!",
+                                                             }
 
 local TEXT_JOT = {
     create = function(self)
