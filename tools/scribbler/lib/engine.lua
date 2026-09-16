@@ -1,19 +1,10 @@
-local CURRENT_JOT = requireRelative("lib/jots/line")
+local CURRENT_JOT = requireRelative("lib/jots/scribble")
 
 return {
     history = { },
 
     draw          = function(self)
-        self:drawHistory()
-        self:drawCursor()
-    end,
-
-    drawHistory   = function(self)
-        CURRENT_JOT:drawHistory()
-    end,
-
-    drawCursor    = function(self)
-        CURRENT_JOT:drawCursor()
+        CURRENT_JOT:draw()
     end,
 
     update        = function(self, dt)
