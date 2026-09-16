@@ -24,6 +24,14 @@ local ENGINE = {
             self[self.TAIL_INDEX] = jot
         end,
 
+        undo   = function(self)
+            self.TAIL_INDEX = math.max(0, self.TAIL_INDEX - 1)
+        end,
+
+        redo   = function(self)
+            self.TAIL_INDEX = math.min(#self, self.TAIL_INDEX + 1)
+        end,
+
     },
 
     draw          = function(self)
@@ -65,6 +73,14 @@ local ENGINE = {
 
     addToHistory  = function(self, jot)
         self.history:addJot(jot)
+    end,
+
+    undo          = function(self)
+        self.history:undo()
+    end,
+
+    redo          = function(self)
+        self.history:redo()
     end,
 
 }
