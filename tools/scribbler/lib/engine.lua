@@ -16,9 +16,7 @@ local ENGINE = {
                 if n <= self.TAIL_INDEX then 
                     jot:draw()
                 end
-
             end
-
         end,
 
         addJot = function(self, jot)
@@ -48,12 +46,11 @@ local ENGINE = {
 
     keypressed    = function(self, key)
         if key == "z" and KEYBOARD.isDown("lgui", "rgui") then
-            self:undo()
+            self:undoOrRedo()
         else
             CURRENT_JOT:keypressed(key, addToHistoryCallback)
             if     key == "l"                    then CURRENT_JOT = LINE_JOT
-            elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT
-            end
+            elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT  end
         end
     end,
 
@@ -81,13 +78,13 @@ local ENGINE = {
         self.history:addJot(jot)
     end,
 
-    undo          = function(self)
-        self.history:undo()
+    undoOrRedo    = function(self)
+        if KEYBOARD.isDown("lshift", "rshift") then self:redo()
+        else                                        self:undo()   end
     end,
 
-    redo          = function(self)
-        self.history:redo()
-    end,
+    undo          = function(self) self.history:undo()            end,
+    redo          = function(self) self.history:redo()            end,
 
 }
 
