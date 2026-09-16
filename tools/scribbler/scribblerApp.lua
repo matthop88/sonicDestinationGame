@@ -14,8 +14,8 @@
         [X] Mouse-down draws lines between mouse position 
             and previous mouse position
         [X] Mouse-up allows movement without drawing
-        [ ] Command Z undoes one action at a time
-        [ ] Shift Command Z redoes one action at a time
+        [X] Command Z undoes one action at a time
+        [X] Shift Command Z redoes one action at a time
         [ ] 'G' shows a grid
         [ ] Shift allows snapping to grid
         [ ] File name entered as command-line parameter
