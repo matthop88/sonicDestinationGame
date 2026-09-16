@@ -1,4 +1,4 @@
-local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
+local CURRENT_JOT = requireRelative("lib/jots/line")
 
 return {
     history = { },
@@ -9,11 +9,11 @@ return {
     end,
 
     drawHistory   = function(self)
-        SCRIBBLE_JOT:drawHistory()
+        CURRENT_JOT:drawHistory()
     end,
 
     drawCursor    = function(self)
-        SCRIBBLE_JOT:drawCursor()
+        CURRENT_JOT:drawCursor()
     end,
 
     update        = function(self, dt)
@@ -29,19 +29,19 @@ return {
     end,
 
     mousepressed  = function(self, mx, my)
-        SCRIBBLE_JOT:penDown(mx, my)
+        CURRENT_JOT:penDown(mx, my)
     end,
 
     mousereleased = function(self, mx, my)
-        SCRIBBLE_JOT:penUp(mx, my)
+        CURRENT_JOT:penUp(mx, my)
     end,
 
     mousemoved    = function(self, mx, my)
-        SCRIBBLE_JOT:penMoved(mx, my)
+        CURRENT_JOT:penMoved(mx, my)
     end,
 
     mousedragged  = function(self, mx, my)
-        SCRIBBLE_JOT:penDragged(mx, my)
+        CURRENT_JOT:penDragged(mx, my)
     end,
 
 }
