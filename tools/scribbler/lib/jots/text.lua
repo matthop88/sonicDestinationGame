@@ -4,7 +4,6 @@ local MOUSE      = love.mouse
 local COLOR      = require("game/constants/colors")
 
 local FONT_CACHE = requireRelative("lib/util/fontCache")
-local FONT       = FONT_CACHE:getFont(32)
 local MESSAGE    = "Hello There!"
 
 local TEXT_JOT = {
@@ -15,13 +14,13 @@ local TEXT_JOT = {
             draw = function(self)
                 if self.data ~= nil then
                     GRAFX.setColor(COLOR.PURE_WHITE)
-                    GRAFX.setFont(FONT)
+                    GRAFX.setFont(FONT_CACHE:getFont(self.data.size))
                     GRAFX.printf(MESSAGE, self.data.x, self.data.y, 1000, "left")
                 end
             end,
 
-            addPoint = function(self, x, y)
-                self.data = { x = x, y = y }
+            addText = function(self, x, y, size)
+                self.data = { x = x, y = y, size = size }
             end,
 
         }
@@ -31,6 +30,8 @@ local TEXT_JOT = {
 return {
     jot = TEXT_JOT:create(),
 
+    fontSize = 32,
+    
     draw   = function(self)
         self.jot:draw()
         self:drawCursor()
@@ -41,7 +42,7 @@ return {
 
         MOUSE.setVisible(false)
         GRAFX.setColor(COLOR.PURE_WHITE)
-        GRAFX.setFont(FONT)
+        GRAFX.setFont(FONT_CACHE:getFont(self.fontSize))
         GRAFX.printf(MESSAGE, mx, my, 1000, "left")
     end,
 
@@ -58,7 +59,7 @@ return {
     end,
 
     penDown  = function(self, mx, my, publishJot)
-        self.jot:addPoint(mx, my)
+        self.jot:addText(mx, my, self.fontSize)
         publishJot(self.jot)
         self.jot = TEXT_JOT:create()
     end,
