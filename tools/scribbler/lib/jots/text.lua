@@ -1,5 +1,6 @@
 local GRAFX      = love.graphics
 local MOUSE      = love.mouse
+local KEYBOARD   = love.keyboard
 
 local COLOR      = require("game/constants/colors")
 
@@ -51,7 +52,11 @@ return {
     end,
 
     keypressed    = function(self, key)
-        -- ...
+        if      key == "-"                                         then 
+            self.fontSize = math.max(9,   self.fontSize - 1)
+        elseif  key == "=" and KEYBOARD.isDown("lshift", "rshift") then
+            self.fontSize = math.min(128, self.fontSize + 1)
+        end
     end,
 
     keyreleased   = function(self, key)
