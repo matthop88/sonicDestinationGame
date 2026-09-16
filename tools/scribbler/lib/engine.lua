@@ -1,4 +1,7 @@
-local CURRENT_JOT = requireRelative("lib/jots/line")
+local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
+local LINE_JOT     = requireRelative("lib/jots/line")
+
+local CURRENT_JOT = SCRIBBLE_JOT
 
 local addToHistoryCallback
 
@@ -18,7 +21,10 @@ local ENGINE = {
     end,
 
     keypressed    = function(self, key)
-        CURRENT_JOT:keypressed(key, addToHistoryCallback)
+        if     key == "l"                    then CURRENT_JOT = LINE_JOT
+        elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT
+        else                                      CURRENT_JOT:keypressed(key, addToHistoryCallback)
+        end
     end,
 
     keyreleased   = function(self, key)
