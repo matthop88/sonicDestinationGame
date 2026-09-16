@@ -22,6 +22,11 @@ MESSAGES.next  = function(self)
     if self.index > #self then self.index = 1 end
 end
 
+MESSAGES.prev  = function(self)
+    self.index = self.index - 1
+    if self.index < 1 then self.index = #self end
+end
+
 
 local TEXT_JOT = {
     create = function(self)
@@ -68,12 +73,10 @@ return {
     end,
 
     keypressed    = function(self, key)
-        if      key == "-"                                         then 
-            self.fontSize = math.max(9,   self.fontSize - 1)
-        elseif  key == "=" and KEYBOARD.isDown("lshift", "rshift") then
-            self.fontSize = math.min(128, self.fontSize + 1)
-        elseif  key == "tab"                                       then
-            MESSAGES:next()
+        if      key == "-"                          then self.fontSize = math.max(9,   self.fontSize - 1)
+        elseif  key == "=" 
+            and KEYBOARD.isDown("lshift", "rshift") then self.fontSize = math.min(128, self.fontSize + 1)
+        elseif  key == "tab"                        then self.changeMessage()
         end
     end,
 
@@ -101,6 +104,11 @@ return {
 
     revert = function(self)
         self.jot = TEXT_JOT:create()
+    end,
+
+    changeMessage = function(self)
+        if KEYBOARD.isDown("lshift", "rshift") then MESSAGES:prev()
+        else                                        MESSAGES:next()  end
     end,
 
 }
