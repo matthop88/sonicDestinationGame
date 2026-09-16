@@ -1,10 +1,6 @@
 local KEYBOARD     = love.keyboard
 
-local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
-local LINE_JOT     = requireRelative("lib/jots/line")
-local TEXT_JOT     = requireRelative("lib/jots/text")
-
-local CURRENT_JOT = SCRIBBLE_JOT
+local JOT_TOOL     = requireRelative("lib/jotTool")
 
 local addToHistoryCallback
 
@@ -38,7 +34,7 @@ local ENGINE = {
     draw          = function(self)
         self.history:draw()
 
-        CURRENT_JOT:draw()
+        JOT_TOOL:draw()
     end,
 
     update        = function(self, dt)
@@ -49,31 +45,28 @@ local ENGINE = {
         if key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
         else
-            CURRENT_JOT:keypressed(key, addToHistoryCallback)
-            if     key == "l"                    then CURRENT_JOT = LINE_JOT
-            elseif key == "t"                    then CURRENT_JOT = TEXT_JOT
-            elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT  end
+            JOT_TOOL:keypressed(key, addToHistoryCallback)
         end
     end,
 
     keyreleased   = function(self, key)
-        CURRENT_JOT:keyreleased(key, addToHistoryCallback)
+        JOT_TOOL:keyreleased(key, addToHistoryCallback)
     end,
 
     mousepressed  = function(self, mx, my)
-        CURRENT_JOT:penDown(mx, my, addToHistoryCallback)
+        JOT_TOOL:penDown(mx, my, addToHistoryCallback)
     end,
 
     mousereleased = function(self, mx, my)
-        CURRENT_JOT:penUp(mx, my, addToHistoryCallback)
+        JOT_TOOL:penUp(mx, my, addToHistoryCallback)
     end,
 
     mousemoved    = function(self, mx, my)
-        CURRENT_JOT:penMoved(mx, my, addToHistoryCallback)
+        JOT_TOOL:penMoved(mx, my, addToHistoryCallback)
     end,
 
     mousedragged  = function(self, mx, my)
-        CURRENT_JOT:penDragged(mx, my, addToHistoryCallback)
+        JOT_TOOL:penDragged(mx, my, addToHistoryCallback)
     end,
 
     addToHistory  = function(self, jot)
