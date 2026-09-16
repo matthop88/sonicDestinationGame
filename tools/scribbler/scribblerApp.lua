@@ -25,7 +25,7 @@
         
                          Stretch Goals
                          -------------
-        [-] 'L' draws a line from pt 1 to pt 2; 
+        [X] 'L' draws a line from pt 1 to pt 2; 
                 can be used to create polygons
         [ ] 'R' draws a rect with upper-left corner at pt 1, 
             lower left at pt 2
