@@ -2,27 +2,40 @@ local GRAFX = love.graphics
 local MOUSE = love.mouse
 local COLOR = require("game/constants/colors")
 
-return {
-    history = { },
+local SCRIBBLE_JOT = {
+    create = function(self)
+        return {
+            data = { },
 
-    draw          = function(self)
-        self:drawHistory()
-        self:drawCursor()
+            draw = function(self)
+                GRAFX.setColor(COLOR.PURE_WHITE)
+
+                local prevX, prevY = nil, nil
+                
+                GRAFX.setLineWidth(5)
+                
+                for n, pt in ipairs(self.data) do
+                    if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
+                    else           GRAFX.line(prevX, prevY, pt.x, pt.y)            end
+
+                    prevX, prevY = pt.x, pt.y
+                end
+            end,
+
+            addPoint = function(self, x, y)
+                table.insert(self.data, { x = x, y = y })
+            end,
+
+        }
     end,
+}
 
-    drawHistory   = function(self)
-        GRAFX.setColor(COLOR.PURE_WHITE)
+return {
+    jot = SCRIBBLE_JOT:create(),
 
-        local prevX, prevY = nil, nil
-        
-        GRAFX.setLineWidth(5)
-        
-        for n, pt in ipairs(self.history) do
-            if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
-            else           GRAFX.line(prevX, prevY, pt.x, pt.y)            end
-
-            prevX, prevY = pt.x, pt.y
-        end
+    draw   = function(self)
+        self.jot:draw()
+        self:drawCursor()
     end,
 
     drawCursor    = function(self)
@@ -48,7 +61,7 @@ return {
 
     penDown  = function(self, mx, my)
         print("Pen down    at (" .. mx .. ", " .. my .. ")")
-        table.insert(self.history, { x = mx, y = my })
+        self.jot:addPoint(mx, my)
     end,
 
     penUp = function(self, mx, my)
@@ -61,7 +74,7 @@ return {
 
     penDragged  = function(self, mx, my)
         print("Pen dragged to (" .. mx .. ", " .. my .. ")")
-        table.insert(self.history, { x = mx, y = my })
+        self.jot:addPoint(mx, my)
     end,
 
 }
