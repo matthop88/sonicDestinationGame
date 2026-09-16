@@ -1,10 +1,11 @@
-local GRAFX   = love.graphics
-local MOUSE   = love.mouse
+local GRAFX      = love.graphics
+local MOUSE      = love.mouse
 
-local COLOR   = require("game/constants/colors")
+local COLOR      = require("game/constants/colors")
 
-local FONT    = GRAFX.newFont(32)
-local MESSAGE = "Hello There!"
+local FONT_CACHE = requireRelative("lib/util/fontCache")
+local FONT       = FONT_CACHE:getFont(32)
+local MESSAGE    = "Hello There!"
 
 local TEXT_JOT = {
     create = function(self)
