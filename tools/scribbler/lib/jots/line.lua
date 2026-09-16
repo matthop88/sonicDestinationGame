@@ -71,7 +71,7 @@ return {
         if key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
-        elseif key == "s" or key == "escape" then
+        elseif key == "s" or key == "t" or key == "escape" then
             self.jot = LINE_JOT:create()
         end
     end,
