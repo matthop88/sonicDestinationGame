@@ -11,6 +11,18 @@ local MESSAGES   = {
     "Six, Seven!",
 }
 
+MESSAGES.index = 1
+
+MESSAGES.get   = function(self)
+    return self[self.index]
+end
+
+MESSAGES.next  = function(self)
+    self.index = self.index + 1
+    if self.index > #self then self.index = 1 end
+end
+
+
 local TEXT_JOT = {
     create = function(self)
         return {
@@ -36,8 +48,7 @@ return {
     jot = TEXT_JOT:create(),
 
     fontSize = 32,
-    msgIndex =  1,
-
+    
     draw   = function(self)
         self.jot:draw()
         self:drawCursor()
@@ -49,7 +60,7 @@ return {
         MOUSE.setVisible(false)
         GRAFX.setColor(COLOR.PURE_WHITE)
         GRAFX.setFont(FONT_CACHE:getFont(self.fontSize))
-        GRAFX.printf(MESSAGES[self.msgIndex], mx, my, 1000, "left")
+        GRAFX.printf(MESSAGES:get(), mx, my, 1000, "left")
     end,
 
     update        = function(self, dt)
@@ -62,8 +73,7 @@ return {
         elseif  key == "=" and KEYBOARD.isDown("lshift", "rshift") then
             self.fontSize = math.min(128, self.fontSize + 1)
         elseif  key == "tab"                                       then
-            self.msgIndex = self.msgIndex + 1
-            if self.msgIndex > #MESSAGES then self.msgIndex = 1 end
+            MESSAGES:next()
         end
     end,
 
@@ -72,7 +82,7 @@ return {
     end,
 
     penDown  = function(self, mx, my, publishJot)
-        self.jot:addText(mx, my, self.fontSize, MESSAGES[self.msgIndex])
+        self.jot:addText(mx, my, self.fontSize, MESSAGES:get())
         publishJot(self.jot)
         self.jot = TEXT_JOT:create()
     end,
