@@ -14,6 +14,8 @@ return {
         GRAFX.setColor(COLOR.PURE_WHITE)
 
         local prevX, prevY = nil, nil
+
+        GRAFX.setLineWidth(1)
         
         for n, pt in ipairs(self.history) do
             if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
