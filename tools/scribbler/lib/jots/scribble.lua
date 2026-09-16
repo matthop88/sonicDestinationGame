@@ -52,7 +52,7 @@ return {
     end,
 
     keypressed    = function(self, key)
-        if key == "l" then
+        if key == "l" or key == "t" then
             self.jot = SCRIBBLE_JOT:create()
         end
     end,
