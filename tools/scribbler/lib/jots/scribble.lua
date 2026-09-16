@@ -52,9 +52,7 @@ return {
     end,
 
     keypressed    = function(self, key)
-        if key == "l" or key == "t" then
-            self.jot = SCRIBBLE_JOT:create()
-        end
+        -- ...
     end,
 
     keyreleased   = function(self, key)
@@ -76,6 +74,10 @@ return {
 
     penDragged  = function(self, mx, my)
         self.jot:addPoint(mx, my)
+    end,
+
+    revert = function(self)
+        self.jot = SCRIBBLE_JOT:create()
     end,
 
 }
