@@ -15,6 +15,8 @@ return {
 
         local prevX, prevY = nil, nil
         
+        GRAFX.setLineWidth(5)
+        
         for n, pt in ipairs(self.history) do
             if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
             else           GRAFX.line(prevX, prevY, pt.x, pt.y)            end
