@@ -5,7 +5,11 @@ local KEYBOARD   = love.keyboard
 local COLOR      = require("game/constants/colors")
 
 local FONT_CACHE = requireRelative("lib/util/fontCache")
-local MESSAGE    = "Hello There!"
+local MESSAGES   = {
+    "Hello There!",
+    "YOSHI!!!",
+    "Six, Seven!",
+}
 
 local TEXT_JOT = {
     create = function(self)
@@ -32,7 +36,8 @@ return {
     jot = TEXT_JOT:create(),
 
     fontSize = 32,
-    
+    msgIndex =  1,
+
     draw   = function(self)
         self.jot:draw()
         self:drawCursor()
@@ -44,7 +49,7 @@ return {
         MOUSE.setVisible(false)
         GRAFX.setColor(COLOR.PURE_WHITE)
         GRAFX.setFont(FONT_CACHE:getFont(self.fontSize))
-        GRAFX.printf(MESSAGE, mx, my, 1000, "left")
+        GRAFX.printf(MESSAGES[self.msgIndex], mx, my, 1000, "left")
     end,
 
     update        = function(self, dt)
@@ -56,6 +61,9 @@ return {
             self.fontSize = math.max(9,   self.fontSize - 1)
         elseif  key == "=" and KEYBOARD.isDown("lshift", "rshift") then
             self.fontSize = math.min(128, self.fontSize + 1)
+        elseif  key == "tab"                                       then
+            self.msgIndex = self.msgIndex + 1
+            if self.msgIndex > #MESSAGES then self.msgIndex = 1 end
         end
     end,
 
@@ -64,7 +72,7 @@ return {
     end,
 
     penDown  = function(self, mx, my, publishJot)
-        self.jot:addText(mx, my, self.fontSize, MESSAGE)
+        self.jot:addText(mx, my, self.fontSize, MESSAGES[self.msgIndex])
         publishJot(self.jot)
         self.jot = TEXT_JOT:create()
     end,
