@@ -11,9 +11,9 @@
 
                            Features
                            --------
-        [ ] Mouse-down draws lines between mouse position 
+        [X] Mouse-down draws lines between mouse position 
             and previous mouse position
-        [ ] Mouse-up allows movement without drawing
+        [X] Mouse-up allows movement without drawing
         [ ] Command Z undoes one action at a time
         [ ] Shift Command Z redoes one action at a time
         [ ] 'G' shows a grid
@@ -25,7 +25,7 @@
         
                          Stretch Goals
                          -------------
-        [ ] 'L' draws a line from pt 1 to pt 2; 
+        [-] 'L' draws a line from pt 1 to pt 2; 
                 can be used to create polygons
         [ ] 'R' draws a rect with upper-left corner at pt 1, 
             lower left at pt 2
