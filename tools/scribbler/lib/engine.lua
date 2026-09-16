@@ -7,14 +7,21 @@ local addToHistoryCallback
 
 local ENGINE = {
     history = { 
+        TAIL_INDEX = 0,
+
         draw = function(self)
-            for _, jot in ipairs(self) do
-                jot:draw()
+            for n, jot in ipairs(self) do
+                if n <= self.TAIL_INDEX then 
+                    jot:draw()
+                end
+
             end
+
         end,
 
         addJot = function(self, jot)
-            table.insert(self, jot)
+            self.TAIL_INDEX = self.TAIL_INDEX + 1
+            self[self.TAIL_INDEX] = jot
         end,
 
     },
