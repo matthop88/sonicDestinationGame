@@ -71,8 +71,6 @@ return {
         if key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
-        elseif key == "s" or key == "t" or key == "escape" then
-            self.jot = LINE_JOT:create()
         end
     end,
 
@@ -94,6 +92,10 @@ return {
 
     penDragged  = function(self, mx, my)
         -- ...
+    end,
+
+    revert = function(self)
+        self.jot = LINE_JOT:create()
     end,
 
 }
