@@ -16,12 +16,12 @@ local TEXT_JOT = {
                 if self.data ~= nil then
                     GRAFX.setColor(COLOR.PURE_WHITE)
                     GRAFX.setFont(FONT_CACHE:getFont(self.data.size))
-                    GRAFX.printf(MESSAGE, self.data.x, self.data.y, 1000, "left")
+                    GRAFX.printf(self.data.message, self.data.x, self.data.y, 1000, "left")
                 end
             end,
 
-            addText = function(self, x, y, size)
-                self.data = { x = x, y = y, size = size }
+            addText = function(self, x, y, size, message)
+                self.data = { x = x, y = y, size = size, message = message, }
             end,
 
         }
@@ -64,7 +64,7 @@ return {
     end,
 
     penDown  = function(self, mx, my, publishJot)
-        self.jot:addText(mx, my, self.fontSize)
+        self.jot:addText(mx, my, self.fontSize, MESSAGE)
         publishJot(self.jot)
         self.jot = TEXT_JOT:create()
     end,
