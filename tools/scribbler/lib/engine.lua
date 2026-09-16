@@ -21,9 +21,9 @@ local ENGINE = {
     end,
 
     keypressed    = function(self, key)
+        CURRENT_JOT:keypressed(key, addToHistoryCallback)
         if     key == "l"                    then CURRENT_JOT = LINE_JOT
         elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT
-        else                                      CURRENT_JOT:keypressed(key, addToHistoryCallback)
         end
     end,
 
