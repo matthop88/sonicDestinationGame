@@ -52,7 +52,9 @@ return {
     end,
 
     keypressed    = function(self, key)
-        -- ...
+        if key == "l" then
+            self.jot = SCRIBBLE_JOT:create()
+        end
     end,
 
     keyreleased   = function(self, key)
@@ -60,22 +62,19 @@ return {
     end,
 
     penDown  = function(self, mx, my)
-        print("Pen down    at (" .. mx .. ", " .. my .. ")")
         self.jot:addPoint(mx, my)
     end,
 
     penUp = function(self, mx, my, publishJot)
-        print("Pen up      at (" .. mx .. ", " .. my .. ")")
         publishJot(self.jot)
         self.jot = SCRIBBLE_JOT:create()
     end,
 
     penMoved    = function(self, mx, my)
-        print("Pen moved   to (" .. mx .. ", " .. my .. ")")
+        -- ...
     end,
 
     penDragged  = function(self, mx, my)
-        print("Pen dragged to (" .. mx .. ", " .. my .. ")")
         self.jot:addPoint(mx, my)
     end,
 
