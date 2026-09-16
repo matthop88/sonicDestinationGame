@@ -21,6 +21,11 @@ local APPLICATIONS = {
 	        PATH     = "tools/colorInspector/",
 	        APP_NAME = "colorInspectorApp",
 	    },
+
+	    scribbler = {
+	    	PATH     = "tools/scribbler/",
+	    	APP_NAME = "scribblerApp",
+	    },
 	},
 
 	getPathAndAppName = function(self, keyword)
