@@ -1,22 +1,24 @@
 return {
 	create = function(self, list)
-		list.index = 1
+		return {
+			list  = list,
+			index = 1,
 
-		list.get   = function(self)
-		    return self[self.index]
-		end
+			get   = function(self)
+		    	return self.list[self.index]
+			end,
 
-		list.next  = function(self)
-		    self.index = self.index + 1
-		    if self.index > #self then self.index = 1 end
-		end
+			next  = function(self)
+		    	self.index = self.index + 1
+		    	if self.index > #self.list then self.index = 1 end
+			end,
 
-		list.prev  = function(self)
-		    self.index = self.index - 1
-		    if self.index < 1 then self.index = #self end
-		end
+			prev  = function(self)
+		    	self.index = self.index - 1
+		    	if self.index < 1 then self.index = #self.list end
+			end,
+		}
 
-		return list
 	end,
 
 }
