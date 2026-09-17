@@ -10,20 +10,20 @@ local SCRIBBLE_JOT = {
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
 
-                local prevX, prevY = nil, nil
-                
                 GRAFX.setLineWidth(5)
                 
-                for n, pt in ipairs(self.data) do
-                    if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
-                    else           GRAFX.line(prevX, prevY, pt.x, pt.y)            end
-
-                    prevX, prevY = pt.x, pt.y
+                if #self.data > 0 then
+                    if #self.data > 2 then
+                        GRAFX.line(self.data)
+                    else
+                        GRAFX.line(self.data[1], self.data[2], self.data[1], self.data[2])
+                    end
                 end
             end,
 
             addPoint = function(self, x, y)
-                table.insert(self.data, { x = x, y = y })
+                table.insert(self.data, x)
+                table.insert(self.data, y)
             end,
 
         }
