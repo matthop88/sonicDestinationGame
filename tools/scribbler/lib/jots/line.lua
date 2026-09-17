@@ -10,21 +10,20 @@ local LINE_JOT = {
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
 
-                local prevX, prevY = nil, nil
-
                 GRAFX.setLineWidth(1)
                 
-                for n, pt in ipairs(self.data) do
-                    if n > 1 then 
-                        GRAFX.line(prevX, prevY, pt.x, pt.y)            
+                if #self.data > 0 then
+                    if #self.data > 2 then
+                        GRAFX.line(self.data)
+                    else
+                        GRAFX.line(self.data[1], self.data[2], self.data[1], self.data[2])
                     end
-
-                    prevX, prevY = pt.x, pt.y
                 end
             end,
 
             addPoint = function(self, x, y)
-                table.insert(self.data, { x = x, y = y })
+                table.insert(self.data, x)
+                table.insert(self.data, y)
             end,
 
             isEmpty = function(self)
@@ -32,7 +31,7 @@ local LINE_JOT = {
             end,
 
             getLastPoint = function(self)
-                return self.data[#self.data]
+                return { x = self.data[#self.data - 1], y = self.data[#self.data] }
             end,
 
         }
