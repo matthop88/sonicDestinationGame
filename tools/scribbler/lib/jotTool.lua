@@ -1,8 +1,27 @@
+local DUMMY_FN   = function()
+    -- do nothing
+end
+
+local requireJot = function(jotName)
+    local jot = requireRelative("lib/jots/" .. jotName)
+
+    if not jot.update      then jot.update      = DUMMY_FN end
+    if not jot.keypressed  then jot.keypressed  = DUMMY_FN end
+    if not jot.keyreleased then jot.keyreleased = DUMMY_FN end
+    if not jot.penDown     then jot.penDown     = DUMMY_FN end
+    if not jot.penUp       then jot.penUp       = DUMMY_FN end
+    if not jot.penMoved    then jot.penMoved    = DUMMY_FN end
+    if not jot.penDragged  then jot.penDragged  = DUMMY_FN end
+
+    return jot
+end
+
 local KEYBOARD     = love.keyboard
 
-local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
-local LINE_JOT     = requireRelative("lib/jots/line")
-local TEXT_JOT     = requireRelative("lib/jots/text")
+local SCRIBBLE_JOT = requireJot("scribble")
+local LINE_JOT     = requireJot("line")
+local TEXT_JOT     = requireJot("text")
+
 
 return {
     currentJot = SCRIBBLE_JOT,
@@ -12,7 +31,7 @@ return {
     end,
 
     update        = function(self, dt)
-        -- ...
+        self.currentJot:update(dt)
     end,
 
     keypressed    = function(self, key, addToHistoryCallback)
