@@ -57,9 +57,10 @@ return {
             and KEYBOARD.isDown("lshift", "rshift") then self.fontSize = math.min(128, self.fontSize + 1)
         elseif  key == "tab"                        then self.changeMessage()
         elseif  key == "/"                          then
+            local mx, my = MOUSE.getPosition()
             publishJot(TEXT_JOT:create {
-                x        = 410, 
-                y        = 328, 
+                x        = mx, 
+                y        = my, 
                 fontSize = 24, 
                 message  = "Test, test, test!", 
             })
