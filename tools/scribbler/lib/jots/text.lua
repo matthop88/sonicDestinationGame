@@ -12,20 +12,20 @@ local MESSAGES   = require("game/util/navigableList"):create {
                                                              }
 
 local TEXT_JOT = {
-    create = function(self)
+    create = function(self, data)
         return {
-            data = nil,
+            data = data,
 
             draw = function(self)
                 if self.data ~= nil then
                     GRAFX.setColor(COLOR.PURE_WHITE)
-                    GRAFX.setFont(FONT_CACHE:getFont(self.data.size))
+                    GRAFX.setFont(FONT_CACHE:getFont(self.data.fontSize))
                     GRAFX.printf(self.data.message, self.data.x, self.data.y, 1000, "left")
                 end
             end,
 
             addText = function(self, x, y, size, message)
-                self.data = { x = x, y = y, size = size, message = message, }
+                self.data = { x = x, y = y, fontSize = size, message = message, }
             end,
 
         }
