@@ -51,11 +51,18 @@ return {
         GRAFX.printf(MESSAGES:get(), mx, my, 1000, "left")
     end,
 
-    keypressed    = function(self, key)
+    keypressed    = function(self, key, publishJot)
         if      key == "-"                          then self.fontSize = math.max(9,   self.fontSize - 1)
         elseif  key == "=" 
             and KEYBOARD.isDown("lshift", "rshift") then self.fontSize = math.min(128, self.fontSize + 1)
         elseif  key == "tab"                        then self.changeMessage()
+        elseif  key == "/"                          then
+            publishJot(TEXT_JOT:create {
+                x        = 410, 
+                y        = 328, 
+                fontSize = 24, 
+                message  = "Test, test, test!", 
+            })
         end
     end,
 
