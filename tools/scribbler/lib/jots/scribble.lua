@@ -45,18 +45,6 @@ return {
         GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
     end,
 
-    update        = function(self, dt)
-        -- ...
-    end,
-
-    keypressed    = function(self, key)
-        -- ...
-    end,
-
-    keyreleased   = function(self, key)
-        -- ...
-    end,
-
     penDown  = function(self, mx, my)
         self.jot:addPoint(mx, my)
     end,
@@ -64,10 +52,6 @@ return {
     penUp = function(self, mx, my, publishJot)
         publishJot(self.jot)
         self.jot = SCRIBBLE_JOT:create()
-    end,
-
-    penMoved    = function(self, mx, my)
-        -- ...
     end,
 
     penDragged  = function(self, mx, my)
