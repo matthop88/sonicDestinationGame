@@ -3,9 +3,9 @@ local MOUSE = love.mouse
 local COLOR = require("game/constants/colors")
 
 local SCRIBBLE_JOT = {
-    create = function(self)
+    create = function(self, data)
         return {
-            data = { points = {} },
+            data = data or { points = {} },
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
