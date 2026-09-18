@@ -5,39 +5,41 @@ local COLOR = require("game/constants/colors")
 local LINE_JOT = {
     create = function(self)
         return {
-            data = { },
+            data = { points = {} },
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
 
-                local prevX, prevY = nil, nil
-
                 GRAFX.setLineWidth(1)
                 
-                for n, pt in ipairs(self.data) do
-                    if n > 1 then 
-                        GRAFX.line(prevX, prevY, pt.x, pt.y)            
-                    end
+                local points = self.data.points
 
-                    prevX, prevY = pt.x, pt.y
+                if #points > 0 then
+                    if   #points > 2 then GRAFX.line(points)
+                    else GRAFX.line(points[1], points[2], points[1], points[2]) end
                 end
             end,
 
             addPoint = function(self, x, y)
-                table.insert(self.data, { x = x, y = y })
+                table.insert(self.data.points, x)
+                table.insert(self.data.points, y)
             end,
 
             isEmpty = function(self)
-                return #self.data == 0
+                return #self.data.points == 0
             end,
 
             getLastPoint = function(self)
-                return self.data[#self.data]
+                local points = self.data.points
+
+                return { x = points[#points - 1], y = points[#points] }
             end,
 
         }
 
     end,
+
+
 }
 
 return {
@@ -71,8 +73,6 @@ return {
         if key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
-        elseif key == "s" or key == "escape" then
-            self.jot = LINE_JOT:create()
         end
     end,
 
@@ -94,6 +94,10 @@ return {
 
     penDragged  = function(self, mx, my)
         -- ...
+    end,
+
+    revert = function(self)
+        self.jot = LINE_JOT:create()
     end,
 
 }
