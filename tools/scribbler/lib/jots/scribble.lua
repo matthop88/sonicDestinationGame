@@ -48,15 +48,16 @@ return {
 
     keypressed = function(self, key, publishJot)
         if key == "/" then
+            local mx, my = MOUSE.getPosition()
             publishJot(SCRIBBLE_JOT:create {
                 points = {
-                    360, 375,
-                    439, 382,
-                    479, 386,
-                    549, 387,
-                    579, 383,
-                    600, 379,
-                    634, 378,
+                    mx,       my,       --360, 375,
+                    mx +  79, my +   7, --439, 382,
+                    mx + 119, my +  11, --479, 386,
+                    mx + 189, my +  12, --549, 387,
+                    mx + 219, my +   8, --579, 383,
+                    mx + 240, my +   4, --600, 379,
+                    mx + 274, my +   3, --634, 378,
                 }
             })
         end
