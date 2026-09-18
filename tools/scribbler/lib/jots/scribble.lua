@@ -26,6 +26,7 @@ local SCRIBBLE_JOT = {
 
         }
     end,
+
 }
 
 return {
@@ -43,6 +44,22 @@ return {
         GRAFX.setColor(COLOR.PURE_WHITE)
 
         GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
+    end,
+
+    keypressed = function(self, key, publishJot)
+        if key == "/" then
+            publishJot(SCRIBBLE_JOT:create {
+                points = {
+                    360, 375,
+                    439, 382,
+                    479, 386,
+                    549, 387,
+                    579, 383,
+                    600, 379,
+                    634, 378,
+                }
+            })
+        end
     end,
 
     penDown  = function(self, mx, my)
