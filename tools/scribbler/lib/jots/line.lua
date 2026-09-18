@@ -68,12 +68,13 @@ return {
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
         elseif key == "/"                                 then
+            local mx, my = MOUSE.getPosition()
             publishJot(LINE_JOT:create {
                 points = {
-                    358, 373,
-                    415, 305,
-                    608, 306,
-                    633, 379,
+                    mx,       my,      --358, 373,
+                    mx +  57, my - 68, --415, 305,
+                    mx + 250, my - 67, --608, 306,
+                    mx + 275, my +  6, --633, 379,
                 }
             })
         end
