@@ -51,10 +51,6 @@ return {
         GRAFX.printf(MESSAGES:get(), mx, my, 1000, "left")
     end,
 
-    update        = function(self, dt)
-        -- ...
-    end,
-
     keypressed    = function(self, key)
         if      key == "-"                          then self.fontSize = math.max(9,   self.fontSize - 1)
         elseif  key == "=" 
@@ -63,26 +59,10 @@ return {
         end
     end,
 
-    keyreleased   = function(self, key)
-        -- ...
-    end,
-
     penDown  = function(self, mx, my, publishJot)
         self.jot:addText(mx, my, self.fontSize, MESSAGES:get())
         publishJot(self.jot)
         self.jot = TEXT_JOT:create()
-    end,
-
-    penUp = function(self, mx, my, publishJot)
-        -- ...
-    end,
-
-    penMoved    = function(self, mx, my)
-        -- ...
-    end,
-
-    penDragged  = function(self, mx, my)
-        -- ...
     end,
 
     revert = function(self)
