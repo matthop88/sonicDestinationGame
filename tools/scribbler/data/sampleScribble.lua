@@ -6,8 +6,8 @@ return {
             data = { 
                 x        = 410, 
                 y        = 328, 
-                fontSize = 32, 
-                message  = "Hello There!", 
+                fontSize = 24, 
+                message  = "Test, test, test!", 
             },
         },
 
