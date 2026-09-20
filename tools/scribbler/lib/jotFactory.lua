@@ -1,9 +1,5 @@
 local STRING_UTIL  = require("game/util/stringUtil")
 
-local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
-local LINE_JOT     = requireRelative("lib/jots/line")
-local TEXT_JOT     = requireRelative("lib/jots/text")
-
 local JOT_REPOSITORY = {
 	jots = {},
 
@@ -19,15 +15,17 @@ local JOT_REPOSITORY = {
 local jotNames = love.filesystem.getDirectoryItems("tools/scribbler/lib/jots")
         
 for _, jotName in ipairs(jotNames) do
-	print(STRING_UTIL:dropSuffix(jotName, 4))
+	local jot = requireRelative("lib/jots/" .. STRING_UTIL:dropSuffix(jotName, 4))
+
+	JOT_REPOSITORY:addJot(jot)
 end
 	
-
 return {
 	create = function(self, jotObj)
-		if     jotObj.name == "scribble" then return SCRIBBLE_JOT:fromData(jotObj.data)
-		elseif jotObj.name == "line"     then return LINE_JOT:fromData(jotObj.data)
-		elseif jotObj.name == "text"     then return TEXT_JOT:fromData(jotObj.data)
+		local jot = JOT_REPOSITORY:getJot(jotObj.name)
+
+		if jot ~= nil then
+			return jot:fromData(jotObj.data)
 		end
 	end,
 }
