@@ -7,9 +7,10 @@ local addToHistoryCallback
 local ENGINE = {
     history = { 
         TAIL_INDEX = 0,
+        data       = {},
 
         draw = function(self)
-            for n, jot in ipairs(self) do
+            for n, jot in ipairs(self.data) do
                 if n <= self.TAIL_INDEX then 
                     jot:draw()
                 end
@@ -18,7 +19,7 @@ local ENGINE = {
 
         addJot = function(self, jot)
             self.TAIL_INDEX = self.TAIL_INDEX + 1
-            self[self.TAIL_INDEX] = jot
+            self.data[self.TAIL_INDEX] = jot
         end,
 
         undo   = function(self)
@@ -26,7 +27,12 @@ local ENGINE = {
         end,
 
         redo   = function(self)
-            self.TAIL_INDEX = math.min(#self, self.TAIL_INDEX + 1)
+            self.TAIL_INDEX = math.min(#self.data, self.TAIL_INDEX + 1)
+        end,
+
+        clear  = function(self)
+            self.TAIL_INDEX = 0
+            self.data = {}
         end,
 
     },
@@ -45,6 +51,8 @@ local ENGINE = {
         if     key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
         elseif key == "/" then
+            self.history:clear()
+            
             for jot in DATA_READER:eachJot("sampleScribble") do
                 self.history:addJot(jot)
             end
