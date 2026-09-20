@@ -1,7 +1,7 @@
 local KEYBOARD     = love.keyboard
 
 local JOT_TOOL     = requireRelative("lib/jotTool")
-
+local DATA_READER  = requireRelative("lib/serialization/dataReader")
 local addToHistoryCallback
 
 local ENGINE = {
@@ -42,8 +42,12 @@ local ENGINE = {
     end,
 
     keypressed    = function(self, key)
-        if key == "z" and KEYBOARD.isDown("lgui", "rgui") then
+        if     key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
+        elseif key == "/" then
+            for jot in DATA_READER:eachJot("sampleScribble") do
+                self.history:addJot(jot)
+            end
         else
             JOT_TOOL:keypressed(key, addToHistoryCallback)
         end
