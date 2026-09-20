@@ -41,6 +41,8 @@ local LINE_JOT = {
 }
 
 return {
+    name = "line",
+    
     jot = LINE_JOT:create(),
 
     draw          = function(self)
