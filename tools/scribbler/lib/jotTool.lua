@@ -1,33 +1,11 @@
-local DUMMY_FN   = function()
-    -- do nothing
-end
+local KEYBOARD       = love.keyboard
+local MOUSE          = love.mouse
 
-local requireJot = function(jotName)
-    local jot = requireRelative("lib/jots/" .. jotName)
-
-    if not jot.update      then jot.update      = DUMMY_FN end
-    if not jot.keypressed  then jot.keypressed  = DUMMY_FN end
-    if not jot.keyreleased then jot.keyreleased = DUMMY_FN end
-    if not jot.penDown     then jot.penDown     = DUMMY_FN end
-    if not jot.penUp       then jot.penUp       = DUMMY_FN end
-    if not jot.penMoved    then jot.penMoved    = DUMMY_FN end
-    if not jot.penDragged  then jot.penDragged  = DUMMY_FN end
-
-    return jot
-end
-
-local KEYBOARD     = love.keyboard
-local MOUSE        = love.mouse
-
-local SCRIBBLE_JOT = requireJot("scribble")
-local LINE_JOT     = requireJot("line")
-local TEXT_JOT     = requireJot("text")
-
-local JOT_FACTORY  = requireRelative("lib/jotFactory")
-
+local JOT_FACTORY    = requireRelative("lib/jotFactory")
+local JOT_REPOSITORY = requireRelative("lib/jotRepository")
 
 return {
-    currentJot = SCRIBBLE_JOT,
+    currentJot = JOT_REPOSITORY:getJot("scribble"),
 
     draw       = function(self)
         self.currentJot:draw()
@@ -42,11 +20,11 @@ return {
 
         local previousJot = self.currentJot
 
-        if     key == "l"                    then self.currentJot = LINE_JOT
-        elseif key == "t"                    then self.currentJot = TEXT_JOT
-        elseif key == "s" or key == "escape" then self.currentJot = SCRIBBLE_JOT  
+        if     key == "l"                    then self.currentJot = JOT_REPOSITORY:getJot("line")
+        elseif key == "t"                    then self.currentJot = JOT_REPOSITORY:getJot("text")
+        elseif key == "s" or key == "escape" then self.currentJot = JOT_REPOSITORY:getJot("scribble") 
         elseif key == "/"                    then
-            if previousJot == TEXT_JOT then
+            if previousJot.name == "text" then
                 local mx, my = MOUSE.getPosition()
                 addToHistoryCallback(JOT_FACTORY:create { name = "text",
                     data = {
@@ -56,7 +34,7 @@ return {
                         message  = "Test, test, test!", 
                     }
                 })
-            elseif previousJot == LINE_JOT then
+            elseif previousJot.name == "line" then
                 local mx, my = MOUSE.getPosition()
                 addToHistoryCallback(JOT_FACTORY:create { name = "line",
                     data = {
@@ -68,7 +46,7 @@ return {
                         }
                     }
                 })
-            elseif previousJot == SCRIBBLE_JOT then
+            elseif previousJot.name == "scribble" then
                 local mx, my = MOUSE.getPosition()
                 addToHistoryCallback(JOT_FACTORY:create { name = "scribble",
                     data = {
