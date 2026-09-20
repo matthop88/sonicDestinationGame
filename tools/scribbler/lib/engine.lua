@@ -50,8 +50,6 @@ local ENGINE = {
     keypressed    = function(self, key)
         if     key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
-        elseif key == "/" then
-            self:readFromFile("sampleScribble")
         else
             JOT_TOOL:keypressed(key, addToHistoryCallback)
         end
