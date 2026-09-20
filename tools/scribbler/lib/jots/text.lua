@@ -33,6 +33,8 @@ local TEXT_JOT = {
 }
 
 return {
+    name = "text",
+  
     jot = TEXT_JOT:create(),
 
     fontSize = 32,
