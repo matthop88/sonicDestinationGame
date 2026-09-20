@@ -51,11 +51,7 @@ local ENGINE = {
         if     key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
         elseif key == "/" then
-            self.history:clear()
-            
-            for jot in DATA_READER:eachJot("sampleScribble") do
-                self.history:addJot(jot)
-            end
+            self:readFromFile("sampleScribble")
         else
             JOT_TOOL:keypressed(key, addToHistoryCallback)
         end
@@ -88,6 +84,14 @@ local ENGINE = {
     undoOrRedo    = function(self)
         if KEYBOARD.isDown("lshift", "rshift") then self:redo()
         else                                        self:undo()   end
+    end,
+
+    readFromFile  = function(self, filename)
+        self.history:clear()
+            
+        for jot in DATA_READER:eachJot("sampleScribble") do 
+            self.history:addJot(jot) 
+        end
     end,
 
     undo          = function(self) self.history:undo()            end,
