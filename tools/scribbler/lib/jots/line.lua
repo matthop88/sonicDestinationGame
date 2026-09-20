@@ -67,16 +67,6 @@ return {
         if     key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
-        elseif key == "/"                                 then
-            local mx, my = MOUSE.getPosition()
-            publishJot(LINE_JOT:create {
-                points = {
-                    mx,       my,      --358, 373,
-                    mx +  57, my - 68, --415, 305,
-                    mx + 250, my - 67, --608, 306,
-                    mx + 275, my +  6, --633, 379,
-                }
-            })
         end
     end,
 
@@ -86,6 +76,10 @@ return {
 
     revert = function(self)
         self.jot = LINE_JOT:create()
+    end,
+
+    fromData = function(self, data)
+        return LINE_JOT:create(data)
     end,
 
 }
