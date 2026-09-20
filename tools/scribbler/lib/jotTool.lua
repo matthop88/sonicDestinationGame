@@ -1,8 +1,8 @@
 local KEYBOARD       = love.keyboard
 local MOUSE          = love.mouse
 
-local JOT_FACTORY    = requireRelative("lib/jotFactory")
-local JOT_REPOSITORY = requireRelative("lib/jotRepository")
+local JOT_FACTORY    = requireRelative("lib/serialization/jotFactory")
+local JOT_REPOSITORY = requireRelative("lib/serialization/jotRepository")
 
 return {
     currentJot = JOT_REPOSITORY:getJot("scribble"),
