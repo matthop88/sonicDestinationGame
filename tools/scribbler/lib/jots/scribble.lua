@@ -46,23 +46,6 @@ return {
         GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
     end,
 
-    keypressed = function(self, key, publishJot)
-        if key == "/" then
-            local mx, my = MOUSE.getPosition()
-            publishJot(SCRIBBLE_JOT:create {
-                points = {
-                    mx,       my,       --360, 375,
-                    mx +  79, my +   7, --439, 382,
-                    mx + 119, my +  11, --479, 386,
-                    mx + 189, my +  12, --549, 387,
-                    mx + 219, my +   8, --579, 383,
-                    mx + 240, my +   4, --600, 379,
-                    mx + 274, my +   3, --634, 378,
-                }
-            })
-        end
-    end,
-
     penDown  = function(self, mx, my)
         self.jot:addPoint(mx, my)
     end,
@@ -78,6 +61,10 @@ return {
 
     revert = function(self)
         self.jot = SCRIBBLE_JOT:create()
+    end,
+
+    fromData = function(self, data)
+        return SCRIBBLE_JOT:create(data)
     end,
 
 }
