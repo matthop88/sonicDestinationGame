@@ -3,9 +3,9 @@ local MOUSE = love.mouse
 local COLOR = require("game/constants/colors")
 
 local SCRIBBLE_JOT = {
-    create = function(self)
+    create = function(self, data)
         return {
-            data = { points = {} },
+            data = data or { points = {} },
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
@@ -26,9 +26,12 @@ local SCRIBBLE_JOT = {
 
         }
     end,
+
 }
 
 return {
+    name = "scribble",
+    
     jot = SCRIBBLE_JOT:create(),
 
     draw   = function(self)
@@ -45,18 +48,6 @@ return {
         GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
     end,
 
-    update        = function(self, dt)
-        -- ...
-    end,
-
-    keypressed    = function(self, key)
-        -- ...
-    end,
-
-    keyreleased   = function(self, key)
-        -- ...
-    end,
-
     penDown  = function(self, mx, my)
         self.jot:addPoint(mx, my)
     end,
@@ -66,16 +57,16 @@ return {
         self.jot = SCRIBBLE_JOT:create()
     end,
 
-    penMoved    = function(self, mx, my)
-        -- ...
-    end,
-
     penDragged  = function(self, mx, my)
         self.jot:addPoint(mx, my)
     end,
 
     revert = function(self)
         self.jot = SCRIBBLE_JOT:create()
+    end,
+
+    fromData = function(self, data)
+        return SCRIBBLE_JOT:create(data)
     end,
 
 }

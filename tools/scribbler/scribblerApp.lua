@@ -14,24 +14,24 @@
         [X] Mouse-down draws lines between mouse position 
             and previous mouse position
         [X] Mouse-up allows movement without drawing
+        [X] 'L' draws a line from pt 1 to pt 2; 
+                can be used to create polygons
+        [X] 'T' allows typing of text at mouse position.
+            Left-justified
         [X] Command Z undoes one action at a time
         [X] Shift Command Z redoes one action at a time
-        [ ] 'G' shows a grid
-        [ ] Shift allows snapping to grid
-        [ ] File name entered as command-line parameter
+        [X] File name entered as command-line parameter
             loads from file
         [ ] Command-S saves to disk in custom object format
         [ ] Command-Option-S saves to disk via image capture
         
                          Stretch Goals
                          -------------
-        [X] 'L' draws a line from pt 1 to pt 2; 
-                can be used to create polygons
         [ ] 'R' draws a rect with upper-left corner at pt 1, 
             lower left at pt 2
-        [ ] 'T' allows typing of text at mouse position.
-            Left-justified
         [ ] 'C' allows cycling through various colors
+        [ ] 'G' shows a grid
+        [ ] Shift allows snapping to grid
 
 --]]
 

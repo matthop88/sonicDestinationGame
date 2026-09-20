@@ -1,18 +1,16 @@
 local KEYBOARD     = love.keyboard
 
-local SCRIBBLE_JOT = requireRelative("lib/jots/scribble")
-local LINE_JOT     = requireRelative("lib/jots/line")
-
-local CURRENT_JOT = SCRIBBLE_JOT
-
+local JOT_TOOL     = requireRelative("lib/jotTool")
+local DATA_READER  = requireRelative("lib/serialization/dataReader")
 local addToHistoryCallback
 
 local ENGINE = {
     history = { 
         TAIL_INDEX = 0,
+        data       = {},
 
         draw = function(self)
-            for n, jot in ipairs(self) do
+            for n, jot in ipairs(self.data) do
                 if n <= self.TAIL_INDEX then 
                     jot:draw()
                 end
@@ -21,7 +19,7 @@ local ENGINE = {
 
         addJot = function(self, jot)
             self.TAIL_INDEX = self.TAIL_INDEX + 1
-            self[self.TAIL_INDEX] = jot
+            self.data[self.TAIL_INDEX] = jot
         end,
 
         undo   = function(self)
@@ -29,7 +27,12 @@ local ENGINE = {
         end,
 
         redo   = function(self)
-            self.TAIL_INDEX = math.min(#self, self.TAIL_INDEX + 1)
+            self.TAIL_INDEX = math.min(#self.data, self.TAIL_INDEX + 1)
+        end,
+
+        clear  = function(self)
+            self.TAIL_INDEX = 0
+            self.data = {}
         end,
 
     },
@@ -37,7 +40,7 @@ local ENGINE = {
     draw          = function(self)
         self.history:draw()
 
-        CURRENT_JOT:draw()
+        JOT_TOOL:draw()
     end,
 
     update        = function(self, dt)
@@ -45,33 +48,31 @@ local ENGINE = {
     end,
 
     keypressed    = function(self, key)
-        if key == "z" and KEYBOARD.isDown("lgui", "rgui") then
+        if     key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
         else
-            CURRENT_JOT:keypressed(key, addToHistoryCallback)
-            if     key == "l"                    then CURRENT_JOT = LINE_JOT
-            elseif key == "s" or key == "escape" then CURRENT_JOT = SCRIBBLE_JOT  end
+            JOT_TOOL:keypressed(key, addToHistoryCallback)
         end
     end,
 
     keyreleased   = function(self, key)
-        CURRENT_JOT:keyreleased(key, addToHistoryCallback)
+        JOT_TOOL:keyreleased(key, addToHistoryCallback)
     end,
 
     mousepressed  = function(self, mx, my)
-        CURRENT_JOT:penDown(mx, my, addToHistoryCallback)
+        JOT_TOOL:penDown(mx, my, addToHistoryCallback)
     end,
 
     mousereleased = function(self, mx, my)
-        CURRENT_JOT:penUp(mx, my, addToHistoryCallback)
+        JOT_TOOL:penUp(mx, my, addToHistoryCallback)
     end,
 
     mousemoved    = function(self, mx, my)
-        CURRENT_JOT:penMoved(mx, my, addToHistoryCallback)
+        JOT_TOOL:penMoved(mx, my, addToHistoryCallback)
     end,
 
     mousedragged  = function(self, mx, my)
-        CURRENT_JOT:penDragged(mx, my, addToHistoryCallback)
+        JOT_TOOL:penDragged(mx, my, addToHistoryCallback)
     end,
 
     addToHistory  = function(self, jot)
@@ -81,6 +82,14 @@ local ENGINE = {
     undoOrRedo    = function(self)
         if KEYBOARD.isDown("lshift", "rshift") then self:redo()
         else                                        self:undo()   end
+    end,
+
+    readFromFile  = function(self, filename)
+        self.history:clear()
+            
+        for jot in DATA_READER:eachJot("sampleScribble") do 
+            self.history:addJot(jot) 
+        end
     end,
 
     undo          = function(self) self.history:undo()            end,

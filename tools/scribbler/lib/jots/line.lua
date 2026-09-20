@@ -3,13 +3,12 @@ local MOUSE = love.mouse
 local COLOR = require("game/constants/colors")
 
 local LINE_JOT = {
-    create = function(self)
+    create = function(self, data)
         return {
-            data = { points = {} },
+            data = data or { points = {} },
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
-
                 GRAFX.setLineWidth(1)
                 
                 local points = self.data.points
@@ -39,10 +38,11 @@ local LINE_JOT = {
 
     end,
 
-
 }
 
 return {
+    name = "line",
+    
     jot = LINE_JOT:create(),
 
     draw          = function(self)
@@ -65,35 +65,23 @@ return {
         GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
     end,
 
-    update        = function(self, dt)
-        -- ...
-    end,
-
     keypressed    = function(self, key, publishJot)
-        if key == "return" and not self.jot:isEmpty() then 
+        if     key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
         end
-    end,
-
-    keyreleased   = function(self, key)
-        -- ...
     end,
 
     penDown  = function(self, mx, my)
         self.jot:addPoint(mx, my)
     end,
 
-    penUp = function(self, mx, my)
-        -- ...
+    revert = function(self)
+        self.jot = LINE_JOT:create()
     end,
 
-    penMoved    = function(self, mx, my)
-        -- ...
-    end,
-
-    penDragged  = function(self, mx, my)
-        -- ...
+    fromData = function(self, data)
+        return LINE_JOT:create(data)
     end,
 
     revert = function(self)

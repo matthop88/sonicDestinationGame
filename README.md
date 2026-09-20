@@ -45,3 +45,17 @@ Possible image names include:
 1. sonic1
 
 and that's it, really. Man, that was extensive!
+
+### Launching the Scribbler Drawing Application
+
+From within this directory, the Scribbler Drawing Application can be launched via:
+
+    love . scribbler -i {name_of_scribbler_file}
+The command-line argument is optional. If given, the Scribbler application will start with the specified drawing loaded.
+
+Drawing location resides in the tools/scribbler/data/ directory.
+
+Currently available picture names include:
+1. sampleScribble
+
+and... that's about it.
