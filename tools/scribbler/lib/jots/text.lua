@@ -56,14 +56,6 @@ return {
         elseif  key == "=" 
             and KEYBOARD.isDown("lshift", "rshift") then self.fontSize = math.min(128, self.fontSize + 1)
         elseif  key == "tab"                        then self.changeMessage()
-        elseif  key == "/"                          then
-            local mx, my = MOUSE.getPosition()
-            publishJot(TEXT_JOT:create {
-                x        = mx, 
-                y        = my, 
-                fontSize = 24, 
-                message  = "Test, test, test!", 
-            })
         end
     end,
 
@@ -80,6 +72,10 @@ return {
     changeMessage = function(self)
         if KEYBOARD.isDown("lshift", "rshift") then MESSAGES:prev()
         else                                        MESSAGES:next()  end
+    end,
+
+    fromData = function(self, data)
+        return TEXT_JOT:create(data)
     end,
 
 }
