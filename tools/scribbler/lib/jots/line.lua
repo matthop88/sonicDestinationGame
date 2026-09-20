@@ -84,4 +84,8 @@ return {
         return LINE_JOT:create(data)
     end,
 
+    revert = function(self)
+        self.jot = LINE_JOT:create()
+    end,
+
 }
