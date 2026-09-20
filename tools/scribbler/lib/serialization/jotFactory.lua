@@ -1,4 +1,4 @@
-local JOT_REPOSITORY = requireRelative("lib/jotRepository")
+local JOT_REPOSITORY = requireRelative("lib/serialization/jotRepository")
 
 return {
 	create = function(self, jotObj)
