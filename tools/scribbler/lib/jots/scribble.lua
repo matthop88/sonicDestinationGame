@@ -30,6 +30,8 @@ local SCRIBBLE_JOT = {
 }
 
 return {
+    name = "scribble",
+    
     jot = SCRIBBLE_JOT:create(),
 
     draw   = function(self)
