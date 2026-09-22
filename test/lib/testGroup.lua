@@ -22,9 +22,12 @@ return {
 
 			runTests = function(self)
 				for testName, testFn in pairs(self.testsToRun) do
-					local result = testFn(self.TEST_CLASS)
+					local result
+					local status, err = pcall(function() result = testFn(self.TEST_CLASS) end)
 
-					if result == true then
+					if status ~= true then
+						print("EXCEPTION THROWN IN TEST " .. testName)
+					elseif result == true then
 						self.testsPassed = self.testsPassed + 1
 					end
 				end
