@@ -5,7 +5,7 @@ return {
 		local jot = JOT_REPOSITORY:getJot(jotObj.name)
 
 		if jot ~= nil then
-			return jot:fromData(jotObj.data)
+			return jot:fromDataObj(jotObj)
 		end
 	end,
 }
