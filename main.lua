@@ -10,13 +10,7 @@ local APPLICATIONS = {
 	        APP_NAME = "application",
 	    },
 
-	    ----------------------- TESTS ------------------------
-	    test = {
-	    	PATH     = "test/",
-	    	APP_NAME = "framework",
-	    },
-	
-		----------------------- TOOLS ------------------------
+	    ----------------------- TOOLS ------------------------
 	    inspector = {
 	        PATH     = "tools/colorInspector/",
 	        APP_NAME = "colorInspectorApp",
