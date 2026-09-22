@@ -1,39 +1,30 @@
-return {
-    version = "0.1",
+return {  VERSION = "0.1",
 
-    jots    = {
-        {   name = "text",
-            data = { 
-                x        = 410, 
-                y        = 328, 
-                fontSize = 24, 
-                message  = "Test, test, test!", 
-            },
+    {   name = "text",
+        x        = 410, 
+        y        = 328, 
+        fontSize = 24, 
+        message  = "Test, test, test!", 
+    },
+
+    {   name = "scribble",
+        points = {
+            { x = 360, y = 375, },
+            { x = 439, y = 382, },
+            { x = 479, y = 386, },
+            { x = 549, y = 387, },
+            { x = 579, y = 383, },
+            { x = 600, y = 379, },
+            { x = 634, y = 378, },
         },
+    },
 
-        {   name = "scribble",
-            data = {
-                points = {
-                    360, 375,
-                    439, 382,
-                    479, 386,
-                    549, 387,
-                    579, 383,
-                    600, 379,
-                    634, 378,
-                },
-            },
-        },
-
-        {   name = "line",
-            data = {
-                points = {
-                    358, 373,
-                    415, 305,
-                    608, 306,
-                    633, 379,
-                },
-            },
+    {   name = "line",
+        points = {
+            { x = 358, y = 373, },
+            { x = 415, y = 305, },
+            { x = 608, y = 306, },
+            { x = 633, y = 379, },
         },
     },
 
