@@ -87,7 +87,7 @@ local ENGINE = {
     readFromFile  = function(self, filename)
         self.history:clear()
             
-        for jot in DATA_READER:eachJot("sampleScribble") do 
+        for jot in DATA_READER:eachJot(filename) do 
             self.history:addJot(jot) 
         end
     end,
