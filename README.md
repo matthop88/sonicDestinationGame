@@ -15,20 +15,6 @@ From within the ***game/*** directory, the game can be executed via:
 
     love .
 
-## Running Unit Tests
-
-From within this directory, Unit Tests can be run via:
-
-    love . test
-
-Specific test groups can be executed in the following way:
-
-    love . test -t {name_of_test_group}
-
-Current names of test groups are:
-1. stringUtil
-2. commandLineTools
-
 ## Executing Tools
 
 Currently, there is only one tool in this project: **colorInspector**.
