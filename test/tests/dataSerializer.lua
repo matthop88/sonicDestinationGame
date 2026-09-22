@@ -10,30 +10,36 @@ return {
 	testArrayData    = function(self)
 		local arrayData = require(PATH_PREFIX .. "arrayData")
 		
-		--local serializedData = DATA_SERIALIZER:serialize(arrayData)
-
-		local serializedData = { "return {",
-								 "    360, 375,",
-								 "    549, 387,",
-								 "    600, 379,",
-								 "    634, 378,",
-								 "}",
-								}
-
+		local serializedData = DATA_SERIALIZER:serialize(arrayData)
 
 		return ASSERT:TRUE("Array Data", self:compareWithFile(serializedData, PATH_PREFIX .. "arrayData.lua"))
 	end,
 
 	testKVData       = function(self)
+		local kvData = require(PATH_PREFIX .. "kvData")
+		
+		local serializedData = DATA_SERIALIZER:serialize(kvData)
 
+		return ASSERT:TRUE("K/V Data", self:compareWithFile(serializedData, PATH_PREFIX .. "kvData.lua"))
+	
 	end,
 
 	testKeyBlocks    = function(self)
+		local keyBlocksData = require(PATH_PREFIX .. "keyBlocks")
+		
+		local serializedData = DATA_SERIALIZER:serialize(keyBlocksData)
 
+		return ASSERT:TRUE("Key Blocks Data", self:compareWithFile(serializedData, PATH_PREFIX .. "keyBlocksData.lua"))
+	
 	end,
 
 	testScribbleData = function(self)
+		local arrayData = require(PATH_PREFIX .. "scribbleData")
+		
+		local serializedData = DATA_SERIALIZER:serialize(scribbleData)
 
+		return ASSERT:TRUE("Scribble Data", self:compareWithFile(serializedData, PATH_PREFIX .. "scribbleData.lua"))
+	
 	end,
 
 	compareWithFile = function(self, serializedData, filename)
