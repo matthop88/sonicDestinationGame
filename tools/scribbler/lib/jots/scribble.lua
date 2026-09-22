@@ -3,25 +3,26 @@ local MOUSE = love.mouse
 local COLOR = require("game/constants/colors")
 
 local SCRIBBLE_JOT = {
-    create = function(self, data)
+    create = function(self, points)
         return {
-            data = data or { points = {} },
+            points = points or {},
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
                 GRAFX.setLineWidth(5)
-                
-                local points = self.data.points
 
-                if #points > 0 then
-                    if   #points > 2 then GRAFX.line(points)
-                    else                  GRAFX.line(points[1], points[2], points[1], points[2]) end
+                local prevX, prevY = nil, nil
+                
+                for n, pt in ipairs(self.points) do
+                    if n == 1 then GRAFX.rectangle("fill", pt.x - 2, pt.y - 2, 5, 5)
+                    else           GRAFX.line(prevX, prevY, pt.x, pt.y)          end
+
+                    prevX, prevY = pt.x, pt.y
                 end
             end,
 
             addPoint = function(self, x, y)
-                table.insert(self.data.points, x)
-                table.insert(self.data.points, y)
+                table.insert(self.points, { x = x, y = y })
             end,
 
         }
@@ -65,8 +66,8 @@ return {
         self.jot = SCRIBBLE_JOT:create()
     end,
 
-    fromData = function(self, data)
-        return SCRIBBLE_JOT:create(data)
+    fromDataObj = function(self, scribbleJotObj)
+        return SCRIBBLE_JOT:create(scribbleJotObj.points)
     end,
 
 }
