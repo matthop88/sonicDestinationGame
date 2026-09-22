@@ -10,7 +10,7 @@ return {
 			testsPassed = 0,
 
 			init = function(self)
-				for fnName, fn in pairs(testClass) do
+				for fnName, fn in pairs(self.TEST_CLASS) do
 					if STRING_UTIL:startsWith(fnName, "test") then
 						self.testsToRun[fnName]  = fn
 						self.testCount           = self.testCount + 1
@@ -22,7 +22,7 @@ return {
 
 			runTests = function(self)
 				for testName, testFn in pairs(self.testsToRun) do
-					local result = testFn(stringUtilTestClass)
+					local result = testFn(self.TEST_CLASS)
 
 					if result == true then
 						self.testsPassed = self.testsPassed + 1
