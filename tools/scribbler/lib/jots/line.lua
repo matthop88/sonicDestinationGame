@@ -3,35 +3,35 @@ local MOUSE = love.mouse
 local COLOR = require("game/constants/colors")
 
 local LINE_JOT = {
-    create = function(self, data)
+    create = function(self, points)
         return {
-            data = data or { points = {} },
+            points = points or {},
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
                 GRAFX.setLineWidth(1)
                 
-                local points = self.data.points
+                local prevX, prevY = nil, nil
 
-                if #points > 0 then
-                    if   #points > 2 then GRAFX.line(points)
-                    else GRAFX.line(points[1], points[2], points[1], points[2]) end
+                for n, pt in ipairs(self.points) do
+                    if n > 1 then
+                        GRAFX.line(prevX, prevY, pt.x, pt.y)
+                    end
+
+                    prevX, prevY = pt.x, pt.y
                 end
             end,
 
             addPoint = function(self, x, y)
-                table.insert(self.data.points, x)
-                table.insert(self.data.points, y)
+                table.insert(self.points, { x = x, y = y })
             end,
 
             isEmpty = function(self)
-                return #self.data.points == 0
+                return #self.points == 0
             end,
 
             getLastPoint = function(self)
-                local points = self.data.points
-
-                return { x = points[#points - 1], y = points[#points] }
+                return self.points[#self.points - 1]
             end,
 
         }
@@ -80,8 +80,8 @@ return {
         self.jot = LINE_JOT:create()
     end,
 
-    fromData = function(self, data)
-        return LINE_JOT:create(data)
+    fromDataObj = function(self, lineJotObj)
+        return LINE_JOT:create(lineJotObj.points)
     end,
 
     revert = function(self)
