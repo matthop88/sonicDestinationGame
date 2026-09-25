@@ -27,10 +27,12 @@ local SERIALIZED_DATA = {
 
             convertKVData = function(self)
                 for k, v in pairs(self.objData) do
-                    local vString = v
-                    if type(v) == "string" then vString = "\"" .. v .. "\"" end
+                    if type(k) ~= "number" then
+                        local vString = v
+                        if type(v) == "string" then vString = "\"" .. v .. "\"" end
 
-                    self:addToResult("    " .. k .. " = " .. vString .. ",")
+                        self:addToResult("    " .. k .. " = " .. vString .. ",")
+                    end
                 end
             end,
 
