@@ -5,20 +5,32 @@ local SERIALIZED_DATA = {
             resultStrings = { "return {", },
 
             convert       = function(self)
-                -- serialize array data in pairs
+                self:convertArrayData()
+
+                self:addToResult("    ")
+                self:addToResult("}")
+
+                return self:getResult()
+            end,
+
+            convertArrayData = function(self)
                 for n, _ in ipairs(self.objData) do
                     if n % 2 == 0 then
-                        table.insert(self.resultStrings, "    " .. self.objData[n - 1] .. ", " .. self.objData[n] .. ",")
+                        self:addToResult("    " .. self.objData[n - 1] .. ", " .. self.objData[n] .. ",")
                     elseif n == #self.objData then
-                        table.insert(self.resultStrings, "    " .. self.objData[n]     .. ",")
+                        self:addToResult("    " .. self.objData[n]     .. ",")
                     end
                 end
+            end,
 
-                table.insert(self.resultStrings, "    ")
-                table.insert(self.resultStrings, "}")
+            addToResult = function(self, line)
+                table.insert(self.resultStrings, line)
+            end,
 
+            getResult   = function(self)
                 return self.resultStrings
             end,
+
 
         }):convert()
     end,
