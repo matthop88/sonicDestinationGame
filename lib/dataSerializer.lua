@@ -1,3 +1,16 @@
+local sortKVData = function(kvData)
+    local sortedKVData = {}
+
+    for k, v in pairs(kvData) do
+        if type(k) ~= "number" then
+            table.insert(sortedKVData, { key = k, value = v })
+        end
+    end
+
+    table.sort(sortedKVData, function(a, b) return a.key < b.key end)
+    return sortedKVData
+end
+
 local SERIALIZED_DATA = {
     create = function(self, objData)
         return ({
@@ -26,13 +39,12 @@ local SERIALIZED_DATA = {
             end,
 
             convertKVData = function(self)
-                for k, v in pairs(self.objData) do
-                    if type(k) ~= "number" then
-                        local vString = v
-                        if type(v) == "string" then vString = "\"" .. v .. "\"" end
-
-                        self:addToResult("    " .. k .. " = " .. vString .. ",")
-                    end
+                local sortedKVData = sortKVData(self.objData)
+                for _, elt in ipairs(sortedKVData) do
+                    local k, v = elt.key, elt.value
+                    local vString = v
+                    if type(v) == "string" then vString = "\"" .. v .. "\"" end
+                    self:addToResult("    " .. k .. " = " .. vString .. ",")
                 end
             end,
 
