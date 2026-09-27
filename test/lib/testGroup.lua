@@ -26,7 +26,7 @@ return {
 					local status, err = pcall(function() result = testFn(self.TEST_CLASS) end)
 
 					if status ~= true then
-						print("EXCEPTION THROWN IN TEST " .. testName)
+						print("EXCEPTION THROWN IN TEST " .. testName .. ", err = ", err)
 					elseif result == true then
 						self.testsPassed = self.testsPassed + 1
 					end
