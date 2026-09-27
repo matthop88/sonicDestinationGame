@@ -1,14 +1,25 @@
+local STRING_UTIL = require("game/util/stringUtil")
+
 local sortKVData = function(kvData)
-    local sortedKVData = {}
+    local sortedKVData1 = {}
+    local sortedKVData2 = {}
 
     for k, v in pairs(kvData) do
-        if type(k) ~= "number" then
-            table.insert(sortedKVData, { key = k, value = v })
+        if type(k) == "string" then
+            if STRING_UTIL:isUppercase(k) then table.insert(sortedKVData1, { key = k, value = v })
+            else                               table.insert(sortedKVData2, { key = k, value = v })
+            end
         end
     end
 
-    table.sort(sortedKVData, function(a, b) return a.key < b.key end)
-    return sortedKVData
+    table.sort(sortedKVData1, function(a, b) return a.key < b.key end)
+    table.sort(sortedKVData2, function(a, b) return a.key < b.key end)
+
+    local sortedTable = {}
+    for _, e in ipairs(sortedKVData1) do table.insert(sortedTable, e) end
+    for _, e in ipairs(sortedKVData2) do table.insert(sortedTable, e) end
+    
+    return sortedTable
 end
 
 local SERIALIZED_DATA = {
