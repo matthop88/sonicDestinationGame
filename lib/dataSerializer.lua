@@ -42,13 +42,13 @@ local joinTables = function(t1, t2)
     return resultingTable
 end         
 
-local prepareKVData = function(kvData)
-    local kvDataUppercase, kvDataLowercase = splitKVTable(kvData, function(k) return STRING_UTIL:isUppercase(k) end)
+local prepareKVData = function(kvTable)
+    local kvTableUppercase, kvTableLowercase = splitKVTable(kvTable, function(k) return STRING_UTIL:isUppercase(k) end)
 
-    local sortedUppercaseData = sortKVTable(kvDataUppercase)
-    local sortedLowercaseData = sortKVTable(kvDataLowercase)
+    local sortedUppercaseTable = sortKVTable(kvTableUppercase)
+    local sortedLowercaseTable = sortKVTable(kvTableLowercase)
 
-    return joinTables(sortedUppercaseData, sortedLowercaseData)
+    return joinTables(sortedUppercaseTable, sortedLowercaseTable)
 end
 
 local getMaxKeyLength = function(orderedKVData)
@@ -68,7 +68,7 @@ local SERIALIZED_DATA = {
 
             convert       = function(self)
                 self:convertArrayData()
-                self:convertKVData()
+                self:convertKVData(self.objData)
 
                 self:addToResult("    ")
                 self:addToResult("}")
@@ -87,15 +87,26 @@ local SERIALIZED_DATA = {
                 end
             end,
 
-            convertKVData = function(self)
-                local preparedKVData = prepareKVData(self.objData)
+            convertKVData = function(self, kvData, indentString)
+                indentString = indentString or "    "
+
+                local preparedKVData = prepareKVData(kvData)
                 local maxKeyLength   = getMaxKeyLength(preparedKVData)
 
                 for _, elt in ipairs(preparedKVData) do
                     local k, v = elt.key, elt.value
-                    if type(v) == "string" then v = "\"" .. v .. "\"" end
                     local paddingSize = maxKeyLength - string.len(k)
-                    self:addToResult("    " .. k .. string.rep(" ", paddingSize) .. " = " .. v .. ",")
+                    k = k .. string.rep(" ", paddingSize)
+
+                    if type(v) == "table"  then 
+                        self:addToResult("")
+                        self:addToResult(indentString .. k .. " = {")
+                        self:convertKVData(v, indentString .. "    ")
+                        self:addToResult(indentString .. "},")
+                    else
+                        if type(v) == "string" then v = "\"" .. v .. "\"" end
+                        self:addToResult(indentString .. k .. " = " .. v .. ",")
+                    end
                 end
             end,
 
