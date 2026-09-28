@@ -51,6 +51,15 @@ local prepareKVData = function(kvData)
     return joinTables(sortedUppercaseData, sortedLowercaseData)
 end
 
+local getMaxKeyLength = function(orderedKVData)
+    local maxKeyLength = 0
+    for _, elt in ipairs(orderedKVData) do
+        maxKeyLength = math.max(maxKeyLength, string.len(elt.key))
+    end
+
+    return maxKeyLength
+end
+
 local SERIALIZED_DATA = {
     create = function(self, objData)
         return ({
@@ -80,18 +89,13 @@ local SERIALIZED_DATA = {
 
             convertKVData = function(self)
                 local preparedKVData = prepareKVData(self.objData)
-
-                local maxKeyLength = 0
-                for _, elt in ipairs(preparedKVData) do
-                    maxKeyLength = math.max(maxKeyLength, string.len(elt.key))
-                end
+                local maxKeyLength   = getMaxKeyLength(preparedKVData)
 
                 for _, elt in ipairs(preparedKVData) do
                     local k, v = elt.key, elt.value
-                    local vString = v
-                    if type(v) == "string" then vString = "\"" .. v .. "\"" end
+                    if type(v) == "string" then v = "\"" .. v .. "\"" end
                     local paddingSize = maxKeyLength - string.len(k)
-                    self:addToResult("    " .. k .. string.rep(" ", paddingSize) .. " = " .. vString .. ",")
+                    self:addToResult("    " .. k .. string.rep(" ", paddingSize) .. " = " .. v .. ",")
                 end
             end,
 
