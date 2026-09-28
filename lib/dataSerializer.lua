@@ -69,7 +69,7 @@ local SERIALIZED_DATA = {
             convert       = function(self)
                 self:convertData(self.objData)
                 
-                self:addToResult("    ")
+                self:addToResult("")
                 self:addToResult("}")
 
                 self:printResult()
