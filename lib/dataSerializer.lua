@@ -1,25 +1,54 @@
 local STRING_UTIL = require("game/util/stringUtil")       
 
-local sortKVData = function(kvData)
-    local sortedKVData1 = {}
-    local sortedKVData2 = {}
-
-    for k, v in pairs(kvData) do
+local splitKVTable = function(kvTable, meetsCriteriaFn)
+    local kvTable1, kvTable2 = {}, {}
+    
+    for k, v in pairs(kvTable) do
         if type(k) == "string" then
-            if STRING_UTIL:isUppercase(k) then table.insert(sortedKVData1, { key = k, value = v })
-            else                               table.insert(sortedKVData2, { key = k, value = v })
-            end
+            if meetsCriteriaFn(k) then kvTable1[k] = v
+            else                       kvTable2[k] = v   end
         end
     end
 
-    table.sort(sortedKVData1, function(a, b) return a.key < b.key end)
-    table.sort(sortedKVData2, function(a, b) return a.key < b.key end)
+    return kvTable1, kvTable2
+end
 
-    local sortedTable = {}
-    for _, e in ipairs(sortedKVData1) do table.insert(sortedTable, e) end
-    for _, e in ipairs(sortedKVData2) do table.insert(sortedTable, e) end
-    
-    return sortedTable
+local orderKVTable = function(kvTable)
+    local orderedKVTable = {}
+
+    for k, v in pairs(kvTable) do
+        if type(k) == "string" then
+            table.insert(orderedKVTable, { key = k, value = v })
+        end
+    end
+
+    return orderedKVTable
+end
+
+local sortKVTable = function(kvTable)
+    local data = orderKVTable(kvTable)
+
+    table.sort(data, function(a, b) return a.key < b.key end)
+
+    return data
+end
+
+local joinTables = function(t1, t2)
+    local resultingTable = {}
+
+    for _, e in ipairs(t1) do table.insert(resultingTable, e) end
+    for _, e in ipairs(t2) do table.insert(resultingTable, e) end
+
+    return resultingTable
+end         
+
+local prepareKVData = function(kvData)
+    local kvDataUppercase, kvDataLowercase = splitKVTable(kvData, function(k) return STRING_UTIL:isUppercase(k) end)
+
+    local sortedUppercaseData = sortKVTable(kvDataUppercase)
+    local sortedLowercaseData = sortKVTable(kvDataLowercase)
+
+    return joinTables(sortedUppercaseData, sortedLowercaseData)
 end
 
 local SERIALIZED_DATA = {
@@ -50,14 +79,14 @@ local SERIALIZED_DATA = {
             end,
 
             convertKVData = function(self)
-                local sortedKVData = sortKVData(self.objData)
+                local preparedKVData = prepareKVData(self.objData)
 
                 local maxKeyLength = 0
-                for _, elt in ipairs(sortedKVData) do
+                for _, elt in ipairs(preparedKVData) do
                     maxKeyLength = math.max(maxKeyLength, string.len(elt.key))
                 end
 
-                for _, elt in ipairs(sortedKVData) do
+                for _, elt in ipairs(preparedKVData) do
                     local k, v = elt.key, elt.value
                     local vString = v
                     if type(v) == "string" then vString = "\"" .. v .. "\"" end
@@ -79,7 +108,6 @@ local SERIALIZED_DATA = {
                     print(s)
                 end
             end,
-
 
         }):convert()
     end,
