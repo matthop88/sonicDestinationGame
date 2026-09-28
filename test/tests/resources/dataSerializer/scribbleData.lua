@@ -1,8 +1,8 @@
 return {
-    version = "0.1",
+    VERSION = "0.1",
 
     jots    = {
-        {   name = "text",
+        {   NAME = "text",
             data = { 
                 x        = 410, 
                 y        = 328, 
@@ -11,7 +11,7 @@ return {
             },
         },
 
-        {   name = "scribble",
+        {   NAME = "scribble",
             data = {
                 points = {
                     360, 375,
@@ -22,7 +22,7 @@ return {
             },
         },
 
-        {   name = "line",
+        {   NAME = "line",
             data = {
                 points = {
                     358, 373,
