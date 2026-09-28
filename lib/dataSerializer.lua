@@ -104,13 +104,13 @@ local SERIALIZED_DATA = {
                 local preparedKVData = prepareKVData(kvData)
                 local maxKeyLength   = getMaxKeyLength(preparedKVData)
 
-                for _, elt in ipairs(preparedKVData) do
+                for n, elt in ipairs(preparedKVData) do
                     local k, v = elt.key, elt.value
                     local paddingSize = maxKeyLength - string.len(k)
                     k = k .. string.rep(" ", paddingSize)
 
                     if type(v) == "table"  then 
-                        self:addToResult("")
+                        if n > 1 then self:addToResult("") end
                         self:addToResult(indentString .. k .. " = {")
                         self:convertData(v, indentString .. "    ")
                         self:addToResult(indentString .. "},")
