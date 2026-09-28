@@ -85,10 +85,17 @@ local SERIALIZED_DATA = {
 
             convertArrayData = function(self, data, indentString)
                 for n, _ in ipairs(data) do
-                    if n % 2 == 0 then
-                        self:addToResult(indentString .. data[n - 1] .. ", " .. data[n] .. ",")
-                    elseif n == #data then
-                        self:addToResult(indentString .. data[n]     .. ",")
+                    if n % 2 == 0 and type(data[n - 1]) ~= "table" and type(data[n]) ~= "table" then
+                        self:addToResult(indentString .. self:addQuotesIfString(data[n - 1]) .. ", " .. self:addQuotesIfString(data[n]) .. ",")
+                    elseif type(data[n]) ~= "table" and n == #data then
+                        self:addToResult(indentString .. self:addQuotesIfString(data[n])     .. ",")
+                    elseif type(data[n]) == "table" then
+                        self:addToResult(indentString .. "{")
+                        self:convertData(data[n], indentString .. "    ")
+                        self:addToResult(indentString .. "},")
+                        if n ~= #data then
+                            self:addToResult("")
+                        end
                     end
                 end
             end,
@@ -108,9 +115,16 @@ local SERIALIZED_DATA = {
                         self:convertData(v, indentString .. "    ")
                         self:addToResult(indentString .. "},")
                     else
-                        if type(v) == "string" then v = "\"" .. v .. "\"" end
-                        self:addToResult(indentString .. k .. " = " .. v .. ",")
+                        self:addToResult(indentString .. k .. " = " .. self:addQuotesIfString(v) .. ",")
                     end
+                end
+            end,
+
+            addQuotesIfString = function(self, v)
+                if type(v) == "string" then 
+                    return "\"" .. v .. "\""
+                else
+                    return v
                 end
             end,
 
