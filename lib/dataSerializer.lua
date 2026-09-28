@@ -1,4 +1,4 @@
-local STRING_UTIL = require("game/util/stringUtil")
+local STRING_UTIL = require("game/util/stringUtil")       
 
 local sortKVData = function(kvData)
     local sortedKVData1 = {}
@@ -51,11 +51,18 @@ local SERIALIZED_DATA = {
 
             convertKVData = function(self)
                 local sortedKVData = sortKVData(self.objData)
+
+                local maxKeyLength = 0
+                for _, elt in ipairs(sortedKVData) do
+                    maxKeyLength = math.max(maxKeyLength, string.len(elt.key))
+                end
+
                 for _, elt in ipairs(sortedKVData) do
                     local k, v = elt.key, elt.value
                     local vString = v
                     if type(v) == "string" then vString = "\"" .. v .. "\"" end
-                    self:addToResult("    " .. k .. " = " .. vString .. ",")
+                    local paddingSize = maxKeyLength - string.len(k)
+                    self:addToResult("    " .. k .. string.rep(" ", paddingSize) .. " = " .. vString .. ",")
                 end
             end,
 
