@@ -67,9 +67,8 @@ local SERIALIZED_DATA = {
             resultStrings = { "return {", },
 
             convert       = function(self)
-                self:convertArrayData()
-                self:convertKVData(self.objData)
-
+                self:convertData(self.objData)
+                
                 self:addToResult("    ")
                 self:addToResult("}")
 
@@ -77,19 +76,24 @@ local SERIALIZED_DATA = {
                 return self:getResult()
             end,
 
-            convertArrayData = function(self)
-                for n, _ in ipairs(self.objData) do
+            convertData = function(self, data, indentString)
+                indentString = indentString or "    "
+
+                self:convertArrayData(data, indentString)
+                self:convertKVData(data, indentString)
+            end,
+
+            convertArrayData = function(self, data, indentString)
+                for n, _ in ipairs(data) do
                     if n % 2 == 0 then
-                        self:addToResult("    " .. self.objData[n - 1] .. ", " .. self.objData[n] .. ",")
-                    elseif n == #self.objData then
-                        self:addToResult("    " .. self.objData[n]     .. ",")
+                        self:addToResult(indentString .. data[n - 1] .. ", " .. data[n] .. ",")
+                    elseif n == #data then
+                        self:addToResult(indentString .. data[n]     .. ",")
                     end
                 end
             end,
 
             convertKVData = function(self, kvData, indentString)
-                indentString = indentString or "    "
-
                 local preparedKVData = prepareKVData(kvData)
                 local maxKeyLength   = getMaxKeyLength(preparedKVData)
 
@@ -101,7 +105,7 @@ local SERIALIZED_DATA = {
                     if type(v) == "table"  then 
                         self:addToResult("")
                         self:addToResult(indentString .. k .. " = {")
-                        self:convertKVData(v, indentString .. "    ")
+                        self:convertData(v, indentString .. "    ")
                         self:addToResult(indentString .. "},")
                     else
                         if type(v) == "string" then v = "\"" .. v .. "\"" end
