@@ -1,7 +1,7 @@
 return {
-    VERSION = "0.1",
+    VERSION  = "0.1",
 
-    line = {
+    line     = {
         358, 373,
         415, 305,
         608, 306,
@@ -14,12 +14,12 @@ return {
         600, 379,
         634, 378,
     },
-    
-    text = { 
-        fontSize = 24, 
+
+    text     = {
+        fontSize = 24,
         message  = "Test, test, test!",
-        x        = 410, 
-        y        = 328,  
+        x        = 410,
+        y        = 328,
     },
 
 }
