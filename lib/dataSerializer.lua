@@ -36,12 +36,19 @@ local SMART_STRING_LIST = {
 }
 
 local SMART_TABLE = {
-    new = function()
-        return {
+    ingest = function(self, dataObj)
+        return ({
             kvData        = {},
             arrayData     = {},
 
             maxKeyLength  = 0,
+
+            init          = function(self, dataObj)
+                for _, v in ipairs(dataObj) do self:addArrayEntry(v) end
+                for k, v in  pairs(dataObj) do self:addKVEntry(k, v) end
+
+                return self
+            end,
 
             addArrayEntry = function(self, n)
                 table.insert(self.arrayData, n)
@@ -87,20 +94,17 @@ local SMART_TABLE = {
                 else                        return         v          end
             end,
 
-        }
+        }):init(dataObj)
     end,
 }
 
 return {
     serialize = function(self, dataObj)
         local serializedData = SMART_STRING_LIST.new()
-        local smartTable     = SMART_TABLE.new()
+        local smartTable     = SMART_TABLE:ingest(dataObj)
 
         serializedData:add("return {")
         serializedData:indent()
-
-        for _, v in ipairs(dataObj) do smartTable:addArrayEntry(v) end
-        for k, v in  pairs(dataObj) do smartTable:addKVEntry(k, v) end
 
         smartTable:serialize(serializedData)
 
