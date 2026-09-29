@@ -51,6 +51,12 @@ return {
             end
         end
 
+        for k, v in pairs(dataObj) do
+            if type(k) ~= "number" then
+                serializedData:add(k .. " = " .. v)
+            end
+        end
+
         serializedData:unindent()
         serializedData:add("}")
 
