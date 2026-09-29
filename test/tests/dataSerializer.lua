@@ -25,7 +25,7 @@ return {
 	end,
 
 	testKeyBlocks    = function(self)
-		local keyBlocksData = require(PATH_PREFIX .. "keyBlocks")
+		local keyBlocksData = require(PATH_PREFIX .. "keyBlocksData")
 		
 		local serializedData = DATA_SERIALIZER:serialize(keyBlocksData)
 
