@@ -35,7 +35,9 @@ local SMART_STRING_LIST = {
     end,
 }
 
-local SMART_TABLE = {
+local SMART_TABLE
+
+SMART_TABLE = {
     ingest = function(self, dataObj)
         return ({
             kvData        = {},
@@ -56,7 +58,11 @@ local SMART_TABLE = {
 
             addKVEntry    = function(self, k, v)
                 if type(k) ~= "number" then
-                    table.insert(self.kvData, { key = k, value = v })
+                    if type(v) == "table" then
+                        table.insert(self.kvData, { key = k, value = SMART_TABLE:ingest(v) })
+                    else
+                        table.insert(self.kvData, { key = k, value = v })
+                    end
 
                     self.maxKeyLength = math.max(self.maxKeyLength, string.len(k))
                 end
@@ -81,8 +87,21 @@ local SMART_TABLE = {
                 table.sort(self.kvData, function(a, b) return a.key < b.key end)
 
                 for _, entry in ipairs(self.kvData) do
-                    serializedData:add(self:padKey(entry.key) .. " = " .. self:quoteIfString(entry.value) .. ",")
+                    if type(entry.value) == "table" then
+                        self:serializeKVTable(entry, serializedData)
+                    else
+                        serializedData:add(self:padKey(entry.key) .. " = " .. self:quoteIfString(entry.value) .. ",")
+                    end
                 end
+            end,
+
+            serializeKVTable = function(self, entry, serializedData)
+                serializedData:add("")
+                serializedData:add(self:padKey(entry.key) .. " = {")
+                serializedData:indent()
+                entry.value:serialize(serializedData)
+                serializedData:unindent()
+                serializedData:add("},")
             end,
 
             padKey = function(self, k)
