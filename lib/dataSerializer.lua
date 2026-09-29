@@ -47,7 +47,9 @@ local SMART_TABLE = {
             end,
 
             addKVEntry    = function(self, k, v)
-                table.insert(self.kvData, { key = k, value = v })
+                if type(k) ~= "number" then
+                    table.insert(self.kvData, { key = k, value = v })
+                end
             end,
 
             serialize     = function(self, serializedData)
@@ -76,15 +78,8 @@ return {
         serializedData:add("return {")
         serializedData:indent()
 
-        for _, v in ipairs(dataObj) do
-            smartTable:addArrayEntry(v)
-        end
-
-        for k, v in pairs(dataObj) do
-            if type(k) ~= "number" then
-                smartTable:addKVEntry(k, v)
-            end
-        end
+        for _, v in ipairs(dataObj) do smartTable:addArrayEntry(v) end
+        for k, v in  pairs(dataObj) do smartTable:addKVEntry(k, v) end
 
         smartTable:serialize(serializedData)
 
