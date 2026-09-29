@@ -61,6 +61,8 @@ local SMART_TABLE = {
                     end
                 end
         
+                table.sort(self.kvData, function(a, b) return a.key < b.key end)
+                
                 for _, entry in ipairs(self.kvData) do
                     serializedData:add(entry.key .. " = " .. entry.value)
                 end
