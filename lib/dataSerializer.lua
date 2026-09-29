@@ -41,10 +41,16 @@ return {
 
         serializedData:add("return {")
         serializedData:indent()
-        serializedData:add("360, 375,")
-        serializedData:add("549, 387,")
-        serializedData:add("600, 379,")
-        serializedData:add("634, 378,")
+        -- Start with just number array data
+        
+        for n, v in ipairs(dataObj) do
+            if n % 2 == 0 then
+                serializedData:add("" .. dataObj[n - 1] .. ", " .. dataObj[n] .. ",")
+            elseif n == #dataObj then
+                serializedData:add("" .. dataObj[n]     .. ",")
+            end
+        end
+
         serializedData:unindent()
         serializedData:add("}")
 
