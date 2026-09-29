@@ -53,6 +53,11 @@ local SMART_TABLE = {
             end,
 
             serialize     = function(self, serializedData)
+                self:serializeArrayData(serializedData)
+                self:serializeKVData(serializedData)
+            end,
+
+            serializeArrayData = function(self, serializedData)
                 for n, v in ipairs(self.arrayData) do
                     if     n % 2 == 0    then
                         serializedData:add("" .. self.arrayData[n - 1] .. ", " .. self.arrayData[n] .. ",")
@@ -60,12 +65,19 @@ local SMART_TABLE = {
                         serializedData:add("" .. self.arrayData[n]     .. ",")
                     end
                 end
-        
+            end,
+
+            serializeKVData = function(self, serializedData)
                 table.sort(self.kvData, function(a, b) return a.key < b.key end)
-                
+
                 for _, entry in ipairs(self.kvData) do
-                    serializedData:add(entry.key .. " = " .. entry.value)
+                    serializedData:add(entry.key .. " = " .. self:quoteIfString(entry.value))
                 end
+            end,
+
+            quoteIfString = function(self, v)
+                if type(v) == "string" then return "\"" .. v .. "\""
+                else                        return         v          end
             end,
 
         }
