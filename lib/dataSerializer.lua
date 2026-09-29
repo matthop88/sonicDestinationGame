@@ -1,5 +1,5 @@
 local SMART_STRING_LIST = {
-    create = function(self)
+    new = function()
         return {
             indentation = 0,
 
@@ -36,7 +36,7 @@ local SMART_STRING_LIST = {
 }
 
 local SMART_TABLE = {
-    create = function(self)
+    new = function()
         return {
             kvData        = {},
 
@@ -72,8 +72,8 @@ local SMART_TABLE = {
 
 return {
     serialize = function(self, dataObj)
-        local serializedData = SMART_STRING_LIST:create()
-        local smartTable     = SMART_TABLE:create()
+        local serializedData = SMART_STRING_LIST.new()
+        local smartTable     = SMART_TABLE.new()
 
         serializedData:add("return {")
         serializedData:indent()
