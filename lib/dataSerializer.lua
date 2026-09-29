@@ -39,8 +39,9 @@ local SMART_TABLE = {
     new = function()
         return {
             kvData        = {},
-
             arrayData     = {},
+
+            maxKeyLength  = 0,
 
             addArrayEntry = function(self, n)
                 table.insert(self.arrayData, n)
@@ -49,6 +50,8 @@ local SMART_TABLE = {
             addKVEntry    = function(self, k, v)
                 if type(k) ~= "number" then
                     table.insert(self.kvData, { key = k, value = v })
+
+                    self.maxKeyLength = math.max(self.maxKeyLength, string.len(k))
                 end
             end,
 
@@ -71,8 +74,12 @@ local SMART_TABLE = {
                 table.sort(self.kvData, function(a, b) return a.key < b.key end)
 
                 for _, entry in ipairs(self.kvData) do
-                    serializedData:add(entry.key .. " = " .. self:quoteIfString(entry.value))
+                    serializedData:add(self:padKey(entry.key) .. " = " .. self:quoteIfString(entry.value) .. ",")
                 end
+            end,
+
+            padKey = function(self, k)
+                return k .. string.rep(" ", self.maxKeyLength - string.len(k))
             end,
 
             quoteIfString = function(self, v)
