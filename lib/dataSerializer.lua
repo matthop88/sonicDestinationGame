@@ -35,27 +35,58 @@ local SMART_STRING_LIST = {
     end,
 }
 
+local SMART_TABLE = {
+    create = function(self)
+        return {
+            kvData        = {},
+
+            arrayData     = {},
+
+            addArrayEntry = function(self, n)
+                table.insert(self.arrayData, n)
+            end,
+
+            addKVEntry    = function(self, k, v)
+                table.insert(self.kvData, { key = k, value = v })
+            end,
+
+            serialize     = function(self, serializedData)
+                for n, v in ipairs(self.arrayData) do
+                    if     n % 2 == 0    then
+                        serializedData:add("" .. self.arrayData[n - 1] .. ", " .. self.arrayData[n] .. ",")
+                    elseif n == #self.arrayData then
+                        serializedData:add("" .. self.arrayData[n]     .. ",")
+                    end
+                end
+        
+                for _, entry in ipairs(self.kvData) do
+                    serializedData:add(entry.key .. " = " .. entry.value)
+                end
+            end,
+
+        }
+    end,
+}
+
 return {
     serialize = function(self, dataObj)
         local serializedData = SMART_STRING_LIST:create()
+        local smartTable     = SMART_TABLE:create()
 
         serializedData:add("return {")
         serializedData:indent()
-        -- Start with just number array data
-        
-        for n, v in ipairs(dataObj) do
-            if n % 2 == 0 then
-                serializedData:add("" .. dataObj[n - 1] .. ", " .. dataObj[n] .. ",")
-            elseif n == #dataObj then
-                serializedData:add("" .. dataObj[n]     .. ",")
-            end
+
+        for _, v in ipairs(dataObj) do
+            smartTable:addArrayEntry(v)
         end
 
         for k, v in pairs(dataObj) do
             if type(k) ~= "number" then
-                serializedData:add(k .. " = " .. v)
+                smartTable:addKVEntry(k, v)
             end
         end
+
+        smartTable:serialize(serializedData)
 
         serializedData:unindent()
         serializedData:add("}")
