@@ -6,8 +6,8 @@ return ({
     init = function(self)
         self.prevX, self.prevY = MOUSE.getPosition()
 
-        if __PARAMS["scribbleFile"] then
-            ENGINE:readFromFile(__PARAMS["scribbleFile"])
+        if __PARAMS["inFile"] then
+            ENGINE:readFromFile(__PARAMS["inFile"])
         end
         
         return self
