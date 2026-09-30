@@ -50,12 +50,14 @@ and that's it, really. Man, that was extensive!
 
 From within this directory, the Scribbler Drawing Application can be launched via:
 
-    love . scribbler -i {name_of_scribbler_file}
-The command-line argument is optional. If given, the Scribbler application will start with the specified drawing loaded.
+    love . scribbler -i {name_of_input_file} -o {name-of-output-file}
+The command-line arguments are optional. If an input filename is given, the Scribbler application will start with the specified drawing loaded.
+If an output filename is given, the Scribbler application will save the current drawing in a file named accordingly.
 
 Drawing location resides in the tools/scribbler/data/ directory.
 
 Currently available picture names include:
 1. sampleScribble
+2. sampleScribble2
 
 and... that's about it.
