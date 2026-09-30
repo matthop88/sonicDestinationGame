@@ -74,7 +74,7 @@ SMART_TABLE = {
                         table.insert(self.kvData, { key = k, value = SMART_TABLE:ingest(v) })
                     elseif type(k) == "string" and STRING_UTIL:isUppercase(k) and self.caption == nil then
                         self.caption = { key = k, value = v }
-                    else
+                    elseif type(v) ~= "function" then
                         table.insert(self.kvData, { key = k, value = v })
                     end
 
