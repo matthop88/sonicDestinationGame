@@ -20,11 +20,13 @@ return {
             end,
 
             addParameterized = function(self, myString, params)
-                if params.unindent then self:unindent() end
+                if params.unindent  then self:unindent()       end
 
-                self:addRaw(myString)
-                
-                if params.indent   then self:indent() end
+                if params.append    then self:append(myString)
+                else                     self:addRaw(myString) end
+
+                if params.indent    then self:indent()         end
+                if params.lineBreak then self:addRaw("")       end
             end,
 
             append      = function(self, myString)
