@@ -2,7 +2,7 @@ local KEYBOARD     = love.keyboard
 
 local JOT_TOOL     = requireRelative("lib/jotTool")
 local DATA_READER  = requireRelative("lib/serialization/dataReader")
-local DATA_WRITER  = require("lib/dataSerializer")
+local DATA_WRITER  = require("lib/serialization/dataSerializer")
 
 local addToHistoryCallback
 
