@@ -104,17 +104,17 @@ SMART_TABLE = {
             serializeKVData = function(self, serializedData)
                 table.sort(self.kvData, function(a, b) return a.key < b.key end)
 
-                for _, entry in ipairs(self.kvData) do
+                for n, entry in ipairs(self.kvData) do
                     if type(entry.value) == "table" then
-                        self:serializeKVTable(entry, serializedData)
+                        self:serializeKVTable(n, entry, serializedData)
                     else
                         serializedData:add(self:padKey(entry.key) .. " = " .. self:quoteIfString(entry.value) .. ",")
                     end
                 end
             end,
 
-            serializeKVTable = function(self, entry, serializedData)
-                serializedData:add("")
+            serializeKVTable = function(self, n, entry, serializedData)
+                if n > 1 then serializedData:add("") end
                 serializedData:add(self:padKey(entry.key) .. " = {")
                 serializedData:indent()
                 entry.value:serialize(serializedData)
