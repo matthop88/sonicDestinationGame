@@ -1,3 +1,4 @@
+local FILESYSTEM  = love.filesystem
 local STRING_UTIL = require("game/util/stringUtil")
 
 local SMART_STRING_LIST = {
@@ -35,6 +36,27 @@ local SMART_STRING_LIST = {
                 for _, str in ipairs(self.data) do
                     print(str)
                 end
+            end,
+
+            writeToFile = function(self, path, filename)
+                local content = table.concat(self.data, "\n")
+
+                FILESYSTEM.createDirectory(path)
+        
+                local filePath = path .. "/" .. filename .. ".lua"
+                return self:fileSystemWrite(filePath, content)
+            end,
+
+            fileSystemWrite = function(self, filePath, content)
+                local success, message = FILESYSTEM.write(filePath, content)
+        
+                if success then
+                    message = "File saved successfully to " .. FILESYSTEM.getSaveDirectory() .. "/" .. filePath
+                else
+                    message = "Error saving file: " .. tostring(message)
+                end
+
+                return success, message
             end,
         }
 
