@@ -20,11 +20,8 @@ SMART_TABLE = {
             end,
 
             addArrayEntry = function(self, n)
-                if type(n) == "table" then
-                    table.insert(self.arrayData, SMART_TABLE:ingest(n))
-                else
-                    table.insert(self.arrayData, n)
-                end
+                if type(n) == "table" then table.insert(self.arrayData, SMART_TABLE:ingest(n))
+                else                       table.insert(self.arrayData, n)                     end
             end,
 
             addKVEntry    = function(self, k, v)
@@ -51,8 +48,7 @@ SMART_TABLE = {
                 if self.caption then
                     local serializedCaption = STRING_UTIL:padValueRight(self.caption.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(self.caption.value) .. ","
                     if serializedData:length() == 1 then
-                        serializedData:add(serializedCaption)
-                        serializedData:add("")
+                        serializedData:add(serializedCaption, { lineBreak = true })
                     else
                         serializedData:append("   " .. STRING_UTIL:padValueRight(self.caption.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(self.caption.value) .. ",")
                     end
@@ -69,8 +65,7 @@ SMART_TABLE = {
             serializeArrayTable = function(self, t, serializedData)
                 serializedData:add("{", { indent = true })
                 t:serialize(serializedData)
-                serializedData:add("},", { unindent = true })
-                serializedData:add("")
+                serializedData:add("},", { unindent = true, lineBreak = true })
             end,
 
             serializeArrayElements = function(self, n, serializedData)
