@@ -1,5 +1,4 @@
 local STRING_UTIL = require("game/util/stringUtil")
-
 local SMART_TABLE
 
 SMART_TABLE = {
@@ -9,7 +8,6 @@ SMART_TABLE = {
             arrayData     = {},
 
             maxKeyLength  = 0,
-
             caption       = nil,
 
             init          = function(self, dataObj)
@@ -26,10 +24,10 @@ SMART_TABLE = {
 
             addKVEntry    = function(self, k, v)
                 if type(k) ~= "number" then
-                    if type(v) == "table" then
-                        table.insert(self.kvData, { key = k, value = SMART_TABLE:ingest(v) })
-                    elseif type(k) == "string" and STRING_UTIL:isUppercase(k) and self.caption == nil then
+                    if     type(k) == "string" and STRING_UTIL:isUppercase(k) and self.caption == nil then
                         self.caption = { key = k, value = v }
+                    elseif type(v) == "table"    then
+                        table.insert(self.kvData, { key = k, value = SMART_TABLE:ingest(v) })
                     elseif type(v) ~= "function" then
                         table.insert(self.kvData, { key = k, value = v })
                     end
@@ -46,12 +44,12 @@ SMART_TABLE = {
 
             serializeCaption = function(self, serializedData)
                 if self.caption then
-                    local serializedCaption = STRING_UTIL:padValueRight(self.caption.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(self.caption.value) .. ","
-                    if serializedData:length() == 1 then
-                        serializedData:add(serializedCaption, { lineBreak = true })
-                    else
-                        serializedData:append("   " .. STRING_UTIL:padValueRight(self.caption.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(self.caption.value) .. ",")
-                    end
+                    local a, p, l
+                    
+                    if serializedData:length() == 1 then a, p, l = false, "",    true
+                    else                                 a, p, l = true,  "   ", false end
+
+                    serializedData:add(self.caption.value, { key = self.caption.key, maxKeyLength = self.maxKeyLength, append = a, prefix = p, lineBreak = l, })
                 end
             end,
 
@@ -83,15 +81,14 @@ SMART_TABLE = {
                     if type(entry.value) == "table" then
                         self:serializeKVTable(n, entry, serializedData)
                     else
-                        serializedData:add(STRING_UTIL:padValueRight(entry.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(entry.value) .. ",")
+                        serializedData:add(entry.value, { key = entry.key, maxKeyLength = self.maxKeyLength })
                     end
                 end
             end,
 
             serializeKVTable = function(self, n, entry, serializedData)
                 if n > 1 then serializedData:add("") end
-                local paddedKey = STRING_UTIL:padValueRight(entry.key, self.maxKeyLength) .. " = {"
-                serializedData:add(paddedKey, { indent = true })
+                serializedData:add("{", { key = entry.key, maxKeyLength = self.maxKeyLength, indent = true })
                 entry.value:serialize(serializedData)
                 serializedData:add("},", { unindent = true })
             end,
