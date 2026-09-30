@@ -49,12 +49,12 @@ SMART_TABLE = {
 
             serializeCaption = function(self, serializedData)
                 if self.caption then
-                    local serializedCaption = self:padKey(self.caption.key) .. " = " .. self:quoteIfString(self.caption.value) .. ","
+                    local serializedCaption = STRING_UTIL:padValueRight(self.caption.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(self.caption.value) .. ","
                     if serializedData:length() == 1 then
                         serializedData:add(serializedCaption)
                         serializedData:add("")
                     else
-                        serializedData:append("   " .. self:padKey(self.caption.key) .. " = " .. self:quoteIfString(self.caption.value) .. ",")
+                        serializedData:append("   " .. STRING_UTIL:padValueRight(self.caption.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(self.caption.value) .. ",")
                     end
                 end
             end,
@@ -90,27 +90,18 @@ SMART_TABLE = {
                     if type(entry.value) == "table" then
                         self:serializeKVTable(n, entry, serializedData)
                     else
-                        serializedData:add(self:padKey(entry.key) .. " = " .. self:quoteIfString(entry.value) .. ",")
+                        serializedData:add(STRING_UTIL:padValueRight(entry.key, self.maxKeyLength) .. " = " .. STRING_UTIL:addQuotesIfString(entry.value) .. ",")
                     end
                 end
             end,
 
             serializeKVTable = function(self, n, entry, serializedData)
                 if n > 1 then serializedData:add("") end
-                serializedData:add(self:padKey(entry.key) .. " = {")
+                serializedData:add(STRING_UTIL:padValueRight(entry.key, self.maxKeyLength) .. " = {")
                 serializedData:indent()
                 entry.value:serialize(serializedData)
                 serializedData:unindent()
                 serializedData:add("},")
-            end,
-
-            padKey = function(self, k)
-                return k .. string.rep(" ", self.maxKeyLength - string.len(k))
-            end,
-
-            quoteIfString = function(self, v)
-                if type(v) == "string" then return "\"" .. v .. "\""
-                else                        return         v          end
             end,
 
         }):init(dataObj)
