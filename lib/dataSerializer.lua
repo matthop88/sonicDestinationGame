@@ -11,6 +11,10 @@ local SMART_STRING_LIST = {
                 table.insert(self.data, string.rep(" ", self.indentation) .. myString)
             end,
 
+            append      = function(self, myString)
+                self.data[#self.data] = self.data[#self.data] .. myString
+            end,
+
             indent      = function(self)
                 self.indentation = self.indentation + 4
             end,
@@ -86,7 +90,13 @@ SMART_TABLE = {
 
             serializeCaption = function(self, serializedData)
                 if self.caption then
-                    serializedData:add(self:padKey(self.caption.key) .. " = " .. self:quoteIfString(self.caption.value) .. ",")
+                    local serializedCaption = self:padKey(self.caption.key) .. " = " .. self:quoteIfString(self.caption.value) .. ","
+                    if serializedData:length() == 1 then
+                        serializedData:add(serializedCaption)
+                        serializedData:add("")
+                    else
+                        serializedData:append("   " .. self:padKey(self.caption.key) .. " = " .. self:quoteIfString(self.caption.value) .. ",")
+                    end
                 end
             end,
 
