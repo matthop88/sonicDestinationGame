@@ -34,7 +34,7 @@ return {
 	end,
 
 	testScribbleData = function(self)
-		local arrayData = require(PATH_PREFIX .. "scribbleData")
+		local scribbleData = require(PATH_PREFIX .. "scribbleData")
 		
 		local serializedData = DATA_SERIALIZER:serialize(scribbleData)
 
