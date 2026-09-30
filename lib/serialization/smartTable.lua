@@ -67,11 +67,9 @@ SMART_TABLE = {
             end,
 
             serializeArrayTable = function(self, t, serializedData)
-                serializedData:add("{")
-                serializedData:indent()
+                serializedData:add("{", { indent = true })
                 t:serialize(serializedData)
-                serializedData:unindent()
-                serializedData:add("},")
+                serializedData:add("},", { unindent = true })
                 serializedData:add("")
             end,
 
@@ -97,11 +95,10 @@ SMART_TABLE = {
 
             serializeKVTable = function(self, n, entry, serializedData)
                 if n > 1 then serializedData:add("") end
-                serializedData:add(STRING_UTIL:padValueRight(entry.key, self.maxKeyLength) .. " = {")
-                serializedData:indent()
+                local paddedKey = STRING_UTIL:padValueRight(entry.key, self.maxKeyLength) .. " = {"
+                serializedData:add(paddedKey, { indent = true })
                 entry.value:serialize(serializedData)
-                serializedData:unindent()
-                serializedData:add("},")
+                serializedData:add("},", { unindent = true })
             end,
 
         }):init(dataObj)
