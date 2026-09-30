@@ -5,6 +5,8 @@ local COLOR = require("game/constants/colors")
 local SCRIBBLE_JOT = {
     create = function(self, data)
         return {
+            NAME = "scribble",
+            
             data = data or { points = {} },
 
             draw = function(self)
