@@ -49,7 +49,7 @@ SMART_TABLE = {
                     if serializedData:length() == 1 then a, p, l = false, "",    true
                     else                                 a, p, l = true,  "   ", false end
 
-                    serializedData:add(self.caption.value, { key = self.caption.key, maxKeyLength = self.maxKeyLength, append = a, prefix = p, lineBreak = l, })
+                    serializedData:addKV(self.caption.key, self.caption.value, { maxKeyLength = self.maxKeyLength, append = a, prefix = p, lineBreak = l, })
                 end
             end,
 
@@ -81,14 +81,14 @@ SMART_TABLE = {
                     if type(entry.value) == "table" then
                         self:serializeKVTable(n, entry, serializedData)
                     else
-                        serializedData:add(entry.value, { key = entry.key, maxKeyLength = self.maxKeyLength })
+                        serializedData:addKV(entry.key, entry.value, { maxKeyLength = self.maxKeyLength })
                     end
                 end
             end,
 
             serializeKVTable = function(self, n, entry, serializedData)
                 if n > 1 then serializedData:add("") end
-                serializedData:add("{", { key = entry.key, maxKeyLength = self.maxKeyLength, indent = true })
+                serializedData:addKV(entry.key, "{", { maxKeyLength = self.maxKeyLength, indent = true })
                 entry.value:serialize(serializedData)
                 serializedData:add("},", { unindent = true })
             end,
