@@ -2,6 +2,8 @@ local KEYBOARD     = love.keyboard
 
 local JOT_TOOL     = requireRelative("lib/jotTool")
 local DATA_READER  = requireRelative("lib/serialization/dataReader")
+local DATA_WRITER  = require("lib/dataSerializer")
+
 local addToHistoryCallback
 
 local ENGINE = {
@@ -35,6 +37,18 @@ local ENGINE = {
             self.data = {}
         end,
 
+        eachJot = function(self)
+            local index = 0
+            local size  = self.TAIL_INDEX
+            local data  = self.data
+
+            return function()
+                index = index + 1
+                if index <= size then return data[index]
+                else                  return nil         end               
+            end
+        end,
+
     },
 
     draw          = function(self)
@@ -50,6 +64,8 @@ local ENGINE = {
     keypressed    = function(self, key)
         if     key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
+        elseif key == "s" and KEYBOARD.isDown("lgui", "rgui") then
+            self:saveScribbling()
         else
             JOT_TOOL:keypressed(key, addToHistoryCallback)
         end
@@ -84,6 +100,11 @@ local ENGINE = {
         else                                        self:undo()   end
     end,
 
+    saveScribbling = function(self)
+        local serializedData = DATA_WRITER:serialize(self:getSerializable())
+        serializedData:print()
+    end,
+
     readFromFile  = function(self, filename)
         self.history:clear()
             
@@ -94,6 +115,19 @@ local ENGINE = {
 
     undo          = function(self) self.history:undo()            end,
     redo          = function(self) self.history:redo()            end,
+
+    getSerializable = function(self)
+        local jots = {}
+        for jot in self.history:eachJot() do 
+            table.insert(jots, jot)
+        end
+
+        return {
+            VERSION = "0.1",
+
+            jots = jots,
+        }
+    end,
 
 }
 
