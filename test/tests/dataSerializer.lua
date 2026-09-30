@@ -25,7 +25,7 @@ return {
 	end,
 
 	testKeyBlocks    = function(self)
-		local keyBlocksData = require(PATH_PREFIX .. "keyBlocks")
+		local keyBlocksData = require(PATH_PREFIX .. "keyBlocksData")
 		
 		local serializedData = DATA_SERIALIZER:serialize(keyBlocksData)
 
@@ -34,7 +34,7 @@ return {
 	end,
 
 	testScribbleData = function(self)
-		local arrayData = require(PATH_PREFIX .. "scribbleData")
+		local scribbleData = require(PATH_PREFIX .. "scribbleData")
 		
 		local serializedData = DATA_SERIALIZER:serialize(scribbleData)
 
@@ -45,13 +45,13 @@ return {
 	compareWithFile = function(self, serializedData, filename)
 		local lines = self:readLinesFromFile(filename)
 
-		if #serializedData ~= #lines then
-			print("ERROR: Line count mismatch. Serialized Data: " .. #serializedData .. ", File: " .. #lines)
+		if serializedData:length() ~= #lines then
+			print("ERROR: Line count mismatch. Serialized Data: " .. serializedData:length() .. ", File: " .. #lines)
 			return false
 		else
 			for i = 1, #lines do
-				if serializedData[i] ~= lines[i] then
-					print("Error: Line mismatch on line #" .. i .. ", \"" .. serializedData[i] .. "\", should be \"" .. lines[i] .. "\"")
+				if serializedData:get(i) ~= lines[i] then
+					print("Error: Line mismatch on line #" .. i .. ", \"" .. serializedData:get(i) .. "\", should be \"" .. lines[i] .. "\"")
 					return false
 				end
 			end

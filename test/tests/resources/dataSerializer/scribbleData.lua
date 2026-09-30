@@ -1,17 +1,17 @@
 return {
-    version = "0.1",
-
+    VERSION = "0.1",
+    
     jots    = {
-        {   name = "text",
-            data = { 
-                x        = 410, 
-                y        = 328, 
-                fontSize = 24, 
-                message  = "Test, test, test!", 
+        {   NAME = "text",
+            data = {
+                fontSize = 24,
+                message  = "Test, test, test!",
+                x        = 410,
+                y        = 328,
             },
         },
-
-        {   name = "scribble",
+        
+        {   NAME = "scribble",
             data = {
                 points = {
                     360, 375,
@@ -21,8 +21,8 @@ return {
                 },
             },
         },
-
-        {   name = "line",
+        
+        {   NAME = "line",
             data = {
                 points = {
                     358, 373,
@@ -32,6 +32,6 @@ return {
                 },
             },
         },
+        
     },
-
 }

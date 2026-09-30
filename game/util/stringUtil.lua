@@ -14,4 +14,8 @@ return {
     dropPrefix = function(self, str, prefixLength)
         return string.sub(str, prefixLength + 1, -1)
     end,
+
+    isUppercase = function(self, str)
+        return string.upper(str) == str
+    end,
 }

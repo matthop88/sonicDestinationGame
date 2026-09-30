@@ -5,6 +5,8 @@ local COLOR = require("game/constants/colors")
 local LINE_JOT = {
     create = function(self, data)
         return {
+            NAME = "line",
+            
             data = data or { points = {} },
 
             draw = function(self)
