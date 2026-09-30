@@ -53,7 +53,11 @@ SMART_TABLE = {
             end,
 
             addArrayEntry = function(self, n)
-                table.insert(self.arrayData, n)
+                if type(n) == "table" then
+                    table.insert(self.arrayData, SMART_TABLE:ingest(n))
+                else
+                    table.insert(self.arrayData, n)
+                end
             end,
 
             addKVEntry    = function(self, k, v)
@@ -75,11 +79,25 @@ SMART_TABLE = {
 
             serializeArrayData = function(self, serializedData)
                 for n, v in ipairs(self.arrayData) do
-                    if     n % 2 == 0    then
-                        serializedData:add("" .. self.arrayData[n - 1] .. ", " .. self.arrayData[n] .. ",")
-                    elseif n == #self.arrayData then
-                        serializedData:add("" .. self.arrayData[n]     .. ",")
-                    end
+                    if type(v) == "table" then self:serializeArrayTable(v, serializedData)
+                    else                       self:serializeArrayElements(n, serializedData) end
+                end
+            end,
+
+            serializeArrayTable = function(self, t, serializedData)
+                serializedData:add("{")
+                serializedData:indent()
+                t:serialize(serializedData)
+                serializedData:unindent()
+                serializedData:add("},")
+                serializedData:add("")
+            end,
+
+            serializeArrayElements = function(self, n, serializedData)
+                if     n % 2 == 0    then
+                    serializedData:add("" .. self.arrayData[n - 1] .. ", " .. self.arrayData[n] .. ",")
+                elseif n == #self.arrayData then
+                    serializedData:add("" .. self.arrayData[n]     .. ",")
                 end
             end,
 
