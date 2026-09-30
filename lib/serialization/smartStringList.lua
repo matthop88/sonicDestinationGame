@@ -7,8 +7,24 @@ return {
 
             data        = {},
 
-            add         = function(self, myString)
+            add         = function(self, myString, params)
+                if params == nil then
+                    self:addRaw(myString)
+                else
+                    self:addParameterized(myString, params)
+                end
+            end,
+
+            addRaw      = function(self, myString)
                 table.insert(self.data, string.rep(" ", self.indentation) .. myString)
+            end,
+
+            addParameterized = function(self, myString, params)
+                if params.unindent then self:unindent() end
+
+                self:addRaw(myString)
+                
+                if params.indent   then self:indent() end
             end,
 
             append      = function(self, myString)
