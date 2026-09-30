@@ -1,13 +1,13 @@
 return {
     VERSION = "0.1",
-
+    
     jots    = {
         {   NAME = "text",
-            data = { 
-                x        = 410, 
-                y        = 328, 
-                fontSize = 24, 
-                message  = "Test, test, test!", 
+            data = {
+                fontSize = 24,
+                message  = "Test, test, test!",
+                x        = 410,
+                y        = 328,
             },
         },
         
@@ -32,5 +32,6 @@ return {
                 },
             },
         },
+        
     },
 }
