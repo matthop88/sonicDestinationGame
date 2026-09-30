@@ -14,6 +14,8 @@ local MESSAGES   = require("game/util/navigableList"):create {
 local TEXT_JOT = {
     create = function(self, data)
         return {
+            NAME = "text",
+      
             data = data,
 
             draw = function(self)
