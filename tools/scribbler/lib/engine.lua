@@ -102,7 +102,8 @@ local ENGINE = {
 
     saveScribbling = function(self)
         local serializedData = DATA_WRITER:serialize(self:getSerializable())
-        serializedData:print()
+        local success, message = serializedData:writeToFile("tools/scribbler/data", "myNewScribble")
+        print(message)
     end,
 
     readFromFile  = function(self, filename)
