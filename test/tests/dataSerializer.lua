@@ -45,8 +45,6 @@ return {
 	compareWithFile = function(self, serializedData, filename)
 		local lines = self:readLinesFromFile(filename)
 
-		serializedData:print()
-		
 		if serializedData:length() ~= #lines then
 			print("ERROR: Line count mismatch. Serialized Data: " .. serializedData:length() .. ", File: " .. #lines)
 			return false
