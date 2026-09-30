@@ -1,3 +1,5 @@
+local STRING_UTIL = require("game/util/stringUtil")
+
 local SMART_STRING_LIST = {
     new = function()
         return {
@@ -45,6 +47,8 @@ SMART_TABLE = {
 
             maxKeyLength  = 0,
 
+            caption       = nil,
+
             init          = function(self, dataObj)
                 for _, v in ipairs(dataObj) do self:addArrayEntry(v) end
                 for k, v in  pairs(dataObj) do self:addKVEntry(k, v) end
@@ -64,6 +68,8 @@ SMART_TABLE = {
                 if type(k) ~= "number" then
                     if type(v) == "table" then
                         table.insert(self.kvData, { key = k, value = SMART_TABLE:ingest(v) })
+                    elseif type(k) == "string" and STRING_UTIL:isUppercase(k) and self.caption == nil then
+                        self.caption = { key = k, value = v }
                     else
                         table.insert(self.kvData, { key = k, value = v })
                     end
@@ -73,8 +79,15 @@ SMART_TABLE = {
             end,
 
             serialize     = function(self, serializedData)
+                self:serializeCaption(serializedData)
                 self:serializeArrayData(serializedData)
                 self:serializeKVData(serializedData)
+            end,
+
+            serializeCaption = function(self, serializedData)
+                if self.caption then
+                    serializedData:add(self:padKey(self.caption.key) .. " = " .. self:quoteIfString(self.caption.value) .. ",")
+                end
             end,
 
             serializeArrayData = function(self, serializedData)
