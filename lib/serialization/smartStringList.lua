@@ -1,4 +1,5 @@
 local FILESYSTEM  = love.filesystem
+local STRING_UTIL = require("game/util/stringUtil")
 
 return {
     new = function()
@@ -8,11 +9,8 @@ return {
             data        = {},
 
             add         = function(self, myString, params)
-                if params == nil then
-                    self:addRaw(myString)
-                else
-                    self:addParameterized(myString, params)
-                end
+                if params == nil then self:addRaw(myString)
+                else                  self:addParameterized(myString, params) end
             end,
 
             addRaw      = function(self, myString)
@@ -22,6 +20,8 @@ return {
             addParameterized = function(self, myString, params)
                 if params.unindent  then self:unindent()       end
 
+                myString = self:enrichMyString(myString, params)
+
                 if params.append    then self:append(myString)
                 else                     self:addRaw(myString) end
 
@@ -29,25 +29,39 @@ return {
                 if params.lineBreak then self:addRaw("")       end
             end,
 
+            enrichMyString = function(self, myString, params)
+                if params.key then
+                    myString = self:convertToKV(myString, params)
+                end
+
+                if params.prefix then
+                    myString = params.prefix .. myString
+                end
+
+                return myString
+            end,
+
+            convertToKV = function(self, value, params)
+                if STRING_UTIL:endsWith(value, "{") then
+                    return self:convertToK(value, params)
+                else
+                    return STRING_UTIL:padValueRight(params.key, params.maxKeyLength or 0) .. " = " .. STRING_UTIL:addQuotesIfString(value) .. ","
+                end
+            end,
+
+            convertToK = function(self, value, params)
+                return STRING_UTIL:padValueRight(params.key, params.maxKeyLength or 0) .. " = " .. value
+            end,
+
             append      = function(self, myString)
                 self.data[#self.data] = self.data[#self.data] .. myString
             end,
 
-            indent      = function(self)
-                self.indentation = self.indentation + 4
-            end,
+            indent      = function(self) self.indentation = self.indentation + 4 end,
+            unindent    = function(self) self.indentation = self.indentation - 4 end,
 
-            unindent    = function(self)
-                self.indentation = self.indentation - 4
-            end,
-
-            length      = function(self)
-                return #self.data
-            end,
-
-            get         = function(self, index)
-                return self.data[index]
-            end,
+            length      = function(self)        return #self.data                end,
+            get         = function(self, index) return self.data[index]          end,
 
             print       = function(self)
                 for _, str in ipairs(self.data) do
