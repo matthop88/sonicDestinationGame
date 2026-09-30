@@ -17,10 +17,16 @@ return {
                 table.insert(self.data, string.rep(" ", self.indentation) .. myString)
             end,
 
+            addKV       = function(self, key, value, params)
+                if not STRING_UTIL:endsWith(value, "{") then value = STRING_UTIL:addQuotesIfString(value) .. "," end
+                
+                self:addParameterized(STRING_UTIL:padValueRight(key, params.maxKeyLength or 0) .. " = " .. value, params)
+            end,
+
             addParameterized = function(self, myString, params)
                 if params.unindent  then self:unindent()       end
 
-                myString = self:enrichMyString(myString, params)
+                if params.prefix    then myString = params.prefix .. myString end
 
                 if params.append    then self:append(myString)
                 else                     self:addRaw(myString) end
@@ -30,27 +36,11 @@ return {
             end,
 
             enrichMyString = function(self, myString, params)
-                if params.key then
-                    myString = self:convertToKV(myString, params)
-                end
-
                 if params.prefix then
                     myString = params.prefix .. myString
                 end
 
                 return myString
-            end,
-
-            convertToKV = function(self, value, params)
-                if STRING_UTIL:endsWith(value, "{") then
-                    return self:convertToK(value, params)
-                else
-                    return STRING_UTIL:padValueRight(params.key, params.maxKeyLength or 0) .. " = " .. STRING_UTIL:addQuotesIfString(value) .. ","
-                end
-            end,
-
-            convertToK = function(self, value, params)
-                return STRING_UTIL:padValueRight(params.key, params.maxKeyLength or 0) .. " = " .. value
             end,
 
             append      = function(self, myString)
