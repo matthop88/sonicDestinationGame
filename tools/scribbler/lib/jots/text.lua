@@ -6,9 +6,10 @@ local COLOR      = require("game/constants/colors")
 
 local FONT_CACHE = requireRelative("lib/util/fontCache")
 local MESSAGES   = require("game/util/navigableList"):create { 
-                                                                "Hello There!",
-                                                                "YOSHI!!!",
-                                                                "Six, Seven!",
+                                                                "OH, NO!!!",
+                                                                "The picture you requested",
+                                                                "could NOT be found!",
+                                                                "Yikes!",
                                                              }
 
 local TEXT_JOT = {
