@@ -4,10 +4,10 @@ local COLOR = require("game/constants/colors")
 
 local SCRIBBLE_JOT = {
     create = function(self, data)
-        return {
+        local scribble = {
             NAME = "scribble",
             
-            data = data or { points = {} },
+            data = { points = {} },
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
@@ -22,11 +22,35 @@ local SCRIBBLE_JOT = {
             end,
 
             addPoint = function(self, x, y)
-                table.insert(self.data.points, x)
-                table.insert(self.data.points, y)
+                if self:doWeOptimize(x, y) then
+                    self.data.points[#self.data.points - 1] = x
+                    self.data.points[#self.data.points]     = y
+                else
+                    table.insert(self.data.points, x)
+                    table.insert(self.data.points, y)
+                end
+            end,
+
+            doWeOptimize = function(self, x, y)
+                local numPoints = #self.data.points
+
+                if numPoints < 6 then return false end
+
+                return (self.data.points[numPoints - 3] == self.data.points[numPoints - 1] 
+                   and  self.data.points[numPoints - 1] == x)
+                    or (self.data.points[numPoints - 2] == self.data.points[numPoints]
+                   and  self.data.points[numPoints] == y)
             end,
 
         }
+
+        if data then
+            for i = 1, #data.points, 2 do
+                scribble:addPoint(data.points[i], data.points[i + 1])
+            end
+        end
+
+        return scribble
     end,
 
 }
