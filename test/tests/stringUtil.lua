@@ -47,4 +47,53 @@ return {
 
 		return ASSERT:EQUALS("Drop Suffix", expected, actual)
 	end,
+
+	testIsUppercaseFalse = function(self)
+		local testString = "noT uPPerCasE"
+
+		return ASSERT:FALSE("Is Uppercase (False)", STRING_UTIL:isUppercase(testString))
+	end,
+
+	testIsUppercaseTrue = function(self)
+		local testString = "REALLY, TRULY, UPPERCASE!"
+
+		return ASSERT:TRUE("Is Uppercase (True)", STRING_UTIL:isUppercase(testString))
+	end,
+
+	testAddQuotesIfStringFalse = function(self)
+		local testVal  = 37
+
+		local expected = 37
+		local actual   = STRING_UTIL:addQuotesIfString(testVal)
+
+		return ASSERT:EQUALS("Add Quotes if String (non-string)", expected, actual)
+	end,
+
+	testAddQuotesIfStringTrue = function(self)
+		local testVal  = "Thirty-Seven"
+
+		local expected = "\"Thirty-Seven\""
+		local actual   = STRING_UTIL:addQuotesIfString(testVal)
+
+		return ASSERT:EQUALS("Add Quotes if String (string)", expected, actual)
+	end,
+
+	testPadValueRight = function(self)
+		local testVal  = "Make it 40!!!"
+
+		local expected = "Make it 40!!!                           "
+		local actual   = STRING_UTIL:padValueRight(testVal, 40)
+
+		return ASSERT:EQUALS("Pad Value Right", expected, actual)
+	end,
+
+	testPadValueLeft = function(self)
+		local testVal  = "Should take up 30 characters"
+
+		local expected = "  Should take up 30 characters"
+		local actual   = STRING_UTIL:padValueLeft(testVal, 30)
+
+		return ASSERT:EQUALS("Pad Value Left", expected, actual)
+	end,
+
 }

@@ -18,4 +18,17 @@ return {
     isUppercase = function(self, str)
         return string.upper(str) == str
     end,
+
+    addQuotesIfString = function(self, v)
+        if type(v) == "string" then return "\"" .. v .. "\""
+        else                        return         v          end
+    end,
+
+    padValueRight = function(self, v, maxLength)
+        return v .. string.rep(" ", maxLength - string.len(v))
+    end,
+
+    padValueLeft  = function(self, v, maxLength)
+        return string.rep(" ", maxLength - string.len(v)) .. v
+    end,
 }

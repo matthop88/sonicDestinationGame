@@ -1,6 +1,6 @@
 local ASSERT          = require("test/lib/assert")
 
-local DATA_SERIALIZER = require("lib/dataSerializer")
+local DATA_SERIALIZER = require("lib/serialization/dataSerializer")
 
 local PATH_PREFIX     = "test/tests/resources/dataSerializer/"
 

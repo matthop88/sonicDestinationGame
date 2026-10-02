@@ -17,13 +17,33 @@ local SCRIBBLE_JOT = {
 
                 if #points > 0 then
                     if   #points > 2 then GRAFX.line(points)
-                    else                  GRAFX.line(points[1], points[2], points[1], points[2]) end
+                    else                  GRAFX.rectangle("fill", points[1] - 2, points[2] - 2, 5, 5) end
                 end
             end,
 
             addPoint = function(self, x, y)
-                table.insert(self.data.points, x)
-                table.insert(self.data.points, y)
+                if self:doWeOptimize(x, y) then
+                    self.data.points[#self.data.points - 1] = x
+                    self.data.points[#self.data.points]     = y
+                else
+                    table.insert(self.data.points, x)
+                    table.insert(self.data.points, y)
+                end
+            end,
+
+            doWeOptimize = function(self, x, y)
+                local numPoints = #self.data.points
+
+                if numPoints < 6 then return false end
+
+                return (self:isCloseEnough(self.data.points[numPoints - 3], self.data.points[numPoints - 1])
+                   and  self:isCloseEnough(self.data.points[numPoints - 1], x))
+                    or (self:isCloseEnough(self.data.points[numPoints - 2], self.data.points[numPoints])
+                   and  self:isCloseEnough(self.data.points[numPoints],     y))
+            end,
+
+            isCloseEnough = function(self, p1, p2) 
+                return math.abs(p1 - p2) < 3 
             end,
 
         }
@@ -38,7 +58,6 @@ return {
 
     draw   = function(self)
         self.jot:draw()
-        self:drawCursor()
     end,
 
     drawCursor    = function(self)

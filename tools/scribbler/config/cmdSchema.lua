@@ -12,6 +12,11 @@ return {
 			required = false,
 		},
 
+		captureFile = {
+			shortcut = "c",
+			required = false,
+		},
+
 	},
 	
 }
