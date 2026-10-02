@@ -17,7 +17,7 @@ local SCRIBBLE_JOT = {
 
                 if #points > 0 then
                     if   #points > 2 then GRAFX.line(points)
-                    else                  GRAFX.line(points[1], points[2], points[1], points[2]) end
+                    else                  GRAFX.line(points[1] - 2, points[2] + 0.5, points[1] + 2, points[2] + 0.5) end
                 end
             end,
 
