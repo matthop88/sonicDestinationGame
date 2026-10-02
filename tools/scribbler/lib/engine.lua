@@ -101,12 +101,12 @@ local ENGINE = {
     end,
 
     performSave = function(self)
-        if KEYBOARD.isDown("lalt", "ralt") then self:captureScreenshot("screenShot.png")
+        if KEYBOARD.isDown("lalt", "ralt") then self:captureScreenshot()
         else                                    self:saveScribbling()    end
     end,
 
-    captureScreenshot = function(self, filename)
-        love.graphics.captureScreenshot(filename)
+    captureScreenshot = function(self)
+        love.graphics.captureScreenshot((__PARAMS["captureFile"] or "screenShot") .. ".png")
     end,
 
     saveScribbling = function(self)
