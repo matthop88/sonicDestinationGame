@@ -65,7 +65,7 @@ local ENGINE = {
         if     key == "z" and KEYBOARD.isDown("lgui", "rgui") then
             self:undoOrRedo()
         elseif key == "s" and KEYBOARD.isDown("lgui", "rgui") then
-            self:saveScribbling()
+            self:performSave()
         else
             JOT_TOOL:keypressed(key, addToHistoryCallback)
         end
@@ -98,6 +98,15 @@ local ENGINE = {
     undoOrRedo    = function(self)
         if KEYBOARD.isDown("lshift", "rshift") then self:redo()
         else                                        self:undo()   end
+    end,
+
+    performSave = function(self)
+        if KEYBOARD.isDown("lalt", "ralt") then self:captureScreenshot("screenShot.png")
+        else                                    self:saveScribbling()    end
+    end,
+
+    captureScreenshot = function(self, filename)
+        love.graphics.captureScreenshot(filename)
     end,
 
     saveScribbling = function(self)
