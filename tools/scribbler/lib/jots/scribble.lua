@@ -36,11 +36,13 @@ local SCRIBBLE_JOT = {
 
                 if numPoints < 6 then return false end
 
-                return (self.data.points[numPoints - 3] == self.data.points[numPoints - 1] 
-                   and  self.data.points[numPoints - 1] == x)
-                    or (self.data.points[numPoints - 2] == self.data.points[numPoints]
-                   and  self.data.points[numPoints] == y)
+                return (self:isCloseEnough(self.data.points[numPoints - 3], self.data.points[numPoints - 1])
+                   and  self:isCloseEnough(self.data.points[numPoints - 1], x))
+                    or (self:isCloseEnough(self.data.points[numPoints - 2], self.data.points[numPoints])
+                   and  self:isCloseEnough(self.data.points[numPoints],     y))
             end,
+
+            isCloseEnough = function(self, p1, p2) return math.abs(p1 - p2) < 3 end,
 
         }
 
