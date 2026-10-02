@@ -3,16 +3,16 @@ return {
     data       = {},
 
     draw = function(self)
-        for n, jot in ipairs(self.data) do
+        for n, entry in ipairs(self.data) do
             if n <= self.TAIL_INDEX then 
-                jot:draw()
+                entry:draw()
             end
         end
     end,
 
-    addJot = function(self, jot)
+    addEntry = function(self, entry)
         self.TAIL_INDEX = self.TAIL_INDEX + 1
-        self.data[self.TAIL_INDEX] = jot
+        self.data[self.TAIL_INDEX] = entry
     end,
 
     undo   = function(self)
@@ -28,7 +28,7 @@ return {
         self.data = {}
     end,
 
-    eachJot = function(self)
+    eachEntry = function(self)
         local index = 0
         local size  = self.TAIL_INDEX
         local data  = self.data
