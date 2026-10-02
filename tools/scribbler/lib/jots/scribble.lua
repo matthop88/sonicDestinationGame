@@ -4,10 +4,10 @@ local COLOR = require("game/constants/colors")
 
 local SCRIBBLE_JOT = {
     create = function(self, data)
-        local scribble = {
+        return {
             NAME = "scribble",
             
-            data = { points = {} },
+            data = data or { points = {} },
 
             draw = function(self)
                 GRAFX.setColor(COLOR.PURE_WHITE)
@@ -42,17 +42,11 @@ local SCRIBBLE_JOT = {
                    and  self:isCloseEnough(self.data.points[numPoints],     y))
             end,
 
-            isCloseEnough = function(self, p1, p2) return math.abs(p1 - p2) < 3 end,
+            isCloseEnough = function(self, p1, p2) 
+                return math.abs(p1 - p2) < 3 
+            end,
 
         }
-
-        if data then
-            for i = 1, #data.points, 2 do
-                scribble:addPoint(data.points[i], data.points[i + 1])
-            end
-        end
-
-        return scribble
     end,
 
 }
