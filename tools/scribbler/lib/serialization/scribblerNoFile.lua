@@ -173,22 +173,6 @@ return {
         {   NAME          = "scribble",
             data          = {
                 points = {
-                    580, 275,
-                },
-            },
-        },
-        
-        {   NAME          = "scribble",
-            data          = {
-                points = {
-                    578, 280,
-                },
-            },
-        },
-        
-        {   NAME          = "scribble",
-            data          = {
-                points = {
                     579, 279,
                     579, 280,
                     579, 283,
@@ -208,14 +192,6 @@ return {
                     512, 330,
                     515, 335,
                     517, 337,
-                },
-            },
-        },
-        
-        {   NAME          = "scribble",
-            data          = {
-                points = {
-                    532, 326,
                 },
             },
         },
@@ -623,24 +599,6 @@ return {
                     519, 223,
                     520, 227,
                     523, 227,
-                },
-            },
-        },
-        
-        {   NAME          = "scribble",
-            data          = {
-                points = {
-                    584, 217,
-                },
-            },
-        },
-        
-        {   NAME          = "scribble",
-            data          = {
-                points = {
-                    583, 216,
-                    584, 216,
-                    586, 214,
                 },
             },
         },
