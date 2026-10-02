@@ -23,7 +23,7 @@
         [X] File name entered as command-line parameter
             loads from file
         [X] Command-S saves to disk in custom object format
-        [ ] Command-Option-S saves to disk via image capture
+        [X] Command-Option-S saves to disk via image capture
         
                          Stretch Goals
                          -------------
