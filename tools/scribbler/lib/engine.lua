@@ -106,7 +106,9 @@ local ENGINE = {
     end,
 
     captureScreenshot = function(self)
-        love.graphics.captureScreenshot((__PARAMS["captureFile"] or "screenShot") .. ".png")
+        local filename = (__PARAMS["captureFile"] or "screenShot") .. ".png"
+        love.graphics.captureScreenshot(filename)
+        print("Captured image saved to " .. love.filesystem.getSaveDirectory() .. "/" .. filename)
     end,
 
     saveScribbling = function(self)
