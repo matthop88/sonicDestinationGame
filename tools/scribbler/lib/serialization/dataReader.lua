@@ -1,4 +1,5 @@
-JOT_FACTORY = requireRelative("lib/serialization/jotFactory")
+local JOT_FACTORY    = requireRelative("lib/serialization/jotFactory")
+local DIRECTORY_UTIL = requireRelative("lib/util/directoryUtil")
 
 return {
 	eachJot = function(self, name)
@@ -7,6 +8,12 @@ return {
 
 		if status ~= true then
 			pictureData = requireRelative("lib/serialization/scribblerNoFile")
+			local validFilenames = DIRECTORY_UTIL:getFilesInDirectory("tools/scribbler/data", "lua")
+			print("Valid filenames are:")
+			print("--------------------")
+			for _, validFilename in ipairs(validFilenames) do
+				print(validFilename)
+			end
 		end
 
 		local index = 0
