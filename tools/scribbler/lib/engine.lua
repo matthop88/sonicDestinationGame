@@ -50,7 +50,7 @@ local ENGINE = {
     end,
 
     addToHistory  = function(self, jot)
-        self.history:addJot(jot)
+        self.history:addEntry(jot)
     end,
 
     undoOrRedo    = function(self)
@@ -80,7 +80,7 @@ local ENGINE = {
         self.history:clear()
             
         for jot in DATA_READER:eachJot(filename) do 
-            self.history:addJot(jot) 
+            self.history:addEntry(jot) 
         end
     end,
 
@@ -89,7 +89,7 @@ local ENGINE = {
 
     getSerializable = function(self)
         local jots = {}
-        for jot in self.history:eachJot() do 
+        for jot in self.history:eachEntry() do 
             table.insert(jots, jot)
         end
 
