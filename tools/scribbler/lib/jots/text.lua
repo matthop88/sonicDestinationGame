@@ -44,7 +44,6 @@ return {
     
     draw   = function(self)
         self.jot:draw()
-        self:drawCursor()
     end,
 
     drawCursor    = function(self)
