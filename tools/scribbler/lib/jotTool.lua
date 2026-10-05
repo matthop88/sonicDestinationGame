@@ -6,8 +6,7 @@ local JOT_REPOSITORY = requireRelative("lib/serialization/jotRepository")
 
 return {
     currentJot = JOT_REPOSITORY:getJot("scribble"),
-    showCursor = true,
-
+    
     draw       = function(self)
         self.currentJot:draw()
     end,
@@ -28,7 +27,6 @@ return {
         if     key == "l"                    then self.currentJot = JOT_REPOSITORY:getJot("line")
         elseif key == "t"                    then self.currentJot = JOT_REPOSITORY:getJot("text")
         elseif key == "s" or key == "escape" then self.currentJot = JOT_REPOSITORY:getJot("scribble")
-        elseif key == "c"                    then self.showCursor = not self.showCursor
         end
 
         if previousJot ~= self.currentJot then previousJot:revert() end
