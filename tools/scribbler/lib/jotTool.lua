@@ -10,9 +10,10 @@ return {
 
     draw       = function(self)
         self.currentJot:draw()
-        if self.showCursor then
-            self.currentJot:drawCursor()
-        end
+    end,
+
+    drawCursor = function(self)
+        self.currentJot:drawCursor()
     end,
 
     update        = function(self, dt)
