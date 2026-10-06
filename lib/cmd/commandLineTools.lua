@@ -78,6 +78,15 @@ return {
                 return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
             end,
 
+            respondToHelp = function(self, args)
+                for _, arg in ipairs(args) do
+                    if arg == "--help" or arg == "-h" then
+                        print(self:generateHelp())
+                        love.event.quit()
+                    end
+                end
+            end,
+
             generateHelp = function(self)
                 local helpString = "\n\nAccepted commands include:\n"
                 helpString = helpString .. "  --help,                      -h  Show this help.\n"
