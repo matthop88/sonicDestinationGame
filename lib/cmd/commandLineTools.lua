@@ -29,19 +29,19 @@ return {
             SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
 
             getParams = function(self, args)
-                return PARAMS_BUILDER:build(args, self.SCHEMA)
+                local params = PARAMS_BUILDER:build(args, self.SCHEMA)
+
+                self:validateParams(params)
+
+                return params
         	end,
 
-            validateParams = function(self, args)
-                local params = self:getParams(args)
-
+            validateParams = function(self, params)
                 local missingParams = self:findMissingParams(params)
 
                 if #missingParams > 0 then
                     self:printOutMissingParams(missingParams)
                     love.event.quit()
-                else
-                    return true
                 end
             end,
 
