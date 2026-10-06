@@ -29,11 +29,11 @@ return {
             SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
 
             getParams = function(self, args)
-                local params = PARAMS_BUILDER:build(args, self.SCHEMA)
-
-                self:validateParams(params)
-
-                return params
+                if not self:respondToHelp(args) then
+                    local params = PARAMS_BUILDER:build(args, self.SCHEMA)
+                    self:validateParams(params)
+                    return params
+                end
         	end,
 
             validateParams = function(self, params)
