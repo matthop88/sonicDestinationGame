@@ -22,6 +22,7 @@ local DEFAULT_SCHEMA = {
 }
 
 local PARAMS_BUILDER = require("lib/cmd/paramsBuilder")
+local HELP_SYSTEM    = require("lib/cmd/helpSystem")
 
 return {
     create = function(self, appDirectory)
@@ -29,7 +30,7 @@ return {
             SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
 
             getParams = function(self, args)
-                if not self:respondToHelp(args) then
+                if not HELP_SYSTEM:respondToHelp(args, self.SCHEMA) then
                     local params = PARAMS_BUILDER:build(args, self.SCHEMA)
                     self:validateParams(params)
                     return params
@@ -76,33 +77,6 @@ return {
 
             expandShortcut = function(self, shortcut)
                 return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
-            end,
-
-            respondToHelp = function(self, args)
-                for _, arg in ipairs(args) do
-                    if arg == "--help" or arg == "-h" then
-                        print(self:generateHelp())
-                        love.event.quit()
-                    end
-                end
-            end,
-
-            generateHelp = function(self)
-                local helpString = "\n\nAccepted commands include:\n"
-                helpString = helpString .. "  --help,                      -h  Show this help.\n"
-
-                local keys = {}
-                for k, v in pairs(self.SCHEMA.COMMANDS) do
-                    table.insert(keys, k)
-                end
-
-                table.sort(keys)
-
-                for _, k in pairs(keys) do
-                    local v = self.SCHEMA.COMMANDS[k]
-                    helpString = helpString .. "  --" .. k .. "," .. string.rep(" ", 20 - string.len(k)) .. "      -" .. v.shortcut .. "  " .. v.description .. "\n"
-                end
-                return helpString
             end,
 
         }
