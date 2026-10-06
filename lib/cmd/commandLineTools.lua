@@ -78,6 +78,24 @@ return {
                 return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
             end,
 
+            generateHelp = function(self)
+                local helpString = "\n\nAccepted commands include:\n"
+                helpString = helpString .. "  --help,                      -h  Show this help.\n"
+
+                local keys = {}
+                for k, v in pairs(self.SCHEMA.COMMANDS) do
+                    table.insert(keys, k)
+                end
+
+                table.sort(keys)
+
+                for _, k in pairs(keys) do
+                    local v = self.SCHEMA.COMMANDS[k]
+                    helpString = helpString .. "  --" .. k .. "," .. string.rep(" ", 20 - string.len(k)) .. "      -" .. v.shortcut .. "  " .. v.description .. "\n"
+                end
+                return helpString
+            end,
+
         }
     end,
 
