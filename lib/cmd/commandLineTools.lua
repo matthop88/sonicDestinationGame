@@ -22,53 +22,81 @@ local DEFAULT_SCHEMA = {
     },
 }
 
+local convertKey = function(arg)
+    if     STRING_UTIL:startsWith(arg, "--") then return { type = "key",    data = STRING_UTIL:dropPrefix(arg, 2) }
+    elseif STRING_UTIL:startsWith(arg, "-")  then return { type = "key",    data = STRING_UTIL:dropPrefix(arg, 1) }
+    else                                          return { type = "value",  data = arg }                        end
+end
+
+local KV_ARGS = {
+    new = function()
+        return {
+            add = function(self, element)
+                if element.type == "key" then self:addKey(element["data"])
+                else                          self:addValue(element["data"]) end
+            end,
+
+            getLastElement = function(self)
+                if #self > 0 then return self[#self] end
+            end,
+
+            addKey = function(self, element)
+                table.insert(self, { key = element, value = true })
+            end,
+
+            addValue = function(self, element)
+                local lastElement = self:getLastElement()
+                if lastElement and lastElement.value == true then
+                    lastElement.value = element
+                end
+            end,
+        }
+    end,
+}
+
+local ARG_EXPANDER = {
+    expand = function(self, args)
+        local expandedArgs = KV_ARGS.new()
+                
+        for _, arg in ipairs(args) do
+            expandedArgs:add(convertKey(arg))
+        end
+
+        return expandedArgs
+    end,
+
+}
+
+local PARAMS_BUILDER = {
+    build = function(self, args, schema)
+        local params = {}
+        local expandedArgs = ARG_EXPANDER:expand(args)
+        
+        for _, arg in ipairs(expandedArgs) do
+            local k, v = arg.key, arg.value
+
+            if string.len(k) == 1 then params[self:expandShortcut(k, schema) or k] = v
+            else                       params[k] = v                                 end
+        end
+                
+        return params
+    end,
+
+    expandShortcut = function(self, shortcut, schema)
+        for k, v in pairs(schema.COMMANDS) do
+            if v.shortcut == shortcut then return k end
+        end
+    end,
+}
+
 return {
     create = function(self, appDirectory)
         return {
             SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
 
             getParams = function(self, args)
-                local params = self:createParams(args)
-
-        		return self:transformParams(params)
+                return PARAMS_BUILDER:build(args, self.SCHEMA)
         	end,
-
-            createParams = function(self, args, params)
-                local params, prevKey = {}, nil
-                
-                for _, arg in ipairs(args) do
-                    local key = self:createKey(arg)
-                    if     key     ~= nil then params[key]     = true
-                    elseif prevKey ~= nil then params[prevKey] = arg   end
-                    
-                    prevKey = key
-                end
-
-                return params
-            end,
-
-            createKey = function(self, arg)
-                if     STRING_UTIL:startsWith(arg, "--") then return STRING_UTIL:dropPrefix(arg, 2)
-                elseif STRING_UTIL:startsWith(arg, "-")  then return STRING_UTIL:dropPrefix(arg, 1)
-                else                                          return nil                            end
-            end,
-
-            transformParams = function(self, params)
-                params2 = {}
-
-                for k, v in pairs(params) do
-                    if string.len(k) == 1 then params2[self:expandShortcut(k) or k] = v
-                    else                       params2[k] = v                           end
-                end
-                
-                return params2
-            end,
-
-            expandShortcut = function(self, shortcut)
-                for k, v in pairs(self.SCHEMA.COMMANDS) do
-                    if v.shortcut == shortcut then return k end
-                end
-            end,
 
             validateParams = function(self, args)
                 local params = self:getParams(args)
@@ -110,6 +138,10 @@ return {
                     s = s .. " (shortcut: '-" .. self.SCHEMA.COMMANDS[p].shortcut .. "')"
                 end
                 print(s)
+            end,
+
+            expandShortcut = function(self, shortcut)
+                return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
             end,
 
         }
