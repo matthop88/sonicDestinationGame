@@ -67,11 +67,9 @@ function love.load(args)
 
 	local COMMAND_LINE_TOOLS = require("lib/cmd/commandLineTools"):create(path .. "config/")
 	
-	if not COMMAND_LINE_TOOLS:respondToHelp(args) then
-		__PARAMS = COMMAND_LINE_TOOLS:getParams(args)
+	__PARAMS = COMMAND_LINE_TOOLS:getParams(args)
 
-		require(path .. appName)
-    end
+	require(path .. appName)
 end
 
 
