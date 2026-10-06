@@ -69,8 +69,13 @@ function love.load(args)
 	
 	if COMMAND_LINE_TOOLS:validateParams(args) then
 		__PARAMS = COMMAND_LINE_TOOLS:getParams(args)
-	
-    	require(path .. appName)
+
+		if __PARAMS["help"] or __PARAMS["h"] then
+			print(COMMAND_LINE_TOOLS:generateHelp())
+			love.event.quit()
+		else
+			require(path .. appName)
+		end
     end
 end
 
