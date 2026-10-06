@@ -67,15 +67,10 @@ function love.load(args)
 
 	local COMMAND_LINE_TOOLS = require("lib/cmd/commandLineTools"):create(path .. "config/")
 	
-	if COMMAND_LINE_TOOLS:validateParams(args) then
+	if COMMAND_LINE_TOOLS:validateParams(args) and not COMMAND_LINE_TOOLS:respondToHelp(args) then
 		__PARAMS = COMMAND_LINE_TOOLS:getParams(args)
 
-		if __PARAMS["help"] or __PARAMS["h"] then
-			print(COMMAND_LINE_TOOLS:generateHelp())
-			love.event.quit()
-		else
-			require(path .. appName)
-		end
+		require(path .. appName)
     end
 end
 
