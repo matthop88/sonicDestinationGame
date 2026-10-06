@@ -69,7 +69,7 @@ function love.load(args)
 	
 	__PARAMS = COMMAND_LINE_TOOLS:getParams(args)
 
-	require(path .. appName)
+	if __PARAMS then require(path .. appName) end
 end
 
 
