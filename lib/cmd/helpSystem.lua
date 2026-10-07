@@ -1,3 +1,5 @@
+local STRING_UTIL  = require("game/util/stringUtil")
+
 return {
 	respondToHelp = function(self, args, schema)
         for _, arg in ipairs(args) do
@@ -46,7 +48,7 @@ return {
         for _, k in pairs(keys) do
             local v = schema.COMMANDS[k]
             helpString = helpString .. "  --" .. k .. "," .. string.rep(" ", 20 - string.len(k)) .. "      -" .. v.shortcut .. "  " .. v.description .. "\n"
-            if v.default then helpString = helpString .. string.rep(" ", 35) .. "(Default value: " .. v.default .. ")\n\n" end
+            if v.default then helpString = helpString .. string.rep(" ", 35) .. "(Default value: " .. STRING_UTIL:addQuotesIfString(v.default) .. ")\n\n" end
         end
         return helpString
     end,
