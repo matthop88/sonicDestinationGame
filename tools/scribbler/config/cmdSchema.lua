@@ -5,7 +5,10 @@ return {
 		inFile = {
 			shortcut    = "i",
 			required    = false,
-			description = "The name of the scribbler file to open, inside the directory tools/scribbler/data/.",
+			description = { 
+				"The name of the scribbler file to open, inside the directory tools/scribbler/data/.",
+				"(Defaults to an empty file.)",
+			},
 		},
 
 		outFile = {
