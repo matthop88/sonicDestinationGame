@@ -21,6 +21,8 @@ return {
 		if status ~= true then
 			pictureData = requireRelative("lib/serialization/scribblerNoFile")
 			self:printValidScribbleNames()
+
+			if name == "_" then love.event.quit() end
 		end
 
 		return pictureData
