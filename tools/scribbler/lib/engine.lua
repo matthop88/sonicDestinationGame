@@ -93,14 +93,14 @@ local ENGINE = {
     end,
 
     captureScreenshot = function(self)
-        local filename = (__PARAMS["captureFile"] or "screenShot") .. ".png"
+        local filename = __PARAMS["captureFile"] .. ".png"
         love.graphics.captureScreenshot(filename)
         print("Captured image saved to " .. love.filesystem.getSaveDirectory() .. "/" .. filename)
     end,
 
     saveScribbling = function(self)
         local serializedData = DATA_WRITER:serialize(self:getSerializable())
-        local filename = __PARAMS["outFile"] or "myNewScribble"
+        local filename = __PARAMS["outFile"]
         local success, message = serializedData:writeToFile("tools/scribbler/data", filename)
         print(message)
     end,
