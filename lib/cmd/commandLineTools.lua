@@ -32,8 +32,9 @@ return {
             getParams = function(self, args)
                 if not HELP_SYSTEM:respondToHelp(args, self.SCHEMA) then
                     local params = PARAMS_BUILDER:build(args, self.SCHEMA)
-                    self:validateParams(params)
-                    return params
+                    if self:validateParams(params) then
+                        return params
+                    end
                 end
         	end,
 
@@ -43,7 +44,11 @@ return {
                 if #missingParams > 0 then
                     self:printOutMissingParams(missingParams)
                     love.event.quit()
+                    print(HELP_SYSTEM:generateHelp(self.SCHEMA))
+                    return false
                 end
+
+                return true
             end,
 
             findMissingParams = function(self, params)
@@ -63,8 +68,6 @@ return {
                 for _, p in ipairs(params) do
                     self:printOutMissingParam(p)
                 end
-
-                print("\n")
             end,
 
             printOutMissingParam = function(self, p)
