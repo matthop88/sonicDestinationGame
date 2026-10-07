@@ -47,6 +47,13 @@ local ARG_EXPANDER = {
 
 return {
     build = function(self, args, schema)
+        local params = self:buildParams(args, schema)
+        self:addDefaultValues(params, schema)
+
+        return params
+    end,
+
+    buildParams = function(self, args, schema)
         local params = {}
         local expandedArgs = ARG_EXPANDER:expand(args)
         
@@ -63,6 +70,12 @@ return {
     expandShortcut = function(self, shortcut, schema)
         for k, v in pairs(schema.COMMANDS) do
             if v.shortcut == shortcut then return k end
+        end
+    end,
+
+    addDefaultValues = function(self, params, schema)
+        for k, v in pairs(schema.COMMANDS) do
+            if v.default and params[k] == nil then params[k] = v.default end
         end
     end,
 }
