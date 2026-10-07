@@ -5,7 +5,10 @@ return {
 		imageFile = {
 			shortcut = "i",
 			required = true,
-			description = "The name of the image file to open, inside the directory game/resources/images/spriteSheets/sonic1/.",
+			description = {
+				"The name of the image file to open.",
+				"Inside the directory game/resources/images/spriteSheets/sonic1/.",
+			},
 		},
 
 	},
