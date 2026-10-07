@@ -42,31 +42,39 @@ return {
     end,
 
     generateValidHelp = function(self, schema, keys)
-        local helpString = "\nAccepted commands include:\n"
-        helpString = helpString .. "  --help,                      -h  Show this help.\n"
+        local helpString = self:generateHelpHeader()
 
         for _, k in pairs(keys) do
             local v = schema.COMMANDS[k]
-            helpString = helpString .. "  --" .. k .. "," .. string.rep(" ", 20 - string.len(k)) .. "      -" .. v.shortcut .. "  " .. self:generateDescription(v.description) .. "\n"
-            if v.default then helpString = helpString .. string.rep(" ", 35) .. "(Default value: " .. STRING_UTIL:addQuotesIfString(v.default) .. ")\n\n" end
+            helpString = helpString .. "  --" .. k .. "," .. string.rep(" ", 20 - string.len(k)) .. "      -" .. v.shortcut .. "  " .. self:generateDescription(v) .. "\n"
+            if v.default  then helpString = helpString .. string.rep(" ", 35) .. "(Default value: " .. STRING_UTIL:addQuotesIfString(v.default) .. ")\n\n" end
         end
         return helpString
     end,
 
-    generateDescription = function(self, description)
-        if type(description) == "table" then
-            return self:generateMultiLineDescription(description)
+    generateHelpHeader = function(self)
+        return "\nAccepted commands include:\n" ..
+                 "  --help,                      -h  Show this help.\n"
+    end,
+
+    generateDescription = function(self, v)
+        local required = v.required and not v.default
+
+        if type(v.description) == "table" then
+            return self:generateMultiLineDescription(v.description, required)
         else
-            return description
+            if required then return v.description .. "\n    [REQUIRED]\n"
+            else             return v.description                     end
         end
     end,
 
-    generateMultiLineDescription = function(self, description)
+    generateMultiLineDescription = function(self, description, required)
         local descriptionString = ""
 
         for n, line in ipairs(description) do
-            if n == 1 then descriptionString = descriptionString .. line .. "\n"
-            else           descriptionString = descriptionString .. string.rep(" ", 35) .. line .. "\n"   end
+            if     n == 1              then descriptionString = descriptionString .. line .. "\n"
+            elseif n == 2 and required then descriptionString = descriptionString .. "    [REQUIRED]" .. string.rep(" ", 21) .. line .. "\n"   
+            else                            descriptionString = descriptionString .. string.rep(" ", 35) .. line .. "\n"               end
         end
 
         return descriptionString
