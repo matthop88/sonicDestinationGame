@@ -7,7 +7,8 @@ return {
 			required    = false,
 			description = { 
 				"The name of the scribbler file to open, inside the directory tools/scribbler/data/.",
-				"(Defaults to an empty file.)",
+				"Defaults to an empty file.",
+				"(Choose '_' as the value to print out all options.)",
 			},
 		},
 
