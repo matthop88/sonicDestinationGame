@@ -2,9 +2,9 @@ local ASSERT                 = require("test/lib/assert")
 
 require("game/error/errorLogger"):quiet()
 
-local COMMAND_LINE_TOOLS     = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1")
+local COMMAND_LINE_TOOLS     = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1", true)
 local COMMAND_LINE_TOOLS_BAD = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
-local COMMAND_LINE_TOOLS_REQ = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2")
+local COMMAND_LINE_TOOLS_REQ = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2", true)
 
 return {
 	NAME      = "Command Line Tools",
