@@ -5,7 +5,7 @@ require("game/error/errorLogger"):quiet()
 local COMMAND_LINE_TOOLS     = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1", true)
 local COMMAND_LINE_TOOLS_BAD = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
 local COMMAND_LINE_TOOLS_REQ = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2", true)
-
+local COMMAND_LINE_TOOLS_DEF = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema3", true)
 return {
 	NAME      = "Command Line Tools",
 
@@ -79,5 +79,11 @@ return {
 
 		return ASSERT:EQUALS("Find Missing Params", "zephyrZigguratZone", missingParams[1])
 	end,
+
+	testDefaults = function(self)
+		local params = COMMAND_LINE_TOOLS_DEF:getParams({ })
+
+		return ASSERT:EQUALS("Test Defaults", "123 Boogie!", params["windyHillZone"] .. " " .. params["electricJungleZone"])
+	end,	
 
 }
