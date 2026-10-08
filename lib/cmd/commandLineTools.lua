@@ -25,14 +25,15 @@ local PARAMS_BUILDER = require("lib/cmd/paramsBuilder")
 local HELP_SYSTEM    = require("lib/cmd/helpSystem")
 
 return {
-    create = function(self, appDirectory)
+    create = function(self, appDirectory, testMode)
         return {
             SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
+            testMode   = testMode,
 
             getParams = function(self, args)
                 if not HELP_SYSTEM:respondToHelp(args, self.SCHEMA) then
                     local params = PARAMS_BUILDER:build(args, self.SCHEMA)
-                    if self:validateParams(params) then
+                    if self.testMode or self:validateParams(params) then
                         return params
                     end
                 end
