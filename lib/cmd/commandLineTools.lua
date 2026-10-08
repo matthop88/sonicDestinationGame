@@ -83,6 +83,10 @@ return {
                 return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
             end,
 
+            generateHelp = function(self)
+                return HELP_SYSTEM:generateHelp(self.SCHEMA)
+            end,
+
         }
     end,
 
