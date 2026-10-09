@@ -1,4 +1,3 @@
-local STRING_UTIL  = require("game/util/stringUtil")
 local ERROR_LOGGER = require("game/error/errorLogger")
 
 local getSchema = function(path)
@@ -22,65 +21,35 @@ local DEFAULT_SCHEMA = {
     },
 }
 
+local PARAMS_BUILDER = require("lib/cmd/paramsBuilder")
+local HELP_SYSTEM    = require("lib/cmd/helpSystem")
+
 return {
-    create = function(self, appDirectory)
+    create = function(self, appDirectory, testMode)
         return {
             SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
+            testMode   = testMode,
 
             getParams = function(self, args)
-                local params = self:createParams(args)
-
-        		return self:transformParams(params)
+                if not HELP_SYSTEM:respondToHelp(args, self.SCHEMA) then
+                    local params = PARAMS_BUILDER:build(args, self.SCHEMA)
+                    if self.testMode or self:validateParams(params) then
+                        return params
+                    end
+                end
         	end,
 
-            createParams = function(self, args, params)
-                local params, prevKey = {}, nil
-                
-                for _, arg in ipairs(args) do
-                    local key = self:createKey(arg)
-                    if     key     ~= nil then params[key]     = true
-                    elseif prevKey ~= nil then params[prevKey] = arg   end
-                    
-                    prevKey = key
-                end
-
-                return params
-            end,
-
-            createKey = function(self, arg)
-                if     STRING_UTIL:startsWith(arg, "--") then return STRING_UTIL:dropPrefix(arg, 2)
-                elseif STRING_UTIL:startsWith(arg, "-")  then return STRING_UTIL:dropPrefix(arg, 1)
-                else                                          return nil                            end
-            end,
-
-            transformParams = function(self, params)
-                params2 = {}
-
-                for k, v in pairs(params) do
-                    if string.len(k) == 1 then params2[self:expandShortcut(k) or k] = v
-                    else                       params2[k] = v                           end
-                end
-                
-                return params2
-            end,
-
-            expandShortcut = function(self, shortcut)
-                for k, v in pairs(self.SCHEMA.COMMANDS) do
-                    if v.shortcut == shortcut then return k end
-                end
-            end,
-
-            validateParams = function(self, args)
-                local params = self:getParams(args)
-
+            validateParams = function(self, params)
                 local missingParams = self:findMissingParams(params)
 
                 if #missingParams > 0 then
                     self:printOutMissingParams(missingParams)
                     love.event.quit()
-                else
-                    return true
+                    print(HELP_SYSTEM:generateHelp(self.SCHEMA))
+                    return false
                 end
+
+                return true
             end,
 
             findMissingParams = function(self, params)
@@ -100,8 +69,6 @@ return {
                 for _, p in ipairs(params) do
                     self:printOutMissingParam(p)
                 end
-
-                print("\n")
             end,
 
             printOutMissingParam = function(self, p)
@@ -110,6 +77,14 @@ return {
                     s = s .. " (shortcut: '-" .. self.SCHEMA.COMMANDS[p].shortcut .. "')"
                 end
                 print(s)
+            end,
+
+            expandShortcut = function(self, shortcut)
+                return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
+            end,
+
+            generateHelp = function(self)
+                return HELP_SYSTEM:generateHelp(self.SCHEMA)
             end,
 
         }

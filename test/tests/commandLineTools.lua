@@ -2,9 +2,11 @@ local ASSERT                 = require("test/lib/assert")
 
 require("game/error/errorLogger"):quiet()
 
-local COMMAND_LINE_TOOLS     = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1")
-local COMMAND_LINE_TOOLS_BAD = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
-local COMMAND_LINE_TOOLS_REQ = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2")
+local COMMAND_LINE_TOOLS      = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1", true)
+local COMMAND_LINE_TOOLS_BAD  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
+local COMMAND_LINE_TOOLS_REQ  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2", true)
+local COMMAND_LINE_TOOLS_DEF  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema3", true)
+local COMMAND_LINE_TOOLS_HELP = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema4", true)
 
 return {
 	NAME      = "Command Line Tools",
@@ -78,6 +80,46 @@ return {
 		local missingParams = COMMAND_LINE_TOOLS_REQ:findMissingParams(params)
 
 		return ASSERT:EQUALS("Find Missing Params", "zephyrZigguratZone", missingParams[1])
+	end,
+
+	testDefaults = function(self)
+		local params = COMMAND_LINE_TOOLS_DEF:getParams({ })
+
+		return ASSERT:EQUALS("Test Defaults", "123 Boogie!", params["windyHillZone"] .. " " .. params["electricJungleZone"])
+	end,
+
+	testValidHelp = function(self)
+		local helpString = COMMAND_LINE_TOOLS_HELP:generateHelp()
+
+		local expectedString = [[
+
+Accepted commands include:
+  --help,                      -h  Show this help.
+  --electricJungleZone,        -e  Customize Time HUD label for Electric Jungle Zone.
+                                   (Default value: "Boogie!")
+
+  --windyHillZone,             -w  Customize starting Ring Count for the Windy Hill Zone.
+                                   (Default value: 123)
+
+  --zephyrZigguratZone,        -z  Customize starting Act for the Zephyr Ziggurat Zone.
+    [REQUIRED]
+
+]]
+		return ASSERT:EQUALS("Test Valid Help", expectedString, helpString)
+	end,
+
+	testInvalidHelp = function(self)
+		local helpString = COMMAND_LINE_TOOLS_REQ:generateHelp()
+
+		local expectedString = [[
+
+XXX The following commands lack documentation:
+  --electricJungleZone,        -e
+  --windyHillZone,             -w
+  --zephyrZigguratZone,        -z
+]]
+
+		return ASSERT:EQUALS("Test Invalid Help", expectedString, helpString)
 	end,
 
 }

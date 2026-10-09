@@ -1,5 +1,5 @@
 local JOT_FACTORY    = requireRelative("lib/serialization/jotFactory")
-local DIRECTORY_UTIL = requireRelative("lib/util/directoryUtil")
+local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 
 return {
 	eachJot = function(self, name)
@@ -21,6 +21,8 @@ return {
 		if status ~= true then
 			pictureData = requireRelative("lib/serialization/scribblerNoFile")
 			self:printValidScribbleNames()
+
+			if name == "_" then love.event.quit() end
 		end
 
 		return pictureData
