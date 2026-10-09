@@ -1,5 +1,5 @@
 local JOT_FACTORY    = requireRelative("lib/serialization/jotFactory")
-local DIRECTORY_UTIL = requireRelative("lib/util/directoryUtil")
+local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 
 return {
 	eachJot = function(self, name)
