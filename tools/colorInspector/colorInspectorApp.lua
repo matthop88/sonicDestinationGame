@@ -1,6 +1,6 @@
 local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 
-local printValidImageNames = function(self)
+local printValidImageNames = function()
     local validImagenames = DIRECTORY_UTIL:getFilesInDirectory("game/resources/images/spriteSheets/sonic1", ".png")
     print("\nValid Image names are:")
     print("----------------------")
