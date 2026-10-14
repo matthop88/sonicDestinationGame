@@ -96,4 +96,13 @@ return {
 		return ASSERT:EQUALS("Pad Value Left", expected, actual)
 	end,
 
+	testPadValueLeftZero = function(self)
+		local testVal  = "3.14159265358979"
+
+		local expected = "00003.14159265358979"
+		local actual   = STRING_UTIL:padValueLeft(testVal, 20, "0")
+
+		return ASSERT:EQUALS("Pad Value Left", expected, actual)
+	end,
+
 }
