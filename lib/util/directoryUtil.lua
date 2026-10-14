@@ -4,11 +4,16 @@ return {
 	getFilesInDirectory = function(self, directoryName, extension)
 		local filenames = love.filesystem.getDirectoryItems(directoryName)
 
-		local filteredNames = {}
-
 		if not STRING_UTIL:startsWith(extension, ".") then
 			extension = "." .. extension
 		end
+
+		return self:filterFilenames(filenames, extension)
+        
+	end,
+
+	filterFilenames = function(self, filenames, extension)
+		local filteredNames = {}
 
 		for _, filename in ipairs(filenames) do
 			if STRING_UTIL:endsWith(filename, extension) then
@@ -17,7 +22,6 @@ return {
 		end
 
 		return filteredNames
-        
 	end,
 
 }
