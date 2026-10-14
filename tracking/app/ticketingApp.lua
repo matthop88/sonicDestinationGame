@@ -1,4 +1,5 @@
 local DIRECTORY_UTIL = require("lib/util/directoryUtil")
+local STRING_UTIL    = require("game/util/stringUtil")
 
 print("Welcome to the Ticketing App!")
 
@@ -12,8 +13,13 @@ for _, name in ipairs(activeTicketNames)    do table.insert(allTicketNames, name
 for _, name in ipairs(backlogTicketNames)   do table.insert(allTicketNames, name) end
 for _, name in ipairs(completedTicketNames) do table.insert(allTicketNames, name) end
 
+local maxTicketNum = 0
+
 for _, name in ipairs(allTicketNames) do
-	print(name)
+	local suffix = STRING_UTIL:dropPrefix(name, string.len(name) - 4)
+	maxTicketNum = math.max(maxTicketNum, tonumber(suffix))
 end
+
+print(maxTicketNum + 1)
 
 love.event.quit()
