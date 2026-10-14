@@ -15,6 +15,12 @@ local APPLICATIONS = {
 	    	PATH     = "test/",
 	    	APP_NAME = "framework",
 	    },
+
+	    --------------------- TICKETING ----------------------
+	    ticket = {
+	    	PATH     = "tracking/app/",
+	    	APP_NAME = "ticketingApp",
+	    },
 	
 		----------------------- TOOLS ------------------------
 	    inspector = {
@@ -71,6 +77,4 @@ function love.load(args)
 
 	if __PARAMS then require(path .. appName) end
 end
-
-
 
