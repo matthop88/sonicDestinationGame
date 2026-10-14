@@ -37,12 +37,22 @@ return {
         	end,
 
             validateParams = function(self, params)
+                for k, v in pairs(params) do
+                    local validValues = self.SCHEMA.COMMANDS[k].values
+                    if validValues and not self:isValueInList(v, validValues) then
+                        self:generateHelpError("ERROR! Incorrect value for " .. k .. ": " .. v)
+                        return false
+                    end
+                end
+
+                return self:validateNoParamsMissing(params)
+            end,
+                
+            validateNoParamsMissing = function(self, params)
                 local missingParams = self:findMissingParams(params)
 
                 if #missingParams > 0 then
-                    self:printOutMissingParams(missingParams)
-                    love.event.quit()
-                    print(HELP_SYSTEM:generateHelp(self.SCHEMA))
+                    self:generateHelpError(function() self:printOutMissingParams(missingParams) end)
                     return false
                 end
 
@@ -80,8 +90,27 @@ return {
                 return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
             end,
 
+            generateHelpError = function(self, error)
+                if type(error) == "function" then
+                    error()
+                else
+                    print("\n" .. error) 
+                end
+
+                love.event.quit()
+                print(HELP_SYSTEM:generateHelp(self.SCHEMA))
+            end,
+                        
             generateHelp = function(self)
                 return HELP_SYSTEM:generateHelp(self.SCHEMA)
+            end,
+
+            isValueInList = function(self, v, list)
+                for _, value in ipairs(list) do
+                    if v == value then return true end
+                end
+
+                return false
             end,
 
         }
