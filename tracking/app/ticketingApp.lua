@@ -19,6 +19,6 @@ for _, name in ipairs(allTicketNames) do
 	maxTicketNum = math.max(maxTicketNum, tonumber(suffix))
 end
 
-print(STRING_UTIL:padValueLeft("" .. (maxTicketNum + 1), 4, "0"))
+print(string.upper(__PARAMS["type"]) .. "-" .. STRING_UTIL:padValueLeft("" .. (maxTicketNum + 1), 4, "0"))
 
 love.event.quit()
