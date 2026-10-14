@@ -37,15 +37,27 @@ return {
         	end,
 
             validateParams = function(self, params)
-                for k, v in pairs(params) do
-                    local validValues = self.SCHEMA.COMMANDS[k].values
-                    if validValues and not self:isValueInList(v, validValues) then
+                local incorrectValues = self:findIncorrectValues(params)
+
+                if incorrectValues then
+                    for k, v in pairs(incorrectValues) do
                         self:generateHelpError("ERROR! Incorrect value for " .. k .. ": " .. v)
                         return false
                     end
                 end
 
                 return self:validateNoParamsMissing(params)
+            end,
+
+            findIncorrectValues = function(self, params)
+                for k, v in pairs(params) do
+                    local validValues = self.SCHEMA.COMMANDS[k].values
+                    if validValues and not self:isValueInList(v, validValues) then
+                        local incorrectValues = {}
+                        incorrectValues[k] = v
+                        return incorrectValues
+                    end
+                end
             end,
                 
             validateNoParamsMissing = function(self, params)
