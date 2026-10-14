@@ -1,5 +1,3 @@
-local ERROR_LOGGER = require("game/error/errorLogger")
-
 local getSchema = function(path)
     local cmdSchema
 
@@ -8,7 +6,6 @@ local getSchema = function(path)
     if status == true then
         return cmdSchema
     else
-        ERROR_LOGGER:logError("Command Schema not found for path " .. path .. "!")
         return nil
     end
 end
