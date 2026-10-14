@@ -9,6 +9,7 @@ return {
 				"The type of the ticket (will be the ticket ID prefix).",
 				"Valid values are 'game', 'tool', and 'infr'.",
 			},
+			values = { "game", "tool", "infr" },
 		},
 
 	},
