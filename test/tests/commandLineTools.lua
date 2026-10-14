@@ -2,12 +2,12 @@ local ASSERT                 = require("test/lib/assert")
 
 require("game/error/errorLogger"):quiet()
 
-local COMMAND_LINE_TOOLS      = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1", true)
-local COMMAND_LINE_TOOLS_BAD  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
-local COMMAND_LINE_TOOLS_REQ  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2", true)
-local COMMAND_LINE_TOOLS_DEF  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema3", true)
-local COMMAND_LINE_TOOLS_HELP = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema4", true)
-local COMMAND_LINE_TOOLS_VAL  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema5", true)
+local COMMAND_LINE_TOOLS      = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema1", true)
+local COMMAND_LINE_TOOLS_BAD  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema1__BAD__")
+local COMMAND_LINE_TOOLS_REQ  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema2", true)
+local COMMAND_LINE_TOOLS_DEF  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema3", true)
+local COMMAND_LINE_TOOLS_HELP = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema4", true)
+local COMMAND_LINE_TOOLS_VAL  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema5", true)
 
 return {
 	NAME      = "Command Line Tools",
