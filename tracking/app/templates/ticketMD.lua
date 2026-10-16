@@ -1,7 +1,7 @@
 return [[
 ---
 ID: {{ id }}
-Title: Placeholder Title
+Title: {{ title }}
 Type: Feature | Bug
 Status: TODO | ONGOING | DONE
 Priority: Low | Medium | High
@@ -14,7 +14,7 @@ Labels:
 Blocked By: 
 ---
 
-# {{ id }}: Placeholder Title
+# {{ id }}: {{ title }}
 
 ## Summary
 
