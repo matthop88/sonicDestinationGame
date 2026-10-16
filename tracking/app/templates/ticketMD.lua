@@ -6,8 +6,8 @@ Type: Feature | Bug
 Status: TODO | ONGOING | DONE
 Priority: Low | Medium | High
 Points: 
-Created: 
-Updated: 
+Created: {{ date }}
+Updated: {{ date }}
 Episode Created: 
 Episode Due: 
 Labels: 
@@ -40,5 +40,5 @@ See acceptance criteria.
     
 ## History
 
-- YYYY-MM-DD: Created
+- {{ date }}: Created
 ]]
