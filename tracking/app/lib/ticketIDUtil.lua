@@ -5,7 +5,7 @@ local SUBDIRECTORIES = { "active", "backlog", "completed" }
 	
 return {
 	getNextID = function(self, type)
-		local prefix = string.upper(type)
+		local prefix = type
 		local number = STRING_UTIL:padValueLeft("" .. self:getNextNumber(), 4, "0")
 
 		return prefix .. "-" .. number
