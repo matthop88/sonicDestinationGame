@@ -1,10 +1,12 @@
 local TICKET_ID_UTIL = require("tracking/app/lib/ticketIDUtil")
 
-print(TICKET_ID_UTIL:getNextID(__PARAMS["type"]))
+local id = TICKET_ID_UTIL:getNextID(__PARAMS["type"])
 
-local template = require("tracking/app/templates/ticketMD")
-love.system.setClipboardText(template)
+local template = requireRelative("lib/templateFactory"):create("ticketMD")
+
+love.system.setClipboardText(template:render { id = id })
 
 print("Ticket template saved to clipboard.")
 
 love.event.quit()
+
