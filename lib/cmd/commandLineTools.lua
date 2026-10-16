@@ -1,5 +1,3 @@
-local ERROR_LOGGER = require("game/error/errorLogger")
-
 local getSchema = function(path)
     local cmdSchema
 
@@ -8,7 +6,6 @@ local getSchema = function(path)
     if status == true then
         return cmdSchema
     else
-        ERROR_LOGGER:logError("Command Schema not found for path " .. path .. "!")
         return nil
     end
 end
@@ -40,12 +37,34 @@ return {
         	end,
 
             validateParams = function(self, params)
+                local incorrectValues = self:findIncorrectValues(params)
+
+                if incorrectValues then
+                    for k, v in pairs(incorrectValues) do
+                        self:generateHelpError("ERROR! Incorrect value for " .. k .. ": " .. v)
+                        return false
+                    end
+                end
+
+                return self:validateNoParamsMissing(params)
+            end,
+
+            findIncorrectValues = function(self, params)
+                for k, v in pairs(params) do
+                    local validValues = self.SCHEMA.COMMANDS[k].values
+                    if validValues and not self:isValueInList(v, validValues) then
+                        local incorrectValues = {}
+                        incorrectValues[k] = v
+                        return incorrectValues
+                    end
+                end
+            end,
+                
+            validateNoParamsMissing = function(self, params)
                 local missingParams = self:findMissingParams(params)
 
                 if #missingParams > 0 then
-                    self:printOutMissingParams(missingParams)
-                    love.event.quit()
-                    print(HELP_SYSTEM:generateHelp(self.SCHEMA))
+                    self:generateHelpError(function() self:printOutMissingParams(missingParams) end)
                     return false
                 end
 
@@ -83,8 +102,27 @@ return {
                 return PARAMS_BUILDER:expandShortcut(shortcut, self.SCHEMA)
             end,
 
+            generateHelpError = function(self, error)
+                if type(error) == "function" then
+                    error()
+                else
+                    print("\n" .. error) 
+                end
+
+                love.event.quit()
+                print(HELP_SYSTEM:generateHelp(self.SCHEMA))
+            end,
+                        
             generateHelp = function(self)
                 return HELP_SYSTEM:generateHelp(self.SCHEMA)
+            end,
+
+            isValueInList = function(self, v, list)
+                for _, value in ipairs(list) do
+                    if v == value then return true end
+                end
+
+                return false
             end,
 
         }

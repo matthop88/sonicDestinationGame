@@ -2,11 +2,12 @@ local ASSERT                 = require("test/lib/assert")
 
 require("game/error/errorLogger"):quiet()
 
-local COMMAND_LINE_TOOLS      = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1", true)
-local COMMAND_LINE_TOOLS_BAD  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema1__BAD__")
-local COMMAND_LINE_TOOLS_REQ  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema2", true)
-local COMMAND_LINE_TOOLS_DEF  = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema3", true)
-local COMMAND_LINE_TOOLS_HELP = require("lib/cmd/commandLineTools"):create("test/tests/resources/testCmdSchema4", true)
+local COMMAND_LINE_TOOLS      = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema1", true)
+local COMMAND_LINE_TOOLS_BAD  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema1__BAD__")
+local COMMAND_LINE_TOOLS_REQ  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema2", true)
+local COMMAND_LINE_TOOLS_DEF  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema3", true)
+local COMMAND_LINE_TOOLS_HELP = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema4", true)
+local COMMAND_LINE_TOOLS_VAL  = require("lib/cmd/commandLineTools"):create("test/tests/resources/commandLineTools/testCmdSchema5", true)
 
 return {
 	NAME      = "Command Line Tools",
@@ -88,6 +89,22 @@ return {
 		return ASSERT:EQUALS("Test Defaults", "123 Boogie!", params["windyHillZone"] .. " " .. params["electricJungleZone"])
 	end,
 
+	testInvalidValues = function(self)
+		local params = COMMAND_LINE_TOOLS_VAL:getParams({ "-z", "5" })
+
+		local incorrectValues = COMMAND_LINE_TOOLS_VAL:findIncorrectValues(params)
+
+		return ASSERT:EQUALS("Invalid Values", "5", incorrectValues["zephyrZigguratZone"])
+	end,
+
+	testValidValues = function(self)
+		local params = COMMAND_LINE_TOOLS_VAL:getParams({ "-z", "7" })
+
+		local incorrectValues = COMMAND_LINE_TOOLS_VAL:findIncorrectValues(params)
+
+		return ASSERT:TRUE("Valid Values", incorrectValues == nil)
+	end,
+
 	testValidHelp = function(self)
 		local helpString = COMMAND_LINE_TOOLS_HELP:generateHelp()
 
@@ -106,6 +123,19 @@ Accepted commands include:
 
 ]]
 		return ASSERT:EQUALS("Test Valid Help", expectedString, helpString)
+	end,
+
+	testValidValuesHelp = function(self)
+		local helpString = COMMAND_LINE_TOOLS_VAL:generateHelp()
+
+		local expectedString = [[
+
+Accepted commands include:
+  --help,                      -h  Show this help.
+  --zephyrZigguratZone,        -z  Customize starting Act for the Zephyr Ziggurat Zone.
+                                   Acceptable Values: { 1, 2, 3, 7, 8, 9}
+]]
+		return ASSERT:EQUALS("Test Valid Values Help", expectedString, helpString)
 	end,
 
 	testInvalidHelp = function(self)

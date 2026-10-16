@@ -24,11 +24,11 @@ return {
         else                        return         v          end
     end,
 
-    padValueRight = function(self, v, maxLength)
-        return v .. string.rep(" ", maxLength - string.len(v))
+    padValueRight = function(self, v, maxLength, padChar)
+        return v .. string.rep(padChar or " ", maxLength - string.len(v))
     end,
 
-    padValueLeft  = function(self, v, maxLength)
-        return string.rep(" ", maxLength - string.len(v)) .. v
+    padValueLeft  = function(self, v, maxLength, padChar)
+        return string.rep(padChar or " ", maxLength - string.len(v)) .. v
     end,
 }

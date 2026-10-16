@@ -1,27 +1,3 @@
---------------------------------------------------------------
---                 Functional Specifications                --
---------------------------------------------------------------
-
---[[
-                       Short Description
-                       -----------------
-          An image of choice is drawn to the screen.
-          Clicking on any pixel of the image prints
-          an RGB description of the color both to
-          the screen and to the text console.
-
-                           Features
-                           --------
-       [X] Image can be scrolled using the up, down,
-           left and right arrow keys.
-       [X] Image can be zoomed in using the 'z' key
-           and zoomed out using the 'a' key
-       [X] Clicking on any pixel of the image prints
-           an RGB description of the color both to
-           the screen and to the text console.
-
---]]
-
 local loadImage = function(path)
     local image
     local status, err = pcall(function() image = requireRelative("lib/imageView"):create { imagePath = path } end)
