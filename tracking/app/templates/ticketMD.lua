@@ -1,6 +1,6 @@
 return [[
 ---
-ID: TYPE-XXXX
+ID: {{ id }}
 Title: Placeholder Title
 Type: Feature | Bug
 Status: TODO | ONGOING | DONE
@@ -14,7 +14,7 @@ Labels:
 Blocked By: 
 ---
 
-# TYPE-XXXX: Placeholder Title
+# {{ id }}: Placeholder Title
 
 ## Summary
 
