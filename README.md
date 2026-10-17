@@ -68,7 +68,7 @@ Prior to creating a new tool or making changes, you should either update an exis
 
 From within this directory, a new ticket can be created by:
 
-    love . ticket -t {type of ticket} -T {title of ticket}
+    love . ticket -p {ticket ID prefix} -T {title of ticket}
 A template for the new ticket is created and added to the clipboard. It is recommended that you create a new markdown file and add it to tracking/tickets/active under the name {id}.md.
 
 The id is given by the ticket app. For instance, if it says:
