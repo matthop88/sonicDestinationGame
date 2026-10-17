@@ -57,7 +57,7 @@ Parameters can be assigned default values with the optional "default" attribute.
 
 Parameter values can be restricted to a small list of options via the "values" attribute. Any values entered by the user that do not fall into this list will be rejected with an error message.
 
-Note: If the default value of a parameter is set and doesn't fall into the values list, then the parameter value will always be invalid!
+Note: It is allowable to have a default value that does not belong to the list of acceptable values (such as "(IMPLEMENT THIS)", etc.)
 
 ## Parameter Descriptions and the Help Mode
 
