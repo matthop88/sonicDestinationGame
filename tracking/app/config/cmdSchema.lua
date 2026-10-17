@@ -15,7 +15,7 @@ return {
 		},
 		type = {
 			shortcut    = "t",
-			default     = "Feature",
+			default     = "Feature | Bug",
 			description = "The type of the ticket.",
 			values      = { "Feature", "Bug" },
 		},
