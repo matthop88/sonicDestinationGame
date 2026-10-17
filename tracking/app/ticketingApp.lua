@@ -1,6 +1,6 @@
 local TICKET_ID_UTIL = require("tracking/app/lib/ticketIDUtil")
 
-local id    = TICKET_ID_UTIL:getNextID(__PARAMS["type"])
+local id    = TICKET_ID_UTIL:getNextID(__PARAMS["prefix"])
 local ID    = string.upper(id)
 
 local date  = os.date("%Y-%m-%d")
