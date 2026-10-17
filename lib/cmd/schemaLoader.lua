@@ -32,6 +32,7 @@ return {
     end,
 
     normalizeValues = function(self, v)
+        v.printableValues = v.values
         v.values = SMART_LIST:create(v.values)
 
         if v.default and not v.values:contains(v.default) then
