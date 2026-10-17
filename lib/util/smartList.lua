@@ -8,8 +8,12 @@ end
 
 return {
 	create = function(self, list)
-		list.contains = contains
+		local newList = {}
 
-		return list
+		for _, elem in ipairs(list) do table.insert(newList, elem) end
+
+		newList.contains = contains
+
+		return newList
 	end,
 }
