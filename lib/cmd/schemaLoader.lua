@@ -1,3 +1,5 @@
+local SMART_LIST     = require("lib/util/smartList")
+
 local DEFAULT_SCHEMA = {
     VERSION = 0.0,
     
@@ -21,19 +23,19 @@ return {
 
     normalizeSchema = function(self, schema)
         for k, v in pairs(schema.COMMANDS) do
-            if v.values and v.default and not self:isValueInList(v.default, v.values) then
-                table.insert(v.values, v.default)
+            if v.values then
+                self:normalizeValues(v)
             end
         end
 
         return schema
     end,
 
-    isValueInList = function(self, v, list)
-        for _, value in ipairs(list) do
-            if v == value then return true end
-        end
+    normalizeValues = function(self, v)
+        v.values = SMART_LIST:create(v.values)
 
-        return false
+        if v.default and not v.values:contains(v.default) then
+            table.insert(v.values, v.default)
+        end
     end,
 }
