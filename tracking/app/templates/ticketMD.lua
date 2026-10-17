@@ -3,9 +3,9 @@ return [[
 ID: {{ id }}
 Title: {{ title }}
 Type: {{ type }}
-Status: TODO | ONGOING | DONE
-Priority: Low | Medium | High
-Points: 
+Status: {{ status }}
+Priority: {{ priority }}
+Points: {{ points }}
 Created: {{ date }}
 Updated: {{ date }}
 Episode Created: 
