@@ -2,7 +2,7 @@ return [[
 ---
 ID: {{ id }}
 Title: {{ title }}
-Type: Feature | Bug
+Type: {{ type }}
 Status: TODO | ONGOING | DONE
 Priority: Low | Medium | High
 Points: 
