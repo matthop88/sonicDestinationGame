@@ -6,39 +6,33 @@ Type: {{ type }}
 Status: {{ status }}
 Priority: {{ priority }}
 Points: {{ points }}
-Created: {{ date }}
-Updated: {{ date }}
-Episode Created: 
-Episode Due: 
-Labels: 
-Blocked By: 
+Created: {{ createdAt }}
+Updated: {{ updatedAt }}
+Episode Created: {{ episodeCreated }}
+Episode Due: {{ episodeDue }}
+Labels: {{ labels }}
+Blocked By: {{ blockedBy }}
 ---
 
 # {{ id }}: {{ title }}
 
 ## Summary
 
-    ...
-    ...
-    ...
+{{ summary }}
 
 ## Details
 
-See acceptance criteria.
+{{ details }}
 
 ## Acceptance Criteria
 
-- [ ] Criteria #1
-- [ ] Criteria #2
-- [ ] Criteria #3
+{{ acceptanceCriteria }}
 
 ## Notes
 
-    ...
-    ...
-    ...
+{{ notes }}
     
 ## History
 
-- {{ date }}: Created
+{{ history }}
 ]]
