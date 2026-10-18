@@ -31,7 +31,7 @@ Blocked By: {{ blockedBy }}
 ## Notes
 
 {{ notes }}
-    
+
 ## History
 
 {{ history }}
