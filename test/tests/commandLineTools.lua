@@ -133,7 +133,7 @@ Accepted commands include:
 Accepted commands include:
   --help,                      -h  Show this help.
   --zephyrZigguratZone,        -z  Customize starting Act for the Zephyr Ziggurat Zone.
-                                   Acceptable Values: { 1, 2, 3, 7, 8, 9}
+                                   Acceptable Values: { 1, 2, 3, 7, 8, 9 }
 ]]
 		return ASSERT:EQUALS("Test Valid Values Help", expectedString, helpString)
 	end,
