@@ -27,4 +27,9 @@ return {
             return false
         end
     end,
+
+    UNIMPLEMENTED = function(self, name)
+    	print("UNIMPLEMENTED => " .. name)
+    	return false
+    end,
 }
