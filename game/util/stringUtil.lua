@@ -31,4 +31,8 @@ return {
     padValueLeft  = function(self, v, maxLength, padChar)
         return string.rep(padChar or " ", maxLength - string.len(v)) .. v
     end,
+
+    trim = function(self, str)
+        return str:match("^%s*(.-)%s*$")
+    end,
 }
