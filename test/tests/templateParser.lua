@@ -6,7 +6,7 @@ return {
 	NAME          = "Template Parser",
 
 	testParseTemplate1 = function(self)
-		return ASSERT:TRUE("Parse Template 1 (UNIMPLEMENTED)", false)
+		return ASSERT:UNIMPLEMENTED("Parse Template 1")
 	end,
 
 }
