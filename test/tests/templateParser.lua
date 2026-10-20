@@ -6,7 +6,7 @@ local TEMPLATE_PATH   = "tests/resources/templateFactory/"
 local DATA_SERIALIZER = require("lib/serialization/dataSerializer")
 
 local TEMPLATE_STRUCTURE = {
-	{ key = "__NIL__", value = "Name:       "   },
+	{ key = "",        value = "Name:       "   },
 	{ key = "name",    value = "\nHeight:     " },
 	{ key = "height",  value = "\nAge:        " },
 	{ key = "age",     value = "\nSpeed:      " },
