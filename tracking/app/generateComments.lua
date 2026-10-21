@@ -8,8 +8,8 @@ local templateParser = TEMPLATE_PARSER:create("ticketMD")
 
 local kvTable = templateParser:parse(data)
 
-for k, v in pairs(kvTable) do
-	print("Key = " .. k .. ", value = ", v)
-end
+local template = requireRelative("lib/templateFactory"):create("comments")
+
+print(template:render(kvTable))
 
 
