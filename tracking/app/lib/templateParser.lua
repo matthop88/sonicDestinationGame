@@ -14,25 +14,45 @@ return {
 					self.KV_TABLE = {}
 					self.POS      = 1
 					self.DATA     = data
+					self.ERROR    = nil
 				end,
 
 				parse = function(self, data, templateStructure)
 					self:init(data)
 
 					for _, kv in ipairs(templateStructure) do
-						self:processKeyValue(kv)
+						if   not self.ERROR then self:processKeyValue(kv) 
+						else                     break                end
 					end
-					return self.KV_TABLE
+
+					return self:handleResult()
 				end,
 
 				processKeyValue = function(self, kv)
 					if kv.key == "" then
 						self.POS = self.POS + kv.value:len()
 					else
-						local s, e = self.DATA:find(kv.value, self.POS, true)
-						local v    = self.DATA:sub(self.POS, s - 1)
-						self.POS   = e + 1
-						self.KV_TABLE[kv.key] = v
+						self:processNonEmptyKeyValue(kv)
+					end
+				end,
+
+				processNonEmptyKeyValue = function(self, kv)
+					local s, e = self.DATA:find(kv.value, self.POS, true)
+					if s == nil then
+						self.ERROR = "ERROR: Parse error for string \"" .. kv.value .. "\" at pos = " .. self.POS
+						return
+					end
+					local v    = self.DATA:sub(self.POS, s - 1)
+					self.POS   = e + 1
+					self.KV_TABLE[kv.key] = v
+				end,
+
+				handleResult = function(self)
+					if self.ERROR then 
+						print("\n" .. self.ERROR .. "\n")
+						return {}
+					else               
+						return self.KV_TABLE 
 					end
 				end,
 
