@@ -14,10 +14,19 @@ local TEMPLATE_STRUCTURE = {
 	{ key = "company", value = "\n"             },
 }
 
+local OUTPUT1 = [[
+Name:       Shadow the Hedgehog
+Height:     3'3"
+Age:        100+
+Speed:      No known limit
+Mascot For: Maria
+]]
+
+
 return {
 	NAME          = "Template Parser",
 
-	testParseTemplate1 = function(self)
+	testPreparseTemplate1 = function(self)
 		local templateParser    = TEMPLATE_PARSER:create("template1", TEMPLATE_PATH)
 
 		local templateStructure = templateParser:getTemplateStructure()
@@ -25,7 +34,19 @@ return {
 		local serializedTestData = DATA_SERIALIZER:serialize(TEMPLATE_STRUCTURE):toString()
 		local serializedRealData = DATA_SERIALIZER:serialize(templateStructure):toString()
 
-		return ASSERT:EQUALS("Parse Template 1", serializedTestData, serializedRealData)
+		return ASSERT:EQUALS("Preparse Template 1", serializedTestData, serializedRealData)
+	end,
+
+	testParseTemplate1 = function(self)
+		local templateParser = TEMPLATE_PARSER:create("template1", TEMPLATE_PATH)
+
+		local kvTable        = templateParser:parse(OUTPUT1)
+
+		local expected = "Shadow the Hedgehog,3'3\",100+,No known limit,Maria"
+
+		local actual   = kvTable.name .. "," .. kvTable.height .. "," .. kvTable.age .. "," .. kvTable.speed .. "," .. kvTable.company
+
+		return ASSERT:EQUALS("Parse Template 1, Output 1", expected, actual)
 	end,
 
 }
