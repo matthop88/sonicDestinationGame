@@ -105,4 +105,13 @@ return {
 		return ASSERT:EQUALS("Pad Value Left", expected, actual)
 	end,
 
+	testTrim = function(self)
+		local testVal  = "\n\t   Hello  \t\n  "
+
+		local expected = "Hello"
+		local actual   = STRING_UTIL:trim(testVal)
+
+		return ASSERT:EQUALS("Trim String", expected, actual)
+	end,
+
 }

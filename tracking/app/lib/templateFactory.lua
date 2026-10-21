@@ -1,7 +1,7 @@
 return {
-	create = function(self, templateName)
+	create = function(self, templateName, templatePath)
 		return {
-			template = requireRelative("templates/" .. templateName),
+			template = requireRelative((templatePath or "templates/") .. templateName),
 
 			render = function(self, data)
 				-- Matches anything inside {{ }} and replaces it with the table value

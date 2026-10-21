@@ -2,20 +2,21 @@ local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 local STRING_UTIL    = require("game/util/stringUtil")
 
 local SUBDIRECTORIES = { "active", "backlog", "completed" }
+local TICKET_PATH    = "tracking/tickets/"
 	
 return {
-	getNextID = function(self, type)
+	getNextID = function(self, type, subdirectories, ticketPath)
 		local prefix = type
-		local number = STRING_UTIL:padValueLeft("" .. self:getNextNumber(), 4, "0")
+		local number = STRING_UTIL:padValueLeft("" .. self:getNextNumber(subdirectories, ticketPath), 4, "0")
 
 		return prefix .. "-" .. number
 	end,
 
-	getNextNumber = function(self)
+	getNextNumber = function(self, subdirectories, ticketPath)
 		local maxTicketNum = 0
 
-		for _, subDirectory in ipairs(SUBDIRECTORIES) do
-			local ticketNames = DIRECTORY_UTIL:getFilesInDirectory("tracking/tickets/" .. subDirectory, ".md")
+		for _, subDirectory in ipairs(subdirectories or SUBDIRECTORIES) do
+			local ticketNames = DIRECTORY_UTIL:getFilesInDirectory((ticketPath or TICKET_PATH) .. subDirectory, ".md")
 
 			for _, name in ipairs(ticketNames) do
 				maxTicketNum = math.max(maxTicketNum, self:extractNumber(name))

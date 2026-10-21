@@ -60,12 +60,16 @@ return {
             end,
 
             writeToFile = function(self, path, filename)
-                local content = table.concat(self.data, "\n")
+                local content = self:toString()
 
                 FILESYSTEM.createDirectory(path)
         
                 local filePath = path .. "/" .. filename .. ".lua"
                 return self:fileSystemWrite(filePath, content)
+            end,
+
+            toString     = function(self)
+                return table.concat(self.data, "\n")
             end,
 
             fileSystemWrite = function(self, filePath, content)

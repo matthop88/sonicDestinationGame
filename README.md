@@ -61,3 +61,17 @@ Currently available picture names include:
 2. sampleScribble2
 
 and... that's about it.
+
+## Creating a New Ticket
+
+Prior to creating a new tool or making changes, you should either update an existing ticket or create a new one.
+
+From within this directory, a new ticket can be created by:
+
+    love . ticket -p {ticket ID prefix} -T {title of ticket}
+A template for the new ticket is created and added to the clipboard. It is recommended that you create a new markdown file and add it to tracking/tickets/active under the name {id}.md.
+
+The id is given by the ticket app. For instance, if it says:
+    
+    Ticket template saved to clipboard (id = tool-0007)
+you would create a new file, tracking/tickets/active/tool-0007.md, and paste the contents of the clipboard into this new file.

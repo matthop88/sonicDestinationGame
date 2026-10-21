@@ -1,30 +1,11 @@
-local getSchema = function(path)
-    local cmdSchema
-
-    local status, err = pcall(function() cmdSchema = require(path .. "/cmdSchema") end)
-
-    if status == true then
-        return cmdSchema
-    else
-        return nil
-    end
-end
-
-local DEFAULT_SCHEMA = {
-    VERSION = 0.0,
-    
-    COMMANDS = {
-        
-    },
-}
-
+local SCHEMA_LOADER  = require("lib/cmd/schemaLoader")
 local PARAMS_BUILDER = require("lib/cmd/paramsBuilder")
 local HELP_SYSTEM    = require("lib/cmd/helpSystem")
 
 return {
     create = function(self, appDirectory, testMode)
         return {
-            SCHEMA     = getSchema(appDirectory) or DEFAULT_SCHEMA,
+            SCHEMA     = SCHEMA_LOADER:loadSchema(appDirectory),
             testMode   = testMode,
 
             getParams = function(self, args)
@@ -52,7 +33,7 @@ return {
             findIncorrectValues = function(self, params)
                 for k, v in pairs(params) do
                     local validValues = self.SCHEMA.COMMANDS[k].values
-                    if validValues and not self:isValueInList(v, validValues) then
+                    if validValues and not validValues:contains(v) then
                         local incorrectValues = {}
                         incorrectValues[k] = v
                         return incorrectValues
@@ -115,14 +96,6 @@ return {
                         
             generateHelp = function(self)
                 return HELP_SYSTEM:generateHelp(self.SCHEMA)
-            end,
-
-            isValueInList = function(self, v, list)
-                for _, value in ipairs(list) do
-                    if v == value then return true end
-                end
-
-                return false
             end,
 
         }
