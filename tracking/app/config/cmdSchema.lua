@@ -37,6 +37,16 @@ return {
 			description = "The size of the ticket, measured in points.",
 			values      = { "1", "2", "3", "5", "8", "13", "21", "34", "55", "89" },
 		},
+		commentOn = {
+			shortcut    = "C",
+			description = {
+				"Full ticket ID to generate comments on.",
+				"If this parameter is set, all other parameters are ignored",
+				"and a comment block is generated for the ticket specified.",
+				"If the value is set to _, all valid options from the active directory",
+				"are displayed.",
+			},
+		}
 
 	},
 	
