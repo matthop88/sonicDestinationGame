@@ -1,13 +1,26 @@
 local STRING_UTIL = require("game/util/stringUtil")
 
-
 return {
 	create = function(self, templateName, templatePath)
 		return {
 			template = requireRelative((templatePath or "templates/") .. templateName),
 
 			parse = function(self, data)
-				return {}
+				local templateStructure = self:getTemplateStructure()
+
+				local kvTable = {}
+				local pos = 1
+				for _, kv in ipairs(templateStructure) do
+					if kv.key == "" then
+						pos = pos + kv.value:len()
+					else
+						local s, e = data:find(kv.value, pos, true)
+						local v    = data:sub(pos, s - 1)
+						pos = e + 1
+						kvTable[kv.key] = v
+					end
+				end
+				return kvTable
 	    	end,
 
 	    	getTemplateStructure = function(self)
