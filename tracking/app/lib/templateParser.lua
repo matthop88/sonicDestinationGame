@@ -6,34 +6,53 @@ return {
 			template = requireRelative((templatePath or "templates/") .. templateName),
 
 			parse = function(self, data)
-				local templateStructure = self:getTemplateStructure()
+				return self.parser:parse(data, self:getTemplateStructure())
+			end,
 
-				local kvTable = {}
-				local pos = 1
-				for _, kv in ipairs(templateStructure) do
-					if kv.key == "" then
-						pos = pos + kv.value:len()
-					else
-						local s, e = data:find(kv.value, pos, true)
-						local v    = data:sub(pos, s - 1)
-						pos = e + 1
-						kvTable[kv.key] = v
+			parser = {
+				init = function(self, data)
+					self.KV_TABLE = {}
+					self.POS      = 1
+					self.DATA     = data
+				end,
+
+				parse = function(self, data, templateStructure)
+					self:init(data)
+
+					for _, kv in ipairs(templateStructure) do
+						self:processKeyValue(kv)
 					end
-				end
-				return kvTable
-	    	end,
+					return self.KV_TABLE
+				end,
+
+				processKeyValue = function(self, kv)
+					if kv.key == "" then
+						self.POS = self.POS + kv.value:len()
+					else
+						local s, e = self.DATA:find(kv.value, self.POS, true)
+						local v    = self.DATA:sub(self.POS, s - 1)
+						self.POS   = e + 1
+						self.KV_TABLE[kv.key] = v
+					end
+				end,
+
+			},
 
 	    	getTemplateStructure = function(self)
 	    		return self.preParser:getTemplateStructure(self.template)
 	    	end,
 
 	    	preParser = {
-	    		structure = {},
-	    		ID        = "",
-	    		TEXT      = "",
-	    		ID_MODE   = false,
+	    		init = function(self)
+	    			self.structure = {}
+	    			self.ID        = ""
+	    			self.TEXT      = ""
+	    			self.ID_MODE   = false
+	    		end,
 
 	    		getTemplateStructure = function(self, template)
+	    			self:init()
+
 	    			for i = 1, #template do
 	    				local c = template:sub(i, i)
 	    				self:processChar(c)
