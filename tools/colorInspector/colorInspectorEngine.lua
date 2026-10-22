@@ -1,17 +1,10 @@
+
 --------------------------------------------------------------
---                   Specialized Functions                  --
+--                      Local Functions                     --
 --------------------------------------------------------------
 
-------------------------- INSPECTION -------------------------
-
-local printRGBToConsole = function(r, g, b)
-    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
-end
-
-local printRGBToReadout = function(r, g, b)
-    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
-    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
-end
+local printRGBToConsole
+local printRGBToReadout
 
 local onColorSelected = function(r, g, b)
     printRGBToConsole(r, g, b)
@@ -40,6 +33,22 @@ local LIBRARY_CLASSES = {
     SCROLLING,
     SELECTED_COLOR,
 }
+
+--------------------------------------------------------------
+--                   Specialized Functions                  --
+--------------------------------------------------------------
+
+------------------------- INSPECTION -------------------------
+
+printRGBToConsole = function(r, g, b)
+    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
+end
+
+printRGBToReadout = function(r, g, b)
+    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
+    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
+end
+
 
 ----------------------- EVENT HANDLING -----------------------
 
