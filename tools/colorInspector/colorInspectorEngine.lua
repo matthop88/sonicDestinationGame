@@ -1,5 +1,25 @@
 --------------------------------------------------------------
---                       Local Variables                    --
+--                   Specialized Functions                  --
+--------------------------------------------------------------
+
+------------------------- INSPECTION -------------------------
+
+local printRGBToConsole = function(r, g, b)
+    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
+end
+
+local printRGBToReadout = function(r, g, b)
+    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
+    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
+end
+
+local onColorSelected = function(r, g, b)
+    printRGBToConsole(r, g, b)
+    printRGBToReadout(r, g, b)
+end
+
+--------------------------------------------------------------
+--                       Library Classes                    --
 --------------------------------------------------------------
 
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
@@ -20,26 +40,6 @@ local LIBRARY_CLASSES = {
     SCROLLING,
     SELECTED_COLOR,
 }
-
---------------------------------------------------------------
---                   Specialized Functions                  --
---------------------------------------------------------------
-
-------------------------- INSPECTION -------------------------
-
-local printRGBToConsole = function(r, g, b)
-    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
-end
-
-local printRGBToReadout = function(r, g, b)
-    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
-    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
-end
-
-local onColorSelected = function(r, g, b)
-    printRGBToConsole(r, g, b)
-    printRGBToReadout(r, g, b)
-end
 
 ----------------------- EVENT HANDLING -----------------------
 
@@ -74,6 +74,7 @@ end
 local handleMousereleased = function(mx, my)
     SELECTED_COLOR:clear()
 end
+
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
