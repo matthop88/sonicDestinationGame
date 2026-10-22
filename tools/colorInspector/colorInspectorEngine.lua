@@ -23,7 +23,7 @@ local DOUBLE_TAP      = requireRelative("lib/doubleTap")
 local ZOOMING         = requireRelative("lib/zooming"):create { imageView = IMAGE_VIEW }
 local READOUT         = requireRelative("lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true }
 local SCROLLING       = requireRelative("lib/scrolling"):create { imageView = IMAGE_VIEW, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
-local SELECTED_COLOR  = requireRelative("lib/colorSelector"):create { imageView = IMAGE_VIEW }
+local SELECTED_COLOR  = requireRelative("lib/colorSelector"):create { imageView = IMAGE_VIEW, onColorSelected = onColorSelected }
 
 local LIBRARY_CLASSES = {
     IMAGE_VIEW,
@@ -48,7 +48,6 @@ printRGBToReadout = function(r, g, b)
     local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
     READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
 end
-
 
 ----------------------- EVENT HANDLING -----------------------
 
@@ -77,13 +76,16 @@ local handleKeyreleased   = function(key)
 end
 
 local handleMousepressed  = function(mx, my)
-    SELECTED_COLOR:selectColorAt(mx, my, onColorSelected)
+    for _, e in ipairs(LIBRARY_CLASSES) do
+        if e.handleMousepressed then e:handleMousepressed(mx, my) end
+    end
 end
 
 local handleMousereleased = function(mx, my)
-    SELECTED_COLOR:clear()
+    for _, e in ipairs(LIBRARY_CLASSES) do
+        if e.handleMousereleased then e:handleMousereleased(mx, my) end
+    end
 end
-
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
@@ -95,4 +97,3 @@ function love.keypressed(key)       handleKeypressed(key)      end
 function love.keyreleased(key)      handleKeyreleased(key)     end
 function love.mousepressed(mx, my)  handleMousepressed(mx, my) end
 function love.mousereleased(mx, my) handleMousereleased(mx, my) end
-
