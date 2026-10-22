@@ -75,3 +75,17 @@ The id is given by the ticket app. For instance, if it says:
     
     Ticket template saved to clipboard (id = tool-0007)
 you would create a new file, tracking/tickets/active/tool-0007.md, and paste the contents of the clipboard into this new file.
+
+## Generating Comments from an Existing Ticket
+
+Comments can be generated from an existing ticket which can be pasted in to the source code for a tool.
+This can be done with the following command:
+
+    love . ticket -C {ticket ID}
+
+The ticket must be in the tracking/tickets/active directory in order for comments to be generated from it.
+Once again, the comments are generated in the clipboard, and can be pasted into the source code file of your choosing.
+
+To show the names of active tickets, you can use the following command:
+
+    love . ticket -C _
