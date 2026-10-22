@@ -1,3 +1,4 @@
+
 --------------------------------------------------------------
 --                       Private Members                    --
 --------------------------------------------------------------
@@ -31,12 +32,23 @@ end
 
 return {
     
-    qualify      = function(self, key)
+    listeners    = require("lib/util/smartList"):create {},
+
+    registerListener = function(self, listener)
+        if not self.listeners.contains(listener) then
+            table.insert(self.listeners, listener)
+        end
+    end,
+
+    handleKeypressed = function(self, key)
         local isDblTap  = isDoubleTap(self, key)
         lastThreshold   = getThreshold(self)
 
         recordKey(self, key)
-        return isDblTap
+
+        for _, listener in ipairs(self.listeners) do
+            listener:handleDoubleTapEvent(key, isDblTap)
+        end
     end,
 
     withinThreshold = function(self)
