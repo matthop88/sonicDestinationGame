@@ -1,16 +1,37 @@
-local TEMPLATE_PARSER = requireRelative("lib/templateParser")
+local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 
-local data, size = love.filesystem.read("tracking/tickets/active/" .. __PARAMS["commentOn"] .. ".md")
+local printValidTicketNames = function()
+    local validTicketNames = DIRECTORY_UTIL:getFilesInDirectory("tracking/tickets/active", ".md")
+    print("\nValid Ticket names are:")
+    print("-----------------------")
+    for _, validTicketName in ipairs(validTicketNames) do
+        print(validTicketName)
+    end
+    print("")
+end
 
-local templateParser = TEMPLATE_PARSER:create("ticketMD")
+if __PARAMS["commentOn"] == "_" then
+	printValidTicketNames()
+else
+	local TEMPLATE_PARSER = requireRelative("lib/templateParser")
 
-local kvTable = templateParser:parse(data)
+	local data, size = love.filesystem.read("tracking/tickets/active/" .. __PARAMS["commentOn"] .. ".md")
 
-local template = requireRelative("lib/templateFactory"):create("comments")
+	if data == nil then
+		print("\nTicket not found: " .. __PARAMS["commentOn"])
 
-local title = kvTable.title or "[UNTITLED]"
+		printValidTicketNames()
 
-love.system.setClipboardText(template:render(kvTable))
+	else
+		local templateParser = TEMPLATE_PARSER:create("ticketMD")
+		local kvTable        = templateParser:parse(data)
+		local template       = requireRelative("lib/templateFactory"):create("comments")
 
-print("\nComments saved to clipboard (title = " .. title .. ")\n")
+		local title          = kvTable.title or "[UNTITLED]"
+
+		love.system.setClipboardText(template:render(kvTable))
+
+		print("\nComments saved to clipboard (title = " .. title .. ")\n")
+	end
+end
 
