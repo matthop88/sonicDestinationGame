@@ -1,21 +1,11 @@
-local loadImage = function(path)
-    local image
-    local status, err = pcall(function() image = requireRelative("lib/imageView"):create { imagePath = path } end)
-
-    if status ~= true then
-        image = requireRelative("lib/imageView"):create { imagePath = "tools/colorInspector/resources/fileNotFound.png" }
-    end
-
-    return image
-end
-
 --------------------------------------------------------------
 --                       Local Variables                    --
 --------------------------------------------------------------
 
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
+local BAD_IMAGE_PATH = "tools/colorInspector/resources/fileNotFound.png"
 
-local IMAGE_VIEW     = loadImage(IMAGE_PATH)
+local IMAGE_VIEW     = requireRelative("lib/imageView"):create { imagePath = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH }
     
 local DOUBLE_TAP     = requireRelative("lib/doubleTap")
 
