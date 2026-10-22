@@ -48,6 +48,22 @@ return {
                 end
             end,
 
+            handleKeypressed   = function(self, key)
+                if     key == "up"    then self:scrollUp()
+                elseif key == "down"  then self:scrollDown() 
+                elseif key == "left"  then self:scrollLeft()
+                elseif key == "right" then self:scrollRight()
+                end
+            end,
+
+            handleKeyreleased  = function(self, key)
+                if     key == "up"    then self:stopScrollingUp()
+                elseif key == "down"  then self:stopScrollingDown()
+                elseif key == "left"  then self:stopScrollingLeft()
+                elseif key == "right" then self:stopScrollingRight()
+                end
+            end,
+
         }
 
     end,
