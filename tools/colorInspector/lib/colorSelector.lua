@@ -4,7 +4,8 @@ local GRAFX = love.graphics
 return {
     create = function(self, params)
         return {
-            imageView = params.imageView,
+            imageView       = params.imageView,
+            onColorSelected = params.onColorSelected,
 
             color     = nil,
             intensity = 0,
@@ -61,6 +62,16 @@ return {
             clear = function(self)
                 self.color = nil
                 self.intensity = 0
+            end,
+            
+            ---------------------- Mouse Handling Functions ----------------------
+
+            handleMousepressed = function(self, mx, my)
+                self:selectColorAt(mx, my, self.onColorSelected)
+            end,
+
+            handleMousereleased = function(self, mx, my)
+                self:clear()
             end,
 
         }
