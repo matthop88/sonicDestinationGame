@@ -32,6 +32,13 @@ local LIBRARY_CLASSES = {
     READOUT,
     SCROLLING,
     SELECTED_COLOR,
+
+    handleDraw = function(self) 
+        for _, e in ipairs(self) do
+            if e.draw then e:draw() end
+        end
+    end,
+
 }
 
 --------------------------------------------------------------
@@ -52,9 +59,7 @@ end
 ----------------------- EVENT HANDLING -----------------------
 
 local handleDraw          = function()
-    for _, e in ipairs(LIBRARY_CLASSES) do
-        if e.draw then e:draw() end
-    end
+    LIBRARY_CLASSES:handleDraw()
 end
 
 local handleUpdate        = function(dt)
