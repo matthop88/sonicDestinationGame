@@ -43,17 +43,7 @@ end
 
 --------------------------- ZOOMING --------------------------
 
-local handleZooming       = function(key)
-    if     key == "z" then ZOOMING:zoomIn()
-    elseif key == "a" then ZOOMING:zoomOut()
-    end
-end
-
-local handleStopZooming   = function(key)
-    if     key == "z" then ZOOMING:stopZoomingIn()
-    elseif key == "a" then ZOOMING:stopZoomingOut()
-    end 
-end
+-- ...
 
 ------------------------- INSPECTION -------------------------
 
@@ -88,12 +78,12 @@ end
 local handleKeypressed    = function(key)
     handleDoubleTapping(key)
     SCROLLING:handleKeypressed(key)
-    handleZooming(key)
+    ZOOMING:handleKeypressed(key)
 end
 
 local handleKeyreleased   = function(key)
     SCROLLING:handleKeyreleased(key)
-    handleStopZooming(key)
+    ZOOMING:handleKeyreleased(key)
 end
 
 local handleMousepressed  = function(mx, my)
