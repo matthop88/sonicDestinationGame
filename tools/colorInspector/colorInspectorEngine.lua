@@ -87,12 +87,12 @@ end
 
 local handleKeypressed    = function(key)
     handleDoubleTapping(key)
-    handleScrolling(key)
+    SCROLLING:handleKeypressed(key)
     handleZooming(key)
 end
 
 local handleKeyreleased   = function(key)
-    handleStopScrolling(key)
+    SCROLLING:handleKeyreleased(key)
     handleStopZooming(key)
 end
 
