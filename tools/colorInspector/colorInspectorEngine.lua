@@ -31,11 +31,7 @@ local SELECTED_COLOR = requireRelative("lib/colorSelector"):create { imageView =
 
 ----------------------- DOUBLE TAPPING -----------------------
 
-local handleDoubleTapping = function(key)
-    if   DOUBLE_TAP:qualify(key) then SCROLLING:setDashing(true)
-    else                              SCROLLING:setDashing(false)    
-    end
-end
+-- ...
 
 -------------------------- SCROLLING -------------------------
 
@@ -76,7 +72,7 @@ local handleUpdate        = function(dt)
 end
 
 local handleKeypressed    = function(key)
-    handleDoubleTapping(key)
+    DOUBLE_TAP:handleKeypressed(key)
     SCROLLING:handleKeypressed(key)
     ZOOMING:handleKeypressed(key)
 end
