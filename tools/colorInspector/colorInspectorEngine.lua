@@ -14,20 +14,33 @@ end
 --------------------------------------------------------------
 
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
-local IMAGE          = loadImage(IMAGE_PATH)
+
+local IMAGE_VIEW     = loadImage(IMAGE_PATH)
     
 local DOUBLE_TAP     = requireRelative("lib/doubleTap")
 
-local ZOOMING        = requireRelative("lib/zooming"):create { imageView = IMAGE }
+local ZOOMING        = requireRelative("lib/zooming"):create { imageView = IMAGE_VIEW }
 local READOUT        = requireRelative("lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true }
 
-local SCROLLING      = requireRelative("lib/scrolling"):create { imageView = IMAGE, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
+local SCROLLING      = requireRelative("lib/scrolling"):create { imageView = IMAGE_VIEW, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 
-local SELECTED_COLOR = requireRelative("lib/colorSelector"):create { imageView = IMAGE }
+local SELECTED_COLOR = requireRelative("lib/colorSelector"):create { imageView = IMAGE_VIEW }
 
 --------------------------------------------------------------
 --                   Specialized Functions                  --
 --------------------------------------------------------------
+
+----------------------- DOUBLE TAPPING -----------------------
+
+-- ...
+
+-------------------------- SCROLLING -------------------------
+
+-- ...
+
+--------------------------- ZOOMING --------------------------
+
+-- ...
 
 ------------------------- INSPECTION -------------------------
 
@@ -48,7 +61,7 @@ end
 ----------------------- EVENT HANDLING -----------------------
 
 local handleDraw          = function()
-    IMAGE:draw()
+    IMAGE_VIEW:draw()
     READOUT:draw()
     SELECTED_COLOR:draw()
 end
