@@ -39,21 +39,7 @@ end
 
 -------------------------- SCROLLING -------------------------
 
-local handleScrolling     = function(key)
-    if     key == "up"    then SCROLLING:scrollUp()
-    elseif key == "down"  then SCROLLING:scrollDown() 
-    elseif key == "left"  then SCROLLING:scrollLeft()
-    elseif key == "right" then SCROLLING:scrollRight()
-    end
-end
-
-local handleStopScrolling = function(key)
-    if     key == "up"    then SCROLLING:stopScrollingUp()
-    elseif key == "down"  then SCROLLING:stopScrollingDown()
-    elseif key == "left"  then SCROLLING:stopScrollingLeft()
-    elseif key == "right" then SCROLLING:stopScrollingRight()
-    end
-end
+-- ...
 
 --------------------------- ZOOMING --------------------------
 
