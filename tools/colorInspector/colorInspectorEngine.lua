@@ -16,18 +16,6 @@ local SELECTED_COLOR = requireRelative("lib/colorSelector"):create { imageView =
 --                   Specialized Functions                  --
 --------------------------------------------------------------
 
------------------------ DOUBLE TAPPING -----------------------
-
--- ...
-
--------------------------- SCROLLING -------------------------
-
--- ...
-
---------------------------- ZOOMING --------------------------
-
--- ...
-
 ------------------------- INSPECTION -------------------------
 
 local printRGBToConsole = function(r, g, b)
