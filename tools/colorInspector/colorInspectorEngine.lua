@@ -39,6 +39,36 @@ local LIBRARY_CLASSES = {
         end
     end,
 
+    handleUpdate = function(self, dt)
+        for _, e in ipairs(self) do
+            if e.update then e:update(dt) end
+        end
+    end,
+
+    handleKeypressed = function(self, key)
+        for _, e in ipairs(self) do
+            if e.handleKeypressed then e:handleKeypressed(key) end
+        end
+    end,
+
+    handleKeyreleased = function(self, key)
+        for _, e in ipairs(self) do
+            if e.handleKeyreleased then e:handleKeyreleased(key) end
+        end
+    end,
+
+    handleMousepressed = function(self, mx, my)
+        for _, e in ipairs(self) do
+            if e.handleMousepressed then e:handleMousepressed(mx, my) end
+        end
+    end,
+
+    handleMousereleased = function(self, mx, my)
+        for _, e in ipairs(self) do
+            if e.handleMousereleased then e:handleMousereleased(mx, my) end
+        end
+    end,
+
 }
 
 --------------------------------------------------------------
@@ -63,33 +93,23 @@ local handleDraw          = function()
 end
 
 local handleUpdate        = function(dt)
-    for _, e in ipairs(LIBRARY_CLASSES) do
-        if e.update then e:update(dt) end
-    end
+    LIBRARY_CLASSES:handleUpdate(dt)
 end
 
 local handleKeypressed    = function(key)
-    for _, e in ipairs(LIBRARY_CLASSES) do
-        if e.handleKeypressed then e:handleKeypressed(key) end
-    end
+    LIBRARY_CLASSES:handleKeypressed(key)
 end
 
 local handleKeyreleased   = function(key)
-    for _, e in ipairs(LIBRARY_CLASSES) do
-        if e.handleKeyreleased then e:handleKeyreleased(key) end
-    end
+    LIBRARY_CLASSES:handleKeyreleased(key)
 end
 
 local handleMousepressed  = function(mx, my)
-    for _, e in ipairs(LIBRARY_CLASSES) do
-        if e.handleMousepressed then e:handleMousepressed(mx, my) end
-    end
+    LIBRARY_CLASSES:handleMousepressed(mx, my)
 end
 
 local handleMousereleased = function(mx, my)
-    for _, e in ipairs(LIBRARY_CLASSES) do
-        if e.handleMousereleased then e:handleMousereleased(mx, my) end
-    end
+    LIBRARY_CLASSES:handleMousereleased(mx, my)
 end
 
 --------------------------------------------------------------
