@@ -44,7 +44,7 @@ end
 
 return {
     create = function(self, libraryList)
-        local libClasses = {
+        local engine = {
             handleDraw          = handleDraw,
             handleUpdate        = handleUpdate,
             handleKeypressed    = handleKeypressed,
@@ -54,9 +54,9 @@ return {
         }
 
         for _, e in ipairs(libraryList) do
-            table.insert(libClasses, e)
+            table.insert(engine, e)
         end
 
-        return libClasses
+        return engine
     end,
 }
