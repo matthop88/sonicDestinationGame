@@ -1,10 +1,17 @@
-
 --------------------------------------------------------------
---                      Local Functions                     --
+--                   Specialized Functions                  --
 --------------------------------------------------------------
 
-local printRGBToConsole
-local printRGBToReadout
+------------------------- INSPECTION -------------------------
+
+local printRGBToConsole = function(r, g, b)
+    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
+end
+
+local printRGBToReadout = function(r, g, b)
+    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
+    getReadout():print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
+end
 
 local onColorSelected = function(r, g, b)
     printRGBToConsole(r, g, b)
@@ -12,7 +19,7 @@ local onColorSelected = function(r, g, b)
 end
 
 --------------------------------------------------------------
---                       Library Classes                    --
+--                          Plugins                         --
 --------------------------------------------------------------
 
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
@@ -26,21 +33,6 @@ local PLUGINS = require("plugins/engine"):create {
     require("plugins/modules/scrolling/scrolling"        ):create { imageView = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), },
     require("plugins/modules/colorSelector/colorSelector"):create { imageView = getImageView(), onColorSelected = onColorSelected, },
 }
-
---------------------------------------------------------------
---                   Specialized Functions                  --
---------------------------------------------------------------
-
-------------------------- INSPECTION -------------------------
-
-printRGBToConsole = function(r, g, b)
-    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
-end
-
-printRGBToReadout = function(r, g, b)
-    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
-    getReadout():print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
-end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
