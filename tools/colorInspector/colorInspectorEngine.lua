@@ -37,7 +37,6 @@ local PLUGINS = require("plugins/engine")
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()                PLUGINS:handleDraw()                end
 function love.update(dt)            PLUGINS:handleUpdate(dt)            end
 function love.keypressed(key)       PLUGINS:handleKeypressed(key)       end
 function love.keyreleased(key)      PLUGINS:handleKeyreleased(key)      end
