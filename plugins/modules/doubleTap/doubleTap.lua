@@ -20,7 +20,7 @@ return {
             return love.timer.getTime() - lastKeypressedTime
         end
    
-        local doubleTap = {
+        return {
             listeners    = require("lib/util/smartList"):create {},
 
             registerListener = function(self, listener)
@@ -54,10 +54,5 @@ return {
 
         }
 
-        if params.accessorFn then
-            _G[params.accessorFn] = function() return doubleTap end
-        end
-
-        return doubleTap
     end,
 }
