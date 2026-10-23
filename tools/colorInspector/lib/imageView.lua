@@ -35,7 +35,7 @@ return {
             return {}
         end
     
-        return {
+        local imageView = {
             imageData = IMAGE_DATA,
             image     = GRAFX.newImage(IMAGE_DATA),
             
@@ -88,6 +88,12 @@ return {
                 return self.imageData:getPixel(imageX, imageY)
             end,
         }
+
+        if params.accessorFn then
+            _G[params.accessorFn] = function() return imageView end
+        end
+
+        return imageView
 
     end,
     
