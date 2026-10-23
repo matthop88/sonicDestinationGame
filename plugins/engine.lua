@@ -74,12 +74,47 @@ local ENGINE = {
 --                      LOVE2D Overrides                    --
 --------------------------------------------------------------
 
-local oldDraw = love.draw
+local oldDraw          = love.draw
+local oldUpdate        = love.update
+local oldKeypressed    = love.keypressed
+local oldKeyreleased   = love.keyreleased
+local oldMousepressed  = love.mousepressed
+local oldMousereleased = love.mousereleased
 
 function love.draw()                
     ENGINE:handleDraw()
 
     if oldDraw then oldDraw() end
+end
+
+function love.update(dt)                
+    ENGINE:handleUpdate(dt)
+
+    if oldUpdate then oldUpdate(dt) end
+end
+
+function love.keypressed(key)                
+    ENGINE:handleKeypressed(key)
+
+    if oldKeypressed then oldKeypressed(key) end
+end
+
+function love.keyreleased(key)                
+    ENGINE:handleKeyreleased(key)
+
+    if oldKeyreleased then oldKeyreleased(key) end
+end
+
+function love.mousepressed(mx, my)                
+    ENGINE:handleMousepressed(mx, my)
+
+    if oldMousepressed then oldMousepressed(mx, my) end
+end
+
+function love.mousereleased(mx, my)                
+    ENGINE:handleMousereleased(mx, my)
+
+    if oldMousereleased then oldMousereleased(mx, my) end
 end
 
 return ENGINE
