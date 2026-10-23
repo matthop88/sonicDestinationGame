@@ -19,17 +19,15 @@ local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS[
 local BAD_IMAGE_PATH = "tools/colorInspector/resources/fileNotFound.png"
 
 local IMAGE_VIEW      = requireRelative("lib/imageView"):create { imagePath = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH }
-local DOUBLE_TAP      = requireRelative("lib/doubleTap")
 local ZOOMING         = requireRelative("lib/zooming"):create { imageView = IMAGE_VIEW }
-local SCROLLING       = requireRelative("lib/scrolling"):create { imageView = IMAGE_VIEW, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 local SELECTED_COLOR  = requireRelative("lib/colorSelector"):create { imageView = IMAGE_VIEW, onColorSelected = onColorSelected }
 
 local LIBRARY_CLASSES = requireRelative("lib/libraryClasses"):create {
     IMAGE_VIEW,
-    DOUBLE_TAP,
+    requireRelative("lib/doubleTap"):create { accessorFn = "getDoubleTap", },
     ZOOMING,
-    requireRelative("lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", },
-    SCROLLING,
+    requireRelative("lib/readout"  ):create { fontSize = 48, ySpeed = 600, silent = true, accessorFn = "getReadout",  },
+    requireRelative("lib/scrolling"):create { imageView = IMAGE_VIEW, DOUBLE_TAP = getDoubleTap(), ZOOMING = ZOOMING, },
     SELECTED_COLOR,
 }
 
