@@ -21,7 +21,6 @@ local BAD_IMAGE_PATH = "tools/colorInspector/resources/fileNotFound.png"
 local IMAGE_VIEW      = requireRelative("lib/imageView"):create { imagePath = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH }
 local DOUBLE_TAP      = requireRelative("lib/doubleTap")
 local ZOOMING         = requireRelative("lib/zooming"):create { imageView = IMAGE_VIEW }
-local READOUT         = requireRelative("lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true }
 local SCROLLING       = requireRelative("lib/scrolling"):create { imageView = IMAGE_VIEW, DOUBLE_TAP = DOUBLE_TAP, ZOOMING = ZOOMING }
 local SELECTED_COLOR  = requireRelative("lib/colorSelector"):create { imageView = IMAGE_VIEW, onColorSelected = onColorSelected }
 
@@ -29,7 +28,7 @@ local LIBRARY_CLASSES = requireRelative("lib/libraryClasses"):create {
     IMAGE_VIEW,
     DOUBLE_TAP,
     ZOOMING,
-    READOUT,
+    requireRelative("lib/readout"):create { fontSize = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", },
     SCROLLING,
     SELECTED_COLOR,
 }
@@ -46,7 +45,7 @@ end
 
 printRGBToReadout = function(r, g, b)
     local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
-    READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
+    getReadout():print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
 end
 
 --------------------------------------------------------------
