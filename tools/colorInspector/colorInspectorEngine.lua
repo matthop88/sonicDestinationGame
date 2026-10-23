@@ -25,14 +25,13 @@ end
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
 local BAD_IMAGE_PATH = "tools/colorInspector/resources/fileNotFound.png"
 
-local PLUGINS = require("plugins/engine"):create {
-    require("plugins/modules/imageView/imageView"        ):create { imagePath = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, accessorFn = "getImageView", },
-    require("plugins/modules/doubleTap/doubleTap"        ):create { accessorFn = "getDoubleTap", },
-    require("plugins/modules/zooming/zooming"            ):create { imageView = getImageView(), accessorFn = "getZooming", },
-    require("plugins/modules/readout/readout"            ):create { fontSize = 48, ySpeed = 600, silent = true, accessorFn = "getReadout",  },
-    require("plugins/modules/scrolling/scrolling"        ):create { imageView = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), },
-    require("plugins/modules/colorSelector/colorSelector"):create { imageView = getImageView(), onColorSelected = onColorSelected, },
-}
+local PLUGINS = require("plugins/engine")
+    :add { "imageView",     { imagePath  = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
+    :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
+    :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
+    :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
+    :add { "colorSelector", { imageView  = getImageView(), onColorSelected = onColorSelected, } }
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
