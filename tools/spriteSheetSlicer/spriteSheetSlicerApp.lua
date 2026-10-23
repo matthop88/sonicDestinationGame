@@ -25,3 +25,16 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 
 --]]
 
+--------------------------------------------------------------
+--                          Plugins                         --
+--------------------------------------------------------------
+
+local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
+
+local PLUGINS = require("plugins/engine")
+    :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
+    :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
+    :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
+    :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
+    
