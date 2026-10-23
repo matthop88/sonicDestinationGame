@@ -13,13 +13,13 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 
                            Features
                            --------
-- [ ] Image can be scrolled using the up, down, left and right arrow keys.
-- [ ] Double-tapping speeds up image scrolling.
-- [ ] Image can be zoomed in using the 'z' key and zoomed out using the 'a' key
+- [X] Image can be scrolled using the up, down, left and right arrow keys.
+- [X] Double-tapping speeds up image scrolling.
+- [X] Image can be zoomed in using the 'z' key and zoomed out using the 'a' key
 - [ ] Initially, image is scanned and all subimage boundaries are found.
 - [ ] When mouse hovers over a subimage, its border lights up
 - [ ] When mouse button is clicked, attributes of the subimage (x, y, width, height) are displayed on the screen.
-- [ ] Image can be chosen from the command-line.
+- [X] Image can be chosen from the command-line.
 - [ ] List of possible images can be viewed with "-i" underscore.
 - [ ] Stand-in image is loaded when image cannot be found.
 
