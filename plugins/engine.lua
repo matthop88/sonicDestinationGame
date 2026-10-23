@@ -53,11 +53,12 @@ local addPlugin = function(self, pluginData)
     return self
 end
 
+
 --------------------------------------------------------------
 --                        Public Object                     --
 --------------------------------------------------------------
 
-return {
+local ENGINE = {
     handleDraw          = handleDraw,
     handleUpdate        = handleUpdate,
     handleKeypressed    = handleKeypressed,
@@ -66,4 +67,20 @@ return {
     handleMousereleased = handleMousereleased,
 
     add                 = addPlugin,
+
 }
+
+--------------------------------------------------------------
+--                      LOVE2D Overrides                    --
+--------------------------------------------------------------
+
+local oldDraw = love.draw
+
+function love.draw()                
+    ENGINE:handleDraw()
+
+    if oldDraw then oldDraw() end
+end
+
+return ENGINE
+
