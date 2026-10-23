@@ -13,7 +13,7 @@ return {
 
         local FONT        = GRAFX.newFont(FONT_SIZE)
 
-        local readOut = {
+        return {
             message  = nil,
     
             x  = 0,
@@ -97,12 +97,6 @@ return {
             end,
 
         }
-
-        if params.accessorFn then
-            _G[params.accessorFn] = function() return readOut end
-        end
-
-        return readOut
         
     end,
 
