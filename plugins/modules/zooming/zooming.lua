@@ -27,6 +27,20 @@ return {
 
                 self.imageView:scaleGeometrically(self.scaleDelta * dt, mx, my)
             end,
+
+            handleKeypressed = function(self, key)
+                if     key == "z" then self:zoomIn()
+                elseif key == "a" then self:zoomOut()
+                end
+            end,
+
+            handleKeyreleased = function(self, key)
+                if     key == "z" then self:stopZoomingIn()
+                elseif key == "a" then self:stopZoomingOut()
+                end
+            end,
+
         }
+
     end,
 }

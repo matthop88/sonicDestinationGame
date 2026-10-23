@@ -6,14 +6,35 @@ local COLOR      = require("game/constants/colors")
 local GRAFX      = love.graphics
 
 --------------------------------------------------------------
+--                      Private Functions                   --
+--------------------------------------------------------------
+
+local loadImage  = function(imagePath, badImagePath)
+    local imageData = nil
+
+    local status, err = pcall(function() imageData = love.image.newImageData(imagePath) end)
+
+    if status ~= true then
+        local status, err = pcall(function() imageData = love.image.newImageData(badImagePath) end)
+    end
+
+    return imageData
+end
+
+--------------------------------------------------------------
 --                        Public Object                     --
 --------------------------------------------------------------
 
 return {
     create = function(self, params)
-        local IMAGE_PATH = params.imagePath
-        local IMAGE_DATA = love.image.newImageData(IMAGE_PATH)
+        local IMAGE_DATA = loadImage(params.imagePath, params.badImagePath)
 
+        if IMAGE_DATA == nil then
+            print("\nERROR: Cannot find image: " .. params.imagePath .. "\n")
+            love.event.quit()
+            return {}
+        end
+    
         return {
             imageData = IMAGE_DATA,
             image     = GRAFX.newImage(IMAGE_DATA),

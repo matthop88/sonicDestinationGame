@@ -1,6 +1,6 @@
 return {
     create = function(self, params)
-        return {
+        return ({
             imageView    = params.imageView,
             DOUBLE_TAP   = params.DOUBLE_TAP,
             ZOOMING      = params.ZOOMING,
@@ -25,7 +25,17 @@ return {
             xSpeed       = 0,
             ySpeed       = 0,
             
-            scaleDelta = 0,
+            scaleDelta   = 0,
+
+            init               = function(self)
+                self.DOUBLE_TAP:registerListener(self)
+
+                return self
+            end,
+
+            handleDoubleTapEvent = function(self, key, isDblTap)
+                self:setDashing(isDblTap)
+            end,
 
             scrollUp           = function(self) self.ySpeed =  self.SCROLL_SPEED:get() end,
             scrollDown         = function(self) self.ySpeed = -self.SCROLL_SPEED:get() end,
@@ -48,7 +58,23 @@ return {
                 end
             end,
 
-        }
+            handleKeypressed   = function(self, key)
+                if     key == "up"    then self:scrollUp()
+                elseif key == "down"  then self:scrollDown() 
+                elseif key == "left"  then self:scrollLeft()
+                elseif key == "right" then self:scrollRight()
+                end
+            end,
+
+            handleKeyreleased  = function(self, key)
+                if     key == "up"    then self:stopScrollingUp()
+                elseif key == "down"  then self:stopScrollingDown()
+                elseif key == "left"  then self:stopScrollingLeft()
+                elseif key == "right" then self:stopScrollingRight()
+                end
+            end,
+
+        }):init()
 
     end,
 }
