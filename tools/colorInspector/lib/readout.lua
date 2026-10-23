@@ -8,12 +8,12 @@ return {
         local FONT_SIZE   = params.fontSize or 40
         local Y_SPEED     = params.ySpeed   or 180
         local DURATION    = params.duration or 180
-        
+
         local SILENT_MODE = params.silent
 
-        local FONT            = GRAFX.newFont(FONT_SIZE)
+        local FONT        = GRAFX.newFont(FONT_SIZE)
 
-        return {
+        local readOut = {
             message  = nil,
     
             x  = 0,
@@ -98,6 +98,12 @@ return {
 
         }
 
+        if params.accessorFn then
+            _G[params.accessorFn] = function() return readOut end
+        end
+
+        return readOut
+        
     end,
 
 }
