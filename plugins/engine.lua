@@ -42,7 +42,13 @@ local addPlugin = function(self, pluginData)
     local pluginName   = pluginData[1]
     local pluginParams = pluginData[2] or {}
 
-    table.insert(self, require("plugins/modules/" .. pluginName .. "/" .. pluginName):create(pluginParams))
+    local plugin = require("plugins/modules/" .. pluginName .. "/" .. pluginName):create(pluginParams)
+
+    if pluginParams.accessorFn then
+        _G[pluginParams.accessorFn] = function() return plugin end
+    end
+    
+    table.insert(self, plugin)
 
     return self
 end
