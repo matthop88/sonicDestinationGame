@@ -20,7 +20,7 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 - [ ] When mouse hovers over a subimage, its border lights up
 - [ ] When mouse button is clicked, attributes of the subimage (x, y, width, height) are displayed on the screen.
 - [X] Image can be chosen from the command-line.
-- [ ] List of possible images can be viewed with "-i" underscore.
+- [X] List of possible images can be viewed with "-i" underscore.
 - [ ] Stand-in image is loaded when image cannot be found.
 
 --]]
