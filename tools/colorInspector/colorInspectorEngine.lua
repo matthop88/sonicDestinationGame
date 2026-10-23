@@ -49,39 +49,13 @@ printRGBToReadout = function(r, g, b)
     READOUT:print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
 end
 
------------------------ EVENT HANDLING -----------------------
-
-local handleDraw          = function()
-    LIBRARY_CLASSES:handleDraw()
-end
-
-local handleUpdate        = function(dt)
-    LIBRARY_CLASSES:handleUpdate(dt)
-end
-
-local handleKeypressed    = function(key)
-    LIBRARY_CLASSES:handleKeypressed(key)
-end
-
-local handleKeyreleased   = function(key)
-    LIBRARY_CLASSES:handleKeyreleased(key)
-end
-
-local handleMousepressed  = function(mx, my)
-    LIBRARY_CLASSES:handleMousepressed(mx, my)
-end
-
-local handleMousereleased = function(mx, my)
-    LIBRARY_CLASSES:handleMousereleased(mx, my)
-end
-
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()                handleDraw()               end
-function love.update(dt)            handleUpdate(dt)           end
-function love.keypressed(key)       handleKeypressed(key)      end
-function love.keyreleased(key)      handleKeyreleased(key)     end
-function love.mousepressed(mx, my)  handleMousepressed(mx, my) end
-function love.mousereleased(mx, my) handleMousereleased(mx, my) end
+function love.draw()                LIBRARY_CLASSES:handleDraw()                end
+function love.update(dt)            LIBRARY_CLASSES:handleUpdate(dt)            end
+function love.keypressed(key)       LIBRARY_CLASSES:handleKeypressed(key)       end
+function love.keyreleased(key)      LIBRARY_CLASSES:handleKeyreleased(key)      end
+function love.mousepressed(mx, my)  LIBRARY_CLASSES:handleMousepressed(mx, my)  end
+function love.mousereleased(mx, my) LIBRARY_CLASSES:handleMousereleased(mx, my) end
