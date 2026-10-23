@@ -32,6 +32,11 @@ local APPLICATIONS = {
 	    	PATH     = "tools/scribbler/",
 	    	APP_NAME = "scribblerApp",
 	    },
+
+	    slicer = {
+	    	PATH     = "tools/spriteSheetSlicer/",
+	    	APP_NAME = "spriteSheetSlicerApp",
+	    }
 	},
 
 	getPathAndAppName = function(self, keyword)
