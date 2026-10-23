@@ -18,13 +18,13 @@ end
 local IMAGE_PATH     = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["imageFile"] .. ".png"
 local BAD_IMAGE_PATH = "tools/colorInspector/resources/fileNotFound.png"
 
-local LIBRARY_CLASSES = requireRelative("lib/libraryClasses"):create {
-    requireRelative("lib/imageView"    ):create { imagePath = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, accessorFn = "getImageView", },
-    requireRelative("lib/doubleTap"    ):create { accessorFn = "getDoubleTap", },
-    requireRelative("lib/zooming"      ):create { imageView = getImageView(), accessorFn = "getZooming", },
-    requireRelative("lib/readout"      ):create { fontSize = 48, ySpeed = 600, silent = true, accessorFn = "getReadout",  },
-    requireRelative("lib/scrolling"    ):create { imageView = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), },
-    requireRelative("lib/colorSelector"):create { imageView = getImageView(), onColorSelected = onColorSelected, },
+local PLUGINS = require("plugins/engine"):create {
+    require("plugins/modules/imageView/imageView"        ):create { imagePath = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, accessorFn = "getImageView", },
+    require("plugins/modules/doubleTap/doubleTap"        ):create { accessorFn = "getDoubleTap", },
+    require("plugins/modules/zooming/zooming"            ):create { imageView = getImageView(), accessorFn = "getZooming", },
+    require("plugins/modules/readout/readout"            ):create { fontSize = 48, ySpeed = 600, silent = true, accessorFn = "getReadout",  },
+    require("plugins/modules/scrolling/scrolling"        ):create { imageView = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), },
+    require("plugins/modules/colorSelector/colorSelector"):create { imageView = getImageView(), onColorSelected = onColorSelected, },
 }
 
 --------------------------------------------------------------
@@ -46,9 +46,9 @@ end
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
-function love.draw()                LIBRARY_CLASSES:handleDraw()                end
-function love.update(dt)            LIBRARY_CLASSES:handleUpdate(dt)            end
-function love.keypressed(key)       LIBRARY_CLASSES:handleKeypressed(key)       end
-function love.keyreleased(key)      LIBRARY_CLASSES:handleKeyreleased(key)      end
-function love.mousepressed(mx, my)  LIBRARY_CLASSES:handleMousepressed(mx, my)  end
-function love.mousereleased(mx, my) LIBRARY_CLASSES:handleMousereleased(mx, my) end
+function love.draw()                PLUGINS:handleDraw()                end
+function love.update(dt)            PLUGINS:handleUpdate(dt)            end
+function love.keypressed(key)       PLUGINS:handleKeypressed(key)       end
+function love.keyreleased(key)      PLUGINS:handleKeyreleased(key)      end
+function love.mousepressed(mx, my)  PLUGINS:handleMousepressed(mx, my)  end
+function love.mousereleased(mx, my) PLUGINS:handleMousereleased(mx, my) end
