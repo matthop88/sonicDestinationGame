@@ -1,6 +1,6 @@
 return {
     create = function(self, params)
-        local zooming = {
+        return {
             zoomSpeed = params.zoomSpeed or 2,
             imageView = params.imageView,
     
@@ -42,10 +42,5 @@ return {
 
         }
 
-        if params.accessorFn then
-            _G[params.accessorFn] = function() return zooming end
-        end
-
-        return zooming
     end,
 }
