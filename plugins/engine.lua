@@ -38,25 +38,26 @@ local handleMousereleased = function(self, mx, my)
     end
 end
 
+local addPlugin = function(self, pluginData)
+    local pluginName   = pluginData[1]
+    local pluginParams = pluginData[2] or {}
+
+    table.insert(self, require("plugins/modules/" .. pluginName .. "/" .. pluginName):create(pluginParams))
+
+    return self
+end
+
 --------------------------------------------------------------
 --                        Public Object                     --
 --------------------------------------------------------------
 
 return {
-    create = function(self, libraryList)
-        local engine = {
-            handleDraw          = handleDraw,
-            handleUpdate        = handleUpdate,
-            handleKeypressed    = handleKeypressed,
-            handleKeyreleased   = handleKeyreleased,
-            handleMousepressed  = handleMousepressed,
-            handleMousereleased = handleMousereleased,
-        }
+    handleDraw          = handleDraw,
+    handleUpdate        = handleUpdate,
+    handleKeypressed    = handleKeypressed,
+    handleKeyreleased   = handleKeyreleased,
+    handleMousepressed  = handleMousepressed,
+    handleMousereleased = handleMousereleased,
 
-        for _, e in ipairs(libraryList) do
-            table.insert(engine, e)
-        end
-
-        return engine
-    end,
+    add                 = addPlugin,
 }
