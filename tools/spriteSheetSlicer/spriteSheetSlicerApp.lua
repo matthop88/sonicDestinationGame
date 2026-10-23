@@ -26,6 +26,14 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 --]]
 
 --------------------------------------------------------------
+--                     LOVE2D Functions                     --
+--------------------------------------------------------------
+
+function love.mousepressed(mx, my)  
+    getReadout():print("Mouse Pressed at " .. mx .. ", " .. my)
+end
+
+--------------------------------------------------------------
 --                          Plugins                         --
 --------------------------------------------------------------
 
