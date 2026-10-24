@@ -75,6 +75,7 @@ local PLUGINS = require("plugins/engine")
                                    condition = function() return __PARAMS["imageFile"] == "_" end, } }
      --------------------------------------------------------------------------------------------------
     :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "drawingLayer" }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
     :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
