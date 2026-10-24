@@ -6,7 +6,7 @@ return {
 			shortcut = "p",
 			default  = "game",
 			description = "The ID prefix of the ticket.",
-			values = { "game", "tool", "infr" },
+			values = { "game", "tool", "infr", "plug" },
 		},
 		title = {
 			shortcut = "T",
