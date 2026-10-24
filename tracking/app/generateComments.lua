@@ -1,4 +1,5 @@
 local DIRECTORY_UTIL = require("lib/util/directoryUtil")
+local STRING_UTIL    = require("game/util/stringUtil")
 
 local printValidTicketNames = function()
     local validTicketNames = DIRECTORY_UTIL:getFilesInDirectory("tracking/tickets/active", ".md")
@@ -25,7 +26,13 @@ else
 	else
 		local templateParser = TEMPLATE_PARSER:create("ticketMD")
 		local kvTable        = templateParser:parse(data)
-		local template       = requireRelative("lib/templateFactory"):create("comments")
+		
+		local template
+		if STRING_UTIL:startsWith(__PARAMS["commentOn"], "plug") then
+			template = requireRelative("lib/templateFactory"):create("pluginComments")
+		else
+			template = requireRelative("lib/templateFactory"):create("comments")
+		end
 
 		local title          = kvTable.title or "[UNTITLED]"
 
