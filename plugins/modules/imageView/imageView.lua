@@ -83,17 +83,13 @@ return {
                 self.y = math.min(0, math.max(self.y, (GRAFX.getHeight() / self.scale) - self.image:getHeight()))
             end,
 
-            getWidth           = function(self)
-                return self.image:getWidth()
-            end,
-
-            getHeight          = function(self)
-                return self.image:getHeight()
-            end,
-
             getPixelAt         = function(self, imageX, imageY)
                 return self.imageData:getPixel(imageX, imageY)
             end,
+
+            getWidth           = function(self) return self.image:getWidth()  end,
+            getHeight          = function(self) return self.image:getHeight() end,
+            
         }
 
     end,
