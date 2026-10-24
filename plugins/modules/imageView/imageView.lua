@@ -55,8 +55,8 @@ return {
             end,
 
             imageToScreenCoordinates = function(self, imageX, imageY)
-                (imageX + self.x) * self.scale = screenX
-                (imageY + self.y) * self.scale = screenY
+                screenX = (imageX + self.x) * self.scale
+                screenY = (imageY + self.y) * self.scale
                 
                 return screenX, screenY
             end,
