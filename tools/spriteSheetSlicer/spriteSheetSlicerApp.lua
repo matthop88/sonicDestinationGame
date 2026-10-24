@@ -26,6 +26,14 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 --]]
 
 --------------------------------------------------------------
+--                     Local Variables                      --
+--------------------------------------------------------------
+
+local SPRITE_RECTS = {
+    { x = 50, y = 50, w = 200, h = 200 },
+}
+
+--------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
@@ -36,9 +44,11 @@ function love.draw()
     love.graphics.setColor { 1, 1, 1 }
     love.graphics.setLineWidth(imageView:getScale())
 
-    local x1, y1 = imageView:imageToScreenCoordinates(50,  50)
+    for _, spriteRect in ipairs(SPRITE_RECTS) do
+        local x1, y1 = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
     
-    love.graphics.rectangle("line", x1, y1, 200 * scale, 200 * scale)
+        love.graphics.rectangle("line", x1, y1, spriteRect.w * scale, spriteRect.h * scale)
+    end
 end
 
 function love.mousepressed(mx, my)  
