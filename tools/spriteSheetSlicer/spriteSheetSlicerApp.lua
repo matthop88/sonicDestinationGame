@@ -37,10 +37,10 @@ local SPRITE_RECTS = {
 }
 
 --------------------------------------------------------------
---                     LOVE2D Functions                     --
+--                  Specialized Functions                   --
 --------------------------------------------------------------
 
-function love.draw()
+local drawSpriteRects = function()
     local imageView = getImageView()
     local scale     = imageView:getScale()
 
@@ -52,6 +52,14 @@ function love.draw()
     
         love.graphics.rectangle("line", x1, y1, spriteRect.w * scale, spriteRect.h * scale)
     end
+end
+
+--------------------------------------------------------------
+--                     LOVE2D Functions                     --
+--------------------------------------------------------------
+
+function love.draw()
+    drawSpriteRects()
 end
 
 function love.mousepressed(mx, my)  
