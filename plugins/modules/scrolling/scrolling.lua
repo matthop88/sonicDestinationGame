@@ -1,3 +1,25 @@
+--------------------------------------------------------------
+--                      Scrolling Plugin                    --
+--                         PLUG-0010                        --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+The Scrolling plugin provides an easy way to scroll an image on the screen using the arrow keys. It is dependent upon the Image View plugin, or an object with the same interfaces as the image view plugin.
+The scrolling plugin also supports double-tapping for a burst of speed; it uses the doubleTap plugin for this.
+
+                          Parameters
+                          ----------
+The Scrolling Plugin takes the following parameters:
+* imageViewer - a reference to the imageViewer class
+* DOUBLE_TAP  - a reference to the doubleTap class
+* ZOOMING     - a reference to the zooming class
+
+All of these parameters are required.
+
+--]]
+
 return {
     create = function(self, params)
         return ({
