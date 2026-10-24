@@ -29,6 +29,11 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
+function love.draw()
+    love.graphics.setColor { 1, 1, 1 }
+    love.graphics.rectangle("line", 50, 50, 200, 200)
+end
+
 function love.mousepressed(mx, my)  
     getReadout():print("Mouse Pressed at " .. mx .. ", " .. my)
 end
