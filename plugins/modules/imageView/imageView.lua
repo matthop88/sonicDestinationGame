@@ -1,4 +1,23 @@
 --------------------------------------------------------------
+--                     Image View Plugin                    --
+--                         PLUG-0009                        --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+The Image View plugin provides an easy way to display an image on the screen; simply pass in an image path.
+In addition, the image view can be used in concert with scrolling and zooming (as well as color selector) plugins.
+
+                          Parameters
+                          ----------
+The Image View Plugin takes the following parameters:
+* imagePath    - a string comprising the full path to the image, including image name and extension
+* badImagePath - an optional string comprising the full path to the "bad" image, including image name and extension. This image is loaded if the image at imagePath cannot be found.
+
+--]]
+
+--------------------------------------------------------------
 --                       Private Members                    --
 --------------------------------------------------------------
 
