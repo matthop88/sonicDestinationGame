@@ -45,7 +45,11 @@ function love.draw()
 end
 
 function love.mousepressed(mx, my)  
-    getReadout():print("Mouse Pressed at " .. mx .. ", " .. my)
+    local imageView = getImageView()
+
+    local imageX, imageY = imageView:screenToImageCoordinates(mx, my)
+
+    getReadout():print("Mouse Pressed at " .. imageX .. ", " .. imageY)
 end
 
 --------------------------------------------------------------
