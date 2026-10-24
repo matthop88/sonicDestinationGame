@@ -89,6 +89,7 @@ return {
 
             getWidth           = function(self) return self.image:getWidth()  end,
             getHeight          = function(self) return self.image:getHeight() end,
+            getScale           = function(self) return self.scale             end,
             
         }
 
