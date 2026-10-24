@@ -49,7 +49,7 @@ function love.mousepressed(mx, my)
 
     local imageX, imageY = imageView:screenToImageCoordinates(mx, my)
 
-    getReadout():print("Mouse Pressed at " .. imageX .. ", " .. imageY)
+    getReadout():print("Mouse Pressed at " .. math.floor(imageX) .. ", " .. math.floor(imageY))
 end
 
 --------------------------------------------------------------
