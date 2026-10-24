@@ -31,7 +31,13 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 
 function love.draw()
     love.graphics.setColor { 1, 1, 1 }
-    love.graphics.rectangle("line", 50, 50, 200, 200)
+    local x1, y1 = getImageView():imageToScreenCoordinates( 50,  50)
+    local x2, y2 = getImageView():imageToScreenCoordinates(250, 250)
+
+    local width  = x2 - x1
+    local height = y2 - y1
+  
+    love.graphics.rectangle("line", x1, y1, width, height)
 end
 
 function love.mousepressed(mx, my)  
