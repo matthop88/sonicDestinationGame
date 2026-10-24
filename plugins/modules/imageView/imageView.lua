@@ -61,10 +61,10 @@ return {
             end,
 
             screenToImageCoordinates = function(self, screenX, screenY)
-                local x = screenX / self.scale - self.x
-                local y = screenY / self.scale - self.y
+                local imageX = screenX / self.scale - self.x
+                local imageY = screenY / self.scale - self.y
                 
-                return x, y
+                return imageX, imageY
             end,
 
             scaleGeometrically = function(self, scaleDelta, px, py)
