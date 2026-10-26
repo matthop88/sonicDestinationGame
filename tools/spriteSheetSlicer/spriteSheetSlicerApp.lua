@@ -44,7 +44,24 @@ local drawSpriteRect = function(spriteRect, imageView)
     local x, y = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
 
     local scale = imageView:getScale()
+    love.graphics.setColor { 1, 1, 1 }
+    love.graphics.setLineWidth(scale)
+
     love.graphics.rectangle("line", x, y, spriteRect.w * scale, spriteRect.h * scale)
+end
+
+local drawHighlightedSpriteRect = function(spriteRect, imageView)
+    local x, y = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
+
+    local scale = imageView:getScale()
+    love.graphics.setColor { 1, 1, 0 }
+    love.graphics.setLineWidth(scale * 3)
+
+    love.graphics.rectangle("line", x, y, spriteRect.w * scale, spriteRect.h * scale)
+end
+
+local ptInSpriteRect = function(px, py, spriteRect)
+    return px > spriteRect.x and px < spriteRect.x + spriteRect.w and py > spriteRect.y and py < spriteRect.y + spriteRect.h
 end
 
 local drawSpriteRects = function()
@@ -53,23 +70,14 @@ local drawSpriteRects = function()
     local mx, my = imageView:screenToImageCoordinates(love.mouse.getPosition())
 
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        love.graphics.setColor { 1, 1, 1 }
-        love.graphics.setLineWidth(imageView:getScale())
-
-        if (mx > spriteRect.x and mx < spriteRect.x + spriteRect.w and my > spriteRect.y and my < spriteRect.y + spriteRect.h) then
-            love.graphics.setColor { 1, 1, 0 }
-            love.graphics.setLineWidth(imageView:getScale() * 3)
-        end
-
-        drawSpriteRect(spriteRect, imageView)
+        if ptInSpriteRect(mx, my, spriteRect) then drawHighlightedSpriteRect(spriteRect, imageView)
+        else                                       drawSpriteRect(spriteRect, imageView)        end
     end
 end
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
-
-
 
 function love.mousepressed(mx, my)  
     local imageView = getImageView()
