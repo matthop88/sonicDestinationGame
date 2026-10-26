@@ -58,6 +58,10 @@ local drawHighlightedSpriteRect = function(spriteRect, imageView)
     love.graphics.setLineWidth(scale * 3)
 
     love.graphics.rectangle("line", x, y, spriteRect.w * scale, spriteRect.h * scale)
+    if love.mouse.isDown(1) then
+        love.graphics.setColor { 1, 1, 1, 0.4 }
+        love.graphics.rectangle("fill", x, y, spriteRect.w * scale, spriteRect.h * scale)
+    end
 end
 
 local ptInSpriteRect = function(px, py, spriteRect)
