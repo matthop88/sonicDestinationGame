@@ -40,15 +40,19 @@ local SPRITE_RECTS = {
 --                  Specialized Functions                   --
 --------------------------------------------------------------
 
+local drawSpriteRect = function(spriteRect, imageView)
+    local x, y = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
+
+    local scale = imageView:getScale()
+    love.graphics.rectangle("line", x, y, spriteRect.w * scale, spriteRect.h * scale)
+end
+
 local drawSpriteRects = function()
     local imageView = getImageView()
-    local scale     = imageView:getScale()
-
+    
     local mx, my = imageView:screenToImageCoordinates(love.mouse.getPosition())
 
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        local x1, y1 = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
-    
         love.graphics.setColor { 1, 1, 1 }
         love.graphics.setLineWidth(imageView:getScale())
 
@@ -57,7 +61,7 @@ local drawSpriteRects = function()
             love.graphics.setLineWidth(imageView:getScale() * 3)
         end
 
-        love.graphics.rectangle("line", x1, y1, spriteRect.w * scale, spriteRect.h * scale)
+        drawSpriteRect(spriteRect, imageView)
     end
 end
 
