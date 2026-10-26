@@ -44,12 +44,19 @@ local drawSpriteRects = function()
     local imageView = getImageView()
     local scale     = imageView:getScale()
 
-    love.graphics.setColor { 1, 1, 1 }
-    love.graphics.setLineWidth(imageView:getScale())
+    local mx, my = imageView:screenToImageCoordinates(love.mouse.getPosition())
 
     for _, spriteRect in ipairs(SPRITE_RECTS) do
         local x1, y1 = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
     
+        love.graphics.setColor { 1, 1, 1 }
+        love.graphics.setLineWidth(imageView:getScale())
+
+        if (mx > spriteRect.x and mx < spriteRect.x + spriteRect.w and my > spriteRect.y and my < spriteRect.y + spriteRect.h) then
+            love.graphics.setColor { 1, 1, 0 }
+            love.graphics.setLineWidth(imageView:getScale() * 3)
+        end
+
         love.graphics.rectangle("line", x1, y1, spriteRect.w * scale, spriteRect.h * scale)
     end
 end
@@ -57,6 +64,8 @@ end
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
+
+
 
 function love.mousepressed(mx, my)  
     local imageView = getImageView()
