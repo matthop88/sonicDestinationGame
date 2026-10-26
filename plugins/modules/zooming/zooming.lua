@@ -1,3 +1,20 @@
+--------------------------------------------------------------
+--                      Zooming Plugin                      --
+--                         PLUG-0012                        --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+The Zooming plugin provides an easy way to zoom an image on the screen using the 'a' and 'z' keys. It is dependent upon the Image View plugin, or an object with the same interfaces as the image view plugin.
+
+                          Parameters
+                          ----------
+* zoomSpeed - a number indicating how fast to zoom. Default value is 2.
+* imageView - a reference to the imageViewer class
+
+--]]
+
 return {
     create = function(self, params)
         return {

@@ -6,7 +6,7 @@ return {
 			shortcut = "p",
 			default  = "game",
 			description = "The ID prefix of the ticket.",
-			values = { "game", "tool", "infr" },
+			values = { "game", "tool", "infr", "plug" },
 		},
 		title = {
 			shortcut = "T",
@@ -46,7 +46,14 @@ return {
 				"If the value is set to _, all valid options from the active directory",
 				"are displayed.",
 			},
-		}
+		},
+		pluginName = {
+			shortcut    = "n",
+			description = {
+				"Name of plugin, used if the prefix is 'plug'.",
+			},
+			default     = "<Plugin Name>",
+		},
 
 	},
 	

@@ -1,3 +1,25 @@
+--------------------------------------------------------------
+--                     Double Tap Plugin                    --
+--                         PLUG-0011                        --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+The Double Tap plugin provides automatic support for double-tapping on the keyboard. It has a latency threshold of 0.2 seconds.
+
+                          Parameters
+                          ----------
+The Double Tap Plugin takes the following parameters:
+
+None.
+
+The application can directly make use of it via the registerListener() function, where the listener is a class with the function handleDoubleTapEvent(), which takes a key and a boolean (isDoubleTap) as parameters. The listener method is called any time a key press occurs.
+
+The Double Tap Plugin is required by the Scrolling Plugin.
+
+--]]
+
 
 return {
     create = function(self, params)

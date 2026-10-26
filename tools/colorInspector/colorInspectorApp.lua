@@ -1,22 +1,48 @@
-local DIRECTORY_UTIL = require("lib/util/directoryUtil")
+--------------------------------------------------------------
+--                   Specialized Functions                  --
+--------------------------------------------------------------
 
-local printValidImageNames = function()
-    local validImagenames = DIRECTORY_UTIL:getFilesInDirectory("game/resources/images/spriteSheets/sonic1", ".png")
-    print("\nValid Image names are:")
-    print("----------------------")
-    for _, validImagename in ipairs(validImagenames) do
-        print(validImagename)
-    end
-    print("")
+------------------------- INSPECTION -------------------------
+
+local printRGBToConsole = function(r, g, b)
+    print(string.format("{ %.2f, %.2f, %.2f }", r, g, b))
 end
 
-if __PARAMS["imageFile"] == "_" then
-    printValidImageNames()
-
-    love.event.quit()
-else
-    requireRelative("colorInspectorEngine")
+local printRGBToReadout = function(r, g, b)
+    local rByte, gByte, bByte = love.math.colorToBytes(r, g, b)
+    getReadout():print("R = " .. rByte .. ", G = " .. gByte .. ", B = " .. bByte)
 end
+
+local onColorSelected = function(r, g, b)
+    printRGBToConsole(r, g, b)
+    printRGBToReadout(r, g, b)
+end
+
+--------------------------------------------------------------
+--                          Plugins                         --
+--------------------------------------------------------------
+
+local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
+local IMAGE_PATH     = FILE_PATH .. "/" .. __PARAMS["imageFile"] .. ".png"
+local BAD_IMAGE_PATH = "tools/colorInspector/resources/fileNotFound.png"
+
+local PLUGINS = require("plugins/engine")
+    :add { "showValidFilenames", { filePath  = FILE_PATH, extension = ".png", 
+                                   fileType  = "Image",   
+                                   condition = function() return __PARAMS["imageFile"] == "_" end, } }
+    --------------------------------------------------------------------------------------------------   
+    :add { "imageView",     { imagePath  = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
+    :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
+    :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
+    :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
+    :add { "colorSelector", { imageView  = getImageView(), onColorSelected = onColorSelected, } }
+
+
+
+
+
+
 
 
 --[[

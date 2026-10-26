@@ -25,10 +25,20 @@ local params = {
 - [ ] Criteria #2
 - [ ] Criteria #3]],
 	notes              = ellipses,
+	pluginName         = __PARAMS["pluginName"],
+	parameters         = [[
+* parameter1 - description
+* parameter2 - description
+* parameter3 - description]],
 	history            = "- " .. date .. ": Created",
 }
 
-local template = requireRelative("lib/templateFactory"):create("ticketMD")
+local template
+if __PARAMS["prefix"] == "plug" then
+	template = requireRelative("lib/templateFactory"):create("pluginTicketMD")
+else
+	template = requireRelative("lib/templateFactory"):create("ticketMD")
+end
 
 love.system.setClipboardText(template:render(params))
 
