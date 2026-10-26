@@ -71,11 +71,11 @@ end
 local drawSpriteRects = function()
     local imageView = getImageView()
     
-    local mx, my = imageView:screenToImageCoordinates(love.mouse.getPosition())
+    local imageX, imageY = imageView:screenToImageCoordinates(love.mouse.getPosition())
 
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        if ptInSpriteRect(mx, my, spriteRect) then drawHighlightedSpriteRect(spriteRect, imageView)
-        else                                       drawSpriteRect(spriteRect, imageView)        end
+        if ptInSpriteRect(imageX, imageY, spriteRect) then drawHighlightedSpriteRect(spriteRect, imageView)
+        else                                               drawSpriteRect(spriteRect, imageView)        end
     end
 end
 
@@ -88,7 +88,11 @@ function love.mousepressed(mx, my)
 
     local imageX, imageY = imageView:screenToImageCoordinates(mx, my)
 
-    getReadout():print("Mouse Pressed at " .. math.floor(imageX) .. ", " .. math.floor(imageY))
+    for _, spriteRect in ipairs(SPRITE_RECTS) do
+        if ptInSpriteRect(imageX, imageY, spriteRect) then
+            getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
+        end
+    end
 end
 
 --------------------------------------------------------------
