@@ -1,3 +1,27 @@
+--------------------------------------------------------------
+--                      Readout Plugin                      --
+--                         PLUG-0013                        --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+The Readout plugin provides an easy way to print a message to the screen in a semi-transparent pane that scrolls onto the screen, waits a few seconds, and then scrolls off of the screen. The pane is ideally drawn on top of everything else; it is therefore recommended to place this plugin near the bottom of the plugin chain.
+
+                          Parameters
+                          ----------
+* fontSize   - Font Size of Readout Message                           (default: 40)
+* ySpeed     - Speed of message's movement in 60ths of second         (default: 180)
+* duration   - Time message remains on screen in 60ths of second      (default: 180)
+* silent     - Whether to suppress debug messages                     (default: false)
+* accessorFn - String representing a global function to access plugin (default: nil)
+
+Printing out a message is only possible by triggering the Readout plugin's print() method.
+
+This can currently only be done by obtaining a reference through the plugin via the accessorFn parameter.        
+
+--]]
+
 local GRAFX     = love.graphics
 local COLOR     = require("game/constants/colors")
 
