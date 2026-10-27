@@ -67,11 +67,9 @@ end
 local drawSpriteRects = function()
     local imageView = getImageView()
     
-    local imageX, imageY = imageView:screenToImageCoordinates(love.mouse.getPosition())
-
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        if spriteRect:contains(imageX, imageY) then drawHighlightedSpriteRect(spriteRect, imageView)
-        else                                        drawSpriteRect(spriteRect, imageView)        end
+        if spriteRect.isHighlighted then drawHighlightedSpriteRect(spriteRect, imageView)
+        else                             drawSpriteRect(spriteRect, imageView)        end
     end
 end
 
@@ -79,13 +77,23 @@ end
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
+function love.update(dt)
+    local imageView = getImageView()
+
+    local imageX, imageY = imageView:screenToImageCoordinates(love.mouse.getPosition())
+
+    for _, spriteRect in ipairs(SPRITE_RECTS) do
+        spriteRect:update(imageX, imageY)
+    end
+end
+
 function love.mousepressed(mx, my)  
     local imageView = getImageView()
 
     local imageX, imageY = imageView:screenToImageCoordinates(mx, my)
 
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        if ptInSpriteRect(imageX, imageY, spriteRect) then
+        if spriteRect:contains(imageX, imageY) then
             getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
         end
     end
