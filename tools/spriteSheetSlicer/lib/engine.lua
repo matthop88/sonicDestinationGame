@@ -1,10 +1,10 @@
 return {
-	create = function(self, imageView, readout)
+	create = function(self, params)
 		return ({
-			imageView   = imageView,
-			readout     = readout,
+			imageView   = params.imageView,
+			readout     = params.readout,
 
-			spriteRects = requireRelative("lib/spriteRects"):create(imageView),
+			spriteRects = requireRelative("lib/spriteRects"):create(params.imageView),
 
 			init = function(self)
 				self.spriteRects:add( 50,  50, 200, 200)
