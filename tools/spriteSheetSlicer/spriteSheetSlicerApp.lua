@@ -30,10 +30,10 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 --------------------------------------------------------------
 
 local SPRITE_RECTS = {
-    { x =  50, y =  50, w = 200, h = 200 },
-    { x = 300, y =  50, w = 200, h = 200 },
-    { x =  50, y = 300, w = 200, h = 200 },
-    { x = 300, y = 300, w = 200, h = 200 },
+    requireRelative("lib/spriteRect"):create( 50,  50, 200, 200),
+    requireRelative("lib/spriteRect"):create(300,  50, 200, 200),
+    requireRelative("lib/spriteRect"):create( 50, 300, 200, 200),
+    requireRelative("lib/spriteRect"):create(300, 300, 200, 200),
 }
 
 --------------------------------------------------------------
@@ -64,18 +64,14 @@ local drawHighlightedSpriteRect = function(spriteRect, imageView)
     end
 end
 
-local ptInSpriteRect = function(px, py, spriteRect)
-    return px > spriteRect.x and px < spriteRect.x + spriteRect.w and py > spriteRect.y and py < spriteRect.y + spriteRect.h
-end
-
 local drawSpriteRects = function()
     local imageView = getImageView()
     
     local imageX, imageY = imageView:screenToImageCoordinates(love.mouse.getPosition())
 
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        if ptInSpriteRect(imageX, imageY, spriteRect) then drawHighlightedSpriteRect(spriteRect, imageView)
-        else                                               drawSpriteRect(spriteRect, imageView)        end
+        if spriteRect:contains(imageX, imageY) then drawHighlightedSpriteRect(spriteRect, imageView)
+        else                                        drawSpriteRect(spriteRect, imageView)        end
     end
 end
 
