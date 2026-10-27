@@ -53,8 +53,7 @@ end
 --------------------------------------------------------------
 
 function love.update(dt)
-    local imageView = getImageView()
-
+    local imageView      = getImageView()
     local imageX, imageY = imageView:screenToImageCoordinates(love.mouse.getPosition())
 
     for _, spriteRect in ipairs(SPRITE_RECTS) do
@@ -63,12 +62,8 @@ function love.update(dt)
 end
 
 function love.mousepressed(mx, my)  
-    local imageView = getImageView()
-
-    local imageX, imageY = imageView:screenToImageCoordinates(mx, my)
-
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        if spriteRect:contains(imageX, imageY) then
+        if spriteRect.isHighlighted then
             getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
         end
     end
