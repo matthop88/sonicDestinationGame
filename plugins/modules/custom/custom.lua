@@ -20,7 +20,6 @@ Like plugins, it will be executed automatically without requiring a reference.
 
 return {
     create = function(self, params)
-        return {
-        },
+        return params.object:create(params.params)
     end,
 }
