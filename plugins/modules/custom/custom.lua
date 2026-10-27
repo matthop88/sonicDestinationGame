@@ -14,12 +14,12 @@ Like plugins, it will be executed automatically without requiring a reference.
                           Parameters
                           ----------
 * object - the name of the local object that will be acting as a plugin
-* params - the list of params that will be submitted to the object upon creation
+* all other parameters required by the object
 
 --]]
 
 return {
     create = function(self, params)
-        return params.object:create(params.params)
+        return params.object:create(params)
     end,
 }
