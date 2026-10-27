@@ -39,8 +39,8 @@ local PLUGINS = require("plugins/engine")
      --------------------------------------------------------------------------------------------------
     :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
     :add { "custom",        { 
-        object = requireRelative("lib/engine"),
-        params = { imageView = getImageView() },
+        object    = requireRelative("lib/engine"),
+        imageView = getImageView(),
     } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
