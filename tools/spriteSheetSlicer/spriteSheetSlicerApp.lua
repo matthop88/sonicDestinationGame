@@ -26,32 +26,6 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 --]]
 
 --------------------------------------------------------------
---                     Local Variables                      --
---------------------------------------------------------------
-
-local ENGINE
-
---------------------------------------------------------------
---                  Specialized Functions                   --
---------------------------------------------------------------
-
-local drawSpriteRects = function()
-    ENGINE:draw()
-end
-
---------------------------------------------------------------
---                     LOVE2D Functions                     --
---------------------------------------------------------------
-
-function love.update(dt)
-    ENGINE:update(dt)
-end
-
-function love.mousepressed(mx, my) 
-    ENGINE:handleMousepressed(mx, my)
-end
-
---------------------------------------------------------------
 --                          Plugins                         --
 --------------------------------------------------------------
 
@@ -64,14 +38,13 @@ local PLUGINS = require("plugins/engine")
                                    condition = function() return __PARAMS["imageFile"] == "_" end, } }
      --------------------------------------------------------------------------------------------------
     :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
-    :add { "drawingLayer",  { drawingFn  = drawSpriteRects, } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
     :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
+    :add { "custom",        { 
+        object = requireRelative("lib/engine"),
+        params = { imageView = getImageView(), readout = getReadout() },
+    } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     
---------------------------------------------------------------
---                 Plugin-Dependent Variables               --
---------------------------------------------------------------
 
-ENGINE = requireRelative("lib/engine"):create(getImageView(), getReadout())
