@@ -2,7 +2,7 @@ return {
 	create = function(self, params)
 		return ({
 			imageView   = params.imageView,
-			readout     = params.readout,
+			readout     = nil,
 
 			spriteRects = requireRelative("lib/spriteRects"):create(params.imageView),
 
@@ -26,9 +26,15 @@ return {
 			handleMousepressed = function(self, mx, my) 
     			local spriteRect = self.spriteRects:getHighlighted()
     			if spriteRect then 
-        			self.readout:print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
+        			self:getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
         		end
         	end,
+
+        	getReadout = function(self)
+        		self.readout = self.readout or getReadout()
+        		return self.readout
+        	end,
+
     	}):init()
 
     end,
