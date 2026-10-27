@@ -29,14 +29,14 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 --                     Local Variables                      --
 --------------------------------------------------------------
 
-local SPRITE_RECTS
+local ENGINE
 
 --------------------------------------------------------------
 --                  Specialized Functions                   --
 --------------------------------------------------------------
 
 local drawSpriteRects = function()
-    SPRITE_RECTS:draw()
+    ENGINE:draw()
 end
 
 --------------------------------------------------------------
@@ -44,14 +44,11 @@ end
 --------------------------------------------------------------
 
 function love.update(dt)
-    SPRITE_RECTS:update(dt)
+    ENGINE:update(dt)
 end
 
 function love.mousepressed(mx, my) 
-    local spriteRect = SPRITE_RECTS:getHighlighted()
-    if spriteRect then 
-        getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
-    end
+    ENGINE:handleMousepressed(mx, my)
 end
 
 --------------------------------------------------------------
@@ -77,8 +74,4 @@ local PLUGINS = require("plugins/engine")
 --                 Plugin-Dependent Variables               --
 --------------------------------------------------------------
 
-SPRITE_RECTS = requireRelative("lib/spriteRects"):create(getImageView())
-    :add( 50,  50, 200, 200)
-    :add(300,  50, 200, 200)
-    :add( 50, 300, 200, 200)
-    :add(300, 300, 200, 200)
+ENGINE = requireRelative("lib/engine"):create(getImageView(), getReadout())
