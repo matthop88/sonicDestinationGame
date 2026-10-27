@@ -40,36 +40,11 @@ local SPRITE_RECTS = {
 --                  Specialized Functions                   --
 --------------------------------------------------------------
 
-local drawSpriteRect = function(spriteRect, imageView)
-    local x, y = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
-
-    local scale = imageView:getScale()
-    love.graphics.setColor { 1, 1, 1 }
-    love.graphics.setLineWidth(scale)
-
-    love.graphics.rectangle("line", x, y, spriteRect.w * scale, spriteRect.h * scale)
-end
-
-local drawHighlightedSpriteRect = function(spriteRect, imageView)
-    local x, y = imageView:imageToScreenCoordinates(spriteRect.x, spriteRect.y)
-
-    local scale = imageView:getScale()
-    love.graphics.setColor { 1, 1, 0 }
-    love.graphics.setLineWidth(scale * 3)
-
-    love.graphics.rectangle("line", x, y, spriteRect.w * scale, spriteRect.h * scale)
-    if love.mouse.isDown(1) then
-        love.graphics.setColor { 1, 1, 1, 0.4 }
-        love.graphics.rectangle("fill", x, y, spriteRect.w * scale, spriteRect.h * scale)
-    end
-end
-
 local drawSpriteRects = function()
     local imageView = getImageView()
     
     for _, spriteRect in ipairs(SPRITE_RECTS) do
-        if spriteRect.isHighlighted then drawHighlightedSpriteRect(spriteRect, imageView)
-        else                             drawSpriteRect(spriteRect, imageView)        end
+        spriteRect:draw(imageView)
     end
 end
 
