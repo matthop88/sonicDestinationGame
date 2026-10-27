@@ -38,13 +38,13 @@ local PLUGINS = require("plugins/engine")
                                    condition = function() return __PARAMS["imageFile"] == "_" end, } }
      --------------------------------------------------------------------------------------------------
     :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "custom",        { 
+        object = requireRelative("lib/engine"),
+        params = { imageView = getImageView() },
+    } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
     :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
-    :add { "custom",        { 
-        object = requireRelative("lib/engine"),
-        params = { imageView = getImageView(), readout = getReadout() },
-    } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     
 
