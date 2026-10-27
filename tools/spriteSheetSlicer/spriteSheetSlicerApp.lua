@@ -29,23 +29,14 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 --                     Local Variables                      --
 --------------------------------------------------------------
 
-local SPRITE_RECTS = {
-    requireRelative("lib/spriteRect"):create( 50,  50, 200, 200),
-    requireRelative("lib/spriteRect"):create(300,  50, 200, 200),
-    requireRelative("lib/spriteRect"):create( 50, 300, 200, 200),
-    requireRelative("lib/spriteRect"):create(300, 300, 200, 200),
-}
+local SPRITE_RECTS
 
 --------------------------------------------------------------
 --                  Specialized Functions                   --
 --------------------------------------------------------------
 
 local drawSpriteRects = function()
-    local imageView = getImageView()
-    
-    for _, spriteRect in ipairs(SPRITE_RECTS) do
-        spriteRect:draw(imageView)
-    end
+    SPRITE_RECTS:draw()
 end
 
 --------------------------------------------------------------
@@ -53,19 +44,13 @@ end
 --------------------------------------------------------------
 
 function love.update(dt)
-    local imageView      = getImageView()
-    local imageX, imageY = imageView:screenToImageCoordinates(love.mouse.getPosition())
-
-    for _, spriteRect in ipairs(SPRITE_RECTS) do
-        spriteRect:update(imageX, imageY)
-    end
+    SPRITE_RECTS:update(dt)
 end
 
-function love.mousepressed(mx, my)  
-    for _, spriteRect in ipairs(SPRITE_RECTS) do
-        if spriteRect.isHighlighted then
-            getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
-        end
+function love.mousepressed(mx, my) 
+    local spriteRect = SPRITE_RECTS:getHighlighted()
+    if spriteRect then 
+        getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
     end
 end
 
@@ -88,3 +73,12 @@ local PLUGINS = require("plugins/engine")
     :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     
+--------------------------------------------------------------
+--                 Plugin-Dependent Variables               --
+--------------------------------------------------------------
+
+SPRITE_RECTS = requireRelative("lib/spriteRects"):create(getImageView())
+    :add( 50,  50, 200, 200)
+    :add(300,  50, 200, 200)
+    :add( 50, 300, 200, 200)
+    :add(300, 300, 200, 200)
