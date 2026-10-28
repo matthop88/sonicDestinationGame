@@ -14,12 +14,7 @@ return {
 					spColor   = { r = 0.26, g = 0.60, b = 0.19 },
 				}
 
-				self.scanner:scanRectUpperLefts(function(x, y) self.spriteRects:add(x, y, 50, 50) end)
-
-				for _, spriteRect in ipairs(self.spriteRects) do
-					spriteRect.w = self.scanner:determineRectWidth(spriteRect.x, spriteRect.y)
-					spriteRect.h = self.scanner:determineRectHeight(spriteRect.x, spriteRect.y)
-				end
+				self.scanner:scan(self.spriteRects)
 				
     			return self
     		end,
