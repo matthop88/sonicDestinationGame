@@ -7,11 +7,15 @@ return {
 			spriteRects = requireRelative("lib/spriteRects"):create(params.imageView),
 
 			init = function(self)
-				self.spriteRects:add( 50,  50, 200, 200)
-    							:add(300,  50, 200, 200)
-    							:add( 50, 300, 200, 200)
-    							:add(300, 300, 200, 200)
+				self.scanner = requireRelative("lib/scanner"):create {
+					imageView = params.imageView,
+	
+					bgColor   = { r = 0.05, g = 0.28, b = 0.03 },
+					spColor   = { r = 0.26, g = 0.60, b = 0.19 },
+				}
 
+				self.scanner:scan(function(x, y) self.spriteRects:add(x, y, 50, 50) end)
+				
     			return self
     		end,
 
