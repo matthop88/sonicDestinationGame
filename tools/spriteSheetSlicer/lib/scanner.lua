@@ -46,9 +46,12 @@ return {
 				end
 			end,
  
+ 			isBGColorPixel = function(self, x, y)
+ 				return self:pixelMatches(x, y, self.bgColor)
+			end,
+
 			isSPColorPixel = function(self, x, y)
-				local r, g, b = self.imageView:getPixelAt(x, y)
-				return rgbsMatchWithColor(self.spColor, r, g, b)
+				return self:pixelMatches(x, y, self.spColor)
 			end,
 
 			isToRightOfAndBelowBGColorPixel = function(self, x, y)
@@ -56,24 +59,25 @@ return {
 			end,
 
 			isToRightOfBGColorPixel = function(self, x, y)
-				local rL, gL, bL = self.imageView:getPixelAt(x - 1, y)
-				return rgbsMatchWithColor(self.bgColor, rL, gL, bL)
+				return self:pixelMatches(x - 1, y, self.bgColor)
 			end,
 
 			isBelowBGColorPixel = function(self, x, y)
-				local rU, gU, bU = self.imageView:getPixelAt(x, y - 1)
-				return rgbsMatchWithColor(self.bgColor, rU, gU, bU)
+				return self:pixelMatches(x, y - 1, self.bgColor)
 			end,	
 
 			isToLeftOfBGColorPixel = function(self, x, y)
-				local rR, gR, bR = self.imageView:getPixelAt(x + 1, y)
-				return rgbsMatchWithColor(self.bgColor, rR, gR, bR)
+				return self:pixelMatches(x + 1, y, self.bgColor)
 			end,
-
+			
 			isAboveBGColorPixel = function(self, x, y)
-				local rD, gD, bD = self.imageView:getPixelAt(x, y + 1)
-				return rgbsMatchWithColor(self.bgColor, rD, gD, bD)
+				return self:pixelMatches(x, y + 1, self.bgColor)
 			end,	
+
+			pixelMatches = function(self, x, y, color)
+ 				local r, g, b = self.imageView:getPixelAt(x, y)
+				return rgbsMatchWithColor(color, r, g, b)
+			end,
 
     	}):init()
     end,
