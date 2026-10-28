@@ -32,47 +32,27 @@ return {
 
 			determineRectWidth = function(self, rectX, rectY)
 				for x = rectX, self.imageWidth - 2 do
-					if self:isToLeftOfBGColorPixel(x, rectY) then
-						return x - rectX + 1
-					end
+					if self:isToLeftOfBGColorPixel(x, rectY) then return x - rectX + 1 end
 				end
 			end,
 
 			determineRectHeight = function(self, rectX, rectY)
 				for y = rectY, self.imageHeight - 2 do
-					if self:isAboveBGColorPixel(rectX, y) then
-						return y - rectY + 1
-					end
+					if self:isAboveBGColorPixel(rectX, y) then    return y - rectY + 1 end
 				end
 			end,
  
- 			isBGColorPixel = function(self, x, y)
- 				return self:pixelMatches(x, y, self.bgColor)
-			end,
+ 			isBGColorPixel          = function(self, x, y) return self:pixelMatches(x, y,     self.bgColor) end,
+			isSPColorPixel          = function(self, x, y) return self:pixelMatches(x, y,     self.spColor) end,
 
-			isSPColorPixel = function(self, x, y)
-				return self:pixelMatches(x, y, self.spColor)
-			end,
+			isToRightOfBGColorPixel = function(self, x, y) return self:pixelMatches(x - 1, y, self.bgColor) end,
+			isBelowBGColorPixel     = function(self, x, y) return self:pixelMatches(x, y - 1, self.bgColor) end,	
+			isToLeftOfBGColorPixel  = function(self, x, y) return self:pixelMatches(x + 1, y, self.bgColor) end,
+			isAboveBGColorPixel     = function(self, x, y) return self:pixelMatches(x, y + 1, self.bgColor) end,	
 
 			isToRightOfAndBelowBGColorPixel = function(self, x, y)
 				return self:isToRightOfBGColorPixel(x, y) and self:isBelowBGColorPixel(x, y)
 			end,
-
-			isToRightOfBGColorPixel = function(self, x, y)
-				return self:pixelMatches(x - 1, y, self.bgColor)
-			end,
-
-			isBelowBGColorPixel = function(self, x, y)
-				return self:pixelMatches(x, y - 1, self.bgColor)
-			end,	
-
-			isToLeftOfBGColorPixel = function(self, x, y)
-				return self:pixelMatches(x + 1, y, self.bgColor)
-			end,
-			
-			isAboveBGColorPixel = function(self, x, y)
-				return self:pixelMatches(x, y + 1, self.bgColor)
-			end,	
 
 			pixelMatches = function(self, x, y, color)
  				local r, g, b = self.imageView:getPixelAt(x, y)
