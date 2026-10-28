@@ -20,6 +20,15 @@ return {
 				return self
 			end,
 
+			scan = function(self, spriteRects)
+				self:scanRectUpperLefts(function(x, y) spriteRects:add(x, y, 50, 50) end)
+
+				for _, spriteRect in ipairs(spriteRects) do
+					spriteRect.w = self:determineRectWidth(spriteRect.x, spriteRect.y)
+					spriteRect.h = self:determineRectHeight(spriteRect.x, spriteRect.y)
+				end
+			end,
+			
 			scanRectUpperLefts = function(self, upperLeftCallback)
 				for y = 1, self.imageHeight - 1 do
 					for x = 1, self.imageWidth - 1 do
