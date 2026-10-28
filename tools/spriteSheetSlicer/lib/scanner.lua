@@ -55,8 +55,7 @@ return {
 			end,
 
 			pixelMatches = function(self, x, y, color)
- 				local r, g, b = self.imageView:getPixelAt(x, y)
-				return rgbsMatchWithColor(color, r, g, b)
+ 				return rgbsMatchWithColor(color, self.imageView:getPixelAt(x, y))
 			end,
 
     	}):init()
