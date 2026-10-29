@@ -35,8 +35,8 @@ local drawRect = function(self, imageView)
     else                       drawUnhighlightedRect(self, imageView) end
 end
 
-local isRectAdjacentTo = function(self, x, y, w)
-    return math.abs(y - (self.y + self.h)) < 10 and x + w > self.x and math.abs(x + w - self.x - self.w) < 5
+local isRectAdjacentTo = function(self, x, y, w, vGapTolerance, wVarianceTolerance)
+    return math.abs(y - (self.y + self.h)) < vGapTolerance and x + w > self.x and math.abs(x + w - self.x - self.w) < wVarianceTolerance
 end
 
 local appendLineToRect = function(self, x, y, w)
@@ -69,6 +69,9 @@ local SPRITE_RECT = {
 
 return {
     create = function(self, imageView)
+        local VERTICAL_GAP_TOLERANCE   = 10
+        local WIDTH_VARIANCE_TOLERANCE =  5
+
         return {
             imageView = imageView,
 
@@ -107,7 +110,7 @@ return {
 
             getAdjacentRect = function(self, x, y, w)
                 for _, spriteRect in ipairs(self) do
-                    if spriteRect:isAdjacentTo(x, y, w) then
+                    if spriteRect:isAdjacentTo(x, y, w, VERTICAL_GAP_TOLERANCE, WIDTH_VARIANCE_TOLERANCE) then
                         return spriteRect
                     end
                 end
