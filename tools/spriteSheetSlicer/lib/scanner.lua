@@ -15,12 +15,22 @@ return {
 
 			yieldCount = 0,
 
-			init      = function(self)
+			init      = function(self, spriteRects)
 				self.imageWidth  = self.imageView:getWidth()
 				self.imageHeight = self.imageView:getHeight()
 
+				self.scanProcess = coroutine.create(function() self:scan(spriteRects) end)
+
+				coroutine.resume(self.scanProcess)
+    			
 				return self
 			end,
+
+			update = function(self, dt)
+				if self.scanProcess and coroutine.status(self.scanProcess) ~= "dead" then
+    				coroutine.resume(self.scanProcess)
+    			end
+    		end,
 
 			drawScanLine = function(self)
 				if self.scanLineY then
@@ -87,6 +97,6 @@ return {
  				return rgbsMatchWithColor(color, self.imageView:getPixelAt(x, y))
 			end,
 
-    	}):init()
+    	}):init(params.spriteRects)
     end,
 }
