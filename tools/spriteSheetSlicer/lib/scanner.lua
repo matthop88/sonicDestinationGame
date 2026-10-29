@@ -9,9 +9,11 @@ end
 return {
 	create = function(self, params)
 		return ({
-			imageView = params.imageView,
-			bgColor   = params.bgColor,
-			spColor   = params.spColor,
+			imageView  = params.imageView,
+			bgColor    = params.bgColor,
+			spColor    = params.spColor,
+
+			yieldCount = 0,
 
 			init      = function(self)
 				self.imageWidth  = self.imageView:getWidth()
@@ -22,13 +24,16 @@ return {
 
 			drawScanLine = function(self)
 				if self.scanLineY then
-					local x, y  = self.imageView:imageToScreenCoordinates(0, self.scanLineY)
+					local x0, y0 = self.imageView:imageToScreenCoordinates(0, 0)
+					local x,  y  = self.imageView:imageToScreenCoordinates(self.imageWidth, self.scanLineY)
 					local scale = self.imageView:getScale()
 
-					love.graphics.setColor(1, 1, 1)
+					love.graphics.setColor(1, 0, 0, 0.1)
+					love.graphics.rectangle("fill", x0, y0, self.imageWidth * scale, (y - y0) * scale)
+					love.graphics.setColor(1, 0, 0)
 					love.graphics.setLineWidth(scale)
 					
-					love.graphics.line(x, y, self.imageWidth * scale, y)
+					love.graphics.line(x0, y, x, y)
 				end
 			end,
 
@@ -40,7 +45,8 @@ return {
 				for y = 1, self.imageHeight - 1 do
 					self.scanLineY = y
 					self:scanLine(y, spriteLineScanned)
-					coroutine.yield()
+
+					self:yield()
 				end
 
 				self.scanLineY = nil
@@ -55,6 +61,13 @@ return {
 						spriteLineScannedCallback(leftX, y, x - leftX)
 						leftX = nil
 					end
+				end
+			end,
+
+			yield = function(self)
+				self.yieldCount = self.yieldCount + 1
+				if self.yieldCount % 2 == 0 then
+					coroutine.yield()
 				end
 			end,
  
