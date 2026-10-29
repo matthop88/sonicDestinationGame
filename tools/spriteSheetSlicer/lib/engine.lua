@@ -4,6 +4,8 @@ return {
 			imageView   = params.imageView,
 			readout     = nil,
 			
+			drawRects   = true,
+
 			spriteRects = requireRelative("lib/spriteRects"):create(params.imageView),
 
 			init = function(self)
@@ -22,7 +24,7 @@ return {
     		end,
 
     		draw = function(self)
-    			self.spriteRects:draw()
+    			if self.drawRects then self.spriteRects:draw() end
     			self.scanner:drawScanLine()
 			end,
 
@@ -31,6 +33,10 @@ return {
     			if self.scanProcess and coroutine.status(self.scanProcess) ~= "dead" then
     				coroutine.resume(self.scanProcess)
     			end
+    		end,
+
+    		handleKeypressed = function(self, key)
+    			if key == "r" then self.drawRects = not self.drawRects end
     		end,
 
 			handleMousepressed = function(self, mx, my) 
