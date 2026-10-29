@@ -16,7 +16,7 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 - [X] Image can be scrolled using the up, down, left and right arrow keys.
 - [X] Double-tapping speeds up image scrolling.
 - [X] Image can be zoomed in using the 'z' key and zoomed out using the 'a' key
-- [ ] Initially, image is scanned and all subimage boundaries are found.
+- [X] Initially, image is scanned and all subimage boundaries are found.
 - [X] When mouse hovers over a subimage, its border lights up
 - [X] When mouse button is clicked, attributes of the subimage (x, y, width, height) are displayed on the screen.
 - [X] Image can be chosen from the command-line.
