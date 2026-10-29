@@ -10,17 +10,15 @@ return {
 
 			init = function(self)
 				self.scanner = requireRelative("lib/scanner"):create {
-					imageView = params.imageView,
+					imageView   = params.imageView,
 	
-					bgColor   = { r = 0.05, g = 0.28, b = 0.03 },
-					spColor   = { r = 0.26, g = 0.60, b = 0.19 },
+					bgColor     = { r = 0.05, g = 0.28, b = 0.03 },
+					spColor     = { r = 0.26, g = 0.60, b = 0.19 },
+
+					spriteRects = self.spriteRects,
 				}
 
-				self.scanProcess = coroutine.create(function() self.scanner:scan(self.spriteRects) end)
-
-				coroutine.resume(self.scanProcess)
-				
-    			return self
+				return self
     		end,
 
     		draw = function(self)
@@ -30,9 +28,7 @@ return {
 
 			update = function(self, dt)
     			self.spriteRects:update(dt)
-    			if self.scanProcess and coroutine.status(self.scanProcess) ~= "dead" then
-    				coroutine.resume(self.scanProcess)
-    			end
+    			self.scanner:update(dt)
     		end,
 
     		handleKeypressed = function(self, key)
