@@ -39,7 +39,8 @@ return {
     			local spriteRect = self.spriteRects:getHighlighted()
     			if spriteRect then 
         			self:getReadout():print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
-        		end
+        			print("{ x = " .. spriteRect.x .. ", y = " .. spriteRect.y .. ", w = " .. spriteRect.w .. ", h = " .. spriteRect.h .. " }")
+				end
         	end,
 
         	getReadout = function(self)
