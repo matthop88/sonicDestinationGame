@@ -35,6 +35,16 @@ local drawRect = function(self, imageView)
     else                       drawUnhighlightedRect(self, imageView) end
 end
 
+local isRectAdjacentTo = function(self, x, y, w)
+    return y == self.y + self.h and x + w > self.x and x + w == self.x + self.w
+end
+
+local appendLineToRect = function(self, x, w)
+    self.x = math.min(x, self.x)
+    self.h = self.h + 1
+    self.w = math.max(w, self.w)
+end
+
 local SPRITE_RECT = {
     create = function(self, x, y, w, h)
         return {
@@ -45,11 +55,13 @@ local SPRITE_RECT = {
 
             isHighlighted = false,
 
-            contains = ptInRect,
+            contains      = ptInRect,
 
-            draw     = drawRect,
-            update   = updateRect,
+            draw          = drawRect,
+            update        = updateRect,
 
+            isAdjacentTo  = isRectAdjacentTo,
+            appendLine    = appendLineToRect,
         }
         
     end,
@@ -60,6 +72,12 @@ return {
     create = function(self, imageView)
         return {
             imageView = imageView,
+
+            addLine   = function(self, x, y, w)
+                local adjacentRect = self:getAdjacentRect(x, y, w)
+                if adjacentRect then adjacentRect:appendLine(x, w)
+                else                 self:add(x, y, w, 1)      end
+            end,
 
             add       = function(self, x, y, w, h)
                 table.insert(self, SPRITE_RECT:create(x, y, w, h))
@@ -83,6 +101,14 @@ return {
             getHighlighted = function(self)
                 for _, spriteRect in ipairs(self) do
                     if spriteRect.isHighlighted then
+                        return spriteRect
+                    end
+                end
+            end,
+
+            getAdjacentRect = function(self, x, y, w)
+                for _, spriteRect in ipairs(self) do
+                    if spriteRect:isAdjacentTo(x, y, w) then
                         return spriteRect
                     end
                 end
