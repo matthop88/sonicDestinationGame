@@ -20,38 +20,41 @@ return {
 				return self
 			end,
 
+			drawScanLine = function(self)
+				if self.scanLineY then
+					local x, y  = self.imageView:imageToScreenCoordinates(0, self.scanLineY)
+					local scale = self.imageView:getScale()
+
+					love.graphics.setColor(1, 1, 1)
+					love.graphics.setLineWidth(scale)
+					
+					love.graphics.line(x, y, self.imageWidth * scale, y)
+				end
+			end,
+
 			scan = function(self, spriteRects)
-				self:scanRectUpperLefts(function(x, y) 
-					spriteRects:add(x, y, 50, 50) 
-					coroutine.yield()
-				end)
-
-				for _, spriteRect in ipairs(spriteRects) do
-					coroutine.yield()
-					spriteRect.w = self:determineRectWidth(spriteRect.x, spriteRect.y)
-					spriteRect.h = self:determineRectHeight(spriteRect.x, spriteRect.y)
+				local spriteLineScanned = function(x, y, w)
+					spriteRects:addLine(x, y, w)
 				end
-			end,
 
-			scanRectUpperLefts = function(self, upperLeftCallback)
 				for y = 1, self.imageHeight - 1 do
-					for x = 1, self.imageWidth - 1 do
-						if self:isSPColorPixel(x, y) and self:isToRightOfAndBelowBGColorPixel(x, y) then
-							upperLeftCallback(x, y)
-						end
+					self.scanLineY = y
+					self:scanLine(y, spriteLineScanned)
+					coroutine.yield()
+				end
+
+				self.scanLineY = nil
+			end,
+
+			scanLine = function(self, y, spriteLineScannedCallback)
+				local leftX = nil
+				for x = 0, self.imageWidth - 1 do
+					if     self:isSPColorPixel(x, y) and not leftX then
+						leftX = x
+					elseif self:isBGColorPixel(x, y) and     leftX then
+						spriteLineScannedCallback(leftX, y, x - leftX)
+						leftX = nil
 					end
-				end
-			end,
-
-			determineRectWidth = function(self, rectX, rectY)
-				for x = rectX, self.imageWidth - 2 do
-					if self:isToLeftOfBGColorPixel(x, rectY) then return x - rectX + 1 end
-				end
-			end,
-
-			determineRectHeight = function(self, rectX, rectY)
-				for y = rectY, self.imageHeight - 2 do
-					if self:isAboveBGColorPixel(rectX, y) then    return y - rectY + 1 end
 				end
 			end,
  
