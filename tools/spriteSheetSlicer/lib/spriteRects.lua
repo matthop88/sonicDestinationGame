@@ -17,13 +17,13 @@ local drawUnhighlightedRect = function(self, imageView)
 end
 
 local drawHighlightedRect = function(self, imageView)
-    local x, y = imageView:imageToScreenCoordinates(self.x, self.y)
+    local x, y = imageView:imageToScreenCoordinates(self.x - 1, self.y - 1)
 
     local scale = imageView:getScale()
     love.graphics.setColor { 1, 1, 0 }
     love.graphics.setLineWidth(scale * 3)
 
-    love.graphics.rectangle("line", x, y, self.w * scale, self.h * scale)
+    love.graphics.rectangle("line", x, y, (self.w + 2) * scale, (self.h + 2) * scale)
     if love.mouse.isDown(1) then
         love.graphics.setColor { 1, 1, 1, 0.4 }
         love.graphics.rectangle("fill", x, y, self.w * scale, self.h * scale)
