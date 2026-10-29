@@ -36,7 +36,7 @@ local drawRect = function(self, imageView)
 end
 
 local isRectAdjacentTo = function(self, x, y, w, vGapTolerance, wVarianceTolerance)
-    return math.abs(y - (self.y + self.h)) < vGapTolerance and x + w > self.x and math.abs(x + w - self.x - self.w) < wVarianceTolerance
+    return math.abs(y - (self.y + self.h)) < (vGapTolerance + 1) and x + w > self.x and math.abs(x + w - self.x - self.w) < wVarianceTolerance
 end
 
 local appendLineToRect = function(self, x, y, w)
@@ -68,12 +68,12 @@ local SPRITE_RECT = {
 }
 
 return {
-    create = function(self, imageView)
-        local VERTICAL_GAP_TOLERANCE   = 10
-        local WIDTH_VARIANCE_TOLERANCE =  5
+    create = function(self, params)
+        local VERTICAL_GAP_TOLERANCE   = params.verticalGapTolerance or 1
+        local WIDTH_VARIANCE_TOLERANCE = params.widthVarianceTolerance or 0
 
         return {
-            imageView = imageView,
+            imageView = params.imageView,
 
             addLine   = function(self, x, y, w)
                 local adjacentRect = self:getAdjacentRect(x, y, w)
