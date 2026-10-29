@@ -6,7 +6,7 @@ return {
 			
 			drawRects   = true,
 
-			spriteRects = requireRelative("lib/spriteRects"):create(params.imageView),
+			spriteRects = requireRelative("lib/spriteRects"):create(params),
 
 			init = function(self)
 				self.scanner = requireRelative("lib/scanner"):create {
