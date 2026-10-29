@@ -36,7 +36,7 @@ local drawRect = function(self, imageView)
 end
 
 local isRectAdjacentTo = function(self, x, y, w)
-    return math.abs(y - (self.y + self.h)) < 10 and x + w > self.x and x + w == self.x + self.w
+    return math.abs(y - (self.y + self.h)) < 10 and x + w > self.x and math.abs(x + w - self.x - self.w) < 5
 end
 
 local appendLineToRect = function(self, x, y, w)
