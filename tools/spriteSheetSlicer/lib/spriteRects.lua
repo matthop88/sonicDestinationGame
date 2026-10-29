@@ -36,12 +36,11 @@ local drawRect = function(self, imageView)
 end
 
 local isRectAdjacentTo = function(self, x, y, w)
-    return y == self.y + self.h and x + w > self.x and x + w == self.x + self.w
+    return math.abs(y - (self.y + self.h)) < 10 and x + w > self.x and x + w == self.x + self.w
 end
 
-local appendLineToRect = function(self, x, w)
-    self.x = math.min(x, self.x)
-    self.h = self.h + 1
+local appendLineToRect = function(self, x, y, w)
+    self.h = y - self.y + 1
     self.w = math.max(w, self.w)
 end
 
@@ -75,7 +74,7 @@ return {
 
             addLine   = function(self, x, y, w)
                 local adjacentRect = self:getAdjacentRect(x, y, w)
-                if adjacentRect then adjacentRect:appendLine(x, w)
+                if adjacentRect then adjacentRect:appendLine(x, y, w)
                 else                 self:add(x, y, w, 1)      end
             end,
 
