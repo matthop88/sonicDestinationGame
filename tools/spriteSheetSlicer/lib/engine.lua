@@ -3,8 +3,7 @@ return {
 		return ({
 			imageView   = params.imageView,
 			readout     = nil,
-			timer       = 1,
-
+			
 			spriteRects = requireRelative("lib/spriteRects"):create(params.imageView),
 
 			init = function(self)
@@ -24,16 +23,13 @@ return {
 
     		draw = function(self)
     			self.spriteRects:draw()
+    			self.scanner:drawScanLine()
 			end,
 
 			update = function(self, dt)
     			self.spriteRects:update(dt)
-    			self.timer = self.timer - (dt * 30)
-    			if self.timer <= 0 then
-    				self.timer = 1
-    				if self.scanProcess and coroutine.status(self.scanProcess) ~= "dead" then
-    					coroutine.resume(self.scanProcess)
-    				end
+    			if self.scanProcess and coroutine.status(self.scanProcess) ~= "dead" then
+    				coroutine.resume(self.scanProcess)
     			end
     		end,
 
