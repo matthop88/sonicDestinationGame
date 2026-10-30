@@ -12,7 +12,7 @@ local RECTANGLE_JOT = {
             draw = function(self)
                 if self.data ~= nil then
                     GRAFX.setColor(COLOR.PURE_WHITE)
-                    GRAFX.setLineWidth(5)
+                    GRAFX.setLineWidth(3)
                     
                     GRAFX.rectangle("line", self.data.x, self.data.y, self.data.w, self.data.h)
                 end
