@@ -63,7 +63,12 @@ return {
             GRAFX.line(lastPt.x, lastPt.y, mx, my)
         end
 
-        GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
+        GRAFX.setLineWidth(1)
+        GRAFX.line(mx - 25, my, mx -  5, my)
+        GRAFX.line(mx, my - 25, mx, my -  5)
+        GRAFX.line(mx +  5, my, mx + 25, my)
+        GRAFX.line(mx, my +  5, mx, my + 25)
+        GRAFX.rectangle("line", mx - 5, my - 5, 11, 11)
     end,
 
     keypressed    = function(self, key, publishJot)
