@@ -2,6 +2,8 @@ return [[
 ---
 ID: {{ id }}
 Title: {{ title }}
+Object Name: {{ objectName }}
+Version: {{ version }}
 Type: {{ type }}
 Status: {{ status }}
 Priority: {{ priority }}
