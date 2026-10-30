@@ -2,7 +2,8 @@ return [[
 ---
 ID: {{ id }}
 Title: {{ title }}
-Plugin Name: {{ pluginName }}
+Object Name: {{ objectName }}
+Version: {{ version }}
 Type: {{ type }}
 Status: {{ status }}
 Priority: {{ priority }}
@@ -31,7 +32,7 @@ Blocked By: {{ blockedBy }}
 
 ## Notes
 
-The {{ pluginName }} Plugin takes the following parameters:
+The {{ objectName }} takes the following parameters:
 {{ parameters }}
 
 ## History
