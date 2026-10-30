@@ -22,7 +22,7 @@ For this feature, we want to add the following capabilities:
                            Features
                            --------
 - [X] Add capability to draw rectangles
-- [ ] Different tools have different cursors
+- [X] Different tools have different cursors
 - [ ] Can cycle through colors via 'c' key
 - [ ] Can fill backgrounds of rectangles via 'f' key
 - [ ] Can change line thickness with 1-9
