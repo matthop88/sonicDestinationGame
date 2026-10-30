@@ -33,34 +33,15 @@ For this feature, we want to add the following capabilities:
 
 --]]
 
---------------------------------------------------------------
---                       Local Variables                    --
---------------------------------------------------------------
-
-local SCRIBBLER = requireRelative("lib/scribbler")
-
--- ...
--- ...
 
 --------------------------------------------------------------
---                   Specialized Functions                  --
+--                          Plugins                         --
 --------------------------------------------------------------
 
--- ...
--- ...
--- ...
-
---------------------------------------------------------------
---                     LOVE2D Functions                     --
---------------------------------------------------------------
-
-function love.draw()                SCRIBBLER:handleDraw()                end
-function love.update(dt)            SCRIBBLER:handleUpdate(dt)            end
-function love.keypressed(key)       SCRIBBLER:handleKeypressed(key)       end
-function love.keyreleased(key)      SCRIBBLER:handleKeyreleased(key)      end
-function love.mousepressed(mx, my)  SCRIBBLER:handleMousepressed(mx, my)  end
-function love.mousereleased(mx, my) SCRIBBLER:handleMousereleased(mx, my) end
-
+local PLUGINS = require("plugins/engine")
+    :add { "custom",        { 
+        object                 = requireRelative("lib/scribbler"),
+    } }
 
 --[[
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣶⣶⣶⣶⣶⣶⣶⣶⣦⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
