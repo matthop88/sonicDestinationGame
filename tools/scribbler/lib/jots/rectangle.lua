@@ -43,14 +43,18 @@ return {
     end,
 
     drawCursor    = function(self)
-        if not love.mouse.isDown(1) then
-            local mx, my = MOUSE.getPosition()
+        local mx, my = MOUSE.getPosition()
 
-            MOUSE.setVisible(false)
-            GRAFX.setColor(COLOR.PURE_WHITE)
+        MOUSE.setVisible(false)
+        GRAFX.setColor(COLOR.PURE_WHITE)
 
-            GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
-        end
+        GRAFX.setLineWidth(1)
+
+        GRAFX.line(mx - 45, my, mx -  5, my)
+        GRAFX.line(mx, my - 45, mx, my -  5)
+        GRAFX.line(mx +  5, my, mx + 45, my)
+        GRAFX.line(mx, my +  5, mx, my + 45)
+        GRAFX.circle("line", mx, my, 17, 17)
     end,
 
     penDown  = function(self, mx, my)
