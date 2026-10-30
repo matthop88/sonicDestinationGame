@@ -12,13 +12,19 @@ return {
 				self.scanner = requireRelative("lib/scanner"):create {
 					imageView   = params.imageView,
 	
-					bgColor     = { r = 0.05, g = 0.28, b = 0.03 },
-					spColor     = { r = 0.26, g = 0.60, b = 0.19 },
+					bgColor     = self:loadColor(__PARAMS["backgroundColor"]),
+					spColor     = self:loadColor(__PARAMS["spriteColor"]),
 
 					spriteRects = self.spriteRects,
 				}
 
 				return self
+    		end,
+
+    		loadColor = function(self, str)
+    			local rgbValues = load("return " .. str)()
+
+    			return { r = rgbValues[1], g = rgbValues[2], b = rgbValues[3] }
     		end,
 
     		draw = function(self)
