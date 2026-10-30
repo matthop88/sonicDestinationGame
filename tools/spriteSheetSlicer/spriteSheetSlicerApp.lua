@@ -1,4 +1,7 @@
 --------------------------------------------------------------
+--                    Sprite Sheet Slicer                   --
+--                        Version 0.1                       --
+--                                                          --
 --                 Functional Specifications                --
 --                         TOOL-0006                        --
 --------------------------------------------------------------
@@ -25,8 +28,6 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 - [ ] Stand-in image is loaded when image cannot be found.
 
 --]]
-
-
 
 --------------------------------------------------------------
 --                          Plugins                         --
