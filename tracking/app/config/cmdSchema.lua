@@ -47,12 +47,12 @@ return {
 				"are displayed.",
 			},
 		},
-		pluginName = {
+		objectName = {
 			shortcut    = "n",
 			description = {
-				"Name of plugin, used if the prefix is 'plug'.",
+				"Name of object",
 			},
-			default     = "<Plugin Name>",
+			default     = "<Object Name>",
 		},
 
 	},
