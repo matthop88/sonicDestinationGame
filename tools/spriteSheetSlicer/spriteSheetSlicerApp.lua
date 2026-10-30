@@ -36,7 +36,7 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
 local IMAGE_PATH     = FILE_PATH .. "/" .. __PARAMS["imageFile"] .. ".png"
 
-local PLUGINS = require("plugins/engine")
+require("plugins/engine")
     :add { "showValidFilenames", { filePath  = FILE_PATH, extension = ".png", 
                                    fileType  = "Image",   
                                    condition = function() return __PARAMS["imageFile"] == "_" end, } }
