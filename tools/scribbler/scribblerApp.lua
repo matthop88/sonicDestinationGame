@@ -38,7 +38,7 @@ For this feature, we want to add the following capabilities:
 --                          Plugins                         --
 --------------------------------------------------------------
 
-local PLUGINS = require("plugins/engine")
+require("plugins/engine")
     :add { "custom",        { 
         object                 = requireRelative("lib/scribbler"),
     } }
