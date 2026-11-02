@@ -26,9 +26,9 @@ For this feature, we want to add the following capabilities:
 - [X] Can cycle through colors via 'c' key
 - [X] Can fill backgrounds of rectangles via 'f' key
 - [X] Can change line thickness with 1-9
-- [ ] Can serialize as version 0.2
-- [ ] Can read version 0.2
-- [ ] Can read version 0.1
+- [X] Can serialize as version 0.2
+- [X] Can read version 0.2
+- [X] Can read version 0.1
 - [ ] Implement '?' to trigger help readout
 
 --]]
