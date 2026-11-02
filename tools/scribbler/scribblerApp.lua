@@ -29,7 +29,7 @@ For this feature, we want to add the following capabilities:
 - [X] Can serialize as version 0.2
 - [X] Can read version 0.2
 - [X] Can read version 0.1
-- [ ] Implement '?' to trigger help readout
+- [X] Implement '?' to trigger help readout
 
 --]]
 
@@ -42,6 +42,21 @@ require("plugins/engine")
     :add { "custom",        { 
         object                 = requireRelative("lib/scribbler"),
     } }
+    :add { "readout",       { fontSize   = 24, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
+    :add { "custom",        {
+        object = {
+            create = function(self, params)
+                return {
+                    handleKeypressed = function(self, key)
+                        if key == "/" and love.keyboard.isDown("lshift", "rshift") then
+                            getReadout():print("s = Scribble, l = line, r = rectangle, t = text\n" ..
+                                               "c = change color, 1-9 = change line thickness, f = toggle fill")
+                        end
+                    end,
+                }
+            end,
+        }
+    }}
 
 --[[
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣶⣶⣶⣶⣶⣶⣶⣶⣦⣤⣤⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
