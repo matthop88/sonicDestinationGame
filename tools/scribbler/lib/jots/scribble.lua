@@ -5,22 +5,21 @@ local COLOR = require("game/constants/colors")
 local SCRIBBLE_JOT = {
     create = function(self, data)
         return {
-            NAME      = "scribble",
-            data      = data or { points = {} },
-            color     = COLOR.PURE_WHITE,
-            thickness = 5,
-
+            NAME = "scribble",
+            data = data or { points = {} },
+            
             draw = function(self)
-                GRAFX.setColor(self.color)
-                GRAFX.setLineWidth(self.thickness)
+                GRAFX.setColor(self.data.color or COLOR.PURE_WHITE)
+                local thickness = self.data.thickness or 5
+                GRAFX.setLineWidth(thickness)
                 
                 local points = self.data.points
 
-                local offset = (self.thickness - 1) / 2
+                local offset = (thickness - 1) / 2
         
                 if #points > 0 then
                     if   #points > 2 then GRAFX.line(points)
-                    else                  GRAFX.rectangle("fill", points[1] - offset, points[2] - offset, self.thickness, self.thickness) end
+                    else                  GRAFX.rectangle("fill", points[1] - offset, points[2] - offset, thickness, thickness) end
                 end
             end,
 
@@ -49,8 +48,8 @@ local SCRIBBLE_JOT = {
                 return math.abs(p1 - p2) < 3 
             end,
 
-            setColor     = function(self, color)     self.color     = color     end,
-            setThickness = function(self, thickness) self.thickness = thickness end,
+            setColor     = function(self, color)     self.data.color     = color     end,
+            setThickness = function(self, thickness) self.data.thickness = thickness end,
             
         }
     end,
