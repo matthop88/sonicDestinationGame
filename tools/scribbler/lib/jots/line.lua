@@ -5,15 +5,13 @@ local COLOR = require("game/constants/colors")
 local LINE_JOT = {
     create = function(self, data)
         return {
-            NAME      = "line",
+            NAME = "line",
             
-            data      = data or { points = {} },
-            color     = COLOR.PURE_WHITE,
-            thickness = 1,
-
+            data = data or { points = {} },
+            
             draw = function(self)
-                GRAFX.setColor(self.color)
-                GRAFX.setLineWidth(self.thickness)
+                GRAFX.setColor(self.data.color or COLOR.PURE_WHITE)
+                GRAFX.setLineWidth(self.data.thickness or 1)
                 
                 local points = self.data.points
 
@@ -38,8 +36,8 @@ local LINE_JOT = {
                 return { x = points[#points - 1], y = points[#points] }
             end,
 
-            setColor     = function(self, color)     self.color     = color     end,
-            setThickness = function(self, thickness) self.thickness = thickness end,
+            setColor     = function(self, color)     self.data.color     = color     end,
+            setThickness = function(self, thickness) self.data.thickness = thickness end,
 
         }
 
