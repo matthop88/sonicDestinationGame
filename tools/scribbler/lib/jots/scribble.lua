@@ -5,12 +5,13 @@ local COLOR = require("game/constants/colors")
 local SCRIBBLE_JOT = {
     create = function(self, data)
         return {
-            NAME = "scribble",
+            NAME  = "scribble",
             
-            data = data or { points = {} },
+            data  = data or { points = {} },
+            color = COLOR.PURE_WHITE,
 
             draw = function(self)
-                GRAFX.setColor(COLOR.PURE_WHITE)
+                GRAFX.setColor(self.color)
                 GRAFX.setLineWidth(5)
                 
                 local points = self.data.points
@@ -46,15 +47,20 @@ local SCRIBBLE_JOT = {
                 return math.abs(p1 - p2) < 3 
             end,
 
+            setColor = function(self, color)
+                self.color = color
+            end,
+
         }
     end,
 
 }
 
 return {
-    name = "scribble",
+    name  = "scribble",
     
-    jot = SCRIBBLE_JOT:create(),
+    jot   = SCRIBBLE_JOT:create(),
+    color = COLOR.PURE_WHITE,
 
     draw   = function(self)
         self.jot:draw()
@@ -64,7 +70,7 @@ return {
         local mx, my = MOUSE.getPosition()
 
         MOUSE.setVisible(false)
-        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.setColor(self.color)
 
         GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
     end,
@@ -82,12 +88,12 @@ return {
         self.jot:addPoint(mx, my)
     end,
 
-    revert = function(self)
-        self.jot = SCRIBBLE_JOT:create()
-    end,
+    revert   = function(self)       self.jot = SCRIBBLE_JOT:create() end,
+    fromData = function(self, data) return SCRIBBLE_JOT:create(data) end,
 
-    fromData = function(self, data)
-        return SCRIBBLE_JOT:create(data)
+    setColor = function(self, color)
+        self.color = color
+        if self.jot then self.jot:setColor(color) end
     end,
 
 }
