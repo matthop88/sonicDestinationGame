@@ -10,14 +10,19 @@ local RECTANGLE_JOT = {
             data      = data,
             color     = COLOR.PURE_WHITE,
             fill      = false,
+            fillColor = COLOR.PURE_WHITE,
             thickness = 3,
 
             draw = function(self)
                 if self.data ~= nil then
+                    if self.fill then 
+                        GRAFX.setColor(self.fillColor)
+                        GRAFX.rectangle("fill", self.data.x, self.data.y, self.data.w, self.data.h)
+                    end
+                    
                     GRAFX.setColor(self.color)
                     GRAFX.setLineWidth(self.thickness)
-                    
-                    GRAFX.rectangle(self:getFillMode(), self.data.x, self.data.y, self.data.w, self.data.h)
+                    GRAFX.rectangle("line", self.data.x, self.data.y, self.data.w, self.data.h)
                 end
             end,
 
@@ -34,11 +39,7 @@ local RECTANGLE_JOT = {
             setColor     = function(self, color)     self.color     = color     end,
             setFill      = function(self, fill)      self.fill      = fill      end,
             setThickness = function(self, thickness) self.thickness = thickness end,
-            
-            getFillMode  = function(self)
-                if self.fill then return "fill"
-                else              return "line" end
-            end,
+            setFillColor = function(self, fillColor) self.fillColor = fillColor end,
 
         }
     end,
@@ -51,6 +52,7 @@ return {
     jot       = RECTANGLE_JOT:create(),
     color     = COLOR.PURE_WHITE,
     fill      = false,
+    fillColor = COLOR.PURE_WHITE,
     thickness = 3,
 
     draw   = function(self)
@@ -70,7 +72,7 @@ return {
         GRAFX.line(mx +  5, my, mx + 45, my)
         GRAFX.line(mx, my +  5, mx, my + 45)
         if self.fill then
-            GRAFX.setColor(self.color[1], self.color[2], self.color[3], 0.5)
+            GRAFX.setColor(self.fillColor[1], self.fillColor[2], self.fillColor[3], 0.5)
             GRAFX.circle("fill", mx, my, 17, 17)
         else
             GRAFX.circle("line", mx, my, 17, 17)
@@ -96,8 +98,13 @@ return {
     fromData = function(self, data) return RECTANGLE_JOT:create(data) end,
 
     setColor = function(self, color)
-        self.color = color
-        if self.jot then self.jot:setColor(color) end
+        if self.fill then self.fillColor = color
+        else              self.color = color  end
+        
+        if self.jot then 
+            self.jot:setFillColor(self.fillColor) 
+            self.jot:setColor(self.color)
+        end
     end,
 
     toggleFill = function(self)
