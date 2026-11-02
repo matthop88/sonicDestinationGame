@@ -5,16 +5,17 @@ local COLOR = require("game/constants/colors")
 local RECTANGLE_JOT = {
     create = function(self, data)
         return {
-            NAME  = "rectangle",
+            NAME      = "rectangle",
             
-            data  = data,
-            color = COLOR.PURE_WHITE,
-            fill  = false,
+            data      = data,
+            color     = COLOR.PURE_WHITE,
+            fill      = false,
+            thickness = 3,
 
             draw = function(self)
                 if self.data ~= nil then
                     GRAFX.setColor(self.color)
-                    GRAFX.setLineWidth(3)
+                    GRAFX.setLineWidth(self.thickness)
                     
                     GRAFX.rectangle(self:getFillMode(), self.data.x, self.data.y, self.data.w, self.data.h)
                 end
@@ -30,10 +31,11 @@ local RECTANGLE_JOT = {
                 end
             end,
 
-            setColor   = function(self, color) self.color = color end,
-            setFill    = function(self, fill)  self.fill  = fill  end,
-
-            getFillMode = function(self)
+            setColor     = function(self, color)     self.color     = color     end,
+            setFill      = function(self, fill)      self.fill      = fill      end,
+            setThickness = function(self, thickness) self.thickness = thickness end,
+            
+            getFillMode  = function(self)
                 if self.fill then return "fill"
                 else              return "line" end
             end,
@@ -44,11 +46,12 @@ local RECTANGLE_JOT = {
 }
 
 return {
-    name  = "rectangle",
+    name      = "rectangle",
     
-    jot   = RECTANGLE_JOT:create(),
-    color = COLOR.PURE_WHITE,
-    fill  = false,
+    jot       = RECTANGLE_JOT:create(),
+    color     = COLOR.PURE_WHITE,
+    fill      = false,
+    thickness = 3,
 
     draw   = function(self)
         self.jot:draw()
@@ -60,7 +63,7 @@ return {
         MOUSE.setVisible(false)
         GRAFX.setColor(self.color)
 
-        GRAFX.setLineWidth(1)
+        GRAFX.setLineWidth(self.thickness / 3)
 
         GRAFX.line(mx - 45, my, mx -  5, my)
         GRAFX.line(mx, my - 45, mx, my -  5)
@@ -77,6 +80,7 @@ return {
     penDown  = function(self, mx, my)
         self.jot:create(mx, my)
         self.jot:setFill(self.fill)
+        self.jot:setThickness(self.thickness)
     end,
 
     penUp = function(self, mx, my, publishJot)
@@ -102,5 +106,10 @@ return {
             self.jot:setFill(self.fill) 
         end
     end,
+
+    setThickness = function(self, thickness)
+        self.thickness = thickness
+        if self.jot then self.jot:setThickness(thickness) end
+    end,    
 
 }
