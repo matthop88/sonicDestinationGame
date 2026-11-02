@@ -5,20 +5,22 @@ local COLOR = require("game/constants/colors")
 local SCRIBBLE_JOT = {
     create = function(self, data)
         return {
-            NAME  = "scribble",
-            
-            data  = data or { points = {} },
-            color = COLOR.PURE_WHITE,
+            NAME      = "scribble",
+            data      = data or { points = {} },
+            color     = COLOR.PURE_WHITE,
+            thickness = 5,
 
             draw = function(self)
                 GRAFX.setColor(self.color)
-                GRAFX.setLineWidth(5)
+                GRAFX.setLineWidth(self.thickness)
                 
                 local points = self.data.points
 
+                local offset = (self.thickness - 1) / 2
+        
                 if #points > 0 then
                     if   #points > 2 then GRAFX.line(points)
-                    else                  GRAFX.rectangle("fill", points[1] - 2, points[2] - 2, 5, 5) end
+                    else                  GRAFX.rectangle("fill", points[1] - offset, points[2] - offset, self.thickness, self.thickness) end
                 end
             end,
 
@@ -47,22 +49,22 @@ local SCRIBBLE_JOT = {
                 return math.abs(p1 - p2) < 3 
             end,
 
-            setColor = function(self, color)
-                self.color = color
-            end,
-
+            setColor     = function(self, color)     self.color     = color     end,
+            setThickness = function(self, thickness) self.thickness = thickness end,
+            
         }
     end,
 
 }
 
 return {
-    name  = "scribble",
+    name      = "scribble",
     
-    jot   = SCRIBBLE_JOT:create(),
-    color = COLOR.PURE_WHITE,
+    jot       = SCRIBBLE_JOT:create(),
+    color     = COLOR.PURE_WHITE,
+    thickness = 5,
 
-    draw   = function(self)
+    draw      = function(self)
         self.jot:draw()
     end,
 
@@ -72,7 +74,8 @@ return {
         MOUSE.setVisible(false)
         GRAFX.setColor(self.color)
 
-        GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
+        local offset = (self.thickness - 1) / 2
+        GRAFX.rectangle("fill", mx - offset, my - offset, self.thickness, self.thickness)
     end,
 
     penDown  = function(self, mx, my)
@@ -82,6 +85,7 @@ return {
     penUp = function(self, mx, my, publishJot)
         publishJot(self.jot)
         self.jot = SCRIBBLE_JOT:create()
+        self.jot:setThickness(self.thickness)
     end,
 
     penDragged  = function(self, mx, my)
@@ -94,6 +98,11 @@ return {
     setColor = function(self, color)
         self.color = color
         if self.jot then self.jot:setColor(color) end
+    end,
+
+    setThickness = function(self, thickness)
+        self.thickness = thickness
+        if self.jot then self.jot:setThickness(thickness) end
     end,
 
 }
