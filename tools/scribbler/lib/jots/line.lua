@@ -5,14 +5,15 @@ local COLOR = require("game/constants/colors")
 local LINE_JOT = {
     create = function(self, data)
         return {
-            NAME  = "line",
+            NAME      = "line",
             
-            data  = data or { points = {} },
-            color = COLOR.PURE_WHITE,
+            data      = data or { points = {} },
+            color     = COLOR.PURE_WHITE,
+            thickness = 1,
 
             draw = function(self)
                 GRAFX.setColor(self.color)
-                GRAFX.setLineWidth(1)
+                GRAFX.setLineWidth(self.thickness)
                 
                 local points = self.data.points
 
@@ -37,9 +38,8 @@ local LINE_JOT = {
                 return { x = points[#points - 1], y = points[#points] }
             end,
 
-            setColor = function(self, color)
-                self.color = color
-            end,
+            setColor     = function(self, color)     self.color     = color     end,
+            setThickness = function(self, thickness) self.thickness = thickness end,
 
         }
 
@@ -48,10 +48,11 @@ local LINE_JOT = {
 }
 
 return {
-    name  = "line",
+    name      = "line",
     
-    jot   = LINE_JOT:create(),
-    color = COLOR.PURE_WHITE,
+    jot       = LINE_JOT:create(),
+    color     = COLOR.PURE_WHITE,
+    thickness = 1,
 
     draw          = function(self)
         self.jot:draw()
@@ -69,7 +70,7 @@ return {
             GRAFX.line(lastPt.x, lastPt.y, mx, my)
         end
 
-        GRAFX.setLineWidth(1)
+        GRAFX.setLineWidth(self.thickness)
         GRAFX.line(mx - 25, my, mx -  5, my)
         GRAFX.line(mx, my - 25, mx, my -  5)
         GRAFX.line(mx +  5, my, mx + 25, my)
@@ -81,6 +82,7 @@ return {
         if     key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
+            self.jot:setThickness(self.thickness)
         end
     end,
 
@@ -94,6 +96,11 @@ return {
     setColor = function(self, color)
         self.color = color
         if self.jot then self.jot:setColor(color) end
+    end,
+
+    setThickness = function(self, thickness)
+        self.thickness = thickness
+        if self.jot then self.jot:setThickness(thickness) end
     end,
 
 }
