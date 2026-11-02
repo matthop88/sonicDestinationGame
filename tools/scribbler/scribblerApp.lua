@@ -25,7 +25,7 @@ For this feature, we want to add the following capabilities:
 - [X] Different tools have different cursors
 - [X] Can cycle through colors via 'c' key
 - [X] Can fill backgrounds of rectangles via 'f' key
-- [ ] Can change line thickness with 1-9
+- [X] Can change line thickness with 1-9
 - [ ] Can serialize as version 0.2
 - [ ] Can read version 0.2
 - [ ] Can read version 0.1
