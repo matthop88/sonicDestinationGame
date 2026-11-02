@@ -33,6 +33,7 @@ return ({
 	    if not jot.penUp       then jot.penUp       = DUMMY_FN end
 	    if not jot.penMoved    then jot.penMoved    = DUMMY_FN end
 	    if not jot.penDragged  then jot.penDragged  = DUMMY_FN end
+	    if not jot.toggleFill  then jot.toggleFill  = DUMMY_FN end
 	end,
 
 	getJot = function(self, jotName)
