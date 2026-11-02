@@ -17,7 +17,7 @@ local JOT_COLORS     = require("game/util/navigableList"):create {
 
 return {
     currentJot = JOT_REPOSITORY:getJot("scribble"),
-    
+
     draw       = function(self)
         self.currentJot:draw()
     end,
@@ -43,6 +43,7 @@ return {
             if KEYBOARD.isDown("lshift", "rshift") then JOT_COLORS:prev()
             else                                        JOT_COLORS:next() end
         elseif key == "f"                    then self.currentJot:toggleFill()
+        elseif key >= "1" and key <= "9"     then self.currentJot:setThickness(tonumber(key))
         elseif key == "s" or key == "escape" then self.currentJot = JOT_REPOSITORY:getJot("scribble")
         end
 
