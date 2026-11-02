@@ -5,12 +5,13 @@ local COLOR = require("game/constants/colors")
 local LINE_JOT = {
     create = function(self, data)
         return {
-            NAME = "line",
+            NAME  = "line",
             
-            data = data or { points = {} },
+            data  = data or { points = {} },
+            color = COLOR.PURE_WHITE,
 
             draw = function(self)
-                GRAFX.setColor(COLOR.PURE_WHITE)
+                GRAFX.setColor(self.color)
                 GRAFX.setLineWidth(1)
                 
                 local points = self.data.points
@@ -36,6 +37,10 @@ local LINE_JOT = {
                 return { x = points[#points - 1], y = points[#points] }
             end,
 
+            setColor = function(self, color)
+                self.color = color
+            end,
+
         }
 
     end,
@@ -43,9 +48,10 @@ local LINE_JOT = {
 }
 
 return {
-    name = "line",
+    name  = "line",
     
-    jot = LINE_JOT:create(),
+    jot   = LINE_JOT:create(),
+    color = COLOR.PURE_WHITE,
 
     draw          = function(self)
         self.jot:draw()
@@ -55,7 +61,7 @@ return {
         local mx, my = MOUSE.getPosition()
 
         MOUSE.setVisible(false)
-        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.setColor(self.color)
 
         if not self.jot:isEmpty() then
             local lastPt = self.jot:getLastPoint()
@@ -82,16 +88,12 @@ return {
         self.jot:addPoint(mx, my)
     end,
 
-    revert = function(self)
-        self.jot = LINE_JOT:create()
-    end,
+    revert   = function(self)       self.jot = LINE_JOT:create() end,
+    fromData = function(self, data) return LINE_JOT:create(data) end,
 
-    fromData = function(self, data)
-        return LINE_JOT:create(data)
-    end,
-
-    revert = function(self)
-        self.jot = LINE_JOT:create()
+    setColor = function(self, color)
+        self.color = color
+        if self.jot then self.jot:setColor(color) end
     end,
 
 }
