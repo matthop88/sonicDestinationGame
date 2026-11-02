@@ -5,13 +5,14 @@ local COLOR = require("game/constants/colors")
 local RECTANGLE_JOT = {
     create = function(self, data)
         return {
-            NAME = "rectangle",
+            NAME  = "rectangle",
             
-            data = data,
+            data  = data,
+            color = COLOR.PURE_WHITE,
 
             draw = function(self)
                 if self.data ~= nil then
-                    GRAFX.setColor(COLOR.PURE_WHITE)
+                    GRAFX.setColor(self.color)
                     GRAFX.setLineWidth(3)
                     
                     GRAFX.rectangle("line", self.data.x, self.data.y, self.data.w, self.data.h)
@@ -28,15 +29,20 @@ local RECTANGLE_JOT = {
                 end
             end,
 
+            setColor = function(self, color)
+                self.color = color
+            end,
+
         }
     end,
 
 }
 
 return {
-    name = "rectangle",
+    name  = "rectangle",
     
-    jot = RECTANGLE_JOT:create(),
+    jot   = RECTANGLE_JOT:create(),
+    color = COLOR.PURE_WHITE,
 
     draw   = function(self)
         self.jot:draw()
@@ -46,7 +52,7 @@ return {
         local mx, my = MOUSE.getPosition()
 
         MOUSE.setVisible(false)
-        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.setColor(self.color)
 
         GRAFX.setLineWidth(1)
 
@@ -70,12 +76,12 @@ return {
         self.jot:resize(mx, my)
     end,
 
-    revert = function(self)
-        self.jot = RECTANGLE_JOT:create()
-    end,
+    revert   = function(self)       self.jot = RECTANGLE_JOT:create() end,
+    fromData = function(self, data) return RECTANGLE_JOT:create(data) end,
 
-    fromData = function(self, data)
-        return RECTANGLE_JOT:create(data)
+    setColor = function(self, color)
+        self.color = color
+        if self.jot then self.jot:setColor(color) end
     end,
 
 }
