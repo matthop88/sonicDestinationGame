@@ -4,6 +4,17 @@ local MOUSE          = love.mouse
 local JOT_FACTORY    = requireRelative("lib/serialization/jotFactory")
 local JOT_REPOSITORY = requireRelative("lib/serialization/jotRepository")
 
+local JOT_COLORS     = require("game/util/navigableList"):create { 
+                            { 1, 1, 1 },
+                            { 1, 0, 0 },
+                            { 0, 1, 0 },
+                            { 0, 0, 1 },
+                            { 1, 1, 0 },
+                            { 1, 0, 1 },
+                            { 0, 1, 1 },
+                            { 0, 0, 0 },
+                        }
+
 return {
     currentJot = JOT_REPOSITORY:getJot("scribble"),
     
@@ -16,6 +27,7 @@ return {
     end,
 
     update        = function(self, dt)
+        self.currentJot:setColor(JOT_COLORS:get())
         self.currentJot:update(dt)
     end,
 
@@ -27,6 +39,7 @@ return {
         if     key == "l"                    then self.currentJot = JOT_REPOSITORY:getJot("line")
         elseif key == "t"                    then self.currentJot = JOT_REPOSITORY:getJot("text")
         elseif key == "r"                    then self.currentJot = JOT_REPOSITORY:getJot("rectangle")
+        elseif key == "c"                    then JOT_COLORS:next()
         elseif key == "s" or key == "escape" then self.currentJot = JOT_REPOSITORY:getJot("scribble")
         end
 
