@@ -15,13 +15,14 @@ local MESSAGES   = require("game/util/navigableList"):create {
 local TEXT_JOT = {
     create = function(self, data)
         return {
-            NAME = "text",
+            NAME  = "text",
       
-            data = data,
+            data  = data,
+            color = COLOR.PURE_WHITE,
 
             draw = function(self)
                 if self.data ~= nil then
-                    GRAFX.setColor(COLOR.PURE_WHITE)
+                    GRAFX.setColor(self.color)
                     GRAFX.setFont(FONT_CACHE:getFont(self.data.fontSize))
                     GRAFX.printf(self.data.message, self.data.x, self.data.y, 1000, "left")
                 end
@@ -31,14 +32,19 @@ local TEXT_JOT = {
                 self.data = { x = x, y = y, fontSize = size, message = message, }
             end,
 
+            setColor = function(self, color)
+                self.color = color
+            end,
+
         }
     end,
 }
 
 return {
-    name = "text",
+    name  = "text",
   
-    jot = TEXT_JOT:create(),
+    jot   = TEXT_JOT:create(),
+    color = COLOR.PURE_WHITE,
 
     fontSize = 32,
     
@@ -50,7 +56,7 @@ return {
         local mx, my = MOUSE.getPosition()
 
         MOUSE.setVisible(false)
-        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.setColor(self.color)
         GRAFX.setFont(FONT_CACHE:getFont(self.fontSize))
         GRAFX.printf(MESSAGES:get(), mx, my, 1000, "left")
     end,
@@ -69,17 +75,17 @@ return {
         self.jot = TEXT_JOT:create()
     end,
 
-    revert = function(self)
-        self.jot = TEXT_JOT:create()
-    end,
-
     changeMessage = function(self)
         if KEYBOARD.isDown("lshift", "rshift") then MESSAGES:prev()
         else                                        MESSAGES:next()  end
     end,
 
-    fromData = function(self, data)
-        return TEXT_JOT:create(data)
+    revert   = function(self)       self.jot = TEXT_JOT:create() end,
+    fromData = function(self, data) return TEXT_JOT:create(data) end,
+
+    setColor = function(self, color)
+        self.color = color
+        if self.jot then self.jot:setColor(color) end
     end,
 
 }
