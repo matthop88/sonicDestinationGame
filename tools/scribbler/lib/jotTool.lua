@@ -39,7 +39,9 @@ return {
         if     key == "l"                    then self.currentJot = JOT_REPOSITORY:getJot("line")
         elseif key == "t"                    then self.currentJot = JOT_REPOSITORY:getJot("text")
         elseif key == "r"                    then self.currentJot = JOT_REPOSITORY:getJot("rectangle")
-        elseif key == "c"                    then JOT_COLORS:next()
+        elseif key == "c"                    then 
+            if KEYBOARD.isDown("lshift", "rshift") then JOT_COLORS:prev()
+            else                                        JOT_COLORS:next() end
         elseif key == "s" or key == "escape" then self.currentJot = JOT_REPOSITORY:getJot("scribble")
         end
 
