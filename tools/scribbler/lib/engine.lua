@@ -21,7 +21,7 @@ local ENGINE = {
     end,
 
     update        = function(self, dt)
-        -- Do nothing
+        JOT_TOOL:update(dt)
     end,
 
     keypressed    = function(self, key)
