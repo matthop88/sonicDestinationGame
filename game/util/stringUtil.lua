@@ -1,10 +1,10 @@
 return {
 	startsWith = function(self, str, header)
-        return string.sub(str, 1, string.len(header)) == header
+        return type(str) == "string" and string.sub(str, 1, string.len(header)) == header
     end,
 
     endsWith = function(self, str, tail)
-        return string.sub(str, -string.len(tail)) == tail
+        return type(str) == "string" and string.sub(str, -string.len(tail)) == tail
     end,
 
     dropSuffix = function(self, str, suffixLength)
@@ -16,7 +16,7 @@ return {
     end,
 
     isUppercase = function(self, str)
-        return string.upper(str) == str
+        return type(str) == "string" and string.upper(str) == str
     end,
 
     addQuotesIfString = function(self, v)
