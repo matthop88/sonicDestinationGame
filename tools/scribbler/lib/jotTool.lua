@@ -42,6 +42,7 @@ return {
         elseif key == "c"                    then 
             if KEYBOARD.isDown("lshift", "rshift") then JOT_COLORS:prev()
             else                                        JOT_COLORS:next() end
+        elseif key == "f"                    then self.currentJot:toggleFill()
         elseif key == "s" or key == "escape" then self.currentJot = JOT_REPOSITORY:getJot("scribble")
         end
 
