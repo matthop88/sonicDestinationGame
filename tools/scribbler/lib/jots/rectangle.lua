@@ -5,23 +5,19 @@ local COLOR = require("game/constants/colors")
 local RECTANGLE_JOT = {
     create = function(self, data)
         return {
-            NAME      = "rectangle",
+            NAME = "rectangle",
             
-            data      = data,
-            color     = COLOR.PURE_WHITE,
-            fill      = false,
-            fillColor = COLOR.PURE_WHITE,
-            thickness = 3,
-
+            data = data,
+            
             draw = function(self)
                 if self.data ~= nil then
-                    if self.fill then 
-                        GRAFX.setColor(self.fillColor)
+                    if self.data.fill == true then 
+                        GRAFX.setColor(self.data.fillColor or COLOR.PURE_WHITE)
                         GRAFX.rectangle("fill", self.data.x, self.data.y, self.data.w, self.data.h)
                     end
                     
-                    GRAFX.setColor(self.color)
-                    GRAFX.setLineWidth(self.thickness)
+                    GRAFX.setColor(self.data.color or COLOR_PURE_WHITE)
+                    GRAFX.setLineWidth(self.data.thickness or 3)
                     GRAFX.rectangle("line", self.data.x, self.data.y, self.data.w, self.data.h)
                 end
             end,
@@ -36,10 +32,10 @@ local RECTANGLE_JOT = {
                 end
             end,
 
-            setColor     = function(self, color)     self.color     = color     end,
-            setFill      = function(self, fill)      self.fill      = fill      end,
-            setThickness = function(self, thickness) self.thickness = thickness end,
-            setFillColor = function(self, fillColor) self.fillColor = fillColor end,
+            setColor     = function(self, color)     if self.data ~= nil then self.data.color     = color     end end,
+            setFill      = function(self, fill)      if self.data ~= nil then self.data.fill      = fill      end end,
+            setThickness = function(self, thickness) if self.data ~= nil then self.data.thickness = thickness end end,
+            setFillColor = function(self, fillColor) if self.data ~= nil then self.data.fillColor = fillColor end end,
 
         }
     end,
