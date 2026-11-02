@@ -17,23 +17,22 @@ local TEXT_JOT = {
         return {
             NAME  = "text",
       
-            data  = data,
-            color = COLOR.PURE_WHITE,
-
+            data  = data or { color = COLOR.PURE_WHITE },
+            
             draw = function(self)
-                if self.data ~= nil then
-                    GRAFX.setColor(self.color)
+                if self.data.message ~= nil then
+                    GRAFX.setColor(self.data.color or COLOR.PURE_WHITE)
                     GRAFX.setFont(FONT_CACHE:getFont(self.data.fontSize))
                     GRAFX.printf(self.data.message, self.data.x, self.data.y, 1000, "left")
                 end
             end,
 
             addText = function(self, x, y, size, message)
-                self.data = { x = x, y = y, fontSize = size, message = message, }
+                self.data = { x = x, y = y, fontSize = size, message = message, color = self.data.color }
             end,
 
             setColor = function(self, color)
-                self.color = color
+                self.data.color = color
             end,
 
         }
