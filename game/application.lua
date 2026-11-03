@@ -41,6 +41,7 @@ local WORKSPACE           = {
     draw = function(self)
         self:drawBackground()
         self:drawHorizontalLine()
+        self:drawVerticalLine()
     end,
 
     drawBackground = function(self)
@@ -52,6 +53,13 @@ local WORKSPACE           = {
         GRAFX.setLineWidth(3)
         GRAFX.line(0, GRAFX.getHeight() * 3 / 4, GRAFX.getWidth(), GRAFX.getHeight() * 3 / 4)
     end,
+
+    drawVerticalLine = function(self)
+        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.setLineWidth(1)
+        GRAFX.line(GRAFX.getWidth() / 2, 0, GRAFX.getWidth() / 2, GRAFX.getHeight())
+    end,
+
 }
 
 --------------------------------------------------------------
@@ -75,9 +83,15 @@ end
 function love.keypressed(key)
     if     key == "up"    then sonicY = sonicY -  1
     elseif key == "down"  then sonicY = sonicY +  1
+    elseif key == "left"  then sonicX = sonicX -  1
+    elseif key == "right" then sonicX = sonicX +  1
     elseif key == "w"     then sonicY = sonicY - 10
     elseif key == "s"     then sonicY = sonicY + 10
-    elseif key == "space" then print("Sonic Y = " .. sonicY) end
+    elseif key == "j"     then sonicX = sonicX - 10
+    elseif key == "k"     then sonicX = sonicX + 10
+    elseif key == "space" then 
+        print("Sonic X = " .. sonicX .. ", Sonic Y = " .. sonicY) 
+    end
 end
 
 --[[
