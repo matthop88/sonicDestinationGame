@@ -19,7 +19,7 @@ Pressing the 'm' key again returns Sonic to standing on the line.
                            --------
 - [X] Sonic follows mouse around screen when 'm' is pressed
 - [X] Sonic snaps back to standing on line when 'm' is pressed again
-- [ ] Mouse tracking code is implemented as a plugin
+- [X] Mouse tracking code is implemented as a plugin
 
 --]]
 
