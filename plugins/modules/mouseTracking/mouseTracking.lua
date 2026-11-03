@@ -22,8 +22,35 @@ cause the desired object to track the mouse
 
 return {
     create = function(self, params)
-        return {}
+        local origX, origY
+
+        if params.getXYFn then origX, origY = params.getXYFn() end
+        
+        return {
+            toggleKey   = params.toggleKey,
+            setXY       = params.setXYFn,
+
+            followMouse = false,
+            origX       = origX,
+            origY       = origY,
+
+            update           = function(self, dt)
+                if self.followMouse and self.setXY then
+                    self.setXY(love.mouse.getPosition())
+                end
+            end,
+
+            handleKeypressed = function(self, key)
+                if key == self.toggleKey then
+                    self.followMouse = not self.followMouse
+                    love.mouse.setVisible(not self.followMouse)
+            
+                    if not self.followMouse and self.origX then
+                        self.setXY(self.origX, self.origY)
+                    end
+                end
+            end,
+        }
     end,
     
 }
-
