@@ -20,4 +20,10 @@ cause the desired object to track the mouse
 
 --]]
 
+return {
+    create = function(self, params)
+        return {}
+    end,
+    
+}
 
