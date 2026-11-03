@@ -63,6 +63,10 @@ function love.keypressed(key)
     end
 end
 
+require("plugins/engine")
+    :add { "mouseTracking", { } }
+
+
 --[[
                              ...,?77??!~~~~!???77?<~.... 
                         ..?7`                           `7!.. 
