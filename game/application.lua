@@ -30,9 +30,6 @@ Pressing the 'm' key again returns Sonic to standing on the line.
 local SONIC       = requireRelative("sonic")
 local WORKSPACE   = requireRelative("workspace")
 
-local followMouse = false
-local origX, origY
-
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
@@ -40,27 +37,6 @@ local origX, origY
 function love.draw()
     WORKSPACE:draw()
     SONIC:draw()
-end
-
-function love.update(dt)
-    if followMouse then
-        if origX == nil then
-            origX, origY = SONIC:getX(), SONIC:getY()
-        end
-
-        SONIC:moveTo(love.mouse.getPosition())
-    end
-end
-
-function love.keypressed(key)
-    if key == 'm' then
-        followMouse = not followMouse
-        love.mouse.setVisible(not followMouse)
-        
-        if not followMouse then
-            SONIC:moveTo(origX, origY)
-        end
-    end
 end
 
 require("plugins/engine")
