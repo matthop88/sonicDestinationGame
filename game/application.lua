@@ -46,11 +46,21 @@ local WORKSPACE   = {
 }
 
 --------------------------------------------------------------
+--                   Specialized Functions                  --
+--------------------------------------------------------------
+
+local drawSonic = function()
+    GRAFX.setColor(COLOR.PURE_WHITE)
+    GRAFX.draw(SONIC_IMAGE, 0, 0)
+end
+
+--------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
 function love.draw()
     WORKSPACE:draw()
+    drawSonic()
 end
 
 --[[
