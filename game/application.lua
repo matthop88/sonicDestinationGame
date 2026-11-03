@@ -18,7 +18,7 @@ standing on the line.
 - [X] Sonic is positioned so that he is standing on the line
 - [X] Sonic is drawn at the proper scale
 - [X] Sonic is centered horizontally
-- [ ] Sonic must be in sharp focus
+- [X] Sonic must be in sharp focus
 
 --]]
 
