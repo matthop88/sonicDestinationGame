@@ -24,10 +24,11 @@ standing on the line.
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local GRAFX  = love.graphics
-local COLOR  = requireRelative("constants/colors")
+local GRAFX       = love.graphics
+local COLOR       = requireRelative("constants/colors")
+local SONIC_IMAGE = GRAFX.newImage("resources/images/spriteSheets/sonic1/sonic1.png")
 
-local WORKSPACE = {
+local WORKSPACE   = {
     draw = function(self)
         self:drawBackground()
         self:drawHorizontalLine()
