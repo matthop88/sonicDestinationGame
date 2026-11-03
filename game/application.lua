@@ -41,9 +41,15 @@ local SONIC = ({
                                           self.image:getWidth(), self.image:getHeight())
 
         self.image:setFilter("nearest", "nearest")
-        
+
         return self
     end,
+
+    draw = function(self)
+        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.draw(self.image, self.standingQuad, self.x, self.y, 0, 3, 3)
+    end,
+
 }):init()
 
 local WORKSPACE           = {
@@ -74,35 +80,12 @@ local WORKSPACE           = {
 }
 
 --------------------------------------------------------------
---                   Specialized Functions                  --
---------------------------------------------------------------
-
-local drawSonic = function()
-    GRAFX.setColor(COLOR.PURE_WHITE)
-    GRAFX.draw(SONIC_IMAGE, SONIC_QUAD, sonicX, sonicY, 0, 3, 3)
-end
-
---------------------------------------------------------------
 --                     LOVE2D Functions                     --
 --------------------------------------------------------------
 
 function love.draw()
     WORKSPACE:draw()
-    drawSonic()
-end
-
-function love.keypressed(key)
-    if     key == "up"    then sonicY = sonicY -  1
-    elseif key == "down"  then sonicY = sonicY +  1
-    elseif key == "left"  then sonicX = sonicX -  1
-    elseif key == "right" then sonicX = sonicX +  1
-    elseif key == "w"     then sonicY = sonicY - 10
-    elseif key == "s"     then sonicY = sonicY + 10
-    elseif key == "j"     then sonicX = sonicX - 10
-    elseif key == "k"     then sonicX = sonicX + 10
-    elseif key == "space" then 
-        print("Sonic X = " .. sonicX .. ", Sonic Y = " .. sonicY) 
-    end
+    SONIC:draw()
 end
 
 --[[
