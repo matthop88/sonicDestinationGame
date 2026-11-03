@@ -1,4 +1,7 @@
 --------------------------------------------------------------
+--                    Sprite Sheet Slicer                   --
+--                        Version 0.1                       --
+--                                                          --
 --                 Functional Specifications                --
 --                         TOOL-0006                        --
 --------------------------------------------------------------
@@ -22,11 +25,9 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 - [X] Image can be chosen from the command-line.
 - [X] List of possible images can be viewed with "-i" underscore.
 - [X] Background Color and Sprite Color can be entered from command line
-- [ ] Stand-in image is loaded when image cannot be found.
+- [X] Stand-in image is loaded when image cannot be found.
 
 --]]
-
-
 
 --------------------------------------------------------------
 --                          Plugins                         --
@@ -34,16 +35,18 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 
 local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
 local IMAGE_PATH     = FILE_PATH .. "/" .. __PARAMS["imageFile"] .. ".png"
+local BAD_IMAGE_PATH = "tools/spriteSheetSlicer/resources/fileNotFound.png"
 
-local PLUGINS = require("plugins/engine")
+require("plugins/engine")
     :add { "showValidFilenames", { filePath  = FILE_PATH, extension = ".png", 
                                    fileType  = "Image",   
                                    condition = function() return __PARAMS["imageFile"] == "_" end, } }
      --------------------------------------------------------------------------------------------------
-    :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "imageView",     { imagePath  = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, accessorFn = "getImageView", } }
     :add { "custom",        { 
         object                 = requireRelative("lib/engine"),
         imageView              = getImageView(),
+        isImageBad             = getImageView().isBadImage,
         verticalGapTolerance   = tonumber(__PARAMS["verticalGapTolerance"]),
         widthVarianceTolerance = tonumber(__PARAMS["widthVarianceTolerance"]),
     } }

@@ -13,7 +13,8 @@ local params = {
 	id        = string.upper(id), 
 	createdAt = date,
 	updatedAt = date,
-	title     = __PARAMS["title"],
+	objectName= __PARAMS["objectName"],
+	version   = "0.1",
 	type      = __PARAMS["type"],
 	status    = __PARAMS["status"],
 	priority  = __PARAMS["priority"],
@@ -25,7 +26,6 @@ local params = {
 - [ ] Criteria #2
 - [ ] Criteria #3]],
 	notes              = ellipses,
-	pluginName         = __PARAMS["pluginName"],
 	parameters         = [[
 * parameter1 - description
 * parameter2 - description

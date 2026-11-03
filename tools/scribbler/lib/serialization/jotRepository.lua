@@ -26,13 +26,15 @@ return ({
 	end,
 
 	enrichJot = function(self, jot)
-		if not jot.update      then jot.update      = DUMMY_FN end
-	    if not jot.keypressed  then jot.keypressed  = DUMMY_FN end
-	    if not jot.keyreleased then jot.keyreleased = DUMMY_FN end
-	    if not jot.penDown     then jot.penDown     = DUMMY_FN end
-	    if not jot.penUp       then jot.penUp       = DUMMY_FN end
-	    if not jot.penMoved    then jot.penMoved    = DUMMY_FN end
-	    if not jot.penDragged  then jot.penDragged  = DUMMY_FN end
+		if not jot.update       then jot.update       = DUMMY_FN end
+	    if not jot.keypressed   then jot.keypressed   = DUMMY_FN end
+	    if not jot.keyreleased  then jot.keyreleased  = DUMMY_FN end
+	    if not jot.penDown      then jot.penDown      = DUMMY_FN end
+	    if not jot.penUp        then jot.penUp        = DUMMY_FN end
+	    if not jot.penMoved     then jot.penMoved     = DUMMY_FN end
+	    if not jot.penDragged   then jot.penDragged   = DUMMY_FN end
+	    if not jot.toggleFill   then jot.toggleFill   = DUMMY_FN end
+	    if not jot.setThickness then jot.setThickness = DUMMY_FN end
 	end,
 
 	getJot = function(self, jotName)

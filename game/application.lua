@@ -1,18 +1,22 @@
+--------------------------------------------------------------
+--                  Sonic Destination Game                  --
+--                       Version 0.001                      --
+--                                                          --
+--                 Functional Specifications                --
+--                         GAME-0001                        --
+--------------------------------------------------------------
+
 --[[
+                       Short Description
+                       -----------------
+Draw Sonic the Hedgehog sprite (from Sonic 1, Sega Genesis) in Workspace,
+standing on the line.
 
---------------------------------------------------------------
---                  Functional Specifications               --
---------------------------------------------------------------
-
-[X] 1. Create Game Window
-       a. Window Title:      Sonic Destination
-       b. Window Dimensions: 1024 x 768
-[X] 2. Draw Workspace in Game Window
-       a. Background colored dark green
-       b. Thick white horizontal line across entire screen,
-          positioned 3/4 of way down the screen
-[ ] 3. Draw Sonic the Hedgehog sprite in Workspace
-       a. Sonic is standing on the line
+                           Features
+                           --------
+- [ ] Sonic is drawn to screen
+- [ ] Sonic is positioned so that he is standing on the line
+- [ ] Sonic is centered horizontally
 
 --]]
 

@@ -21,7 +21,7 @@ local ENGINE = {
     end,
 
     update        = function(self, dt)
-        -- Do nothing
+        JOT_TOOL:update(dt)
     end,
 
     keypressed    = function(self, key)
@@ -77,7 +77,7 @@ local ENGINE = {
         for jot in self.history:eachEntry() do table.insert(jots, jot) end
 
         return {
-            VERSION = "0.1",
+            VERSION = "0.2",
             
             jots    = jots,
         }

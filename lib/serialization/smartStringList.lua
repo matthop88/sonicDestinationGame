@@ -18,7 +18,7 @@ return {
             end,
 
             addKV       = function(self, key, value, params)
-                if not STRING_UTIL:endsWith(value, "{") then value = STRING_UTIL:addQuotesIfString(value) .. "," end
+                if not STRING_UTIL:endsWith(value, "{") then value = tostring(STRING_UTIL:addQuotesIfString(value)) .. "," end
                 
                 self:addParameterized(STRING_UTIL:padValueRight(key, params.maxKeyLength or 0) .. " = " .. value, params)
             end,

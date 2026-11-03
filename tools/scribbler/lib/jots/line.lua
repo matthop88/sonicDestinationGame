@@ -8,10 +8,10 @@ local LINE_JOT = {
             NAME = "line",
             
             data = data or { points = {} },
-
+            
             draw = function(self)
-                GRAFX.setColor(COLOR.PURE_WHITE)
-                GRAFX.setLineWidth(1)
+                GRAFX.setColor(self.data.color or COLOR.PURE_WHITE)
+                GRAFX.setLineWidth(self.data.thickness or 1)
                 
                 local points = self.data.points
 
@@ -36,6 +36,9 @@ local LINE_JOT = {
                 return { x = points[#points - 1], y = points[#points] }
             end,
 
+            setColor     = function(self, color)     self.data.color     = color     end,
+            setThickness = function(self, thickness) self.data.thickness = thickness end,
+
         }
 
     end,
@@ -43,9 +46,11 @@ local LINE_JOT = {
 }
 
 return {
-    name = "line",
+    name      = "line",
     
-    jot = LINE_JOT:create(),
+    jot       = LINE_JOT:create(),
+    color     = COLOR.PURE_WHITE,
+    thickness = 1,
 
     draw          = function(self)
         self.jot:draw()
@@ -55,7 +60,7 @@ return {
         local mx, my = MOUSE.getPosition()
 
         MOUSE.setVisible(false)
-        GRAFX.setColor(COLOR.PURE_WHITE)
+        GRAFX.setColor(self.color)
 
         if not self.jot:isEmpty() then
             local lastPt = self.jot:getLastPoint()
@@ -63,13 +68,19 @@ return {
             GRAFX.line(lastPt.x, lastPt.y, mx, my)
         end
 
-        GRAFX.rectangle("fill", mx - 2, my - 2, 5, 5)
+        GRAFX.setLineWidth(self.thickness)
+        GRAFX.line(mx - 25, my, mx -  5, my)
+        GRAFX.line(mx, my - 25, mx, my -  5)
+        GRAFX.line(mx +  5, my, mx + 25, my)
+        GRAFX.line(mx, my +  5, mx, my + 25)
+        GRAFX.rectangle("line", mx - 5, my - 5, 11, 11)
     end,
 
     keypressed    = function(self, key, publishJot)
         if     key == "return" and not self.jot:isEmpty() then 
             publishJot(self.jot)
             self.jot = LINE_JOT:create()
+            self.jot:setThickness(self.thickness)
         end
     end,
 
@@ -77,16 +88,17 @@ return {
         self.jot:addPoint(mx, my)
     end,
 
-    revert = function(self)
-        self.jot = LINE_JOT:create()
+    revert   = function(self)       self.jot = LINE_JOT:create() end,
+    fromData = function(self, data) return LINE_JOT:create(data) end,
+
+    setColor = function(self, color)
+        self.color = color
+        if self.jot then self.jot:setColor(color) end
     end,
 
-    fromData = function(self, data)
-        return LINE_JOT:create(data)
-    end,
-
-    revert = function(self)
-        self.jot = LINE_JOT:create()
+    setThickness = function(self, thickness)
+        self.thickness = thickness
+        if self.jot then self.jot:setThickness(thickness) end
     end,
 
 }
