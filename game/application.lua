@@ -73,8 +73,10 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    if     key == "down"  then sonicY = sonicY + 1
-    elseif key == "up"    then sonicY = sonicY - 1
+    if     key == "up"    then sonicY = sonicY -  1
+    elseif key == "down"  then sonicY = sonicY +  1
+    elseif key == "w"     then sonicY = sonicY - 10
+    elseif key == "s"     then sonicY = sonicY + 10
     elseif key == "space" then print("Sonic Y = " .. sonicY) end
 end
 
