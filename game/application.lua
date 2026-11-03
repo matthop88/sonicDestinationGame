@@ -35,13 +35,13 @@ local SONIC_QUAD          = love.graphics.newQuad(
                                 SONIC_STANDING_RECT.w,  SONIC_STANDING_RECT.h,
                                 SONIC_IMAGE:getWidth(), SONIC_IMAGE:getHeight())
 
-local sonicX, sonicY      = 500, 456
+local sonicX, sonicY      = 464, 456
 
 local WORKSPACE           = {
     draw = function(self)
         self:drawBackground()
         self:drawHorizontalLine()
-        self:drawVerticalLines()
+        --self:drawVerticalLines()
     end,
 
     drawBackground = function(self)
