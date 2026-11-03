@@ -34,6 +34,8 @@ local SONIC_QUAD          = love.graphics.newQuad(
                                 SONIC_STANDING_RECT.w,  SONIC_STANDING_RECT.h,
                                 SONIC_IMAGE:getWidth(), SONIC_IMAGE:getHeight())
 
+local sonicX, sonicY      = 500, 450
+
 local WORKSPACE           = {
     draw = function(self)
         self:drawBackground()
@@ -57,7 +59,7 @@ local WORKSPACE           = {
 
 local drawSonic = function()
     GRAFX.setColor(COLOR.PURE_WHITE)
-    GRAFX.draw(SONIC_IMAGE, SONIC_QUAD, 500, 450)
+    GRAFX.draw(SONIC_IMAGE, SONIC_QUAD, sonicX, sonicY)
 end
 
 --------------------------------------------------------------
@@ -67,6 +69,12 @@ end
 function love.draw()
     WORKSPACE:draw()
     drawSonic()
+end
+
+function love.keypressed(key)
+    if     key == "down"  then sonicY = sonicY + 1
+    elseif key == "up"    then sonicY = sonicY - 1
+    elseif key == "space" then print("Sonic Y = " .. sonicY) end
 end
 
 --[[
