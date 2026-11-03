@@ -64,8 +64,11 @@ function love.keypressed(key)
 end
 
 require("plugins/engine")
-    :add { "mouseTracking", { } }
-
+    :add { "mouseTracking", { 
+        toggleKey = "m",
+        getXYFn   = function()     return SONIC:getX(), SONIC:getY() end,
+        setXYFn   = function(x, y) SONIC:moveTo(x, y)                end,
+    } }
 
 --[[
                              ...,?77??!~~~~!???77?<~.... 
