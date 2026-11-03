@@ -46,6 +46,7 @@ require("plugins/engine")
     :add { "custom",        { 
         object                 = requireRelative("lib/engine"),
         imageView              = getImageView(),
+        isImageBad             = getImageView().isBadImage,
         verticalGapTolerance   = tonumber(__PARAMS["verticalGapTolerance"]),
         widthVarianceTolerance = tonumber(__PARAMS["widthVarianceTolerance"]),
     } }
