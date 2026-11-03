@@ -29,6 +29,10 @@ local COLOR               = requireRelative("constants/colors")
 
 local SONIC_IMAGE         = GRAFX.newImage(relativePath("resources/images/spriteSheets/sonic1/sonic1.png"))
 local SONIC_STANDING_RECT = { x = 43, y = 257, w = 32, h = 40 }
+local SONIC_QUAD          = love.graphics.newQuad(
+                                SONIC_STANDING_RECT.x,  SONIC_STANDING_RECT.y,
+                                SONIC_STANDING_RECT.w,  SONIC_STANDING_RECT.h,
+                                SONIC_IMAGE:getWidth(), SONIC_IMAGE:getHeight())
 
 local WORKSPACE           = {
     draw = function(self)
@@ -53,7 +57,7 @@ local WORKSPACE           = {
 
 local drawSonic = function()
     GRAFX.setColor(COLOR.PURE_WHITE)
-    GRAFX.draw(SONIC_IMAGE, 0, 0)
+    GRAFX.draw(SONIC_IMAGE, SONIC_QUAD, 500, 450)
 end
 
 --------------------------------------------------------------
