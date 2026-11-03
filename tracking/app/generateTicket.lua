@@ -9,11 +9,16 @@ local ellipses = [[
     ...
     ...]]
 
+local title    = ""
+if __PARAMS["objectName"] then
+	title = "Implement " .. __PARAMS["objectName"]
+end
+
 local params = {
 	id        = string.upper(id), 
 	createdAt = date,
 	updatedAt = date,
-	title     = __PARAMS["title"],
+	title     = title,
 	objectName= __PARAMS["objectName"],
 	version   = "0.1",
 	type      = __PARAMS["type"],
