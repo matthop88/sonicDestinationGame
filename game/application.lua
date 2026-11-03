@@ -16,7 +16,7 @@ standing on the line.
                            --------
 - [X] Sonic is drawn to screen
 - [X] Sonic is positioned so that he is standing on the line
-- [ ] Sonic is drawn at the proper scale
+- [X] Sonic is drawn at the proper scale
 - [ ] Sonic is centered horizontally
 
 --]]
