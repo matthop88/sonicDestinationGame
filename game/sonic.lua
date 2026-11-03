@@ -1,6 +1,6 @@
 return {
-    x = 464,
-    y = 456,
+    x = 512,
+    y = 516,
     
     sprite = requireRelative("sprite"),
 
