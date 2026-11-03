@@ -72,8 +72,11 @@ end
 function love.load(args)
     local path, appName = APPLICATIONS:getPathAndAppName(args[1] or "game")
     
-    requireRelative = function(p) return require(path .. p) end
+    relativePath    = function(p) return path .. p                end
+    requireRelative = function(p) return require(relativePath(p)) end
 
+    __DEV_MODE      = true
+    
     loadWindow(path)
 
 	local COMMAND_LINE_TOOLS = require("lib/cmd/commandLineTools"):create(path .. "config/")

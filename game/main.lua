@@ -16,6 +16,7 @@ end
 function love.load(args)
     loadWindow()
 
+    relativePath    = function(path) return path          end
     requireRelative = function(path) return require(path) end
 
     require("application")

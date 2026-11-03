@@ -3,20 +3,23 @@
 --                       Version 0.001                      --
 --                                                          --
 --                 Functional Specifications                --
---                         GAME-0001                        --
+--                         GAME-0019                        --
+--                 (Sonic Moving with Mouse)                --
 --------------------------------------------------------------
 
 --[[
                        Short Description
                        -----------------
-Draw Sonic the Hedgehog sprite (from Sonic 1, Sega Genesis) in Workspace,
-standing on the line.
+Sonic stands on the line initially, but when you press the 'm' key,
+the Sonic sprite follows the mouse around the screen.
+
+Pressing the 'm' key again returns Sonic to standing on the line.
 
                            Features
                            --------
-- [ ] Sonic is drawn to screen
-- [ ] Sonic is positioned so that he is standing on the line
-- [ ] Sonic is centered horizontally
+- [X] Sonic follows mouse around screen when 'm' is pressed
+- [X] Sonic snaps back to standing on line when 'm' is pressed again
+- [X] Mouse tracking code is implemented as a plugin
 
 --]]
 
@@ -24,25 +27,8 @@ standing on the line.
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local GRAFX  = love.graphics
-local COLOR  = requireRelative("constants/colors")
-
-local WORKSPACE = {
-    draw = function(self)
-        self:drawBackground()
-        self:drawHorizontalLine()
-    end,
-
-    drawBackground = function(self)
-        GRAFX.clear(COLOR.GREEN)
-    end,
-
-    drawHorizontalLine = function(self)
-        GRAFX.setColor(COLOR.PURE_WHITE)
-        GRAFX.setLineWidth(3)
-        GRAFX.line(0, GRAFX.getHeight() * 3 / 4, GRAFX.getWidth(), GRAFX.getHeight() * 3 / 4)
-    end,
-}
+local SONIC       = requireRelative("sonic")
+local WORKSPACE   = requireRelative("workspace")
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
@@ -50,6 +36,16 @@ local WORKSPACE = {
 
 function love.draw()
     WORKSPACE:draw()
+    SONIC:draw()
+end
+
+if __DEV_MODE then
+    require("plugins/engine")
+        :add { "mouseTracking", { 
+            toggleKey = "m",
+            getXYFn   = function()     return SONIC:getX(), SONIC:getY() end,
+            setXYFn   = function(x, y) SONIC:moveTo(x, y)                end,
+        } }
 end
 
 --[[
