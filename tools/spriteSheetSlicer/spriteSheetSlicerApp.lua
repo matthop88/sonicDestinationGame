@@ -25,7 +25,7 @@ Thereafter, any time the mouse enters a sprite frame and the button is clicked, 
 - [X] Image can be chosen from the command-line.
 - [X] List of possible images can be viewed with "-i" underscore.
 - [X] Background Color and Sprite Color can be entered from command line
-- [ ] Stand-in image is loaded when image cannot be found.
+- [X] Stand-in image is loaded when image cannot be found.
 
 --]]
 
