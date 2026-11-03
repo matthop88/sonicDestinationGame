@@ -60,7 +60,7 @@ local WORKSPACE           = {
 
 local drawSonic = function()
     GRAFX.setColor(COLOR.PURE_WHITE)
-    GRAFX.draw(SONIC_IMAGE, SONIC_QUAD, sonicX, sonicY)
+    GRAFX.draw(SONIC_IMAGE, SONIC_QUAD, sonicX, sonicY, 0, 3, 3)
 end
 
 --------------------------------------------------------------
