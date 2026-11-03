@@ -7,6 +7,9 @@ return ({
     standingRect = { x = 43, y = 257, w = 32, h = 40 },
     standingQuad = nil,
 
+    offset       = { x = 16, y = 20 },
+    scale        = 3,
+
     init = function(self)
         self.standingQuad = GRAFX.newQuad(self.standingRect.x,   self.standingRect.y,
                                           self.standingRect.w,   self.standingRect.h,
@@ -19,7 +22,10 @@ return ({
 
     draw = function(self)
         GRAFX.setColor(COLOR.PURE_WHITE)
-        GRAFX.draw(self.image, self.standingQuad, self.x, self.y, 0, 3, 3)
+        GRAFX.draw(self.image, self.standingQuad, 
+                   self.x - (self.offset.x * self.scale), 
+                   self.y - (self.offset.y * self.scale), 
+                   0, self.scale, self.scale)
     end,
 
     moveTo = function(self, x, y)
