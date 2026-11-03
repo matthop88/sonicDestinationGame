@@ -23,13 +23,16 @@ return ({
     draw = function(self)
         GRAFX.setColor(COLOR.PURE_WHITE)
         GRAFX.draw(self.image, self.standingQuad, 
-                   self.x - (self.offset.x * self.scale), 
-                   self.y - (self.offset.y * self.scale), 
+                   self:getImageX(), self:getImageY(),
                    0, self.scale, self.scale)
     end,
 
-    moveTo = function(self, x, y)
-        self.x, self.y = x, y
-    end,
+    moveTo    = function(self, x, y) self.x, self.y = x, y                  end,
+
+    getX      = function(self) return self.x                                end,
+    getY      = function(self) return self.y                                end,
+
+    getImageX = function(self) return self.x - (self.offset.x * self.scale) end,
+    getImageY = function(self) return self.y - (self.offset.y * self.scale) end,
 
 }):init()
