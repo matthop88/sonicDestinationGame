@@ -27,8 +27,10 @@ Pressing the 'm' key again returns Sonic to standing on the line.
 --                       Local Variables                    --
 --------------------------------------------------------------
 
-local SONIC     = requireRelative("sonic")
-local WORKSPACE = requireRelative("workspace")
+local SONIC       = requireRelative("sonic")
+local WORKSPACE   = requireRelative("workspace")
+
+local followMouse = false
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
@@ -40,7 +42,15 @@ function love.draw()
 end
 
 function love.update(dt)
-    SONIC:moveTo(love.mouse.getPosition())
+    if followMouse then
+        SONIC:moveTo(love.mouse.getPosition())
+    end
+end
+
+function love.keypressed(key)
+    if key == 'm' then
+        followMouse = not followMouse
+    end
 end
 
 --[[
