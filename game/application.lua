@@ -14,7 +14,7 @@ standing on the line.
 
                            Features
                            --------
-- [ ] Sonic is drawn to screen
+- [X] Sonic is drawn to screen
 - [ ] Sonic is positioned so that he is standing on the line
 - [ ] Sonic is centered horizontally
 
