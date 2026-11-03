@@ -29,17 +29,15 @@ standing on the line.
 local GRAFX               = love.graphics
 local COLOR               = requireRelative("constants/colors")
 
-local SONIC_IMAGE         = GRAFX.newImage(relativePath("resources/images/spriteSheets/sonic1/sonic1.png"))
-
-SONIC_IMAGE:setFilter("nearest", "nearest")
-
-local SONIC_STANDING_RECT = { x = 43, y = 257, w = 32, h = 40 }
-local SONIC_QUAD          = love.graphics.newQuad(
-                                SONIC_STANDING_RECT.x,  SONIC_STANDING_RECT.y,
-                                SONIC_STANDING_RECT.w,  SONIC_STANDING_RECT.h,
-                                SONIC_IMAGE:getWidth(), SONIC_IMAGE:getHeight())
-
-local sonicX, sonicY      = 464, 456
+local SONIC = {
+    x = 464,   y = 456,
+    image        = GRAFX.newImage(relativePath("resources/images/spriteSheets/sonic1/sonic1.png")),
+    standingRect = { x = 43, y = 257, w = 32, h = 40 },
+    standingQuad = GRAFX.newQuad(
+                        self.standingRect.x,   self.standingRect.y,
+                        self.standingRect.w,   self.standingRect.h,
+                        self.image:getWidth(), self.image:getHeight()),
+}
 
 local WORKSPACE           = {
     draw = function(self)
