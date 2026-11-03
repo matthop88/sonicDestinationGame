@@ -31,6 +31,7 @@ local SONIC       = requireRelative("sonic")
 local WORKSPACE   = requireRelative("workspace")
 
 local followMouse = false
+local origX, origY
 
 --------------------------------------------------------------
 --                     LOVE2D Functions                     --
@@ -43,6 +44,10 @@ end
 
 function love.update(dt)
     if followMouse then
+        if origX == nil then
+            origX, origY = SONIC:getX(), SONIC:getY()
+        end
+
         SONIC:moveTo(love.mouse.getPosition())
     end
 end
@@ -50,6 +55,10 @@ end
 function love.keypressed(key)
     if key == 'm' then
         followMouse = not followMouse
+        
+        if not followMouse then
+            SONIC:moveTo(origX, origY)
+        end
     end
 end
 
