@@ -33,11 +33,14 @@ local loadImage  = function(imagePath, badImagePath)
 
     local status, err = pcall(function() imageData = love.image.newImageData(imagePath) end)
 
+    local usingBadImage = false
+  
     if status ~= true then
+        usingBadImage = true
         local status, err = pcall(function() imageData = love.image.newImageData(badImagePath) end)
     end
 
-    return imageData
+    return imageData, usingBadImage
 end
 
 --------------------------------------------------------------
@@ -46,7 +49,7 @@ end
 
 return {
     create = function(self, params)
-        local IMAGE_DATA = loadImage(params.imagePath, params.badImagePath)
+        local IMAGE_DATA, usingBadImage = loadImage(params.imagePath, params.badImagePath)
 
         if IMAGE_DATA == nil then
             print("\nERROR: Cannot find image: " .. params.imagePath .. "\n")
@@ -55,12 +58,13 @@ return {
         end
     
         return {
-            imageData = IMAGE_DATA,
-            image     = GRAFX.newImage(IMAGE_DATA),
+            imageData  = IMAGE_DATA,
+            image      = GRAFX.newImage(IMAGE_DATA),
+            isBadImage = usingBadImage,
             
-            x         = 0,
-            y         = 0,
-            scale     = 1,
+            x          = 0,
+            y          = 0,
+            scale      = 1,
             
             --------------------------------------------------------------------------------------
             draw               = function(self)
