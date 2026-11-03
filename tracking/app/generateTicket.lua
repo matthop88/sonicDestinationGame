@@ -9,7 +9,9 @@ local ellipses = [[
     ...
     ...]]
 
-local title    = ""
+local objName  = __PARAMS["objectName"]
+local title    = objName ~= nil and "Implement " .. objName or ""
+
 if __PARAMS["objectName"] then
 	title = "Implement " .. __PARAMS["objectName"]
 end
@@ -19,7 +21,7 @@ local params = {
 	createdAt = date,
 	updatedAt = date,
 	title     = title,
-	objectName= __PARAMS["objectName"],
+	objectName= objName,
 	version   = "0.1",
 	type      = __PARAMS["type"],
 	status    = __PARAMS["status"],
