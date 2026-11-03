@@ -13,6 +13,7 @@ local params = {
 	id        = string.upper(id), 
 	createdAt = date,
 	updatedAt = date,
+	title     = __PARAMS["title"],
 	objectName= __PARAMS["objectName"],
 	version   = "0.1",
 	type      = __PARAMS["type"],
