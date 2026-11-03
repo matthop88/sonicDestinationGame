@@ -39,6 +39,10 @@ function love.draw()
     SONIC:draw()
 end
 
+function love.update(dt)
+    SONIC:moveTo(love.mouse.getPosition())
+end
+
 --[[
                              ...,?77??!~~~~!???77?<~.... 
                         ..?7`                           `7!.. 
