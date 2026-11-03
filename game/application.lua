@@ -3,22 +3,23 @@
 --                       Version 0.001                      --
 --                                                          --
 --                 Functional Specifications                --
---                         GAME-0001                        --
+--                         GAME-0019                        --
+--                 (Sonic Moving with Mouse)                --
 --------------------------------------------------------------
 
 --[[
                        Short Description
                        -----------------
-Draw Sonic the Hedgehog sprite (from Sonic 1, Sega Genesis) in Workspace,
-standing on the line.
+Sonic stands on the line initially, but when you press the 'm' key,
+the Sonic sprite follows the mouse around the screen.
+
+Pressing the 'm' key again returns Sonic to standing on the line.
 
                            Features
                            --------
-- [X] Sonic is drawn to screen
-- [X] Sonic is positioned so that he is standing on the line
-- [X] Sonic is drawn at the proper scale
-- [X] Sonic is centered horizontally
-- [X] Sonic must be in sharp focus
+- [ ] Sonic follows mouse around screen when 'm' is pressed
+- [ ] Sonic snaps back to standing on line when 'm' is pressed again
+- [ ] Mouse tracking code is implemented as a plugin
 
 --]]
 
