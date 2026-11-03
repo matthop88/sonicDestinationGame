@@ -9,11 +9,19 @@ return {
 			spriteRects = requireRelative("lib/spriteRects"):create(params),
 
 			init = function(self)
+				local bgColor = self:loadColor(__PARAMS["backgroundColor"])
+				local spColor = self:loadColor(__PARAMS["spriteColor"])
+
+				if params.isImageBad then
+					bgColor = { r = 1, g = 1, b = 1 }
+					spColor = { r = 0, g = 1, b = 1 }
+				end
+
 				self.scanner = requireRelative("lib/scanner"):create {
 					imageView   = params.imageView,
 	
-					bgColor     = self:loadColor(__PARAMS["backgroundColor"]),
-					spColor     = self:loadColor(__PARAMS["spriteColor"]),
+					bgColor     = bgColor,
+					spColor     = spColor,
 
 					spriteRects = self.spriteRects,
 				}
