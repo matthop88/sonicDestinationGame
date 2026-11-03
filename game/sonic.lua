@@ -22,4 +22,8 @@ return ({
         GRAFX.draw(self.image, self.standingQuad, self.x, self.y, 0, 3, 3)
     end,
 
+    moveTo = function(self, x, y)
+        self.x, self.y = x, y
+    end,
+
 }):init()
