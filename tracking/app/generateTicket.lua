@@ -12,10 +12,6 @@ local ellipses = [[
 local objName  = __PARAMS["objectName"]
 local title    = objName ~= nil and "Implement " .. objName or ""
 
-if __PARAMS["objectName"] then
-	title = "Implement " .. __PARAMS["objectName"]
-end
-
 local params = {
 	id        = string.upper(id), 
 	createdAt = date,
