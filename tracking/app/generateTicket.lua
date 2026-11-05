@@ -1,4 +1,5 @@
 local TICKET_ID_UTIL = require("tracking/app/lib/ticketIDUtil")
+local ternary        = require("lib/util/ternary")
 
 local id       = TICKET_ID_UTIL:getNextID(__PARAMS["prefix"])
 
@@ -9,15 +10,17 @@ local ellipses = [[
     ...
     ...]]
 
-local objName  = __PARAMS["objectName"]
-local title    = objName ~= nil and "Implement " .. objName or ""
+local title    =    __PARAMS["title"]
+                 or ternary { IF   = __PARAMS["objectName"] ~= nil, 
+							  THEN = "Implement " .. __PARAMS["objectName"], 
+						      ELSE = "" }
 
 local params = {
 	id        = string.upper(id), 
 	createdAt = date,
 	updatedAt = date,
 	title     = title,
-	objectName= objName,
+	objectName= __PARAMS["objectName"],
 	version   = "0.1",
 	type      = __PARAMS["type"],
 	status    = __PARAMS["status"],
