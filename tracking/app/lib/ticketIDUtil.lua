@@ -6,14 +6,13 @@ local TICKET_PATH    = "tracking/tickets/"
 return {
 	getNextID = function(self, type, subdirectory, ticketPath)
 		local prefix = type
-		local number = STRING_UTIL:padValueLeft("" .. self:getNextNumber(subdirectory, ticketPath), 4, "0")
+		local number = STRING_UTIL:padValueLeft("" .. self:getNextNumber(subdirectory or "", ticketPath), 4, "0")
 
 		return prefix .. "-" .. number
 	end,
 
 	getNextNumber = function(self, subdirectory, ticketPath)
 		local maxTicketNum = 0
-
 		local ticketNames = DIRECTORY_UTIL:getNestedFilesInDirectory((ticketPath or TICKET_PATH) .. subdirectory, ".md")
 		
 		for _, name in ipairs(ticketNames) do
