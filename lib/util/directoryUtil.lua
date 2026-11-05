@@ -24,4 +24,24 @@ return {
 		return filteredNames
 	end,
 
+	getNestedFilesInDirectory = function(self, directoryName, extension)
+		local filenames = love.filesystem.getDirectoryItems(directoryName)
+
+		local validFiles = {}
+
+		for _, filename in ipairs(filenames) do
+			filename = directoryName .. "/" .. filename
+			if love.filesystem.getInfo(filename, "directory") then
+				local newFiles = self:getNestedFilesInDirectory(filename, extension)
+				for _, newFile in ipairs(newFiles) do
+					table.insert(validFiles, newFile)
+				end
+			elseif STRING_UTIL:endsWith(filename, extension) then
+				table.insert(validFiles, STRING_UTIL:dropSuffix(filename, string.len(extension)))
+			end
+		end
+
+		return validFiles
+	end,
+
 }
