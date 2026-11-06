@@ -1,40 +1,54 @@
-local DIRECTORY_UTIL = require("lib/util/directoryUtil")
-local STRING_UTIL    = require("game/util/stringUtil")
+local TICKET_ID_UTIL = require("tracking/app/lib/ticketIDUtil")
+local ternary        = require("lib/util/ternary")
 
-local TICKET_PATH    = "tracking/tickets/"
-	
-return {
-	getNextID = function(self, type, subdirectory, ticketPath)
-		local prefix = type
-		local number = STRING_UTIL:padValueLeft("" .. self:getNextNumber(subdirectory or "", ticketPath), 4, "0")
+local id       = TICKET_ID_UTIL:getNextID(__PARAMS["prefix"])
 
-		return prefix .. "-" .. number
-	end,
+local date     = os.date("%Y-%m-%d")
 
-	getNextNumber = function(self, subdirectory, ticketPath)
-		local maxTicketNum = 0
-		local ticketNames = DIRECTORY_UTIL:getNestedFilesInDirectory((ticketPath or TICKET_PATH) .. subdirectory, ".md")
-		
-		for _, name in ipairs(ticketNames) do
-			maxTicketNum = math.max(maxTicketNum, self:extractNumber(name))
-		end
+local ellipses = [[
+    ...
+    ...
+    ...]]
 
-		return maxTicketNum + 1
-	end,
+local title    = ternary { IF   = __PARAMS["objectName"] ~= nil, 
+						   THEN = ternary { IF   = TICKET_ID_UTIL:findObjectName(__PARAMS["objectName"]),
+							  				THEN = "Upgrade ",
+							  				ELSE = "Implement " } .. __PARAMS["objectName"],
+						   ELSE = __PARAMS["title"] }       
 
-	extractNumber = function(self, filename)
-		local suffix = STRING_UTIL:dropPrefix(filename, string.len(filename) - 4) 
-		return tonumber(suffix)
-	end,
-
-	findObjectName = function(self, objectName)
-		local filenames = DIRECTORY_UTIL:getNestedFilesInDirectory(TICKET_PATH, ".md")
-
-		for _, name in ipairs(filenames) do
-			local data, size = love.filesystem.read(name .. ".md")
-			local s, e = data:find(objectName, 1, true)
-			if s ~= nil then return true end
-		end		
-	end,
-
+local params = {
+	id        = string.upper(id), 
+	createdAt = date,
+	updatedAt = date,
+	title     = title,
+	objectName= __PARAMS["objectName"],
+	version   = "0.1",
+	type      = __PARAMS["type"],
+	status    = __PARAMS["status"],
+	priority  = __PARAMS["priority"],
+	points    = __PARAMS["points"],
+	summary   = ellipses,
+	details   = "See acceptance criteria.",
+	acceptanceCriteria = [[
+- [ ] Criteria #1
+- [ ] Criteria #2
+- [ ] Criteria #3]],
+	notes              = ellipses,
+	parameters         = [[
+* parameter1 - description
+* parameter2 - description
+* parameter3 - description]],
+	history            = "- " .. date .. ": Created",
 }
+
+local template
+if __PARAMS["prefix"] == "plug" then
+	template = requireRelative("lib/templateFactory"):create("pluginTicketMD")
+else
+	template = requireRelative("lib/templateFactory"):create("ticketMD")
+end
+
+love.system.setClipboardText(template:render(params))
+
+print("Ticket template saved to clipboard (id = " .. id .. ")")
+
