@@ -27,4 +27,14 @@ return {
 		return tonumber(suffix)
 	end,
 
+	findObjectName = function(self, objectName)
+		local filenames = DIRECTORY_UTIL:getNestedFilesInDirectory(TICKET_PATH, ".md")
+
+		for _, name in ipairs(filenames) do
+			local data, size = love.filesystem.read(name .. ".md")
+			local s, e = data:find(objectName, 1, true)
+			if s ~= nil then return true end
+		end		
+	end,
+
 }
