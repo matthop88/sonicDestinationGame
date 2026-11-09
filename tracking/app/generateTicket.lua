@@ -10,14 +10,10 @@ local ellipses = [[
     ...
     ...]]
 
-local title    = ternary { IF   = __PARAMS["objectName"] ~= nil, 
-						   THEN = ternary { IF   = TICKET_ID_UTIL:findObjectName(__PARAMS["objectName"]),
-							  				   THEN = "Upgrade ",
-							  				   ELSE = "Implement " } .. __PARAMS["objectName"],
-						   ELSE = nil }
-			     or __PARAMS["title"]
-                  
-
+local title    = ternary { IF   = TICKET_ID_UTIL:findObjectName(__PARAMS["objectName"]),
+						   THEN = "Upgrade ",
+						   ELSE = "Implement " } .. __PARAMS["objectName"]
+						  
 local params = {
 	id        = string.upper(id), 
 	createdAt = date,
