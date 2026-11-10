@@ -1,6 +1,8 @@
-local TICKET_ID_UTIL = require("tracking/app/lib/ticketIDUtil")
-local ternary        = require("lib/util/ternary")
+local TICKET_ID_UTIL  = requireRelative("lib/ticketIDUtil")
+local ternary         = require("lib/util/ternary")
 	
+local TEMPLATE_PARSER = requireRelative("lib/templateParser")
+
 local TICKET_GENERATOR = ({
 	
 	ELLIPSES = [[
@@ -10,7 +12,7 @@ local TICKET_GENERATOR = ({
 
 	init = function(self, params)
 		self.params = params
-
+		self.objectFilename = TICKET_ID_UTIL:findObjectName(self.params.objectName)
 		self:generateID()
 		self:generateDate()
 		self:generateTitle()
@@ -36,13 +38,22 @@ local TICKET_GENERATOR = ({
 	end,
 
 	generateTitle = function(self)
-		self.params.title = ternary { IF   = TICKET_ID_UTIL:findObjectName(self.params.objectName),
+		self.params.title = ternary { IF   = self.objectFilename,
 						   			  THEN = "Upgrade ",
 						   			  ELSE = "Implement " } .. self.params.objectName
 	end,
 
 	generateVersion = function(self)
-		self.params.version = "0.1"
+		if self.objectFilename then
+			local data, size = love.filesystem.read(self.objectFilename .. ".md")
+
+			local templateParser = TEMPLATE_PARSER:create("ticketMD")
+			local kvTable        = templateParser:parse(data)
+
+			self.params.version = "" .. (tonumber(kvTable["version"]) + 0.1)
+		else
+			self.params.version = "0.1"
+		end
 	end,
 
 	generateSummary = function(self)
