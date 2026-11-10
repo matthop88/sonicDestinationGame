@@ -19,7 +19,7 @@ return {
 	end,
 
 	testScenario3 = function(self)
-		local doesObjectNameExist = TICKET_ID_UTIL:findObjectName("My Awesome Object Name", TICKET_PATH)
+		local doesObjectNameExist = TICKET_ID_UTIL:findObjectName("My Awesome Object Name", TICKET_PATH) ~= nil
 
 		return ASSERT:TRUE("Object Name Successfully Found", doesObjectNameExist)
 	end,
