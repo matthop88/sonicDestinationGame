@@ -33,7 +33,7 @@ return {
 		for _, name in ipairs(filenames) do
 			local data, size = love.filesystem.read(name .. ".md")
 			local s, e = data:find(objectName, 1, true)
-			if s ~= nil then return true end
+			if s ~= nil then return name end
 		end		
 	end,
 
