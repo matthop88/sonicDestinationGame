@@ -21,6 +21,12 @@ local APPLICATIONS = {
 	    	PATH     = "tracking/app/",
 	    	APP_NAME = "ticketingApp",
 	    },
+
+	    ------------------- BOOTSTRAPPING --------------------
+	    bootstrap = {
+	    	PATH     = "bootstrap/",
+	    	APP_NAME = "bootstrapApp",
+	    },
 	
 		----------------------- TOOLS ------------------------
 	    inspector = {
