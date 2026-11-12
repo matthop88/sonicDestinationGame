@@ -13,6 +13,31 @@ local function file_exists(path)
     return false
 end
 
+local COMMENT_CODE = ""
+
+if __PARAMS["ticketID"] then
+	local TEMPLATE_PARSER = require("tracking/app/lib/templateParser")
+
+	local data, size = love.filesystem.read("tracking/tickets/active/" .. __PARAMS["ticketID"] .. ".md")
+
+	if data == nil then
+		print("\nTicket not found: " .. __PARAMS["commentOn"])
+
+		printValidTicketNames()
+
+	else
+		local template = require("tracking/app/lib/templateFactory"):create("pluginComments")
+		local templateParser = TEMPLATE_PARSER:create("pluginTicketMD")
+		
+		local kvTable        = templateParser:parse(data)
+
+		local title          = kvTable.title or "[UNTITLED]"
+
+		COMMENT_CODE = template:render(kvTable)
+	end
+end
+
+
 local GENERIC_PLUGIN_CODE = [[
 return {
     create = function(self, params)
@@ -48,6 +73,7 @@ if not file_exists(fullPluginPath) then
 	local file, err = io.open(path .. "/" .. __PARAMS["pluginName"] .. ".lua", "w")
 
 	if file then
+		file:write(COMMENT_CODE)
 	    file:write(GENERIC_PLUGIN_CODE)
 	    file:close() 
 
