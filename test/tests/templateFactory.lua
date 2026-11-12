@@ -1,7 +1,7 @@
 local ASSERT           = require("test/lib/assert")
 
 local TEMPLATE_FACTORY = require("tracking/app/lib/templateFactory")
-local TEMPLATE_PATH    = "tests/resources/templateFactory/"
+local TEMPLATE_PATH    = "test/tests/resources/templateFactory/"
 
 return {
 	NAME          = "Template Factory",
