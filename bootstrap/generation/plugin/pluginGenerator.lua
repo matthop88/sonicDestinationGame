@@ -13,6 +13,31 @@ local function file_exists(path)
     return false
 end
 
+local GENERIC_PLUGIN_CODE = [[
+return {
+    create = function(self, params)
+        
+        return ({
+
+        	init = function(self, params)
+        		-- Operate on params
+
+        		return self
+        	end,
+
+        	--draw                = function(self)         end,
+        	--update              = function(self, dt)     end,
+        	--handleKeypressed    = function(self, key)    end,
+        	--handleKeyreleased   = function(self, key)    end,
+        	--handleMousepressed  = function(self, mx, my) end,
+        	--handleMousereleased = function(self, mx, my) end,
+
+        }):init(params)
+
+    end,
+}
+]]
+
 print("\nGenerating Plugin: \"" .. __PARAMS["pluginName"] .. "\"\n")
 
 local path = "plugins/modules/" .. __PARAMS["pluginName"]
@@ -23,7 +48,7 @@ if not file_exists(fullPluginPath) then
 	local file, err = io.open(path .. "/" .. __PARAMS["pluginName"] .. ".lua", "w")
 
 	if file then
-	    file:write("-- Plugin Code goes here\n")
+	    file:write(GENERIC_PLUGIN_CODE)
 	    file:close() 
 
 	    print("Successfully generated plugin.\n")
