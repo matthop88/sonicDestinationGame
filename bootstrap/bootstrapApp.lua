@@ -1,9 +1,9 @@
 --------------------------------------------------------------
 --                     Bootstrap Utility                    --
---                        Version 0.1                       --
+--                        Version 0.2                       --
 --                                                          --
 --                 Functional Specifications                --
---                         INFR-0022                        --
+--                         INFR-0023                        --
 --------------------------------------------------------------
 
 --[[
@@ -11,17 +11,27 @@
                        -----------------
 The Bootstrap Utility can be used to create skeletal structures for Plugins and Tools.
 
-This ticket focuses specifically on Plugins.
+This ticket focuses specifically on Tools.
 
-Given a plugin name, this tool will create a folder inside plugins/modules/ corresponding with the plugin name, and also a .lua file inside the new folder corresponding with the plugin name.
-The file will contain the basic structure of code for an empty plugin. If a ticket number is described, the file will also contain functional specifications in its comments.
+Given a tool name, this utility will create a folder inside tools/corresponding with 
+the tool name. Inside of this folder will be a lua file named "{toolName}App.lua".
+The file will contain the basic structure of code for an empty tool. 
+If a ticket number is described, the file will also contain functional specifications in its comments.
+
+In addition, a config folder will be created with a window and a cmdSchema.
+
+For a tool name, separate words are allowed; the tool name used as a folder 
+and the file name will be converted to Camel Case.
 
                            Features
                            --------
-- [X] Creation of infrastructure, command-line schema, outer main hookup
-- [X] Empty folder and file created, if not already existent
-- [X] Basic structure of code for empty plugin
-- [X] Functional specifications in comments
+- [ ] String Utility and tests written for Camel Case
+- [ ] Cmd Schema updated
+- [ ] File tools extracted to general utility class
+- [ ] Folder and file created
+- [ ] Skeletal contents of file created
+- [ ] Comments added to file if ticket number is described
+- [ ] Config folder generated with cmdSchema and window
 
 --]]
 
