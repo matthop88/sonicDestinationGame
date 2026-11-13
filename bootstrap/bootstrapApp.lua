@@ -20,6 +20,8 @@ If a ticket number is described, the file will also contain functional specifica
 
 In addition, a config folder will be created with a window and a cmdSchema.
 
+Finally, code is added to the clipboard to be pasted into the outer main for hooking up the new tool.
+
 For a tool name, separate words are allowed; the tool name used as a folder 
 and the file name will be converted to Camel Case.
 
@@ -32,6 +34,7 @@ and the file name will be converted to Camel Case.
 - [X] Skeletal contents of file created
 - [X] Comments added to file if ticket number is described
 - [X] Config folder generated with cmdSchema and window
+- [ ] Code for hooking up to outer main written to clipboard
 
 --]]
 
