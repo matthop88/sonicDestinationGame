@@ -30,7 +30,7 @@ and the file name will be converted to Camel Case.
 - [X] File tools extracted to general utility class
 - [X] Folder and file created
 - [X] Skeletal contents of file created
-- [ ] Comments added to file if ticket number is described
+- [X] Comments added to file if ticket number is described
 - [ ] Config folder generated with cmdSchema and window
 
 --]]
