@@ -16,27 +16,16 @@ end
 local COMMENT_CODE = ""
 
 if __PARAMS["ticketID"] then
-	local TEMPLATE_PARSER = require("tracking/app/lib/templateParser")
+	local COMMENT_GENERATOR = require("tracking/app/lib/commentGenerator"):create(__PARAMS["ticketID"])
 
-	local data, size = love.filesystem.read("tracking/tickets/active/" .. __PARAMS["ticketID"] .. ".md")
-
-	if data == nil then
-		print("\nTicket not found: " .. __PARAMS["commentOn"])
-
-		printValidTicketNames()
-
+	if COMMENT_GENERATOR == nil then
+		print("\nTicket not found: " .. __PARAMS["ticketID"])
 	else
-		local template = require("tracking/app/lib/templateFactory"):create("pluginComments")
-		local templateParser = TEMPLATE_PARSER:create("pluginTicketMD")
+		local rendered = COMMENT_GENERATOR:render()
 		
-		local kvTable        = templateParser:parse(data)
-
-		local title          = kvTable.title or "[UNTITLED]"
-
-		COMMENT_CODE = template:render(kvTable)
+		COMMENT_CODE   = rendered.comments
 	end
 end
-
 
 local GENERIC_PLUGIN_CODE = [[
 return {
