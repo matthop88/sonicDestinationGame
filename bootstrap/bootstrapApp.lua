@@ -34,7 +34,7 @@ and the file name will be converted to Camel Case.
 - [X] Skeletal contents of file created
 - [X] Comments added to file if ticket number is described
 - [X] Config folder generated with cmdSchema and window
-- [ ] Code for hooking up to outer main written to clipboard
+- [X] Code for hooking up to outer main written to clipboard
 
 --]]
 
