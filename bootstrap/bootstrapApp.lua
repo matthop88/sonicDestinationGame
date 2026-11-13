@@ -28,8 +28,8 @@ and the file name will be converted to Camel Case.
 - [X] String Utility and tests written for Camel Case
 - [X] Cmd Schema updated
 - [X] File tools extracted to general utility class
-- [ ] Folder and file created
-- [ ] Skeletal contents of file created
+- [X] Folder and file created
+- [X] Skeletal contents of file created
 - [ ] Comments added to file if ticket number is described
 - [ ] Config folder generated with cmdSchema and window
 
