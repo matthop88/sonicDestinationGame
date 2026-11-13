@@ -1,13 +1,15 @@
 local DIRECTORY_UTIL  = require("lib/util/directoryUtil")
 local FILE_UTIL       = require("lib/util/fileUtil")
 
-local COMMENT_CODE = ""
+local COMMENT_CODE    = ""
+local ticketID        = __PARAMS["ticketID"]
+local pluginName      = __PARAMS["pluginName"]
 
-if __PARAMS["ticketID"] then
-	local COMMENT_GENERATOR = require("tracking/app/lib/commentGenerator"):create(__PARAMS["ticketID"])
+if ticketID then
+	local COMMENT_GENERATOR = require("tracking/app/lib/commentGenerator"):create(ticketID)
 
 	if COMMENT_GENERATOR == nil then
-		print("\nTicket not found: " .. __PARAMS["ticketID"])
+		print("\nTicket not found: " .. ticketID)
 	else
 		local rendered = COMMENT_GENERATOR:render()
 		
@@ -40,14 +42,14 @@ return {
 }
 ]]
 
-print("\nGenerating Plugin: \"" .. __PARAMS["pluginName"] .. "\"\n")
+print("\nGenerating Plugin: \"" .. pluginName .. "\"\n")
 
-local path = "plugins/modules/" .. __PARAMS["pluginName"]
+local path = "plugins/modules/" .. pluginName
 DIRECTORY_UTIL:createDirectory(path)
 
-local fullPluginPath = path .. "/" .. __PARAMS["pluginName"] .. ".lua"
+local fullPluginPath = path .. "/" .. pluginName .. ".lua"
 if not FILE_UTIL:fileExists(fullPluginPath) then
-	local file, err = io.open(path .. "/" .. __PARAMS["pluginName"] .. ".lua", "w")
+	local file, err = io.open(path .. "/" .. pluginName .. ".lua", "w")
 
 	if file then
 		file:write(COMMENT_CODE)
@@ -59,6 +61,6 @@ if not FILE_UTIL:fileExists(fullPluginPath) then
 	    print("Error creating file: " .. tostring(err) .. "\n")
 	end
 else
-	print("Plugin with name " .. __PARAMS["pluginName"] .. " already exists.\n")
+	print("Plugin with name " .. pluginName .. " already exists.\n")
 end
 
