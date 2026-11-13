@@ -27,7 +27,7 @@ and the file name will be converted to Camel Case.
                            --------
 - [X] String Utility and tests written for Camel Case
 - [X] Cmd Schema updated
-- [ ] File tools extracted to general utility class
+- [X] File tools extracted to general utility class
 - [ ] Folder and file created
 - [ ] Skeletal contents of file created
 - [ ] Comments added to file if ticket number is described
