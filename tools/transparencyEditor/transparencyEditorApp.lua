@@ -1,5 +1,5 @@
 --------------------------------------------------------------
---              Transparency Editor           --
+--                    Transparency Editor                   --
 --                        Version 0.1                       --
 --                                                          --
 --                 Functional Specifications                --
@@ -18,7 +18,7 @@ or reverted to its previous state.
 
                            Features
                            --------
-- [ ] Skeleton of new tool created
+- [X] Skeleton of new tool created
 - [ ] Image of choice drawn to screen, with scrolling, zooming, etc.
 - [ ] Clicking on image pixel gives option of transparency
 - [ ] Transparency functionality implemented for any specific color
