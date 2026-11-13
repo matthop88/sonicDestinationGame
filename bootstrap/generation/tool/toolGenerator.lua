@@ -5,7 +5,8 @@ local STRING_UTIL    = require("game/util/stringUtil")
 local COMMENT_CODE   = ""
 local ticketID       = __PARAMS["ticketID"]
 local toolName       = __PARAMS["toolName"]
-
+local ccToolName     = STRING_UTIL:toCamelCase(toolName)
+	
 if ticketID then
 	local COMMENT_GENERATOR = require("tracking/app/lib/commentGenerator"):create(ticketID)
 
@@ -38,6 +39,11 @@ return {
 }
 
 ]]
+
+local TOOL_HOOKUP_CODE = ccToolName .. " = {\n" ..
+"	        PATH     = \"tools/" .. ccToolName .. "/\",\n" ..
+"	        APP_NAME = \"" .. ccToolName .. "App\",\n" ..
+"        },"
 
 local GENERIC_TOOL_CODE = [=[
 
@@ -81,8 +87,7 @@ local generateConfig = function(path)
 	   and generateFile(cmdSchemaPath, GENERIC_CMD_SCHEMA_CODE)
 end
 
-local generateTool = function(toolName)
-	local ccToolName  = STRING_UTIL:toCamelCase(toolName)
+local generateTool = function()
 	local toolPath    = "tools/" .. ccToolName
 	DIRECTORY_UTIL:createDirectory(toolPath)
 
@@ -100,5 +105,9 @@ print("\nGenerating Tool: \"" .. toolName .. "\"\n")
 
 if generateTool(toolName) then
 	print("\nSuccessfully created Tool: \"" .. toolName .. "\"\n")
+
+	love.system.setClipboardText(TOOL_HOOKUP_CODE)
+
+	print("Paste from the clipboard into the TOOLS section of the outer main to hook up your new tool.\n")
 end
 
