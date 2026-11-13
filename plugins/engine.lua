@@ -1,4 +1,28 @@
 --------------------------------------------------------------
+--                       Plugin Engine                      --
+--                        Version 0.1                       --
+--                                                          --
+--                 Functional Specifications                --
+--                         INFR-0008                        --
+--------------------------------------------------------------
+
+--[[
+                       Short Description
+                       -----------------
+The Plugin Engine allows plugins to be added to an application.
+Plugins may override the standard love2D functions.
+Plugins accept a number of parameters to allow them to function.
+
+                           Features
+                           --------
+- [X] Color Inspector Lib classes converted to Plugins
+- [X] Plugin engine accepts name and parameters to create plugins internally
+- [X] Plugin engine overrides LOVE2D functions
+- [X] Plugin engine automatically creates global accessor functions as needed
+
+--]]
+
+--------------------------------------------------------------
 --                       Private Methods                    --
 --------------------------------------------------------------
 
