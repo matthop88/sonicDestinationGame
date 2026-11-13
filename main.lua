@@ -42,7 +42,12 @@ local APPLICATIONS = {
 	    slicer = {
 	    	PATH     = "tools/spriteSheetSlicer/",
 	    	APP_NAME = "spriteSheetSlicerApp",
-	    }
+	    },
+
+	    transparencyEditor = {
+	        PATH     = "tools/transparencyEditor/",
+	        APP_NAME = "transparencyEditorApp",
+        },
 	},
 
 	getPathAndAppName = function(self, keyword)
