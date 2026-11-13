@@ -25,7 +25,7 @@ and the file name will be converted to Camel Case.
 
                            Features
                            --------
-- [ ] String Utility and tests written for Camel Case
+- [X] String Utility and tests written for Camel Case
 - [ ] Cmd Schema updated
 - [ ] File tools extracted to general utility class
 - [ ] Folder and file created
