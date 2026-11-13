@@ -114,4 +114,13 @@ return {
 		return ASSERT:EQUALS("Trim String", expected, actual)
 	end,
 
+	testToCamelCase = function(self)
+		local testVal  = "My awesome Test string"
+
+		local expected = "myAwesomeTestString"
+		local actual   = STRING_UTIL:toCamelCase(testVal)
+
+		return ASSERT:EQUALS("To Camel Case", expected, actual)
+	end,
+
 }
