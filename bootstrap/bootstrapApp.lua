@@ -37,6 +37,8 @@ and the file name will be converted to Camel Case.
 
 if __PARAMS["pluginName"] then
 	requireRelative("generation/plugin/pluginGenerator")
+elseif __PARAMS["toolName"] then
+	requireRelative("generation/tool/toolGenerator")
 else
 	print("\nNo generation modules available to run.\n")
 end
