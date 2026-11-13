@@ -35,4 +35,11 @@ return {
     trim = function(self, str)
         return str:match("^%s*(.-)%s*$")
     end,
+
+    toCamelCase = function(self, str)
+        local result = str:lower():gsub("%s+(%a)", function(letter)
+            return letter:upper()
+        end)
+        return (result:gsub("%s+", ""))
+    end,
 }
