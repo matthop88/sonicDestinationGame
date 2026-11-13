@@ -1,8 +1,4 @@
-local function mkdir(path)
-    -- quote the path so spaces and special characters are safe
-    local quoted = "'" .. path:gsub("'", "'\\''") .. "'"
-    return os.execute("mkdir -p " .. quoted)
-end
+local DIRECTORY_UTIL  = require("lib/util/directoryUtil")
 
 local function file_exists(path)
     local file = io.open(path, "r")
@@ -55,7 +51,7 @@ return {
 print("\nGenerating Plugin: \"" .. __PARAMS["pluginName"] .. "\"\n")
 
 local path = "plugins/modules/" .. __PARAMS["pluginName"]
-mkdir(path)
+DIRECTORY_UTIL:createDirectory(path)
 
 local fullPluginPath = path .. "/" .. __PARAMS["pluginName"] .. ".lua"
 if not file_exists(fullPluginPath) then
