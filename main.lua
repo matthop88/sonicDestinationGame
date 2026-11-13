@@ -21,6 +21,12 @@ local APPLICATIONS = {
 	    	PATH     = "tracking/app/",
 	    	APP_NAME = "ticketingApp",
 	    },
+
+	    ------------------- BOOTSTRAPPING --------------------
+	    bootstrap = {
+	    	PATH     = "bootstrap/",
+	    	APP_NAME = "bootstrapApp",
+	    },
 	
 		----------------------- TOOLS ------------------------
 	    inspector = {
@@ -36,7 +42,12 @@ local APPLICATIONS = {
 	    slicer = {
 	    	PATH     = "tools/spriteSheetSlicer/",
 	    	APP_NAME = "spriteSheetSlicerApp",
-	    }
+	    },
+
+	    transparency = {
+	        PATH     = "tools/transparencyEditor/",
+	        APP_NAME = "transparencyEditorApp",
+        },
 	},
 
 	getPathAndAppName = function(self, keyword)

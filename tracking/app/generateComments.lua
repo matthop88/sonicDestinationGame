@@ -1,5 +1,4 @@
 local DIRECTORY_UTIL = require("lib/util/directoryUtil")
-local STRING_UTIL    = require("game/util/stringUtil")
 
 local printValidTicketNames = function()
     local validTicketNames = DIRECTORY_UTIL:getFilesInDirectory("tracking/tickets/active", ".md")
@@ -14,34 +13,17 @@ end
 if __PARAMS["commentOn"] == "_" then
 	printValidTicketNames()
 else
-	local TEMPLATE_PARSER = requireRelative("lib/templateParser")
+	local COMMENT_GENERATOR = requireRelative("lib/commentGenerator"):create(__PARAMS["commentOn"])
 
-	local data, size = love.filesystem.read("tracking/tickets/active/" .. __PARAMS["commentOn"] .. ".md")
-
-	if data == nil then
+	if COMMENT_GENERATOR == nil then
 		print("\nTicket not found: " .. __PARAMS["commentOn"])
 
 		printValidTicketNames()
-
 	else
-		local templateParser
-		local template
-		
-		if STRING_UTIL:startsWith(__PARAMS["commentOn"], "plug") then
-			template = requireRelative("lib/templateFactory"):create("pluginComments")
-			templateParser = TEMPLATE_PARSER:create("pluginTicketMD")
-		else
-			template = requireRelative("lib/templateFactory"):create("comments")
-			templateParser = TEMPLATE_PARSER:create("ticketMD")
-		end
+		local rendered = COMMENT_GENERATOR:render()
+		love.system.setClipboardText(rendered.comments)
 
-		local kvTable        = templateParser:parse(data)
-
-		local title          = kvTable.title or "[UNTITLED]"
-
-		love.system.setClipboardText(template:render(kvTable))
-
-		print("\nComments saved to clipboard (title = " .. title .. ")\n")
+		print("\nComments saved to clipboard (title = " .. rendered.title .. ")\n")
 	end
 end
 

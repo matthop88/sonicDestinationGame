@@ -3,7 +3,7 @@ local STRING_UTIL = require("game/util/stringUtil")
 return {
 	create = function(self, templateName, templatePath)
 		return {
-			template = requireRelative((templatePath or "templates/") .. templateName),
+			template = require((templatePath or "tracking/app/templates/") .. templateName),
 
 			parse = function(self, data)
 				return self.parser:parse(data, self:getTemplateStructure())

@@ -1,7 +1,7 @@
 local ASSERT          = require("test/lib/assert")
 
 local TEMPLATE_PARSER = require("tracking/app/lib/templateParser")
-local TEMPLATE_PATH   = "tests/resources/templateFactory/"
+local TEMPLATE_PATH   = "test/tests/resources/templateFactory/"
 
 local DATA_SERIALIZER = require("lib/serialization/dataSerializer")
 
