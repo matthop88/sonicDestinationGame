@@ -1,13 +1,5 @@
 local DIRECTORY_UTIL  = require("lib/util/directoryUtil")
-
-local function file_exists(path)
-    local file = io.open(path, "r")
-    if file ~= nil then
-        file:close()
-        return true
-    end
-    return false
-end
+local FILE_UTIL       = require("lib/util/fileUtil")
 
 local COMMENT_CODE = ""
 
@@ -54,7 +46,7 @@ local path = "plugins/modules/" .. __PARAMS["pluginName"]
 DIRECTORY_UTIL:createDirectory(path)
 
 local fullPluginPath = path .. "/" .. __PARAMS["pluginName"] .. ".lua"
-if not file_exists(fullPluginPath) then
+if not FILE_UTIL:fileExists(fullPluginPath) then
 	local file, err = io.open(path .. "/" .. __PARAMS["pluginName"] .. ".lua", "w")
 
 	if file then
