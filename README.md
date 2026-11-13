@@ -89,3 +89,21 @@ Once again, the comments are generated in the clipboard, and can be pasted into 
 To show the names of active tickets, you can use the following command:
 
     love . ticket -C _
+
+## Generating a new Plugin using the Bootstrap Utility
+
+Generic plugins can be generated using the bootstrap command. This creates a directory and a plugin file inside the plugins/modules directory.
+
+    love . bootstrap -p {pluginName} -i {ticketID}
+
+Ticket ID is optional and used for the auto generation of functional specifications in the comments section of the plugin code.
+
+## Generating a new Tool using the Bootstrap Utility
+
+Generic tools can also be generated using the bootstrap command. This creates a directory structure inside the tools directory corresponding with the name of the new tool. A basic config directory is also created with a skeletal window.lua and cmdSchema.lua.
+
+In addition, code for hooking up the new tool to the outer main is copied to the clipboard; this code can be pasted into the code for the outer main.
+
+    love . bootstrap -t {toolName} -i {ticketID}
+
+Ticket ID is optional and used for the auto generation of functional specifications in the comments section of the tool code.
