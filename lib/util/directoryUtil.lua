@@ -44,4 +44,10 @@ return {
 		return validFiles
 	end,
 
+	createDirectory = function(self, path)
+    	-- quote the path so spaces and special characters are safe
+    	local quoted = "'" .. path:gsub("'", "'\\''") .. "'"
+    	return os.execute("mkdir -p " .. quoted)
+	end,
+
 }
