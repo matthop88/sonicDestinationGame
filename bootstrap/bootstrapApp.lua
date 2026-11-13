@@ -31,7 +31,7 @@ and the file name will be converted to Camel Case.
 - [X] Folder and file created
 - [X] Skeletal contents of file created
 - [X] Comments added to file if ticket number is described
-- [ ] Config folder generated with cmdSchema and window
+- [X] Config folder generated with cmdSchema and window
 
 --]]
 
