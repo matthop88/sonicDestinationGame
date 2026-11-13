@@ -44,7 +44,7 @@ local APPLICATIONS = {
 	    	APP_NAME = "spriteSheetSlicerApp",
 	    },
 
-	    transparencyEditor = {
+	    transparency = {
 	        PATH     = "tools/transparencyEditor/",
 	        APP_NAME = "transparencyEditorApp",
         },
