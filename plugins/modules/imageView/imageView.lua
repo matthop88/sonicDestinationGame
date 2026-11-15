@@ -8,19 +8,19 @@
                        Short Description
                        -----------------
 The Image View plugin provides an easy way to display an image on the screen; simply pass in an image path.
-In addition, the image view can be used in concert with scrolling and zooming 
-(as well as color selector) plugins.
+In addition, the image view can be used in concert with scrolling and zooming (as well as color selector) plugins.
 
 The Image View Plugin now supports the following additional parameter:
-pixelated: if true, there will be no anti-aliasing or filtering on the image.
+pixelated: if true, there will be no anti-aliasing or filtering 
+on the image.
 
                           Parameters
                           ----------
 The Image View Plugin takes the following parameters:
 * imagePath    - a string comprising the full path to the image, including image name and extension
-* badImagePath - an optional string comprising the full path to the "bad" image, including image name and extension. 
-                 This image is loaded if the image at imagePath cannot be found.
-* pixelated    - a boolean, which, if true, eliminates anti-aliasing on the image.
+* badImagePath - an optional string comprising the full path to the "bad" image, including image name and extension. This image is loaded if the image at imagePath cannot be found.
+* pixelated    - a boolean, which, if true, eliminates anti-aliasing
+                 on the image.
 
 --]]
 
@@ -64,14 +64,23 @@ return {
             return {}
         end
     
-        return {
+        return ({
             imageData  = IMAGE_DATA,
             image      = GRAFX.newImage(IMAGE_DATA),
             isBadImage = usingBadImage,
+            pixelated  = params.pixelated,
             
             x          = 0,
             y          = 0,
             scale      = 1,
+
+            init       = function(self)
+                if self.pixelated then
+                    self.image:setFilter("nearest", "nearest")
+                end
+
+                return self
+            end,
             
             --------------------------------------------------------------------------------------
             draw               = function(self)
@@ -121,7 +130,7 @@ return {
             getHeight          = function(self) return self.image:getHeight() end,
             getScale           = function(self) return self.scale             end,
             
-        }
+        }):init()
 
     end,
     
