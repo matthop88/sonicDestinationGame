@@ -19,7 +19,7 @@ or reverted to its previous state.
                            Features
                            --------
 - [X] Skeleton of new tool created
-- [ ] Image of choice drawn to screen, with scrolling, zooming, etc.
+- [X] Image of choice drawn to screen, with scrolling, zooming, etc.
 - [ ] Clicking on image pixel gives option of transparency
 - [ ] Transparency functionality implemented for any specific color
 - [ ] Revert functionality implemented
@@ -42,7 +42,7 @@ require("plugins/engine")
                                    fileType  = "Image",   
                                    condition = function() return __PARAMS["inFile"] == "_" end, } }
     --------------------------------------------------------------------------------------------------   
-    :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "imageView",     { imagePath  = IMAGE_PATH, pixelated = true, accessorFn = "getImageView", } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
     :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
