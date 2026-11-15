@@ -34,10 +34,20 @@ or reverted to its previous state.
 --                          Plugins                         --
 --------------------------------------------------------------
 
+local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
+local IMAGE_PATH     = FILE_PATH .. "/" .. __PARAMS["inFile"] .. ".png"
+
 require("plugins/engine")
-    --:add { "plugin1",        { foo = "foo", bar = "bar",  } }
-    --:add { "plugin2",        { baz = "baz",               } }
-    --:add { "plugin3",        { accessorFn = "getPlugin3", } }
+    :add { "showValidFilenames", { filePath  = FILE_PATH, extension = ".png", 
+                                   fileType  = "Image",   
+                                   condition = function() return __PARAMS["inFile"] == "_" end, } }
+    --------------------------------------------------------------------------------------------------   
+    :add { "imageView",     { imagePath  = IMAGE_PATH, accessorFn = "getImageView", } }
+    :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
+    :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
+    :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
+    :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
+    :add { "colorSelector", { imageView  = getImageView(), onColorSelected = onColorSelected, } }
 
 
 --[[
