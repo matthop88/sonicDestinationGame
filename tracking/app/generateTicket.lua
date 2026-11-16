@@ -47,7 +47,8 @@ local TICKET_GENERATOR = ({
 	end,
 
 	generateID = function(self)
-		self.params.id = string.upper(TICKET_ID_UTIL:getNextID(self.params.prefix))
+		self.ticketFilename = TICKET_ID_UTIL:getNextID(self.params.prefix)
+		self.params.id = string.upper(self.ticketFilename)
 	end,
 
 	generateDate = function(self)
@@ -115,9 +116,17 @@ local TICKET_GENERATOR = ({
 							ELSE = requireRelative("lib/templateFactory"):create("ticketMD")
 						 }
 
-		love.system.setClipboardText(template:render(self.params))
+		local filename = "tracking/tickets/active/" .. self.ticketFilename .. ".md"
+		local file, err = io.open(filename, "w")
 
-		print("Ticket template saved to clipboard (id = " .. self.params.id .. ")")
+		if file then
+			file:write(template:render(self.params))
+		   	file:close() 
+
+		  	print("Ticket saved to " .. filename)
+		else
+			print("Error when writing ticket to " .. filename)
+		end
 	end,
 
 }):init {
