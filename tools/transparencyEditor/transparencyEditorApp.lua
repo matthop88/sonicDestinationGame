@@ -42,6 +42,7 @@ require("plugins/engine")
                                    fileType  = "Image",   
                                    condition = function() return __PARAMS["inFile"] == "_" end, } }
     --------------------------------------------------------------------------------------------------   
+    :add { "custom",        { object     = requireRelative("lib/transparencyEngine"), } }
     :add { "imageView",     { imagePath  = IMAGE_PATH, pixelated = true, accessorFn = "getImageView", } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
