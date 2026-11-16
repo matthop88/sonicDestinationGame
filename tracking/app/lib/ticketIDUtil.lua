@@ -44,7 +44,7 @@ return {
 			end
 		end	
 
-		return maxName	
+		return mostRecentFilename	
 	end,
 
 }
