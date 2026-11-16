@@ -30,11 +30,21 @@ return {
 	findObjectName = function(self, objectName, ticketPath)
 		local filenames = DIRECTORY_UTIL:getNestedFilesInDirectory(ticketPath or TICKET_PATH, ".md")
 
+		local maxNum             = 0
+		local mostRecentFilename = nil
+
 		for _, name in ipairs(filenames) do
 			local data, size = love.filesystem.read(name .. ".md")
 			local s, e = data:find(objectName, 1, true)
-			if s ~= nil then return name end
-		end		
+			if s ~= nil then
+				if self:extractNumber(name) > maxNum then
+					maxNum  = self:extractNumber(name)
+					mostRecentFilename = name
+				end
+			end
+		end	
+
+		return maxName	
 	end,
 
 }
