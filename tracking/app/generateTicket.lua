@@ -1,4 +1,5 @@
 local TICKET_ID_UTIL  = requireRelative("lib/ticketIDUtil")
+local STRING_UTIL     = require("game/util/stringUtil")
 local ternary         = require("lib/util/ternary")
 	
 local TEMPLATE_PARSER = requireRelative("lib/templateParser")
@@ -13,6 +14,7 @@ local TICKET_GENERATOR = ({
 	init = function(self, params)
 		self.params = params
 		self.objectFilename = TICKET_ID_UTIL:findObjectName(self.params.objectName)
+		self:generatePrefix()
 		self:generateID()
 		self:generateDate()
 		self:generateTitle()
@@ -25,6 +27,12 @@ local TICKET_GENERATOR = ({
 		self:generateHistory()
 
 		return self
+	end,
+
+	generatePrefix = function(self)
+		if self.objectFilename then
+			self.params.prefix = STRING_UTIL:dropSuffix(STRING_UTIL:dropPrefix(self.objectFilename, string.len(self.objectFilename) - 9), 5)
+		end 
 	end,
 
 	generateID = function(self)
