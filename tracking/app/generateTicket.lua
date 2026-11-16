@@ -14,11 +14,13 @@ local TICKET_GENERATOR = ({
 	init = function(self, params)
 		self.params = params
 		self.objectFilename = TICKET_ID_UTIL:findObjectName(self.params.objectName)
+		self:generateObjectKVTable()
 		self:generatePrefix()
 		self:generateID()
 		self:generateDate()
 		self:generateTitle()
 		self:generateVersion()
+		self:generateLabels()
 		self:generateSummary()
 		self:generateDetails()
 		self:generateAcceptanceCriteria()
@@ -27,6 +29,15 @@ local TICKET_GENERATOR = ({
 		self:generateHistory()
 
 		return self
+	end,
+
+	generateObjectKVTable = function(self)
+		if self.objectFilename then
+			local data, size = love.filesystem.read(self.objectFilename .. ".md")
+
+			local templateParser = TEMPLATE_PARSER:create("ticketMD")
+			self.objectKVTable   = templateParser:parse(data)
+		end
 	end,
 
 	generatePrefix = function(self)
@@ -52,15 +63,18 @@ local TICKET_GENERATOR = ({
 	end,
 
 	generateVersion = function(self)
-		if self.objectFilename then
-			local data, size = love.filesystem.read(self.objectFilename .. ".md")
-
-			local templateParser = TEMPLATE_PARSER:create("ticketMD")
-			local kvTable        = templateParser:parse(data)
-
-			self.params.version = "" .. (tonumber(kvTable["version"]) + 0.1)
+		if self.objectKVTable then
+			self.params.version = "" .. (tonumber(self.objectKVTable["version"]) + 0.1)
 		else
 			self.params.version = "0.1"
+		end
+	end,
+
+	generateLabels = function(self)
+		if self.objectKVTable then
+			self.params.labels = self.objectKVTable["labels"]
+		else
+			self.params.labels = ""
 		end
 	end,
 
