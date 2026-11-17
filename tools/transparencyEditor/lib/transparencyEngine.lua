@@ -13,23 +13,25 @@ return {
     handleKeypressed   = function(self, key)
         if key == "space" and selectedColor ~= nil then
             self:makeSelectedColorTransparent()
+        elseif key == "escape" then
+            self:revertTransparencies()
         else
             -- If color has been made transparent and 
             -- return is pressed, save to disk
-
-            -- If color has been made transparent and
-            -- escape key is pressed, revert to previous
         end
     end,
 
     makeSelectedColorTransparent = function()
         local imageView = getImageView()
-        imageView.imageData:mapPixel(createTransparency)
-        imageView.image = love.graphics.newImage(imageView.imageData)
-        if imageView.pixelated then
-            imageView.image:setFilter("nearest", "nearest")
-        end
+        imageView:editPixels(createTransparency)
         getReadout():print("Press 'escape' to revert all changes, or 'return' to save.")
+    end,
+
+    revertTransparencies = function()
+        local imageView = getImageView()
+        imageView:reload()
+        selectedColor = nil
+        getReadout():print("Click on any color in the image to select it.")
     end,
     
     onColorSelected = function(self, r, g, b)
