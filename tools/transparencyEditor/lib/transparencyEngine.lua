@@ -20,6 +20,7 @@ return {
 
     onColorSelected = function(self, r, g, b)
         print("Color selected: r = " .. r .. ", g = " .. g .. ", b = " .. b)
+        getReadout():print("Press 'space' to make selected color transparent.")
     end,
 
 }
