@@ -1,3 +1,5 @@
+local FILE_UTIL = require("lib/util/fileUtil")
+
 local selectedColor = nil
 
 local colorMatchesRGB = function(color, r, g, b)
@@ -10,34 +12,52 @@ local createTransparency = function(x, y, r, g, b, a)
 end
 
 return {
+    fileChanged = false,
+
     handleKeypressed   = function(self, key)
         if key == "space" and selectedColor ~= nil then
             self:makeSelectedColorTransparent()
-        elseif key == "escape" then
+        elseif key == "escape" and self.fileChanged then
             self:revertTransparencies()
-        else
-            -- If color has been made transparent and 
-            -- return is pressed, save to disk
+        elseif key == "return" and self.fileChanged then
+            self:saveImage()
         end
     end,
 
-    makeSelectedColorTransparent = function()
+    makeSelectedColorTransparent = function(self)
         local imageView = getImageView()
         imageView:editPixels(createTransparency)
-        getReadout():print("Press 'escape' to revert all changes, or 'return' to save.")
+        self.fileChanged = true
+        getReadout():print("Press 'escape' to revert all changes, or 'return' to save.", 40)
     end,
 
-    revertTransparencies = function()
+    revertTransparencies = function(self)
         local imageView = getImageView()
         imageView:reload()
         selectedColor = nil
-        getReadout():print("Click on any color in the image to select it.")
+        self.fileChanged = false
+        getReadout():print("Click on any color in the image to select it.", 40)
     end,
-    
+
+    saveImage = function(self)
+        local imageView = getImageView()
+        local filePath  = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["inFile"]
+        local destFname = FILE_UTIL:getSafeDestinationFilename(filePath .. "Transparent", "png")
+        if destFname == nil then
+            getReadout():print("ERROR: Cannot save to file " .. filePath, 36)
+        else
+            local saveResult = FILE_UTIL:saveImageToCustomPath(imageView.imageData, destFname)
+            if saveResult then
+                getReadout():print("Saved to " .. destFname, 32)
+            end
+        end
+        self.fileChanged = false
+        selectedColor = nil
+    end,
+
     onColorSelected = function(self, r, g, b)
         selectedColor = { r = r, g = g, b = b }
-        print("Color selected: r = " .. r .. ", g = " .. g .. ", b = " .. b)
-        getReadout():print("Press 'space' to make selected color transparent.")
+        getReadout():print("Press 'space' to make selected color transparent.", 40)
     end,
 
 }
