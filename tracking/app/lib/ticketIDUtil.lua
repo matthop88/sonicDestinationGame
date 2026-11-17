@@ -35,7 +35,7 @@ return {
 
 		for _, name in ipairs(filenames) do
 			local data, size = love.filesystem.read(name .. ".md")
-			local s, e = data:find(objectName, 1, true)
+			local s, e = data:find("Object Name: " .. objectName, 1, true) -- WHAT A HACK!
 			if s ~= nil then
 				if self:extractNumber(name) > maxNum then
 					maxNum  = self:extractNumber(name)
