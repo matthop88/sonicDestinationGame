@@ -42,13 +42,13 @@ require("plugins/engine")
                                    fileType  = "Image",   
                                    condition = function() return __PARAMS["inFile"] == "_" end, } }
     --------------------------------------------------------------------------------------------------   
-    :add { "custom",        { object     = requireRelative("lib/transparencyEngine"), } }
+    :add { "custom",        { object     = requireRelative("lib/transparencyEngine") } }
     :add { "imageView",     { imagePath  = IMAGE_PATH, pixelated = true, accessorFn = "getImageView", } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
     :add { "readout",       { fontSize   = 48, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
-    :add { "colorSelector", { imageView  = getImageView(), onColorSelected = onColorSelected, } }
+    :add { "colorSelector", { imageView  = getImageView(), onColorSelected = requireRelative("lib/transparencyEngine"), } }
 
 
 --[[
