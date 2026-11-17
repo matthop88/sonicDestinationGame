@@ -20,6 +20,10 @@ Like plugins, it will be executed automatically without requiring a reference.
 
 return {
     create = function(self, params)
-        return params.object:create(params)
+        if params.object.create then
+            return params.object:create(params)
+        else
+            return params.object
+        end
     end,
 }
