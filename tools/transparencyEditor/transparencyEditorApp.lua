@@ -23,8 +23,8 @@ or reverted to its previous state.
 - [X] Clicking on image pixel gives option of transparency
 - [X] Transparency functionality implemented for any specific color
 - [X] Revert functionality implemented
-- [ ] Save functionality implemented, with customizable save filename
-- [ ] Overwrite protection added
+- [X] Save functionality implemented, with customizable save filename
+- [X] Overwrite protection added
 - [ ] Destination directory selectable for save file
 
 --]]
@@ -46,7 +46,7 @@ require("plugins/engine")
     :add { "imageView",     { imagePath  = IMAGE_PATH, pixelated = true, accessorFn = "getImageView", } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
-    :add { "readout",       { fontSize   = 36, ySpeed = 600, silent = true, accessorFn = "getReadout", } }
+    :add { "readout",       { fontSize   = 36, ySpeed = 600, height = 100, silent = true, accessorFn = "getReadout", } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     :add { "colorSelector", { imageView  = getImageView(), onColorSelected = requireRelative("lib/transparencyEngine"), } }
 
