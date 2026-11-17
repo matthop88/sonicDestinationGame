@@ -20,9 +20,9 @@ or reverted to its previous state.
                            --------
 - [X] Skeleton of new tool created
 - [X] Image of choice drawn to screen, with scrolling, zooming, etc.
-- [ ] Clicking on image pixel gives option of transparency
-- [ ] Transparency functionality implemented for any specific color
-- [ ] Revert functionality implemented
+- [X] Clicking on image pixel gives option of transparency
+- [X] Transparency functionality implemented for any specific color
+- [X] Revert functionality implemented
 - [ ] Save functionality implemented, with customizable save filename
 - [ ] Overwrite protection added
 - [ ] Destination directory selectable for save file
