@@ -69,6 +69,8 @@ return {
     
         return ({
             imageData  = IMAGE_DATA,
+            imagePath  = params.imagePath,
+            badImgPath = params.badImagePath,
             image      = GRAFX.newImage(IMAGE_DATA),
             isBadImage = usingBadImage,
             pixelated  = params.pixelated,
@@ -78,9 +80,7 @@ return {
             scale      = 1,
 
             init       = function(self)
-                if self.pixelated then
-                    self.image:setFilter("nearest", "nearest")
-                end
+                self:updateImageFilter()
 
                 return self
             end,
@@ -127,6 +127,27 @@ return {
 
             getPixelAt         = function(self, imageX, imageY)
                 return self.imageData:getPixel(imageX, imageY)
+            end,
+
+            editPixels         = function(self, pixelMapper)
+                self.imageData:mapPixel(pixelMapper)
+                self:refresh()
+            end,
+
+            reload             = function(self)
+                self.imageData, self.isBadImage = loadImage(self.imagePath, self.badImgPath)
+                self:refresh()
+            end,   
+
+            refresh            = function(self)
+                self.image = GRAFX.newImage(self.imageData)
+                self:updateImageFilter() 
+            end, 
+
+            updateImageFilter  = function(self)
+                if self.pixelated then
+                    self.image:setFilter("nearest", "nearest")
+                end  
             end,
 
             getWidth           = function(self) return self.image:getWidth()  end,
