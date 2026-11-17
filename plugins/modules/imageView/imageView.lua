@@ -1,7 +1,7 @@
 --------------------------------------------------------------
 --                     Image View Plugin                    --
---                        Version 0.2                       --
---                         PLUG-0025                        --
+--                        Version 0.3                       --
+--                         PLUG-0029                        --
 --------------------------------------------------------------
 
 --[[
@@ -13,6 +13,9 @@ In addition, the image view can be used in concert with scrolling and zooming (a
 The Image View Plugin now supports the following additional parameter:
 pixelated: if true, there will be no anti-aliasing or filtering 
 on the image.
+
+The Image View Plugin now has the ability to edit image pixels,
+refresh and image from image data, and reload an image from its path.
 
                           Parameters
                           ----------
