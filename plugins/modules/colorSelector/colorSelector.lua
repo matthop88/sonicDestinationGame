@@ -28,12 +28,23 @@ local GRAFX = love.graphics
 
 return {
     create = function(self, params)
-        return {
+        return ({
             imageView       = params.imageView,
-            onColorSelected = params.onColorSelected,
-
+            
             color     = nil,
             intensity = 0,
+
+            init = function(self, params)
+                if type(params.onColorSelected) == "table" then
+                    self.onColorSelected = function(r, g, b)
+                        return params.onColorSelected:onColorSelected(r, g, b)
+                    end
+                else
+                    self.onColorSelected = params.onColorSelected
+                end
+
+                return self
+            end,
 
             ------------------------- Drawing Functions --------------------------
 
@@ -99,7 +110,7 @@ return {
                 self:clear()
             end,
 
-        }
+        }):init(params)
         
     end,
     
