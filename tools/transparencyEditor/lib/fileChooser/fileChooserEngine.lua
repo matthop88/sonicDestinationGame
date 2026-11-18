@@ -1,12 +1,13 @@
-local FILE_PATH = "game/resources/images/spriteSheets/sonic1"
+local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
 local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 
-local GRAFX     = love.graphics
-local COLORS    = require("game/constants/colors")
-local FONT      = GRAFX.newFont(20)
+local GRAFX          = love.graphics
+local COLORS         = require("game/constants/colors")
+
+local LIST_ITEM      = require("tools/transparencyEditor/lib/fileChooser/listItem")
 
 return {
-	files = nil,
+	fileList = nil,
 
 	draw  = function(self)
 		GRAFX.setColor(COLORS.JET_BLACK)
@@ -18,25 +19,31 @@ return {
 	end,
 
 	drawFileList = function(self)
-		local y = 120
-		if self.files then
-			GRAFX.setColor(COLORS.PURE_WHITE)
-			GRAFX.setFont(FONT)
-			for _, filename in ipairs(self.files) do
-				GRAFX.printf(filename, 310, y, 200, "left")
-				y = y + 30
+		if self.fileList then
+			for _, listItem in ipairs(self.fileList) do
+				listItem:draw()
 			end
 		end
 	end,
 
 	update = function(self, dt)
-		if self.files == nil then
+		if self.fileList == nil then 
 			self:refreshFiles()
+		else
+			for _, listItem in ipairs(self.fileList) do
+				listItem:update(dt)
+			end
 		end
 	end,
 
 	refreshFiles = function(self)
-		self.files = DIRECTORY_UTIL:getFilesInDirectory(FILE_PATH, ".png")
+		local files = DIRECTORY_UTIL:getFilesInDirectory(FILE_PATH, ".png")
+		self.fileList = {}
+		local y = 120
+		for _, filename in ipairs(files) do
+			table.insert(self.fileList, LIST_ITEM:create { text = filename, x = 310, y = y, fontSize = 20 })
+			y = y + 30
+		end
 	end,
 	
 }
