@@ -36,6 +36,7 @@ or reverted to its previous state.
 
 local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
 local IMAGE_PATH     = FILE_PATH .. "/" .. __PARAMS["inFile"] .. ".png"
+local BAD_IMAGE_PATH = "tools/transparencyEditor/resources/fileNotFound.png"
 
 require("plugins/engine")
     :add { "showValidFilenames", { filePath  = FILE_PATH, extension = ".png", 
@@ -43,7 +44,7 @@ require("plugins/engine")
                                    condition = function() return __PARAMS["inFile"] == "_" end, } }
     --------------------------------------------------------------------------------------------------   
     :add { "custom",        { object     = requireRelative("lib/transparencyEngine") } }
-    :add { "imageView",     { imagePath  = IMAGE_PATH, pixelated = true, accessorFn = "getImageView", } }
+    :add { "imageView",     { imagePath  = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, pixelated = true, accessorFn = "getImageView", } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
     :add { "readout",       { fontSize   = 36, ySpeed = 600, height = 100, silent = true, accessorFn = "getReadout", } }
