@@ -3,6 +3,7 @@ local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 
 local GRAFX     = love.graphics
 local COLORS    = require("game/constants/colors")
+local FONT      = GRAFX.newFont(20)
 
 return {
 	files = nil,
@@ -20,6 +21,7 @@ return {
 		local y = 120
 		if self.files then
 			GRAFX.setColor(COLORS.PURE_WHITE)
+			GRAFX.setFont(FONT)
 			for _, filename in ipairs(self.files) do
 				GRAFX.printf(filename, 310, y, 200, "left")
 				y = y + 30
