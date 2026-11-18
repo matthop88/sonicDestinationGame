@@ -1,18 +1,23 @@
 --------------------------------------------------------------
 --                      Readout Plugin                      --
---                         PLUG-0013                        --
+--                        Version 0.2                       --
+--                         PLUG-0030                        --
 --------------------------------------------------------------
 
 --[[
                        Short Description
                        -----------------
-The Readout plugin provides an easy way to print a message to the screen in a semi-transparent pane that scrolls onto the screen, waits a few seconds, and then scrolls off of the screen. The pane is ideally drawn on top of everything else; it is therefore recommended to place this plugin near the bottom of the plugin chain.
+The Readout plugin provides an easy way to print a message to the screen 
+in a semi-transparent pane that scrolls onto the screen, waits a few seconds, 
+and then scrolls off of the screen. The pane is ideally drawn on top of everything else; 
+it is therefore recommended to place this plugin near the bottom of the plugin chain.
 
                           Parameters
                           ----------
 * fontSize   - Font Size of Readout Message                           (default: 40)
 * ySpeed     - Speed of message's movement in 60ths of second         (default: 180)
 * duration   - Time message remains on screen in 60ths of second      (default: 180)
+* height     - height of window in pixels                             (default: 70)
 * silent     - Whether to suppress debug messages                     (default: false)
 * accessorFn - String representing a global function to access plugin (default: nil)
 
@@ -43,7 +48,7 @@ return {
             x  = 0,
             y  = GRAFX.getHeight(),
             w  = GRAFX.getWidth(),
-            h  = 70,
+            h  = params.height or 70,
 
             timer    = 0,
             velocity = 0,
@@ -79,12 +84,12 @@ return {
             updateY = function(self, dt)
                 self.y = self.y + (self.velocity * dt)
                 
-                if     self.y < GRAFX.getHeight() - 60 then self:onMessageArrival()
-                elseif self.y > GRAFX.getHeight()      then self:onMessageDeparture()   end
+                if     self.y < GRAFX.getHeight() - (self.h - 10) then self:onMessageArrival()
+                elseif self.y > GRAFX.getHeight()                 then self:onMessageDeparture()   end
             end,
 
             onMessageArrival = function(self)
-                self.y = GRAFX.getHeight() - 60
+                self.y = GRAFX.getHeight() - (self.h - 10)
                 self.velocity = 0
             end,
 
@@ -102,10 +107,16 @@ return {
                 self.message = nil
             end,
 
-            print = function(self, message)
+            setFontSize = function(self, fontSize)
+                FONT = GRAFX.newFont(fontSize)
+            end,
+
+            print = function(self, message, size)
                 if not SILENT_MODE then
                     print("Printing to Readout: ", message)
                 end
+
+                if size ~= nil then self:setFontSize(size) end
 
                 self:triggerMessageArrival(message)
             end,

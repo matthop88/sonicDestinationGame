@@ -1,4 +1,5 @@
 local TICKET_ID_UTIL  = requireRelative("lib/ticketIDUtil")
+local STRING_UTIL     = require("game/util/stringUtil")
 local ternary         = require("lib/util/ternary")
 	
 local TEMPLATE_PARSER = requireRelative("lib/templateParser")
@@ -13,10 +14,13 @@ local TICKET_GENERATOR = ({
 	init = function(self, params)
 		self.params = params
 		self.objectFilename = TICKET_ID_UTIL:findObjectName(self.params.objectName)
+		self:generateObjectKVTable()
+		self:generatePrefix()
 		self:generateID()
 		self:generateDate()
 		self:generateTitle()
 		self:generateVersion()
+		self:generateLabels()
 		self:generateSummary()
 		self:generateDetails()
 		self:generateAcceptanceCriteria()
@@ -27,8 +31,24 @@ local TICKET_GENERATOR = ({
 		return self
 	end,
 
+	generateObjectKVTable = function(self)
+		if self.objectFilename then
+			local data, size = love.filesystem.read(self.objectFilename .. ".md")
+
+			local templateParser = TEMPLATE_PARSER:create("ticketMD")
+			self.objectKVTable   = templateParser:parse(data)
+		end
+	end,
+
+	generatePrefix = function(self)
+		if self.objectFilename then
+			self.params.prefix = STRING_UTIL:dropSuffix(STRING_UTIL:dropPrefix(self.objectFilename, string.len(self.objectFilename) - 9), 5)
+		end 
+	end,
+
 	generateID = function(self)
-		self.params.id = string.upper(TICKET_ID_UTIL:getNextID(self.params.prefix))
+		self.ticketFilename = TICKET_ID_UTIL:getNextID(self.params.prefix)
+		self.params.id = string.upper(self.ticketFilename)
 	end,
 
 	generateDate = function(self)
@@ -44,15 +64,18 @@ local TICKET_GENERATOR = ({
 	end,
 
 	generateVersion = function(self)
-		if self.objectFilename then
-			local data, size = love.filesystem.read(self.objectFilename .. ".md")
-
-			local templateParser = TEMPLATE_PARSER:create("ticketMD")
-			local kvTable        = templateParser:parse(data)
-
-			self.params.version = "" .. (tonumber(kvTable["version"]) + 0.1)
+		if self.objectKVTable then
+			self.params.version = "" .. (tonumber(self.objectKVTable["version"]) + 0.1)
 		else
 			self.params.version = "0.1"
+		end
+	end,
+
+	generateLabels = function(self)
+		if self.objectKVTable then
+			self.params.labels = self.objectKVTable["labels"]
+		else
+			self.params.labels = ""
 		end
 	end,
 
@@ -93,9 +116,17 @@ local TICKET_GENERATOR = ({
 							ELSE = requireRelative("lib/templateFactory"):create("ticketMD")
 						 }
 
-		love.system.setClipboardText(template:render(self.params))
+		local filename = "tracking/tickets/active/" .. self.ticketFilename .. ".md"
+		local file, err = io.open(filename, "w")
 
-		print("Ticket template saved to clipboard (id = " .. self.params.id .. ")")
+		if file then
+			file:write(template:render(self.params))
+		   	file:close() 
+
+		  	print("Ticket saved to " .. filename)
+		else
+			print("Error when writing ticket to " .. filename)
+		end
 	end,
 
 }):init {

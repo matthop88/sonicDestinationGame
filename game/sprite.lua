@@ -2,7 +2,7 @@ local GRAFX  = love.graphics
 local COLOR  = requireRelative("constants/colors")
 
 return ({
-    image        = GRAFX.newImage(relativePath("resources/images/spriteSheets/sonic1/sonic1.png")),
+    image        = GRAFX.newImage(relativePath("resources/images/spriteSheets/sonic1/sonic1Transparent.png")),
     standingRect = { x = 43, y = 257, w = 32, h = 40 },
     standingQuad = nil,
 

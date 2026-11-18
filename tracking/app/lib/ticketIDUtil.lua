@@ -30,11 +30,42 @@ return {
 	findObjectName = function(self, objectName, ticketPath)
 		local filenames = DIRECTORY_UTIL:getNestedFilesInDirectory(ticketPath or TICKET_PATH, ".md")
 
+		local maxNum             = 0
+		local mostRecentFilename = nil
+
 		for _, name in ipairs(filenames) do
 			local data, size = love.filesystem.read(name .. ".md")
-			local s, e = data:find(objectName, 1, true)
-			if s ~= nil then return name end
-		end		
+			local s, e = data:find("Object Name: " .. objectName, 1, true) -- WHAT A HACK!
+			if s ~= nil then
+				if self:extractNumber(name) > maxNum then
+					maxNum  = self:extractNumber(name)
+					mostRecentFilename = name
+				end
+			end
+		end	
+
+		return mostRecentFilename	
 	end,
 
+	getAllObjectNames = function(self, ticketPath)
+		local filenames = DIRECTORY_UTIL:getNestedFilesInDirectory(ticketPath or TICKET_PATH, ".md")
+
+		local templateParser = require("tracking/app/lib/templateParser"):create("ticketMD")
+			
+		local objectNames = require("lib/util/smartList"):create {}
+
+		for _, name in ipairs(filenames) do
+			local data, size = love.filesystem.read(name .. ".md")
+
+			local kvTable    = templateParser:parse(data)
+
+			if not objectNames:contains(kvTable["objectName"]) then
+				table.insert(objectNames, kvTable["objectName"])
+			end
+		end
+
+		table.sort(objectNames)
+		return objectNames
+	end,
+		
 }

@@ -45,7 +45,7 @@ return {
 		objectName = {
 			shortcut    = "n",
 			description = {
-				"Name of object",
+				"Name of object. Use '_' here to list out all available object names.",
 			},
 			default     = "<Object Name>",
 		},

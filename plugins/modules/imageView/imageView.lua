@@ -1,6 +1,7 @@
 --------------------------------------------------------------
 --                     Image View Plugin                    --
---                         PLUG-0009                        --
+--                        Version 0.3                       --
+--                         PLUG-0029                        --
 --------------------------------------------------------------
 
 --[[
@@ -9,11 +10,20 @@
 The Image View plugin provides an easy way to display an image on the screen; simply pass in an image path.
 In addition, the image view can be used in concert with scrolling and zooming (as well as color selector) plugins.
 
+The Image View Plugin now supports the following additional parameter:
+pixelated: if true, there will be no anti-aliasing or filtering 
+on the image.
+
+The Image View Plugin now has the ability to edit image pixels,
+refresh and image from image data, and reload an image from its path.
+
                           Parameters
                           ----------
 The Image View Plugin takes the following parameters:
 * imagePath    - a string comprising the full path to the image, including image name and extension
 * badImagePath - an optional string comprising the full path to the "bad" image, including image name and extension. This image is loaded if the image at imagePath cannot be found.
+* pixelated    - a boolean, which, if true, eliminates anti-aliasing
+                 on the image.
 
 --]]
 
@@ -57,14 +67,23 @@ return {
             return {}
         end
     
-        return {
+        return ({
             imageData  = IMAGE_DATA,
+            imagePath  = params.imagePath,
+            badImgPath = params.badImagePath,
             image      = GRAFX.newImage(IMAGE_DATA),
             isBadImage = usingBadImage,
+            pixelated  = params.pixelated,
             
             x          = 0,
             y          = 0,
             scale      = 1,
+
+            init       = function(self)
+                self:updateImageFilter()
+
+                return self
+            end,
             
             --------------------------------------------------------------------------------------
             draw               = function(self)
@@ -110,11 +129,32 @@ return {
                 return self.imageData:getPixel(imageX, imageY)
             end,
 
+            editPixels         = function(self, pixelMapper)
+                self.imageData:mapPixel(pixelMapper)
+                self:refresh()
+            end,
+
+            reload             = function(self)
+                self.imageData, self.isBadImage = loadImage(self.imagePath, self.badImgPath)
+                self:refresh()
+            end,   
+
+            refresh            = function(self)
+                self.image = GRAFX.newImage(self.imageData)
+                self:updateImageFilter() 
+            end, 
+
+            updateImageFilter  = function(self)
+                if self.pixelated then
+                    self.image:setFilter("nearest", "nearest")
+                end  
+            end,
+
             getWidth           = function(self) return self.image:getWidth()  end,
             getHeight          = function(self) return self.image:getHeight() end,
             getScale           = function(self) return self.scale             end,
             
-        }
+        }):init()
 
     end,
     

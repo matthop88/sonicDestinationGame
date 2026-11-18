@@ -1,17 +1,25 @@
 --------------------------------------------------------------
 --                   Color Selector Plugin                  --
---                         PLUG-0014                        --
+--                        Version 0.2                       --
+--                         PLUG-0027                        --
 --------------------------------------------------------------
 
 --[[
                        Short Description
                        -----------------
-The Color Selector plugin provides an easy way to capture the color of a pixel in an image that the user clicks on. A filled rectangle is drawn to the screen with the selected color, and the color information is sent to a customizable callback function.
+The Color Selector plugin provides an easy way to capture the color 
+of a pixel in an image that the user clicks on. 
+A filled rectangle is drawn to the screen with the selected color, 
+and the color information is sent to a customizable callback function
+or, alternately, an custom object containing a callback function
 
                           Parameters
                           ----------
 * imageView       - a reference to the imageViewer class
-* onColorSelected - a reference to a callback function which takes r, g, b (each between 0 and 1).
+* onColorSelected - a reference to either:
+                    1. a callback function which takes r, g, b
+                      (each between 0 and 1).
+                    2. an object containing the method onColorSelected().
 
 --]]
 
@@ -20,12 +28,23 @@ local GRAFX = love.graphics
 
 return {
     create = function(self, params)
-        return {
+        return ({
             imageView       = params.imageView,
-            onColorSelected = params.onColorSelected,
-
+            
             color     = nil,
             intensity = 0,
+
+            init = function(self, params)
+                if type(params.onColorSelected) == "table" then
+                    self.onColorSelected = function(r, g, b)
+                        return params.onColorSelected:onColorSelected(r, g, b)
+                    end
+                else
+                    self.onColorSelected = params.onColorSelected
+                end
+
+                return self
+            end,
 
             ------------------------- Drawing Functions --------------------------
 
@@ -91,7 +110,7 @@ return {
                 self:clear()
             end,
 
-        }
+        }):init(params)
         
     end,
     
