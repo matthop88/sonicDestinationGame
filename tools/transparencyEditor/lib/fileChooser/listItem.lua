@@ -19,7 +19,11 @@ return {
 			end,
 
 			draw = function(self)
-				GRAFX.setColor(TERNARY { IF = self.highlit, THEN = COLORS.GREEN, ELSE = COLORS.PURE_WHITE })
+				if self.highlit then
+					GRAFX.setColor(COLORS.PURE_WHITE)
+					GRAFX.rectangle("fill", 300, self.y, 200, 23)
+				end
+				GRAFX.setColor(TERNARY { IF = self.highlit, THEN = COLORS.JET_BLACK, ELSE = COLORS.PURE_WHITE })
 				GRAFX.setFont(self.font)
 				GRAFX.printf(self.text, self.x, self.y, 200, "left")
 			end,
