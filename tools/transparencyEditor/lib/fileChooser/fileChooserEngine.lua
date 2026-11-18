@@ -42,7 +42,7 @@ return {
 		local y = 120
 		for _, filename in ipairs(files) do
 			table.insert(self.fileList, LIST_ITEM:create { text = filename, x = 310, y = y, fontSize = 20 })
-			y = y + 30
+			y = y + 27
 		end
 	end,
 	
