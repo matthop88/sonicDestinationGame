@@ -50,7 +50,7 @@ require("plugins/engine")
     :add { "readout",       { fontSize   = 36, ySpeed = 600, height = 100, silent = true, accessorFn = "getReadout", } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     :add { "colorSelector", { imageView  = getImageView(), onColorSelected = requireRelative("lib/transparencyEngine"), } }
-    :add { "custom",        { object     = requireRelative("lib/fileChooserEngine"), } }
+    :add { "custom",        { object     = requireRelative("lib/fileChooser/fileChooserEngine"), } }
 
 local ASCII_ART = [[
                                                                                                                     
