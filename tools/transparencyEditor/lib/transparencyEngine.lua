@@ -1,63 +1,45 @@
-local FILE_UTIL = require("lib/util/fileUtil")
+local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
+local DIRECTORY_UTIL = require("lib/util/directoryUtil")
 
-local selectedColor = nil
+local GRAFX          = love.graphics
+local COLORS         = require("game/constants/colors")
 
-local colorMatchesRGB = function(color, r, g, b)
-    return color ~= nil and color.r == r and color.g == g and color.b == b
-end
-
-local createTransparency = function(x, y, r, g, b, a)
-    if colorMatchesRGB(selectedColor, r, g, b) then return 0, 0, 0, 0
-    else                                            return r, g, b, a end
-end
+local LIST_ITEM      = require("tools/transparencyEditor/lib/fileChooser/listItem")
 
 return {
-    fileChanged = false,
+	fileList = nil,
 
-    handleKeypressed   = function(self, key)
-        if key == "space" and selectedColor ~= nil then
-            self:makeSelectedColorTransparent()
-        elseif key == "escape" and self.fileChanged then
-            self:revertTransparencies()
-        elseif key == "return" and self.fileChanged then
-            self:saveImage()
-        end
-    end,
+	draw  = function(self)
+		GRAFX.setColor(COLORS.JET_BLACK)
+		GRAFX.rectangle("fill", 300, 100, 200, 400)
+		GRAFX.setColor(COLORS.PURE_WHITE)
+		GRAFX.rectangle("line", 300, 100, 200, 400)
 
-    makeSelectedColorTransparent = function(self)
-        local imageView = getImageView()
-        imageView:editPixels(createTransparency)
-        self.fileChanged = true
-        getReadout():print("Press 'escape' to revert all changes, or 'return' to save.", 40)
-    end,
+		self:drawFileList()
+	end,
 
-    revertTransparencies = function(self)
-        local imageView = getImageView()
-        imageView:reload()
-        selectedColor = nil
-        self.fileChanged = false
-        getReadout():print("Click on any color in the image to select it.", 40)
-    end,
+	drawFileList = function(self)
+		if self.fileList then
+			for _, listItem in ipairs(self.fileList) do
+				listItem:draw()
+			end
+		end
+	end,
 
-    saveImage = function(self)
-        local imageView = getImageView()
-        local filePath  = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["inFile"]
-        local destFname = FILE_UTIL:getSafeDestinationFilename(filePath .. "Transparent", "png")
-        if destFname == nil then
-            getReadout():print("ERROR: Cannot save to file " .. filePath, 36)
-        else
-            local saveResult = FILE_UTIL:saveImageToCustomPath(imageView.imageData, destFname)
-            if saveResult then
-                getReadout():print("Saved to " .. destFname, 32)
-            end
-        end
-        self.fileChanged = false
-        selectedColor = nil
-    end,
+	update = function(self, dt)
+		if self.fileList == nil then
+			self:refreshFiles()
+		end
+	end,
 
-    onColorSelected = function(self, r, g, b)
-        selectedColor = { r = r, g = g, b = b }
-        getReadout():print("Press 'space' to make selected color transparent.", 40)
-    end,
-
+	refreshFiles = function(self)
+		local files = DIRECTORY_UTIL:getFilesInDirectory(FILE_PATH, ".png")
+		self.fileList = {}
+		local y = 120
+		for _, filename in ipairs(files) do
+			table.insert(self.fileList, LIST_ITEM:create { text = filename, x = 310, y = y, fontSize = 20 })
+			y = y + 30
+		end
+	end,
+	
 }
