@@ -50,7 +50,11 @@ require("plugins/engine")
     :add { "readout",       { fontSize   = 36, ySpeed = 600, height = 100, silent = true, accessorFn = "getReadout", } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     :add { "colorSelector", { imageView  = getImageView(), onColorSelected = getTransparencyEngine(), } }
-    :add { "custom",        { object     = requireRelative("lib/fileChooser/fileChooserPanel"), accessorFn = "getFileChooserPanel", } }
+    :add { "custom",        { 
+        object     = requireRelative("lib/fileChooser/fileChooserPanel"), 
+        x = 300, y = 100, w = 400, h = 400, filePath = FILE_PATH,
+        accessorFn = "getFileChooserPanel", 
+        } }
 
 local ASCII_ART = [[
                                                                                                                     
