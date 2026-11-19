@@ -22,7 +22,7 @@ return {
         elseif key == "return" and self.fileChanged then
             self:saveImage()
         elseif key == "l" then
-            getFileChooserPanel():show()
+            getFileChooser():show()
         end
     end,
 
@@ -72,7 +72,7 @@ return {
         imageView:reload()
         imageView.disabled = false
         
-        getFileChooserPanel():hide()
+        getFileChooser():hide()
     end,              
 
 }
