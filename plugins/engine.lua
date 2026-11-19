@@ -23,8 +23,8 @@ any other plugins.
 
                             Features
                            --------
-- [ ] Reverse event order of plugins
-- [ ] Add blocking capability to plugin events
+- [X] Reverse event order of plugins
+- [X] Add blocking capability to plugin events
 
 --]]
 
