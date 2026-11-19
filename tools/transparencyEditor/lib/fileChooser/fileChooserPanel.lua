@@ -16,7 +16,7 @@ return {
 			h = params.h or 400,
 
 			fileList = nil,
-			visible  = false,
+			visible  = params.visible,
 
 			draw  = function(self)
 				if self.visible then
