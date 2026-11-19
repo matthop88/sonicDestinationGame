@@ -51,11 +51,12 @@ require("plugins/engine")
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     :add { "colorSelector", { imageView  = getImageView(), onColorSelected = getTransparencyEngine(), } }
     :add { "custom",        { 
-        object     = requireRelative("lib/fileChooser/fileChooserPanel"), 
-        x = 300, y = 100, w = 400, h = 400, filePath = FILE_PATH,
-        accessorFn = "getFileChooserPanel", 
-        visible    = __PARAMS["inFile"] == nil,
-        } }
+        object         = requireRelative("lib/fileChooser/fileChooserPanel"), 
+        x = 300,     y = 100, w = 400, h = 400, filePath = FILE_PATH,
+        onFileSelected = getTransparencyEngine(),
+        accessorFn     = "getFileChooserPanel", 
+        visible        = __PARAMS["inFile"] == nil,
+    } }
 
 local ASCII_ART = [[
                                                                                                                     
