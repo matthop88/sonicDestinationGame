@@ -21,10 +21,10 @@ return {
 
 			draw = function(self)
 				if self.highlit then
-					GRAFX.setColor(COLORS.PURE_WHITE)
+					GRAFX.setColor(COLORS.LIGHT_BLUE)
 					GRAFX.rectangle("fill", self.x, self.y, self.w, 23)
 				end
-				GRAFX.setColor(TERNARY { IF = self.highlit, THEN = COLORS.JET_BLACK, ELSE = COLORS.PURE_WHITE })
+				GRAFX.setColor(TERNARY { IF = self.highlit, THEN = COLORS.JET_BLACK, ELSE = COLORS.LIGHT_GREY })
 				GRAFX.setFont(self.font)
 				GRAFX.printf(self.text, self.x + 10, self.y, self.w, "left")
 			end,
