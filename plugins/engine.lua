@@ -53,26 +53,42 @@ local handleUpdate = function(self, dt)
 end
 
 local handleKeypressed = function(self, key)
+    local handled = false
     for _, e in reverse_ipairs(self) do
-        if e.handleKeypressed then e:handleKeypressed(key) end
+        if e.handleKeypressed then 
+            handled = e:handleKeypressed(key) 
+            if handled then return true end
+        end
     end
 end
 
 local handleKeyreleased = function(self, key)
+    local handled = false
     for _, e in reverse_ipairs(self) do
-        if e.handleKeyreleased then e:handleKeyreleased(key) end
+        if e.handleKeyreleased then 
+            handled = e:handleKeyreleased(key)
+            if handled then return true end
+        end
     end
 end
 
 local handleMousepressed = function(self, mx, my)
+    local handled = false
     for _, e in reverse_ipairs(self) do
-        if e.handleMousepressed then e:handleMousepressed(mx, my) end
+        if e.handleMousepressed then 
+            handled = e:handleMousepressed(mx, my) 
+            if handled then return true end
+        end
     end
 end
 
 local handleMousereleased = function(self, mx, my)
+    local handled = false
     for _, e in reverse_ipairs(self) do
-        if e.handleMousereleased then e:handleMousereleased(mx, my) end
+        if e.handleMousereleased then 
+            handled = e:handleMousereleased(mx, my) 
+            if handled then return true end
+        end
     end
 end
 
@@ -132,27 +148,27 @@ function love.update(dt)
 end
 
 function love.keypressed(key)                
-    ENGINE:handleKeypressed(key)
+    local handled = ENGINE:handleKeypressed(key)
 
-    if oldKeypressed then oldKeypressed(key) end
+    if oldKeypressed and not handled then oldKeypressed(key) end
 end
 
 function love.keyreleased(key)                
-    ENGINE:handleKeyreleased(key)
+    local handled = ENGINE:handleKeyreleased(key)
 
-    if oldKeyreleased then oldKeyreleased(key) end
+    if oldKeyreleased and not handled then oldKeyreleased(key) end
 end
 
 function love.mousepressed(mx, my)                
-    ENGINE:handleMousepressed(mx, my)
+    local handled = ENGINE:handleMousepressed(mx, my)
 
-    if oldMousepressed then oldMousepressed(mx, my) end
+    if oldMousepressed and not handled then oldMousepressed(mx, my) end
 end
 
 function love.mousereleased(mx, my)                
-    ENGINE:handleMousereleased(mx, my)
+    local handled = ENGINE:handleMousereleased(mx, my)
 
-    if oldMousereleased then oldMousereleased(mx, my) end
+    if oldMousereleased and not handled then oldMousereleased(mx, my) end
 end
 
 return ENGINE
