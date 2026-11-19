@@ -21,6 +21,8 @@ return {
             self:revertTransparencies()
         elseif key == "return" and self.fileChanged then
             self:saveImage()
+        elseif key == "l" then
+            getFileChooserPanel():show()
         end
     end,
 
@@ -62,7 +64,7 @@ return {
 
     onFileSelected = function(self, text)
         print("Selected: " .. text)
+        getFileChooserPanel():hide()
     end,
                     
-
 }
