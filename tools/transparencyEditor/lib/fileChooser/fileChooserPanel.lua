@@ -8,14 +8,20 @@ local LIST_ITEM      = require("tools/transparencyEditor/lib/fileChooser/listIte
 
 return {
 	fileList = nil,
+	visible  = false,
 
 	draw  = function(self)
+		if self.visible then
+			self:drawPanel()
+			self:drawFileList()
+		end
+	end,
+
+	drawPanel = function(self)
 		GRAFX.setColor(COLORS.JET_BLACK)
 		GRAFX.rectangle("fill", 300, 100, 200, 400)
 		GRAFX.setColor(COLORS.PURE_WHITE)
 		GRAFX.rectangle("line", 300, 100, 200, 400)
-
-		self:drawFileList()
 	end,
 
 	drawFileList = function(self)
@@ -27,11 +33,11 @@ return {
 	end,
 
 	update = function(self, dt)
-		if self.fileList == nil then 
-			self:refreshFiles()
-		else
-			for _, listItem in ipairs(self.fileList) do
-				listItem:update(dt)
+		if self.visible then
+			if self.fileList == nil then 
+				self:refreshFiles()
+			else
+				for _, listItem in ipairs(self.fileList) do listItem:update(dt) end
 			end
 		end
 	end,
@@ -47,15 +53,32 @@ return {
 	end,
 
 	handleMousepressed = function(self, mx, my)
-		if mx > 300 and mx < 500 and my > 100 and my < 500 then
-			for _, listItem in ipairs(self.fileList) do
-				if listItem:handleMousepressed(mx, my) then
-					getTransparencyEngine():onFileSelected(listItem.text)
+		if self.visible then
+			if mx > 300 and mx < 500 and my > 100 and my < 500 then
+				for _, listItem in ipairs(self.fileList) do
+					if listItem:handleMousepressed(mx, my) then
+						getTransparencyEngine():onFileSelected(listItem.text)
+					end
 				end
 			end
 
 			return true
 		end
+	end,
+
+	handleKeypressed = function(self, key)
+		if self.visible then
+			return true
+		end
+	end,
+
+	show = function(self)
+		self.visible = true
+	end,
+
+	hide = function(self)
+		self.visible = false
+		self.fileList = nil
 	end,
 	
 }
