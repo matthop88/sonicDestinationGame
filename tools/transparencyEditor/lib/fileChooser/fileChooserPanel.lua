@@ -76,6 +76,9 @@ return {
 
 			handleKeypressed = function(self, key)
 				if self.visible then
+					if key == "escape" then
+						getTransparencyEngine():onFileSelected("")
+					end
 					return true
 				end
 			end,
