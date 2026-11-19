@@ -21,6 +21,7 @@ return {
 			draw  = function(self)
 				if self.visible then
 					self:drawPanel()
+					self:drawCaption()
 					self:drawFileList()
 				end
 			end,
@@ -30,6 +31,14 @@ return {
 				GRAFX.rectangle("fill", self.x, self.y, self.w, self.h)
 				GRAFX.setColor(COLORS.PURE_WHITE)
 				GRAFX.rectangle("line", self.x, self.y, self.w, self.h)
+			end,
+
+			drawCaption = function(self)
+				GRAFX.setColor(COLORS.DARK_GREY)
+				GRAFX.rectangle("fill", self.x, self.y, self.w, 30)
+				GRAFX.setColor(COLORS.LIGHT_GREY)
+				GRAFX.printf("Please Select a File", self.x, self.y + 3, self.w, "center")
+				GRAFX.rectangle("line", self.x, self.y, self.w, 30)
 			end,
 
 			drawFileList = function(self)
@@ -53,7 +62,7 @@ return {
 			refreshFiles = function(self)
 				local files = DIRECTORY_UTIL:getFilesInDirectory(FILE_PATH, ".png")
 				self.fileList = {}
-				local y = self.y + 20
+				local y = self.y + 50
 				for _, filename in ipairs(files) do
 					table.insert(self.fileList, LIST_ITEM:create { text = filename, x = self.x, y = y, w = self.w, fontSize = 20 })
 					y = y + 27
