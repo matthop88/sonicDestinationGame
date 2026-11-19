@@ -9,6 +9,7 @@ return {
 			text     = params.text,
 			x        = params.x,
 			y        = params.y,
+			w        = params.w,
 			fontSize = params.fontSize or 20,
 			highlit  = false,
 
@@ -21,11 +22,11 @@ return {
 			draw = function(self)
 				if self.highlit then
 					GRAFX.setColor(COLORS.PURE_WHITE)
-					GRAFX.rectangle("fill", 300, self.y, 200, 23)
+					GRAFX.rectangle("fill", self.x, self.y, self.w, 23)
 				end
 				GRAFX.setColor(TERNARY { IF = self.highlit, THEN = COLORS.JET_BLACK, ELSE = COLORS.PURE_WHITE })
 				GRAFX.setFont(self.font)
-				GRAFX.printf(self.text, self.x, self.y, 200, "left")
+				GRAFX.printf(self.text, self.x + 10, self.y, self.w, "left")
 			end,
 
 			update = function(self, dt)
@@ -37,7 +38,7 @@ return {
 			end,
 
 			isWithinBounds = function(self, mx, my)
-				return (mx > self.x and mx < self.x + 200 
+				return (mx > self.x and mx < self.x + self.w 
 							and my > self.y and my < self.y + 20)
 			end,
 
