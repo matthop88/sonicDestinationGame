@@ -60,4 +60,9 @@ return {
         getReadout():print("Press 'space' to make selected color transparent.", 40)
     end,
 
+    onFileSelected = function(self, text)
+        print("Selected: " .. text)
+    end,
+                    
+
 }
