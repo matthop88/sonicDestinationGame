@@ -45,5 +45,9 @@ return {
 			y = y + 27
 		end
 	end,
+
+	handleMousepressed = function(self, mx, my)
+		return mx > 300 and mx < 500 and my > 100 and my < 500
+	end,
 	
 }
