@@ -29,8 +29,15 @@ return {
 			end,
 
 			update = function(self, dt)
-				local mx, my = MOUSE.getPosition()
-				self.highlit = (mx > self.x and mx < self.x + 200 
+				self.highlit = self:isWithinBounds(MOUSE.getPosition())
+			end,
+
+			handleMousepressed = function(self, mx, my)
+				return self:isWithinBounds(mx, my)
+			end,
+
+			isWithinBounds = function(self, mx, my)
+				return (mx > self.x and mx < self.x + 200 
 							and my > self.y and my < self.y + 20)
 			end,
 
