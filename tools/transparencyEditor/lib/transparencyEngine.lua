@@ -70,6 +70,7 @@ return {
 
         imageView.imagePath = imagePath
         imageView:reload()
+        imageView.disabled = false
         
         getFileChooserPanel():hide()
     end,              
