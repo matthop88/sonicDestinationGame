@@ -15,6 +15,8 @@ return {
 			w = params.w or 200,
 			h = params.h or 400,
 
+			onFileSelectedObj = params.onFileSelected,
+
 			fileList = nil,
 			visible  = params.visible,
 
@@ -74,7 +76,7 @@ return {
 					if mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h then
 						for _, listItem in ipairs(self.fileList) do
 							if listItem:handleMousepressed(mx, my) then
-								getTransparencyEngine():onFileSelected(listItem.text)
+								self.onFileSelectedObj:onFileSelected(listItem.text)
 							end
 						end
 					end
@@ -86,7 +88,7 @@ return {
 			handleKeypressed = function(self, key)
 				if self.visible then
 					if key == "escape" then
-						getTransparencyEngine():onFileSelected("")
+						self.onFileSelectedObj:onFileSelected("")
 					end
 					return true
 				end
