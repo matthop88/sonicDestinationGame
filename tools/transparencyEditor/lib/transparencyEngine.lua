@@ -64,7 +64,14 @@ return {
 
     onFileSelected = function(self, text)
         print("Selected: " .. text)
+        local filePath  = "game/resources/images/spriteSheets/sonic1"
+        local imagePath = filePath .. "/" .. text .. ".png"
+        local imageView = getImageView()
+
+        imageView.imagePath = imagePath
+        imageView:reload()
+        
         getFileChooserPanel():hide()
-    end,
-                    
+    end,              
+
 }
