@@ -50,7 +50,7 @@ return {
 		if mx > 300 and mx < 500 and my > 100 and my < 500 then
 			for _, listItem in ipairs(self.fileList) do
 				if listItem:handleMousepressed(mx, my) then
-					print("Selected: " .. listItem.text)
+					getTransparencyEngine():onFileSelected(listItem.text)
 				end
 			end
 
