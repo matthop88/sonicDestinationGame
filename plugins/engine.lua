@@ -32,6 +32,14 @@ any other plugins.
 --                       Private Methods                    --
 --------------------------------------------------------------
 
+local reverse_ipairs = function(t)
+    local i = #t + 1
+    return function()
+        i = i - 1
+        if i > 0 then return i, t[i] end
+    end
+end
+
 local handleDraw = function(self) 
     for _, e in ipairs(self) do
         if e.draw then e:draw() end
@@ -45,25 +53,25 @@ local handleUpdate = function(self, dt)
 end
 
 local handleKeypressed = function(self, key)
-    for _, e in ipairs(self) do
+    for _, e in reverse_ipairs(self) do
         if e.handleKeypressed then e:handleKeypressed(key) end
     end
 end
 
 local handleKeyreleased = function(self, key)
-    for _, e in ipairs(self) do
+    for _, e in reverse_ipairs(self) do
         if e.handleKeyreleased then e:handleKeyreleased(key) end
     end
 end
 
 local handleMousepressed = function(self, mx, my)
-    for _, e in ipairs(self) do
+    for _, e in reverse_ipairs(self) do
         if e.handleMousepressed then e:handleMousepressed(mx, my) end
     end
 end
 
 local handleMousereleased = function(self, mx, my)
-    for _, e in ipairs(self) do
+    for _, e in reverse_ipairs(self) do
         if e.handleMousereleased then e:handleMousereleased(mx, my) end
     end
 end
