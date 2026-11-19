@@ -47,7 +47,15 @@ return {
 	end,
 
 	handleMousepressed = function(self, mx, my)
-		return mx > 300 and mx < 500 and my > 100 and my < 500
+		if mx > 300 and mx < 500 and my > 100 and my < 500 then
+			for _, listItem in ipairs(self.fileList) do
+				if listItem:handleMousepressed(mx, my) then
+					print("Selected: " .. listItem.text)
+				end
+			end
+
+			return true
+		end
 	end,
 	
 }
