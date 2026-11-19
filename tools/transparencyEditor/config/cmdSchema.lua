@@ -4,7 +4,7 @@ return {
 	COMMANDS = {
 		inFile = {
 			shortcut = "i",
-			required = true,
+			required = false,
 			description = {
 				"The name of the image file to open.",
 				"Inside the directory game/resources/images/spriteSheets/sonic1/.",
