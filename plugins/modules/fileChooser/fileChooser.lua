@@ -51,11 +51,12 @@ return {
             fileList          = nil,
             visible           = params.visible,
 
+            delay             = 10,
             scale             = 1 / 64,
             scaleDelta        = 16,
 
             draw  = function(self)
-                if self.visible then
+                if self.visible and self.delay <= 0 then
                     GRAFX.setCanvas(self.imageBuffer)
                     self:drawPanel()
                     self:drawCaption()
@@ -98,16 +99,20 @@ return {
                 local mx, my = MOUSE.getPosition()
 
                 if self.visible then
-                    if self.scaleDelta ~= 0 then
-                        self.scale = self.scale + (self.scaleDelta * self.scale * dt)
-                        if self.scale > 1 then
-                            self.scale = 1
-                            self.scaleDelta = 0
-                        elseif self.scale < 1 / 64 then
-                            self.scale = 1 / 64
-                            self.scaleDelta = 0
-                            self.visible = false
-                            self.fileList = nil
+                    if self.delay > 0 then
+                        self.delay = self.delay - (60 * dt)
+                    else
+                        if self.scaleDelta ~= 0 then
+                            self.scale = self.scale + (self.scaleDelta * self.scale * dt)
+                            if self.scale > 1 then
+                                self.scale = 1
+                                self.scaleDelta = 0
+                            elseif self.scale < 1 / 64 then
+                                self.scale = 1 / 64
+                                self.scaleDelta = 0
+                                self.visible = false
+                                self.fileList = nil
+                            end
                         end
                     end
                     if self.fileList == nil then 
