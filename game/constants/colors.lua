@@ -7,6 +7,8 @@ return {
     SONIC_BLUE        = { 0,   0,    0.75 },
     LIGHT_BLUE        = { 0,   0.5,  1    },
 
+    BURNT_ORANGE      = { 0.8, 0.5,  0    },
+                
     JET_BLACK         = { 0,   0,    0    },
     TRANSLUCENT_BLACK = { 0,   0,    0,    0.5  },
 
