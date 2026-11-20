@@ -35,7 +35,9 @@ local TICKET_GENERATOR = ({
 		if self.objectFilename then
 			local data, size = love.filesystem.read(self.objectFilename .. ".md")
 
-			local templateParser = TEMPLATE_PARSER:create("ticketMD")
+			local templateParser = ternary { IF   = STRING_UTIL:startsWith(self.objectFilename, "plug"), 
+											 THEN = TEMPLATE_PARSER:create("pluginTicketMD"),
+											 ELSE = TEMPLATE_PARSER:create("ticketMD") }
 			self.objectKVTable   = templateParser:parse(data)
 		end
 	end,
@@ -99,10 +101,14 @@ local TICKET_GENERATOR = ({
 	end,
 
 	generateParameters = function(self)
-		self.params.parameters = [[
+		if self.objectKVTable then
+			self.params.parameters = self.objectKVTable["parameters"]
+		else
+			self.params.parameters = [[
 * parameter1 - description
 * parameter2 - description
 * parameter3 - description]]
+		end
 	end,
 
 	generateHistory = function(self)

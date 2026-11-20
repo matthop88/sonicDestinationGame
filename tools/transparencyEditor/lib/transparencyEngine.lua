@@ -21,6 +21,8 @@ return {
             self:revertTransparencies()
         elseif key == "return" and self.fileChanged then
             self:saveImage()
+        elseif key == "l" then
+            getFileChooser():show()
         end
     end,
 
@@ -59,5 +61,17 @@ return {
         selectedColor = { r = r, g = g, b = b }
         getReadout():print("Press 'space' to make selected color transparent.", 40)
     end,
+
+    onFileSelected = function(self, text)
+        local filePath  = "game/resources/images/spriteSheets/sonic1"
+        local imagePath = filePath .. "/" .. text .. ".png"
+        local imageView = getImageView()
+
+        imageView.imagePath = imagePath
+        imageView:reload()
+        imageView.disabled = false
+        
+        getFileChooser():hide()
+    end,              
 
 }

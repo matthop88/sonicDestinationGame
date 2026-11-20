@@ -35,7 +35,7 @@ or reverted to its previous state.
 --------------------------------------------------------------
 
 local FILE_PATH      = "game/resources/images/spriteSheets/sonic1"
-local IMAGE_PATH     = FILE_PATH .. "/" .. __PARAMS["inFile"] .. ".png"
+local IMAGE_PATH     = FILE_PATH .. "/" .. (__PARAMS["inFile"] or "") .. ".png"
 local BAD_IMAGE_PATH = "tools/transparencyEditor/resources/fileNotFound.png"
 
 require("plugins/engine")
@@ -43,14 +43,23 @@ require("plugins/engine")
                                    fileType  = "Image",   
                                    condition = function() return __PARAMS["inFile"] == "_" end, } }
     --------------------------------------------------------------------------------------------------   
-    :add { "custom",        { object     = requireRelative("lib/transparencyEngine") } }
-    :add { "imageView",     { imagePath  = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, pixelated = true, accessorFn = "getImageView", } }
+    :add { "custom",        { object     = requireRelative("lib/transparencyEngine"), accessorFn = "getTransparencyEngine", } }
+    :add { "imageView",     { imagePath  = IMAGE_PATH, badImagePath = BAD_IMAGE_PATH, pixelated = true, accessorFn = "getImageView", disabled = __PARAMS["inFile"] == nil, } }
     :add { "doubleTap",     { accessorFn = "getDoubleTap", } }
     :add { "zooming",       { imageView  = getImageView(), accessorFn = "getZooming", } }
     :add { "readout",       { fontSize   = 36, ySpeed = 600, height = 100, silent = true, accessorFn = "getReadout", } }
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
-    :add { "colorSelector", { imageView  = getImageView(), onColorSelected = requireRelative("lib/transparencyEngine"), } }
-
+    :add { "colorSelector", { imageView  = getImageView(), onColorSelected = getTransparencyEngine(), } }
+    :add { "fileChooser",   { 
+        x = 400,
+        y = 100,
+        w = 400,
+        h = 400, 
+        filePath       = FILE_PATH,
+        onFileSelected = getTransparencyEngine(),
+        accessorFn     = "getFileChooser", 
+        visible        = __PARAMS["inFile"] == nil,
+    } }
 
 local ASCII_ART = [[
                                                                                                                     

@@ -1,3 +1,5 @@
+local TERNARY = require("lib/util/ternary")
+
 return {
 	fileExists = function(self, path)
     	local file = io.open(path, "r")

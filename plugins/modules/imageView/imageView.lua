@@ -1,7 +1,7 @@
 --------------------------------------------------------------
 --                     Image View Plugin                    --
---                        Version 0.3                       --
---                         PLUG-0029                        --
+--                       Version 0.31                       --
+--                         PLUG-0033                        --
 --------------------------------------------------------------
 
 --[[
@@ -17,15 +17,19 @@ on the image.
 The Image View Plugin now has the ability to edit image pixels,
 refresh and image from image data, and reload an image from its path.
 
+A new parameter, disabled, causes the image view to not draw the image.
+This parameter can be altered dynamically to allow the image
+view plugin to display its image.
+
                           Parameters
                           ----------
-The Image View Plugin takes the following parameters:
 * imagePath    - a string comprising the full path to the image, including image name and extension
 * badImagePath - an optional string comprising the full path to the "bad" image, including image name and extension. This image is loaded if the image at imagePath cannot be found.
-* pixelated    - a boolean, which, if true, eliminates anti-aliasing
-                 on the image.
+* pixelated    - a boolean, which, if true, eliminates anti-aliasing on the image.
+* disabled     - a boolean, which, if true, causes the image to not be initially drawn.
 
 --]]
+
 
 --------------------------------------------------------------
 --                       Private Members                    --
@@ -74,6 +78,7 @@ return {
             image      = GRAFX.newImage(IMAGE_DATA),
             isBadImage = usingBadImage,
             pixelated  = params.pixelated,
+            disabled   = params.disabled,
             
             x          = 0,
             y          = 0,
@@ -87,8 +92,10 @@ return {
             
             --------------------------------------------------------------------------------------
             draw               = function(self)
-                GRAFX.setColor(COLOR.PURE_WHITE)
-                GRAFX.draw(self.image, self.x * self.scale, self.y * self.scale, 0, self.scale, self.scale)
+                if not self.disabled then
+                    GRAFX.setColor(COLOR.PURE_WHITE)
+                    GRAFX.draw(self.image, self.x * self.scale, self.y * self.scale, 0, self.scale, self.scale)
+                end
             end,
 
             move               = function(self, deltaX, deltaY)

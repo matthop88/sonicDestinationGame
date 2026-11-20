@@ -1,9 +1,9 @@
 --------------------------------------------------------------
 --                       Plugin Engine                      --
---                        Version 0.1                       --
+--                        Version 0.2                       --
 --                                                          --
 --                 Functional Specifications                --
---                         INFR-0008                        --
+--                         INFR-0031                        --
 --------------------------------------------------------------
 
 --[[
@@ -13,18 +13,32 @@ The Plugin Engine allows plugins to be added to an application.
 Plugins may override the standard love2D functions.
 Plugins accept a number of parameters to allow them to function.
 
-                           Features
+The Events of the Plugin Engine (keyboard and mouse events)
+need to be iterated through in reverse so that the most recent
+plugins handle events first.
+
+In addition, keyboard and mouse methods should return a boolean;
+if true, the plugin engine should not propagate the event to
+any other plugins.
+
+                            Features
                            --------
-- [X] Color Inspector Lib classes converted to Plugins
-- [X] Plugin engine accepts name and parameters to create plugins internally
-- [X] Plugin engine overrides LOVE2D functions
-- [X] Plugin engine automatically creates global accessor functions as needed
+- [X] Reverse event order of plugins
+- [X] Add blocking capability to plugin events
 
 --]]
 
 --------------------------------------------------------------
 --                       Private Methods                    --
 --------------------------------------------------------------
+
+local reverse_ipairs = function(t)
+    local i = #t + 1
+    return function()
+        i = i - 1
+        if i > 0 then return i, t[i] end
+    end
+end
 
 local handleDraw = function(self) 
     for _, e in ipairs(self) do
@@ -39,26 +53,42 @@ local handleUpdate = function(self, dt)
 end
 
 local handleKeypressed = function(self, key)
-    for _, e in ipairs(self) do
-        if e.handleKeypressed then e:handleKeypressed(key) end
+    local handled = false
+    for _, e in reverse_ipairs(self) do
+        if e.handleKeypressed then 
+            handled = e:handleKeypressed(key) 
+            if handled then return true end
+        end
     end
 end
 
 local handleKeyreleased = function(self, key)
-    for _, e in ipairs(self) do
-        if e.handleKeyreleased then e:handleKeyreleased(key) end
+    local handled = false
+    for _, e in reverse_ipairs(self) do
+        if e.handleKeyreleased then 
+            handled = e:handleKeyreleased(key)
+            if handled then return true end
+        end
     end
 end
 
 local handleMousepressed = function(self, mx, my)
-    for _, e in ipairs(self) do
-        if e.handleMousepressed then e:handleMousepressed(mx, my) end
+    local handled = false
+    for _, e in reverse_ipairs(self) do
+        if e.handleMousepressed then 
+            handled = e:handleMousepressed(mx, my) 
+            if handled then return true end
+        end
     end
 end
 
 local handleMousereleased = function(self, mx, my)
-    for _, e in ipairs(self) do
-        if e.handleMousereleased then e:handleMousereleased(mx, my) end
+    local handled = false
+    for _, e in reverse_ipairs(self) do
+        if e.handleMousereleased then 
+            handled = e:handleMousereleased(mx, my) 
+            if handled then return true end
+        end
     end
 end
 
@@ -118,27 +148,27 @@ function love.update(dt)
 end
 
 function love.keypressed(key)                
-    ENGINE:handleKeypressed(key)
+    local handled = ENGINE:handleKeypressed(key)
 
-    if oldKeypressed then oldKeypressed(key) end
+    if oldKeypressed and not handled then oldKeypressed(key) end
 end
 
 function love.keyreleased(key)                
-    ENGINE:handleKeyreleased(key)
+    local handled = ENGINE:handleKeyreleased(key)
 
-    if oldKeyreleased then oldKeyreleased(key) end
+    if oldKeyreleased and not handled then oldKeyreleased(key) end
 end
 
 function love.mousepressed(mx, my)                
-    ENGINE:handleMousepressed(mx, my)
+    local handled = ENGINE:handleMousepressed(mx, my)
 
-    if oldMousepressed then oldMousepressed(mx, my) end
+    if oldMousepressed and not handled then oldMousepressed(mx, my) end
 end
 
 function love.mousereleased(mx, my)                
-    ENGINE:handleMousereleased(mx, my)
+    local handled = ENGINE:handleMousereleased(mx, my)
 
-    if oldMousereleased then oldMousereleased(mx, my) end
+    if oldMousereleased and not handled then oldMousereleased(mx, my) end
 end
 
 return ENGINE
