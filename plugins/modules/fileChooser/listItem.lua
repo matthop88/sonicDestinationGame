@@ -1,5 +1,4 @@
 local GRAFX   = love.graphics
-local MOUSE   = love.mouse
 local COLORS  = require("game/constants/colors")
 local TERNARY = require("lib/util/ternary")
 
@@ -26,17 +25,17 @@ return {
 				end
 				GRAFX.setColor(TERNARY { IF = self.highlit, THEN = COLORS.JET_BLACK, ELSE = COLORS.LIGHT_GREY })
 				GRAFX.setFont(self.font)
-				GRAFX.printf(self.text, self.x + 10, self.y, self.w, "left")
+				GRAFX.printf(self.text, self.x + 10, self.y, 1000, "left")
 			end,
 
-			update = function(self, dt)
-				self.highlit = self:isWithinBounds(MOUSE.getPosition())
+			update = function(self, dt, mx, my)
+				self.highlit = self:isWithinBounds(mx, my)
 			end,
 
 			handleMousepressed = function(self, mx, my)
 				return self:isWithinBounds(mx, my)
 			end,
-
+ 
 			isWithinBounds = function(self, mx, my)
 				return (mx > self.x and mx < self.x + self.w 
 							and my > self.y and my < self.y + 20)
