@@ -51,7 +51,7 @@ require("plugins/engine")
     :add { "scrolling",     { imageView  = getImageView(), DOUBLE_TAP = getDoubleTap(), ZOOMING = getZooming(), } }
     :add { "colorSelector", { imageView  = getImageView(), onColorSelected = getTransparencyEngine(), } }
     :add { "fileChooser",   { 
-        x = 300,
+        x = 400,
         y = 100,
         w = 400,
         h = 400, 
