@@ -50,6 +50,9 @@ return {
             fileList          = nil,
             visible           = params.visible,
 
+            scale             = 1 / 64,
+            scaleDelta        = 16,
+
             draw  = function(self)
                 if self.visible then
                     GRAFX.setCanvas(self.imageBuffer)
@@ -86,13 +89,25 @@ return {
 
             drawBufferedImage = function(self)
                 GRAFX.setColor(COLORS.PURE_WHITE)
-                GRAFX.draw(self.imageBuffer, self.x, self.y)
+                GRAFX.draw(self.imageBuffer, self.x + self.w / 2, self.y + self.h / 2, 0, self.scale, self.scale, self.w / 2, self.h / 2)
             end,
 
             update = function(self, dt)
                 local mx, my = MOUSE.getPosition()
 
                 if self.visible then
+                    if self.scaleDelta ~= 0 then
+                        self.scale = self.scale + (self.scaleDelta * self.scale * dt)
+                        if self.scale > 1 then
+                            self.scale = 1
+                            self.scaleDelta = 0
+                        elseif self.scale < 1 / 64 then
+                            self.scale = 1 / 64
+                            self.scaleDelta = 0
+                            self.visible = false
+                            self.fileList = nil
+                        end
+                    end
                     if self.fileList == nil then 
                         self:refreshFiles()
                     else
@@ -136,11 +151,11 @@ return {
 
             show = function(self)
                 self.visible = true
+                self.scaleDelta = 16
             end,
 
             hide = function(self)
-                self.visible = false
-                self.fileList = nil
+                self.scaleDelta = -16
             end,
 
         }
