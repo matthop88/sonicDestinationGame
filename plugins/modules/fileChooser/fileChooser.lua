@@ -36,7 +36,8 @@ return {
     create = function(self, params)
         
         local FILE_PATH = params.filePath
-
+        local FONT      = GRAFX.newFont(20)
+            
         return {
             x = params.x or 300,
             y = params.y or 100,
@@ -75,6 +76,7 @@ return {
                 GRAFX.setColor(COLORS.BURNT_ORANGE)
                 GRAFX.rectangle("fill", 0, 0, self.w, 30)
                 GRAFX.setColor(COLORS.JET_BLACK)
+                GRAFX.setFont(FONT)
                 GRAFX.printf("Please Select a File", 0, 3, self.w, "center")
                 GRAFX.rectangle("line", 0, 0, self.w, 30)
             end,
