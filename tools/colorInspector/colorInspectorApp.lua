@@ -19,9 +19,9 @@ The "l" key can also be used to dynamically bring up the dialog.
 
                            Features
                            --------
-- [ ] Command line no longer required
-- [ ] "l" key used to dynamically bring up dialog
-- [ ] File dialog shows up if image not specified
+- [X] Command line no longer required
+- [X] "l" key used to dynamically bring up dialog
+- [X] File dialog shows up if image not specified
 
 --]]
 
