@@ -25,24 +25,34 @@ do the saving and the dialog goes away.
 
 --]]
 
+local DIRECTORY_UTIL = require("lib/util/directoryUtil")
+
+local GRAFX          = love.graphics
+local MOUSE          = love.mouse
+
+local COLORS         = require("game/constants/colors")
+
 return {
     create = function(self, params)
         
         return ({
 
         	init = function(self, params)
-        		-- Operate on params
+        		self.x = params.x or 300
+                self.y = params.y or 100
+                self.w = params.w or 200
+                self.h = params.h or 400
 
         		return self
         	end,
 
-        	--draw                = function(self)         end,
-        	--update              = function(self, dt)     end,
-        	--handleKeypressed    = function(self, key)    end,
-        	--handleKeyreleased   = function(self, key)    end,
-        	--handleMousepressed  = function(self, mx, my) end,
-        	--handleMousereleased = function(self, mx, my) end,
-
+        	draw = function(self)         
+                GRAFX.setColor(COLORS.DARK_GREY)
+                GRAFX.rectangle("fill", self.x, self.y, self.w, self.h)
+                GRAFX.setColor(COLORS.PURE_WHITE)
+                GRAFX.rectangle("line", self.x, self.y, self.w, self.h)
+            end,
+        	
         }):init(params)
 
     end,
