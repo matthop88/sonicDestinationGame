@@ -60,6 +60,12 @@ require("plugins/engine")
         accessorFn     = "getFileChooser", 
         visible        = __PARAMS["inFile"] == nil,
     } }
+    :add { "fileSaver",   { 
+        x = 400,
+        y = 100,
+        w = 400,
+        h = 400, 
+    } }
 
 local ASCII_ART = [[
                                                                                                                     
