@@ -43,14 +43,30 @@ return {
                 self.w = params.w or 200
                 self.h = params.h or 400
 
+                self.FONT = GRAFX.newFont(20)
+
         		return self
         	end,
 
-        	draw = function(self)         
+            draw = function(self)
+                self:drawPanel()
+                self:drawCaption()
+            end,
+
+            drawPanel = function(self)         
                 GRAFX.setColor(COLORS.DARK_GREY)
                 GRAFX.rectangle("fill", self.x, self.y, self.w, self.h)
                 GRAFX.setColor(COLORS.PURE_WHITE)
                 GRAFX.rectangle("line", self.x, self.y, self.w, self.h)
+            end,
+
+            drawCaption = function(self)
+                GRAFX.setColor(COLORS.BURNT_ORANGE)
+                GRAFX.rectangle("fill", self.x, self.y, self.w, 30)
+                GRAFX.setColor(COLORS.JET_BLACK)
+                GRAFX.setFont(self.FONT)
+                GRAFX.printf("Save Edited File", self.x, self.y + 3, self.w, "center")
+                GRAFX.rectangle("line", self.x, self.y, self.w, 30)
             end,
         	
         }):init(params)
