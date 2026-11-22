@@ -76,6 +76,9 @@ return {
                 GRAFX.printf("Save As:", self.x + 12, self.y + 48, 1000, "left")
                 GRAFX.setColor(COLORS.VERY_DARK_GREY)
                 GRAFX.rectangle("fill", self.x + 106, self.y + 45, self.w - 120, 30)
+                GRAFX.setColor(COLORS.LIGHT_GREY)
+                GRAFX.setFont(self.FONT)
+                GRAFX.printf("sonic1Transparent.png", self.x + 118, self.y + 48, 1000, "left")
             end,
         	
         }):init(params)
