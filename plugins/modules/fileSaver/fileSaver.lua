@@ -51,6 +51,7 @@ return {
             draw = function(self)
                 self:drawPanel()
                 self:drawCaption()
+                self:drawTextfield()
             end,
 
             drawPanel = function(self)         
@@ -67,6 +68,14 @@ return {
                 GRAFX.setFont(self.FONT)
                 GRAFX.printf("Save Edited File", self.x, self.y + 3, self.w, "center")
                 GRAFX.rectangle("line", self.x, self.y, self.w, 30)
+            end,
+
+            drawTextfield = function(self)
+                GRAFX.setColor(COLORS.MEDIUM_GREY)
+                GRAFX.setFont(self.FONT)
+                GRAFX.printf("Save As:", self.x + 12, self.y + 48, 1000, "left")
+                GRAFX.setColor(COLORS.VERY_DARK_GREY)
+                GRAFX.rectangle("fill", self.x + 106, self.y + 45, self.w - 120, 30)
             end,
         	
         }):init(params)
