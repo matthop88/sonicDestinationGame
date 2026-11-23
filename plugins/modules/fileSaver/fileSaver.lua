@@ -97,6 +97,15 @@ return {
             setText = function(self, text)
                 self.textField.text = text
             end,
+
+            handleKeypressed = function(self, key)
+                if self.visible then
+                    if key == "escape" then
+                        self.visible = false
+                    end
+                    return true
+                end
+            end,
         	
         }):init(params)
 
