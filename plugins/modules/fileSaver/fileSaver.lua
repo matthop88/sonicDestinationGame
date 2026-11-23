@@ -101,6 +101,16 @@ return {
                     return true
                 end
             end,
+
+            handleMousepressed = function(self, mx, my)
+                if self.visible then
+                    if mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h then
+                        -- Do something
+                    end
+
+                    return true
+                end
+            end,
         	
         }):init(params)
 
