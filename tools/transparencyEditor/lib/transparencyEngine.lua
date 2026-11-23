@@ -1,4 +1,6 @@
-local FILE_UTIL = require("lib/util/fileUtil")
+local FILE_UTIL   = require("lib/util/fileUtil")
+local STRING_UTIL = require("game/util/stringUtil")
+local ternary     = require("lib/util/ternary")
 
 local selectedColor = nil
 
@@ -10,6 +12,8 @@ local createTransparency = function(x, y, r, g, b, a)
     if colorMatchesRGB(selectedColor, r, g, b) then return 0, 0, 0, 0
     else                                            return r, g, b, a end
 end
+
+local currentFile = __PARAMS["inFile"]
 
 return {
     fileChanged = false,
@@ -23,6 +27,17 @@ return {
             self:saveImage()
         elseif key == "l" then
             getFileChooser():show()
+        elseif key == "s" then
+            local filePath  = "game/resources/images/spriteSheets/sonic1/" .. currentFile
+            local suffix = ternary { IF = STRING_UTIL:endsWith(currentFile, "Transparent"), THEN = "", ELSE = "Transparent" }
+
+            local destFname = FILE_UTIL:getSafeDestinationFilename(filePath .. suffix, "png")
+            if destFname == nil then
+                getReadout():print("ERROR: Cannot save to file " .. filePath, 36)
+            else
+                getFileSaver():setText(STRING_UTIL:splitTail(destFname, "/"))
+                getFileSaver():show()
+            end
         end
     end,
 
@@ -67,6 +82,7 @@ return {
         local imagePath = filePath .. "/" .. text .. ".png"
         local imageView = getImageView()
 
+        currentFile = text
         imageView.imagePath = imagePath
         imageView:reload()
         imageView.disabled = false
