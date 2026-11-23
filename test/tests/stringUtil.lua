@@ -132,5 +132,13 @@ return {
 		return ASSERT:EQUALS("Split String", expected, actual)
 	end,
 
+	testSplitTail = function(self)
+		local testVal  = "My/awesome/Test/string.ext"
+
+		local expected = "string.ext"
+		local actual   = STRING_UTIL:splitTail(testVal, "/")
+		
+		return ASSERT:EQUALS("Split & Tail String", expected, actual)
+	end,
 
 }
