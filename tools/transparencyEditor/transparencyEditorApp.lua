@@ -65,6 +65,8 @@ require("plugins/engine")
         y = 100,
         w = 400,
         h = 400, 
+        accessorFn = "getFileSaver",
+        visible = false,
     } }
 
 local ASCII_ART = [[
