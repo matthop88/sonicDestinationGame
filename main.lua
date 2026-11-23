@@ -72,7 +72,7 @@ local loadWindow = function(path)
 
 	if window then
 	    love.window.setTitle(window.title)
-	    love.window.setMode(window.width, window.height)
+	    love.window.setMode(window.width, window.height, { highdpi = true })
 	end
 end
 
