@@ -50,6 +50,12 @@ return {
                     y    = self.y +  45,
                     w    = self.w - 120,
                 }
+                self.saveButton = require("plugins/modules/fileSaver/button"):create {
+                    text = "Save",
+                    x    = self.x + self.w - 120,
+                    y    = self.y + self.h -  50,
+                    w    = 100,
+                }
                 self.visible = params.visible
 
         		return self
@@ -60,6 +66,7 @@ return {
                     self:drawPanel()
                     self:drawCaption()
                     self:drawTextfield()
+                    self:drawButtons()
                 end
             end,
 
@@ -84,6 +91,10 @@ return {
                 GRAFX.setFont(self.FONT)
                 GRAFX.printf("Save As:", self.x + 12, self.y + 48, 1000, "left")
                 self.textField:draw()
+            end,
+
+            drawButtons = function(self)
+                self.saveButton:draw()
             end,
 
             show = function(self)
