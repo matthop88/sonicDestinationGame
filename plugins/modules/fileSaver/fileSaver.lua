@@ -74,6 +74,7 @@ return {
                 GRAFX.setColor(COLORS.DARK_GREY)
                 GRAFX.rectangle("fill", self.x, self.y, self.w, self.h, 20, 20)
                 GRAFX.setColor(COLORS.LIGHT_GREY)
+                GRAFX.setLineWidth(1)
                 GRAFX.rectangle("line", self.x, self.y, self.w, self.h, 20, 20)
             end,
 
@@ -84,6 +85,7 @@ return {
                 GRAFX.setFont(self.FONT)
                 GRAFX.printf("Save Edited File", self.x, self.y + 3, self.w, "center")
                 GRAFX.setColor(COLORS.LIGHT_GREY)
+                GRAFX.setLineWidth(1)
                 GRAFX.rectangle("line", self.x, self.y, self.w, 45, 20, 20)
                 GRAFX.setColor(COLORS.DARK_GREY)
                 GRAFX.rectangle("fill", self.x + 1, self.y + 30, self.w - 2, 16)
