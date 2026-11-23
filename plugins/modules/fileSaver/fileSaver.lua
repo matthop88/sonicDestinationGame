@@ -72,18 +72,21 @@ return {
 
             drawPanel = function(self)         
                 GRAFX.setColor(COLORS.DARK_GREY)
-                GRAFX.rectangle("fill", self.x, self.y, self.w, self.h)
-                GRAFX.setColor(COLORS.PURE_WHITE)
-                GRAFX.rectangle("line", self.x, self.y, self.w, self.h)
+                GRAFX.rectangle("fill", self.x, self.y, self.w, self.h, 20, 20)
+                GRAFX.setColor(COLORS.LIGHT_GREY)
+                GRAFX.rectangle("line", self.x, self.y, self.w, self.h, 20, 20)
             end,
 
             drawCaption = function(self)
                 GRAFX.setColor(COLORS.BURNT_ORANGE)
-                GRAFX.rectangle("fill", self.x, self.y, self.w, 30)
+                GRAFX.rectangle("fill", self.x, self.y, self.w, 45, 20, 20)
                 GRAFX.setColor(COLORS.JET_BLACK)
                 GRAFX.setFont(self.FONT)
                 GRAFX.printf("Save Edited File", self.x, self.y + 3, self.w, "center")
-                GRAFX.rectangle("line", self.x, self.y, self.w, 30)
+                GRAFX.setColor(COLORS.LIGHT_GREY)
+                GRAFX.rectangle("line", self.x, self.y, self.w, 45, 20, 20)
+                GRAFX.setColor(COLORS.DARK_GREY)
+                GRAFX.rectangle("fill", self.x + 1, self.y + 30, self.w - 2, 16)
             end,
 
             drawTextfield = function(self)
