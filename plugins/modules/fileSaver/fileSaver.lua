@@ -50,45 +50,28 @@ return {
                     y    = self.y +  45,
                     w    = self.w - 120,
                 }
-                self.saveButton = require("plugins/modules/fileSaver/button"):create {
-                    text = "Save",
-                    x    = self.x + self.w - 120,
-                    y    = self.y + self.h -  50,
-                    w    = 100,
+                self.dialog = require("plugins/modules/fileSaver/dialog"):create {
+                    x       = params.x,
+                    y       = params.y,
+                    w       = params.w,
+                    h       = params.h,
+                    caption = "Save Edited File",
+                    okText  = "Save",
+                    visible = true,
                 }
-                self.visible = params.visible
 
         		return self
         	end,
 
             draw = function(self)
                 if self.visible then
-                    self:drawPanel()
-                    self:drawCaption()
+                    self:drawDialog()
                     self:drawTextfield()
-                    self:drawButtons()
                 end
             end,
 
-            drawPanel = function(self)         
-                GRAFX.setColor(COLORS.DARK_GREY)
-                GRAFX.rectangle("fill", self.x, self.y, self.w, self.h, 20, 20)
-                GRAFX.setColor(COLORS.LIGHT_GREY)
-                GRAFX.setLineWidth(1)
-                GRAFX.rectangle("line", self.x, self.y, self.w, self.h, 20, 20)
-            end,
-
-            drawCaption = function(self)
-                GRAFX.setColor(COLORS.BURNT_ORANGE)
-                GRAFX.rectangle("fill", self.x, self.y, self.w, 45, 20, 20)
-                GRAFX.setColor(COLORS.JET_BLACK)
-                GRAFX.setFont(self.FONT)
-                GRAFX.printf("Save Edited File", self.x, self.y + 3, self.w, "center")
-                GRAFX.setColor(COLORS.LIGHT_GREY)
-                GRAFX.setLineWidth(1)
-                GRAFX.rectangle("line", self.x, self.y, self.w, 45, 20, 20)
-                GRAFX.setColor(COLORS.DARK_GREY)
-                GRAFX.rectangle("fill", self.x + 1, self.y + 30, self.w - 2, 16)
+            drawDialog = function(self)         
+                self.dialog:draw()
             end,
 
             drawTextfield = function(self)
@@ -96,10 +79,6 @@ return {
                 GRAFX.setFont(self.FONT)
                 GRAFX.printf("Save As:", self.x + 12, self.y + 48, 1000, "left")
                 self.textField:draw()
-            end,
-
-            drawButtons = function(self)
-                self.saveButton:draw()
             end,
 
             show = function(self)
