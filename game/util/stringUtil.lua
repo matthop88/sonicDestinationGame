@@ -42,4 +42,19 @@ return {
         end)
         return (result:gsub("%s+", ""))
     end,
+
+    split = function(self, str, delim)
+        delim = delim or "%s"
+        
+        local t = {}
+        for s in string.gmatch(str, "([^" .. delim .. "]+)") do
+            table.insert(t, s)
+        end
+        return t
+    end,
+
+    splitTail = function(self, str, delim)
+        local t = self:split(str, delim)
+        return t[#t]
+    end,
 }
