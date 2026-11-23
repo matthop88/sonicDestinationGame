@@ -123,4 +123,14 @@ return {
 		return ASSERT:EQUALS("To Camel Case", expected, actual)
 	end,
 
+	testSplit = function(self)
+		local testVal  = "My.awesome.Test string"
+
+		local expected = "My awesome Test string"
+		local result   = STRING_UTIL:split(testVal, ".")
+		local actual   = result[1] .. " " .. result[2] .. " " .. result[3]
+		return ASSERT:EQUALS("Split String", expected, actual)
+	end,
+
+
 }
