@@ -50,14 +50,17 @@ return {
                     y    = self.y +  45,
                     w    = self.w - 120,
                 }
+                self.visible = params.visible
 
         		return self
         	end,
 
             draw = function(self)
-                self:drawPanel()
-                self:drawCaption()
-                self:drawTextfield()
+                if self.visible then
+                    self:drawPanel()
+                    self:drawCaption()
+                    self:drawTextfield()
+                end
             end,
 
             drawPanel = function(self)         
@@ -81,6 +84,18 @@ return {
                 GRAFX.setFont(self.FONT)
                 GRAFX.printf("Save As:", self.x + 12, self.y + 48, 1000, "left")
                 self.textField:draw()
+            end,
+
+            show = function(self)
+                self.visible = true
+            end,
+
+            hide = function(self)
+                self.visible = false
+            end,
+
+            setText = function(self, text)
+                self.textField.text = text
             end,
         	
         }):init(params)
