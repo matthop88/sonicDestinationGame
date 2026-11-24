@@ -87,6 +87,9 @@ return {
             update = function(self, dt)
                 self.cancelButton:update(dt)
                 self.okButton:update(dt)
+                for _, component in ipairs(self.componentList) do
+                    component:update(dt)
+                end
             end,
             
             handleKeypressed = function(self, key)
@@ -102,6 +105,9 @@ return {
                 if self.visible and self:mouseInBounds(mx, my) then
                     self.okButton:handleMousepressed(mx, my)
                     self.cancelButton:handleMousepressed(mx, my)
+                    for _, component in ipairs(self.componentList) do
+                        component:handleMousepressed(mx, my)
+                    end
                     return true
                 end
             end,
