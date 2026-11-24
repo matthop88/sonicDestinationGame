@@ -29,13 +29,23 @@ return {
                     w     = 100,
                     color = COLORS.MEDIUM_GREY,
                 }
+                self.components = params.components
+
+                self.componentList = {}
+                for k, v in pairs(self.components) do
+                    table.insert(self.componentList, v)
+                end
+
         		return self
         	end,
 
             draw = function(self)
-                self:drawPanel()
-                self:drawCaption()
-                self:drawButtons()
+                if self.visible then
+                    self:drawPanel()
+                    self:drawCaption()
+                    self:drawButtons()
+                    self:drawComponents()
+                end
             end,
 
             drawPanel = function(self)         
@@ -62,6 +72,54 @@ return {
             drawButtons = function(self)
                 self.cancelButton:draw()
                 self.okButton:draw()
+            end,
+
+            drawComponents = function(self)
+                for _, component in ipairs(self.componentList) do
+                    component:draw()
+                end
+            end,
+
+            getComponent = function(self, name)
+                return self.components[name]
+            end,
+
+            handleKeypressed = function(self, key)
+                if self.visible then
+                    if key == "escape" then
+                        self:hide()
+                    end
+                    return true
+                end
+            end,
+
+            handleMousepressed = function(self, mx, my)
+                if self.visible and mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h then
+                    if self.okButton:handleMousepressed(mx, my) then
+                        self:okButtonPressed()
+                    elseif self.cancelButton:handleMousepressed(mx, my) then
+                        self:cancelButtonPressed()
+                    end
+                    return true
+                end
+            end,
+
+            okButtonPressed = function(self)
+                print("OK Button Pressed")
+                self.visible = false
+            end,
+
+            cancelButtonPressed = function(self)
+                print("Cancel Button Pressed")
+                self.visible = false
+            end,
+
+            show = function(self)
+                self.visible = true
+            end,
+
+            hide = function(self)
+                self.visible = false
             end,
 
         }):init(params)
