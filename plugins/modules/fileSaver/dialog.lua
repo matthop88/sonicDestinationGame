@@ -84,6 +84,11 @@ return {
                 return self.components[name]
             end,
 
+            update = function(self, dt)
+                self.cancelButton:update(dt)
+                self.okButton:update(dt)
+            end,
+            
             handleKeypressed = function(self, key)
                 if self.visible then
                     if key == "escape" then
