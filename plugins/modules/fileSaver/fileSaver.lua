@@ -88,6 +88,18 @@ return {
                 self.textField:draw()
             end,
 
+            handleKeypressed = function(self, key)
+                return self.dialog:handleKeypressed(key)
+            end,
+
+            handleMousepressed = function(self, mx, my)
+                return self.dialog:handleMousepressed(mx, my)
+            end,
+
+            update = function(self, dt)
+                self.dialog:update(dt)
+            end,
+
             show = function(self)
                 self.dialog:show()
             end,
@@ -98,14 +110,6 @@ return {
 
             setText = function(self, text)
                 self.textField.text = text
-            end,
-
-            handleKeypressed = function(self, key)
-                return self.dialog:handleKeypressed(key)
-            end,
-
-            handleMousepressed = function(self, mx, my)
-                return self.dialog:handleMousepressed(mx, my)
             end,
         	
         }):init(params)
