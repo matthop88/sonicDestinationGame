@@ -26,6 +26,12 @@ return {
 				GRAFX.printf(self.text, self.x, self.y + 5, self.w, "center")
 			end,
 
+			handleMousepressed = function(self, mx, my)
+				if mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + 30 then
+					return true
+				end
+			end,
+
 		}):init()
 	end,
 }
