@@ -38,12 +38,13 @@ return {
         return ({
 
         	init = function(self, params)
-        		self.x = params.x or 300
-                self.y = params.y or 100
-                self.w = params.w or 200
-                self.h = params.h or 400
+        		self.x       = params.x       or 300
+                self.y       = params.y       or 100
+                self.w       = params.w       or 200
+                self.h       = params.h       or 400
+                self.visible = params.visible
 
-                self.FONT = GRAFX.newFont(20)
+                self.FONT    = GRAFX.newFont(20)
                 self.textField = require("plugins/modules/fileSaver/textField"):create {
                     text = "sonic1Transparent.png",
                     x    = self.x + 106,
@@ -57,21 +58,27 @@ return {
                     h       = params.h,
                     caption = "Save Edited File",
                     okText  = "Save",
-                    visible = true,
+                    visible = params.visible,
+                    components = {
+                        textField = require("plugins/modules/fileSaver/textField"):create {
+                            text = "sonic1Transparent.png",
+                            x    = self.x + 106,
+                            y    = self.y +  45,
+                            w    = self.w - 120,
+                        },
+                    }
                 }
+
+                self.textField = self.dialog:getComponent("textField")
 
         		return self
         	end,
 
             draw = function(self)
-                if self.visible then
-                    self:drawDialog()
+                self.dialog:draw()
+                if self.dialog.visible then
                     self:drawTextfield()
                 end
-            end,
-
-            drawDialog = function(self)         
-                self.dialog:draw()
             end,
 
             drawTextfield = function(self)
@@ -82,11 +89,11 @@ return {
             end,
 
             show = function(self)
-                self.visible = true
+                self.dialog:show()
             end,
 
             hide = function(self)
-                self.visible = false
+                self.dialog:hide()
             end,
 
             setText = function(self, text)
@@ -94,22 +101,11 @@ return {
             end,
 
             handleKeypressed = function(self, key)
-                if self.visible then
-                    if key == "escape" then
-                        self.visible = false
-                    end
-                    return true
-                end
+                return self.dialog:handleKeypressed(key)
             end,
 
             handleMousepressed = function(self, mx, my)
-                if self.visible then
-                    if mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h then
-                        -- Do something
-                    end
-
-                    return true
-                end
+                return self.dialog:handleMousepressed(mx, my)
             end,
         	
         }):init(params)
