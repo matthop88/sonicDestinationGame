@@ -1,7 +1,7 @@
 local GRAFX   = love.graphics
 local MOUSE   = love.mouse
 local COLORS  = require("game/constants/colors")
-local TERNARY = require("lib/util/ternary") 
+local ternary = require("lib/util/ternary") 
 
 return {
 	create = function(self, params)
@@ -13,15 +13,16 @@ return {
 			fontSize = params.fontSize or 16,
 			color    = params.color    or COLORS.DIALOG_ORANGE,
 			highlit  = false,
+			pressed  = false,
 
 			init = function(self)
 				self.font = GRAFX.newFont(16)
-				
+				self.pressedColor = self:generatePressedColor()
 				return self
 			end,
 
 			draw = function(self)
-				GRAFX.setColor(self.color)
+				GRAFX.setColor(ternary { IF = self.pressed, THEN = self.pressedColor, ELSE = self.color })
 				GRAFX.rectangle("fill", self.x, self.y, self.w, 30, 10, 10)
 				GRAFX.setColor(COLORS.PURE_WHITE)
 				GRAFX.setFont(self.font)
@@ -37,11 +38,23 @@ return {
 			end,
 
 			handleMousepressed = function(self, mx, my)
-				return self:mouseInBounds(mx, my)
+				self.pressed = self:mouseInBounds(mx, my)
+				return self.pressed
+			end,
+
+			handleMousereleased = function(self, mx, my)
+				if self.pressed then
+					self.pressed = false
+					return true
+				end
 			end,
 
 			mouseInBounds = function(self, mx, my)
 				return mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + 30
+			end,
+
+			generatePressedColor = function(self)
+				return { self.color[1] / 3, self.color[2] / 3, self.color[3] / 3 }
 			end,
 
 		}):init()
