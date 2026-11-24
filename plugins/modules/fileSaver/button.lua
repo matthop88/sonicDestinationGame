@@ -10,6 +10,7 @@ return {
 			x        = params.x,
 			y        = params.y,
 			w        = params.w,
+			h        = 30,
 			fontSize = params.fontSize or 16,
 			color    = params.color    or COLORS.DIALOG_ORANGE,
 			highlit  = false,
@@ -23,13 +24,13 @@ return {
 
 			draw = function(self)
 				GRAFX.setColor(ternary { IF = self.pressed, THEN = self.pressedColor, ELSE = self.color })
-				GRAFX.rectangle("fill", self.x, self.y, self.w, 30, 10, 10)
+				GRAFX.rectangle("fill", self.x, self.y, self.w, self.h, 10, 10)
 				GRAFX.setColor(COLORS.PURE_WHITE)
 				GRAFX.setFont(self.font)
 				GRAFX.printf(self.text, self.x, self.y + 5, self.w, "center")
 				if self.highlit then
 					GRAFX.setColor(COLORS.LIGHT_GREY)
-					GRAFX.rectangle("line", self.x, self.y, self.w, 30, 10, 10)
+					GRAFX.rectangle("line", self.x, self.y, self.w, self.h, 10, 10)
 				end
 			end,
 
@@ -50,7 +51,7 @@ return {
 			end,
 
 			mouseInBounds = function(self, mx, my)
-				return mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + 30
+				return mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h
 			end,
 
 			generatePressedColor = function(self)
