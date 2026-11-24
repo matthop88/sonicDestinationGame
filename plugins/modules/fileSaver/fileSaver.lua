@@ -45,12 +45,6 @@ return {
                 self.visible = params.visible
 
                 self.FONT    = GRAFX.newFont(20)
-                self.textField = require("plugins/modules/fileSaver/textField"):create {
-                    text = "sonic1Transparent.png",
-                    x    = self.x + 106,
-                    y    = self.y +  45,
-                    w    = self.w - 120,
-                }
                 self.dialog = require("plugins/modules/fileSaver/dialog"):create {
                     x       = params.x,
                     y       = params.y,
@@ -77,15 +71,14 @@ return {
             draw = function(self)
                 self.dialog:draw()
                 if self.dialog.visible then
-                    self:drawTextfield()
+                    self:drawTextfieldLabel()
                 end
             end,
 
-            drawTextfield = function(self)
+            drawTextfieldLabel = function(self)
                 GRAFX.setColor(COLORS.MEDIUM_GREY)
                 GRAFX.setFont(self.FONT)
                 GRAFX.printf("Save As:", self.x + 12, self.y + 48, 1000, "left")
-                self.textField:draw()
             end,
 
             handleKeypressed = function(self, key)
