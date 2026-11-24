@@ -99,24 +99,36 @@ return {
             end,
 
             handleMousepressed = function(self, mx, my)
-                if self.visible and mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h then
-                    if self.okButton:handleMousepressed(mx, my) then
-                        self:okButtonPressed()
-                    elseif self.cancelButton:handleMousepressed(mx, my) then
-                        self:cancelButtonPressed()
+                if self.visible and self:mouseInBounds(mx, my) then
+                    self.okButton:handleMousepressed(mx, my)
+                    self.cancelButton:handleMousepressed(mx, my)
+                    return true
+                end
+            end,
+
+            handleMousereleased = function(self, mx, my)
+                if self.visible and self:mouseInBounds(mx, my) then
+                    if self.okButton:handleMousereleased(mx, my) then
+                        self:okButtonClicked()
+                    elseif self.cancelButton:handleMousereleased(mx, my) then
+                        self:cancelButtonClicked()
                     end
                     return true
                 end
             end,
 
-            okButtonPressed = function(self)
-                print("OK Button Pressed")
+            okButtonClicked = function(self)
+                print("OK Button Clicked")
                 self.visible = false
             end,
 
-            cancelButtonPressed = function(self)
-                print("Cancel Button Pressed")
+            cancelButtonClicked = function(self)
+                print("Cancel Button Clicked")
                 self.visible = false
+            end,
+
+            mouseInBounds = function(self, mx, my)
+                return mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h
             end,
 
             show = function(self)
