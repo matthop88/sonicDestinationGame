@@ -96,6 +96,10 @@ return {
                 return self.dialog:handleMousepressed(mx, my)
             end,
 
+            handleMousereleased = function(self, mx, my)
+                return self.dialog:handleMousereleased(mx, my)
+            end,
+
             update = function(self, dt)
                 self.dialog:update(dt)
             end,
