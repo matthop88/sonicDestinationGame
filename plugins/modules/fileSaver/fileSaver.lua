@@ -45,7 +45,7 @@ return {
                 self.visible = params.visible
 
                 self.FONT    = GRAFX.newFont(20)
-                self.dialog = require("plugins/modules/fileSaver/dialog"):create {
+                self.dialog = require("lib/gui/components/dialogs/dialog"):create {
                     x       = params.x,
                     y       = params.y,
                     w       = params.w,
