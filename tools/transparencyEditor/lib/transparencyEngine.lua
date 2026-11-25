@@ -35,7 +35,7 @@ return {
             if destFname == nil then
                 getReadout():print("ERROR: Cannot save to file " .. filePath, 36)
             else
-                getFileSaver():setText(STRING_UTIL:splitTail(destFname, "/"))
+                getFileSaver():setText(STRING_UTIL:dropSuffix(STRING_UTIL:splitTail(destFname, "/"), 4))
                 getFileSaver():show()
             end
         end
