@@ -16,13 +16,13 @@ return {
             FONT    = GRAFX.newFont(20),
                 
         	init    = function(self, params)
-                self.okButton = require("plugins/modules/fileSaver/button"):create {
+                self.okButton = require("lib/gui/components/buttons/button"):create {
                     text = params.okText or "OK",
                     x    = self.x + self.w - 120,
                     y    = self.y + self.h -  50,
                     w    = 100,
                 }
-                self.cancelButton = require("plugins/modules/fileSaver/button"):create {
+                self.cancelButton = require("lib/gui/components/buttons/button"):create {
                     text  = params.cancelText      or "Cancel",
                     x     = self.x + self.w - 230,
                     y     = self.y + self.h -  50,
