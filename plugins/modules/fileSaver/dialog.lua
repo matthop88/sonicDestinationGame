@@ -96,6 +96,10 @@ return {
                 if self.visible then
                     if key == "escape" then
                         self:hide()
+                    else
+                        for _, component in ipairs(self.componentList) do
+                            component:handleKeypressed(key)
+                        end
                     end
                     return true
                 end
