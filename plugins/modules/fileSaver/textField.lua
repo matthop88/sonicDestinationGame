@@ -9,17 +9,19 @@ local STRING_UTIL = require("game/util/stringUtil")
 return {
 	create = function(self, params)
 		return ({
-			text     = params.text,
-			ext      = params.ext,
-			fullText = params.text .. ternary { IF = params.ext, THEN = "." .. params.ext, ELSE = "" },
-			x        = params.x,
-			y        = params.y,
-			w        = params.w,
-			h        = 30,
-			fontSize = params.fontSize or 20,
-			inFocus  = false,
-			cursorOn = false,
-			timer    = 0,
+			text      = params.text,
+			ext       = params.ext,
+			fullText  = params.text .. ternary { IF = params.ext, THEN = "." .. params.ext, ELSE = "" },
+			x         = params.x,
+			y         = params.y,
+			w         = params.w,
+			h         = 30,
+			fontSize  = params.fontSize or 20,
+			inFocus   = false,
+			cursorOn  = false,
+			timer     = 0,
+
+			imgBuffer = GRAFX.newCanvas(params.w, params.h),
 
 			init = function(self)
 				self.font = GRAFX.newFont(self.fontSize)
@@ -28,15 +30,22 @@ return {
 			end,
 
 			draw = function(self)
+				GRAFX.setCanvas(self.imgBuffer)
+				self:drawTextfield()
+				GRAFX.setCanvas()
+				self:drawBufferedImage()
+			end,
+
+			drawTextfield = function(self)
 				GRAFX.setColor(COLORS.VERY_DARK_GREY)
-				GRAFX.rectangle("fill", self.x, self.y, self.w, self.h)
+				GRAFX.rectangle("fill", 0, 0, self.w, self.h + 1)
 				GRAFX.setColor(COLORS.LIGHT_GREY)
 				GRAFX.setFont(self.font)
-				GRAFX.printf(self.fullText, self.x + 12, self.y + 3, 1000, "left")
+				GRAFX.printf(self.fullText, 12, 3, 1000, "left")
 				if not self.inFocus and self:mouseInBounds(MOUSE.getPosition()) then
 					GRAFX.setLineWidth(1)
 					GRAFX.setColor(COLORS.LIGHT_GREY)
-					GRAFX.rectangle("line", self.x, self.y, self.w, self.h)
+					GRAFX.rectangle("line", 0, 0, self.w, self.h)
 				end
 				self:drawCursor()
 			end,
@@ -46,9 +55,14 @@ return {
 				if self.cursorOn and self.inFocus then
 					GRAFX.setLineWidth(1)
 					GRAFX.setColor(COLORS.LIGHT_BLUE)
-					GRAFX.rectangle("line", self.x + 12 + textWidth, self.y, 1, self.h)
+					GRAFX.rectangle("line", 12 + textWidth, 0, 1, self.h)
 				end
 			end,
+
+			drawBufferedImage = function(self)
+                GRAFX.setColor(COLORS.PURE_WHITE)
+                GRAFX.draw(self.imgBuffer, self.x, self.y)
+            end,
 
 			update = function(self, dt)
 				self.timer = self.timer + (60 * dt)
