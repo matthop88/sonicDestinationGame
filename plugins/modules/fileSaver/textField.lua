@@ -1,5 +1,6 @@
 local GRAFX       = love.graphics
 local MOUSE       = love.mouse
+local KEYBOARD    = love.keyboard
 local COLORS      = require("game/constants/colors")
 local ternary     = require("lib/util/ternary")
 
@@ -61,6 +62,9 @@ return {
 				if self.inFocus then
 					if key == "backspace" then
 						self:setText(STRING_UTIL:dropSuffix(self.text, 1))
+					elseif key:len() == 1 then
+						if KEYBOARD.isDown("lshift", "rshift") then self:setText(self.text .. key:upper())
+						else                                        self:setText(self.text .. key)     end
 					end
 				end
 			end,
