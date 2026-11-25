@@ -54,7 +54,7 @@ return {
                     okText  = "Save",
                     visible = params.visible,
                     components = {
-                        textField = require("plugins/modules/fileSaver/textField"):create {
+                        textField = require("lib/gui/components/text/textField"):create {
                             text = "sonic1Transparent",
                             ext  = "png",
                             x    = self.x + 106,
