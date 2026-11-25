@@ -25,7 +25,7 @@ return {
 
 			init = function(self)
 				self.font = GRAFX.newFont(self.fontSize)
-
+				self.extWidth = ternary { IF = self.ext, THEN = self.font:getWidth("." .. self.ext), ELSE = 0 }
 				return self
 			end,
 
@@ -41,7 +41,8 @@ return {
 				GRAFX.rectangle("fill", 0, 0, self.w, self.h + 1)
 				GRAFX.setColor(COLORS.LIGHT_GREY)
 				GRAFX.setFont(self.font)
-				GRAFX.printf(self.fullText, 12, 3, 1000, "left")
+				local fullTextWidth = self.font:getWidth(self.fullText)
+				GRAFX.printf(self.fullText, 12 - math.max(0, (fullTextWidth - self.w + 12)), 3, 1000, "left")
 				if not self.inFocus and self:mouseInBounds(MOUSE.getPosition()) then
 					GRAFX.setLineWidth(1)
 					GRAFX.setColor(COLORS.LIGHT_GREY)
@@ -55,7 +56,7 @@ return {
 				if self.cursorOn and self.inFocus then
 					GRAFX.setLineWidth(1)
 					GRAFX.setColor(COLORS.LIGHT_BLUE)
-					GRAFX.rectangle("line", 12 + textWidth, 0, 1, self.h)
+					GRAFX.rectangle("line", 12 + textWidth - math.max(0, (textWidth - self.w + 12 + self.extWidth)), 0, 1, self.h)
 				end
 			end,
 
