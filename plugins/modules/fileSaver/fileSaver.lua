@@ -55,7 +55,8 @@ return {
                     visible = params.visible,
                     components = {
                         textField = require("plugins/modules/fileSaver/textField"):create {
-                            text = "sonic1Transparent.png",
+                            text = "sonic1Transparent",
+                            ext  = "png",
                             x    = self.x + 106,
                             y    = self.y +  45,
                             w    = self.w - 120,
@@ -106,7 +107,7 @@ return {
             end,
 
             setText = function(self, text)
-                self.textField.text = text
+                self.textField:setText(text)
             end,
         	
         }):init(params)
