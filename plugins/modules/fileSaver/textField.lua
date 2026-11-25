@@ -62,7 +62,9 @@ return {
 				if self.inFocus then
 					if key == "backspace" then
 						self:setText(STRING_UTIL:dropSuffix(self.text, 1))
-					elseif key:len() == 1 then
+					elseif key == '-' and KEYBOARD.isDown("lshift", "rshift") then
+						self:setText(self.text .. "_")
+					elseif key:len() == 1 and ((key >= 'a' and key <= 'z') or (key >= '0' and key <= '9')) then
 						if KEYBOARD.isDown("lshift", "rshift") then self:setText(self.text .. key:upper())
 						else                                        self:setText(self.text .. key)     end
 					end
