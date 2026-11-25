@@ -1,7 +1,9 @@
-local GRAFX   = love.graphics
-local MOUSE   = love.mouse
-local COLORS  = require("game/constants/colors")
-local ternary = require("lib/util/ternary")
+local GRAFX       = love.graphics
+local MOUSE       = love.mouse
+local COLORS      = require("game/constants/colors")
+local ternary     = require("lib/util/ternary")
+
+local STRING_UTIL = require("game/util/stringUtil")
 
 return {
 	create = function(self, params)
@@ -52,6 +54,14 @@ return {
 				if self.timer > 20 then
 					self.timer = 0
 					self.cursorOn = not self.cursorOn
+				end
+			end,
+
+			handleKeypressed = function(self, key)
+				if self.inFocus then
+					if key == "backspace" then
+						self:setText(STRING_UTIL:dropSuffix(self.text, 1))
+					end
 				end
 			end,
 
