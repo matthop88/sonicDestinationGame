@@ -1,12 +1,14 @@
 local GRAFX   = love.graphics
 local MOUSE   = love.mouse
 local COLORS  = require("game/constants/colors")
-local TERNARY = require("lib/util/ternary")
+local ternary = require("lib/util/ternary")
 
 return {
 	create = function(self, params)
 		return ({
 			text     = params.text,
+			ext      = params.ext,
+			fullText = params.text .. ternary { IF = params.ext, THEN = "." .. params.ext, ELSE = "" },
 			x        = params.x,
 			y        = params.y,
 			w        = params.w,
@@ -27,7 +29,7 @@ return {
 				GRAFX.rectangle("fill", self.x, self.y, self.w, self.h)
 				GRAFX.setColor(COLORS.LIGHT_GREY)
 				GRAFX.setFont(self.font)
-				GRAFX.printf(self.text, self.x + 12, self.y + 3, 1000, "left")
+				GRAFX.printf(self.fullText, self.x + 12, self.y + 3, 1000, "left")
 				if not self.inFocus and self:mouseInBounds(MOUSE.getPosition()) then
 					GRAFX.setLineWidth(1)
 					GRAFX.setColor(COLORS.LIGHT_GREY)
@@ -37,10 +39,11 @@ return {
 			end,
 
 			drawCursor = function(self)
+				local textWidth = self.font:getWidth(self.text)
 				if self.cursorOn and self.inFocus then
 					GRAFX.setLineWidth(1)
 					GRAFX.setColor(COLORS.LIGHT_BLUE)
-					GRAFX.rectangle("line", self.x + 50, self.y, 1, self.h)
+					GRAFX.rectangle("line", self.x + 12 + textWidth, self.y, 1, self.h)
 				end
 			end,
 
@@ -62,6 +65,10 @@ return {
                 return mx > self.x and mx < self.x + self.w and my > self.y and my < self.y + self.h
             end,
 
+            setText = function(self, text)
+            	self.text = text
+            	self.fullText = self.text .. ternary { IF = self.ext, THEN = "." .. self.ext, ELSE = "" }
+            end,
 
 		}):init()
 	end,
