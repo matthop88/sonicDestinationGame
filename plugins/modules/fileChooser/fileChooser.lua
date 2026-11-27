@@ -30,7 +30,7 @@ local GRAFX          = love.graphics
 local MOUSE          = love.mouse
 
 local COLORS         = require("game/constants/colors")
-local LIST_ITEM      = require("plugins/modules/fileChooser/listItem")
+local LIST_ITEM      = require("lib/gui/components/lists/listItem")
 
 return {
     create = function(self, params)
