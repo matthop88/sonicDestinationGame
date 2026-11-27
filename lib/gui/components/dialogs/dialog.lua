@@ -6,12 +6,14 @@ local COLORS         = require("game/constants/colors")
 return {
     create = function(self, params)
         return ({
-            x       = params.x       or 300,
-            y       = params.y       or 100,
-            w       = params.w       or 200,
-            h       = params.h       or 400,
-            caption = params.caption or "Untitled Dialog",
-            visible = params.visible,
+            x        = params.x        or 300,
+            y        = params.y        or 100,
+            w        = params.w        or 200,
+            h        = params.h        or 400,
+            caption  = params.caption  or "Untitled Dialog",
+            visible  = params.visible,
+            onOK     = params.onOK     or function() end,
+            onCancel = params.onCancel or function() end,
 
             FONT    = GRAFX.newFont(20),
                 
@@ -128,12 +130,12 @@ return {
             end,
 
             okButtonClicked = function(self)
-                print("OK Button Clicked")
+                self.onOK()
                 self.visible = false
             end,
 
             cancelButtonClicked = function(self)
-                print("Cancel Button Clicked")
+                self.onCancel()
                 self.visible = false
             end,
 
