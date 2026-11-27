@@ -28,9 +28,13 @@ return {
         elseif key == "l" then
             getFileChooser():show()
         elseif key == "s" then
-            local filePath  = "game/resources/images/spriteSheets/sonic1/" .. currentFile
+            local index = STRING_UTIL:splitTail(currentFile, "_")
+            if index ~= "" then
+                currentFile = STRING_UTIL:dropSuffix(currentFile, index:len() + 1)
+            end
             local suffix = ternary { IF = STRING_UTIL:endsWith(currentFile, "Transparent"), THEN = "", ELSE = "Transparent" }
-
+            local filePath  = "game/resources/images/spriteSheets/sonic1/" .. currentFile
+            
             local destFname = FILE_UTIL:getSafeDestinationFilename(filePath .. suffix, "png")
             if destFname == nil then
                 getReadout():print("ERROR: Cannot save to file " .. filePath, 36)
