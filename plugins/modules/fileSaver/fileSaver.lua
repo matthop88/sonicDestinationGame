@@ -37,7 +37,7 @@ return {
         
         return ({
             onItemSelected = function(self, item)
-                print("Item Selected: " .. item)
+                self:setText(item)
             end,
 
         	init = function(self, params)
@@ -50,13 +50,15 @@ return {
 
                 self.FONT    = GRAFX.newFont(20)
                 self.dialog = require("lib/gui/components/dialogs/dialog"):create {
-                    x       = self.x,
-                    y       = self.y,
-                    w       = self.w,
-                    h       = self.h,
-                    caption = "Save Edited File",
-                    okText  = "Save",
-                    visible = params.visible,
+                    x        = self.x,
+                    y        = self.y,
+                    w        = self.w,
+                    h        = self.h,
+                    caption  = "Save Edited File",
+                    okText   = "Save",
+                    visible  = params.visible,
+                    onOK     = function() params.onSave:onSave(self.textField.fullText) end,
+                    onCancel = function() print("Cancel Clicked") end,
                     components = {
                         textField = require("lib/gui/components/text/textField"):create {
                             text = "sonic1Transparent",
@@ -77,7 +79,7 @@ return {
                 }
 
                 self.textField = self.dialog:getComponent("textField")
-
+                self.listPanel = self.dialog:getComponent("listPanel")
         		return self
         	end,
 
@@ -111,6 +113,7 @@ return {
             end,
 
             show = function(self)
+                self.listPanel:setList(DIRECTORY_UTIL:getFilesInDirectory(self.path, ".png"))
                 self.dialog:show()
             end,
 
