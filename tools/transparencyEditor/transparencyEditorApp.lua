@@ -65,6 +65,7 @@ require("plugins/engine")
         y = 100,
         w = 400,
         h = 400, 
+        filePath   = FILE_PATH,
         accessorFn = "getFileSaver",
         visible = false,
     } }
