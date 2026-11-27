@@ -66,6 +66,7 @@ require("plugins/engine")
         w = 400,
         h = 400, 
         filePath   = FILE_PATH,
+        onSave     = getTransparencyEngine(),
         accessorFn = "getFileSaver",
         visible = false,
     } }
