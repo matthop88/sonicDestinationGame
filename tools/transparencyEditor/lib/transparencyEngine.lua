@@ -56,22 +56,6 @@ return {
         getReadout():print("Click on any color in the image to select it.", 40)
     end,
 
-    saveImage = function(self)
-        local imageView = getImageView()
-        local filePath  = "game/resources/images/spriteSheets/sonic1/" .. __PARAMS["inFile"]
-        local destFname = FILE_UTIL:getSafeDestinationFilename(filePath .. "Transparent", "png")
-        if destFname == nil then
-            getReadout():print("ERROR: Cannot save to file " .. filePath, 36)
-        else
-            local saveResult = FILE_UTIL:saveImageToCustomPath(imageView.imageData, destFname)
-            if saveResult then
-                getReadout():print("Saved to " .. destFname, 32)
-            end
-        end
-        self.fileChanged = false
-        selectedColor = nil
-    end,
-
     onColorSelected = function(self, r, g, b)
         selectedColor = { r = r, g = g, b = b }
         getReadout():print("Press 'space' to make selected color transparent.", 40)
@@ -88,6 +72,18 @@ return {
         imageView.disabled = false
         
         getFileChooser():hide()
-    end,              
+    end, 
+
+    onSave = function(self, text)
+        local imageView = getImageView()
+        local imagePath = "game/resources/images/spriteSheets/sonic1/" .. text
+        local saveResult = FILE_UTIL:saveImageToCustomPath(imageView.imageData, imagePath)
+        print("IMAGE PATH: " .. imagePath)
+        if saveResult then
+            getReadout():print("Saved to " .. imagePath, 32)
+        end
+        self.fileChanged = false
+        selectedColor = nil
+    end,
 
 }
