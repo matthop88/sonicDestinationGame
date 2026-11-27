@@ -1,4 +1,5 @@
-local TERNARY = require("lib/util/ternary")
+local TERNARY     = require("lib/util/ternary")
+local STRING_UTIL = require("game/util/stringUtil")
 
 return {
 	fileExists = function(self, path)
@@ -11,8 +12,11 @@ return {
     end,
 
 	getSafeDestinationFilename = function(self, path, extension)
-    	for index = 1, 1000 do
-    		local destFilename = path .. TERNARY { IF = index == 1, THEN = "", ELSE = "_" .. index } .. "." .. extension
+		local indexStr = STRING_UTIL:splitTail(path, "_")
+		local index = TERNARY { IF = indexStr ~= "", THEN = tonumber(indexStr), ELSE = 0 } + 1
+
+    	for i = index, 1000 do
+    		local destFilename = path .. TERNARY { IF = i == 1, THEN = "", ELSE = "_" .. i } .. "." .. extension
     		if not self:fileExists(destFilename) then
     			return destFilename
     		end
