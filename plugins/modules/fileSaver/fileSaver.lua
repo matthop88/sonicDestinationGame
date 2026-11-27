@@ -36,6 +36,9 @@ return {
     create = function(self, params)
         
         return ({
+            onItemSelected = function(self, item)
+                print("Item Selected: " .. item)
+            end,
 
         	init = function(self, params)
         		self.x       = params.x       or 300
@@ -43,13 +46,14 @@ return {
                 self.w       = params.w       or 200
                 self.h       = params.h       or 400
                 self.visible = params.visible
+                self.path    = params.filePath
 
                 self.FONT    = GRAFX.newFont(20)
                 self.dialog = require("lib/gui/components/dialogs/dialog"):create {
-                    x       = params.x,
-                    y       = params.y,
-                    w       = params.w,
-                    h       = params.h,
+                    x       = self.x,
+                    y       = self.y,
+                    w       = self.w,
+                    h       = self.h,
                     caption = "Save Edited File",
                     okText  = "Save",
                     visible = params.visible,
@@ -60,6 +64,14 @@ return {
                             x    = self.x + 106,
                             y    = self.y +  45,
                             w    = self.w - 120,
+                        },
+                        listPanel = require("lib/gui/components/lists/listPanel"):create {
+                            x = self.x +   5,
+                            y = self.y +  90,
+                            w = self.w -  10,
+                            h = self.h - 150,
+                            list = DIRECTORY_UTIL:getFilesInDirectory(self.path, ".png"),
+                            onSelected = function(item) self:onItemSelected(item) end,
                         },
                     }
                 }
