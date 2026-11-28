@@ -23,11 +23,9 @@ return {
             self:makeSelectedColorTransparent()
         elseif key == "escape" and self.fileChanged then
             self:revertTransparencies()
-        elseif key == "return" and self.fileChanged then
-            self:saveImage()
         elseif key == "l" then
             getFileChooser():show()
-        elseif key == "s" then
+        elseif key == "return" and self.fileChanged then
             local index = STRING_UTIL:splitTail(currentFile, "_")
             if index ~= "" then
                 currentFile = STRING_UTIL:dropSuffix(currentFile, index:len() + 1)
@@ -81,6 +79,9 @@ return {
     onSave = function(self, text)
         local imageView = getImageView()
         local imagePath = "game/resources/images/spriteSheets/sonic1/" .. text
+        if FILE_UTIL:fileExists(imagePath) then
+            love.window.showMessageBox("File Exists", "The file already exists. Do you wish to overwrite it?", "info", true )
+        end
         local saveResult = FILE_UTIL:saveImageToCustomPath(imageView.imageData, imagePath)
         print("IMAGE PATH: " .. imagePath)
         if saveResult then
